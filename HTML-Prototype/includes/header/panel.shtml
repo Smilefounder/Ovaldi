@@ -1,0 +1,14 @@
+<ul class="header-panel">
+	<li><a href="#"><img src="images/invis.gif" class="icon save">Save</a></li>
+	<li><a href="#"><img src="images/invis.gif" class="icon back">Back</a></li>
+	<li class="j_DropDown">
+		<a>Dropdown sample<img src="images/invis.gif" class="icon chevron-down-white"></a>
+		<ul class="j_DropDownContent hide">
+        	<li><a href="#">Item 1</a></li>
+        	<li><a href="#">Item 2</a></li>
+        	<li><a href="#">Item 3</a></li>
+        	<li><a href="#">Item 4</a></li>
+        	<li><a href="#">Item 5</a></li>
+		</ul>
+	</li>
+</ul>

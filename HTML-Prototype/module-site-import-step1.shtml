@@ -1,0 +1,54 @@
+<!--#include file="includes/head.shtml" -->
+<body>
+<div id="body-container">
+	<header id="header">
+		<!--#include file="includes/header/logo.shtml" -->
+		<ul class="header-panel">
+			<li><a href="index.shtml"><img class="icon back" src="images/invis.gif">Cancel</a></li>
+		</ul>
+		<!--#include file="includes/header/quicklinks.shtml" -->
+	</header>
+	<div id="main-container" class="clearfix">
+		<div class="wrap">
+			<h1 class="title">Site import</h1>
+			<div class="wizard">
+				<div class="container">
+					<span class="active">Select a site<b></b></span>
+					<span>Results</span>
+				</div>
+			</div>
+			<div class="common-form">
+				<table>
+					<tr>
+						<th><label>Site name</label></th>
+						<td><input type="text" class="medium"></td>
+					</tr>
+					<tr>
+						<th><label>URL</label></th>
+						<td><input type="text" class="medium"></td>
+					</tr>
+					<tr>
+						<th><label>Deep</label></th>
+						<td>
+							<input type="text" class="mini" value="2">
+							<em class="tip">Tips here</em>
+						</td>
+					</tr>
+					<tr>
+						<th><label>Pages</label></th>
+						<td>
+							<input type="text" class="mini" value="20">
+							<em class="tip">Tips here</em>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="wizard-buttons">
+				<a class="button" href="model-site-import-step2.shtml">Import &raquo;</a>
+			</div>
+		</div>
+	</div>
+	<!--#include file="includes/footer.shtml" -->
+</div>
+</body>
+</html>

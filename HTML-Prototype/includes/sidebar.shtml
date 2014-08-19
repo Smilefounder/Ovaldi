@@ -1,0 +1,8 @@
+<aside id="sidebar">
+	<div class="topbar">
+		<!--#include file="sidebar/sitemanager.shtml" -->
+	</div>
+	<div class="wrap">
+		<!--#include file="sidebar/menu.shtml" -->
+	</div>
+</aside>

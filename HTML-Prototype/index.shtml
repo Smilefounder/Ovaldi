@@ -1,0 +1,22 @@
+<!--#include file="includes/head.shtml" -->
+<body>
+<div id="body-container">
+	<header id="header">
+		<!--#include file="includes/header/logo.shtml" -->
+		<!--#include file="includes/header/quicklinks.shtml" -->
+	</header>
+	<div id="main-container" class="clearfix">
+		<div id="main">
+			<div class="topbar">
+				<h1 class="title">Dashboard</h1>
+			</div>
+			<div class="wrap">
+				test
+			</div>
+		</div>
+		<!--#include file="includes/sidebar.shtml" -->
+	</div>
+	<!--#include file="includes/footer.shtml" -->
+</div>
+</body>
+</html>

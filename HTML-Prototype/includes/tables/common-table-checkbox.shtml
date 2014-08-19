@@ -1,0 +1,95 @@
+<div class="common-table">
+	<div class="fixed"><table></table></div>
+	<table>
+		<thead>
+			<tr>
+				<th class="checkbox"><input type="checkbox" autocomplete="off" class="select-all" /></th>
+				<th>Thumbnail</th>
+				<th class="sort desc active"><a href="#">Title<img class="sprite" src="images/invis.gif"></a></th>
+				<th class="sort desc"><a href="#">Date<img class="sprite" src="images/invis.gif"></a></th>
+				<th class="sort asc"><a href="#">Column 4<img class="sprite" src="images/invis.gif"></a></th>
+				<th class="sort asc"><a href="#">Column 5<img class="sprite" src="images/invis.gif"></a></th>
+				<th class="sort asc"><a href="#">Column 6<img class="sprite" src="images/invis.gif"></a></th>
+				<th class="sort asc"><a href="#">Column 7<img class="sprite" src="images/invis.gif"></a></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select" /></td>
+				<td class="thumbnail"><img src="images/Default.png" alt="Thumbnail"></td>
+				<td><a href="#"><img src="images/invis.gif" class="icon file file-doc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-20</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select" /></td>
+				<td class="thumbnail"><img src="images/Default.png" alt="Thumbnail"></td>
+				<td><a href="#"><img src="images/invis.gif" class="icon file file-doc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-20</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select" /></td>
+				<td class="thumbnail"><img src="images/Default.png" alt="Thumbnail"></td>
+				<td><a href="#"><img src="images/invis.gif" class="icon file file-doc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-20</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select" /></td>
+				<td class="thumbnail"><img src="images/Default.png" alt="Thumbnail"></td>
+				<td><a href="#"><img src="images/invis.gif" class="icon file file-doc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-20</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select" /></td>
+				<td class="thumbnail"><img src="images/Default.png" alt="Thumbnail"></td>
+				<td><a href="#"><img src="images/invis.gif" class="icon file file-doc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-20</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select" /></td>
+				<td class="thumbnail"><img src="images/Default.png" alt="Thumbnail"></td>
+				<td><a href="#"><img src="images/invis.gif" class="icon file file-doc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-20</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select" /></td>
+				<td class="thumbnail"><img src="images/Default.png" alt="Thumbnail"></td>
+				<td><a href="#"><img src="images/invis.gif" class="icon file file-doc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-20</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script>
+$(function(){
+	$('.common-table').checkableTable();
+	$('.common-table').scrollFixTable();
+});
+</script>

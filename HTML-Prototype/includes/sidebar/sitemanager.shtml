@@ -1,0 +1,19 @@
+<div class="block sitemanager">
+	<a class="right" href="#" title="Go to site cluster"><img class="icon cluster" src="images/invis.gif"></a>
+	<h6 class="title">Site manager</h6>
+	<div class="switcher active">
+		<span class="current">
+			<span>SampleSite</span>
+			<img class="icon caret-toggle" src="images/invis.gif">
+		</span>
+		<ul class="list">
+			<li>
+				<a href="#">Parent site</a>
+				<ul>
+					<li><a href="#" class="active">SampleSite</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<a class="right add" href="#" title="New sub site"><img class="icon add" src="images/invis.gif"></a>
+</div>

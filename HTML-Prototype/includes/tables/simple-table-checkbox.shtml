@@ -1,0 +1,103 @@
+<div class="simple-table" id="simpleTableCheckbox">
+	<table>
+		<thead>
+			<tr>
+				<th class="checkbox"><input type="checkbox" autocomplete="off" class="select-all"></th>
+				<th>Title</th>
+				<th>Date</th>
+				<th>Column 3</th>
+				<th>Column 4</th>
+				<th>Column 5</th>
+				<th>Column 6</th>
+				<th>Column 7</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select"></td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select"></td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select"></td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select"></td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select"></td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select"></td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select"></td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+			<tr>
+				<td class="checkbox"><input type="checkbox" autocomplete="off" class="select"></td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script>
+$(function(){
+	$('#simpleTableCheckbox').checkableTable();
+});
+</script>

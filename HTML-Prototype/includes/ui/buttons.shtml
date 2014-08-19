@@ -1,0 +1,75 @@
+<table>
+	<tr>
+		<th>Link buttons:</th>
+		<td>
+			<a class="button" href="#">Default button</a>
+			<a class="button gray" href="#">Gray button</a>
+			<a class="button light-gray" href="#">Light gray button</a>
+			<a class="button white" href="#">White button</a>
+		</td>
+	</tr>
+	<tr>
+		<th>Link disabled buttons:</th>
+		<td>
+			<a class="button disabled" href="#">Default button</a>
+			<a class="button gray disabled" href="#">Gray button</a>
+			<a class="button light-gray disabled" href="#">Light gray button</a>
+			<a class="button white disabled" href="#">White button</a>
+		</td>
+	</tr>
+	<tr>
+		<th>Form buttons:</th>
+		<td>
+			<button>Default button</button>
+			<button class="gray">Gray button</button>
+			<button class="light-gray">Light gray button</button>
+			<button class="white">White button</button>
+			<input type="submit" value="'Input submit' button" />
+			<input type="button" value="'Input button' button" />
+			<input type="reset" value="'Input reset' button" />
+		</td>
+	</tr>
+	<tr>
+		<th>Form disabled buttons:</th>
+		<td>
+			<button class="disabled" disabled="disabled">Default button</button>
+			<button class="gray disabled" disabled="disabled">Gray button</button>
+			<button class="light-gray disabled" disabled="disabled">Light gray button</button>
+			<button class="white disabled" disabled="disabled">White button</button>
+			<input class="disabled" disabled="disabled" type="submit" value="'Input submit' button" />
+			<input class="disabled" disabled="disabled" type="button" value="'Input button' button" />
+			<input class="disabled" disabled="disabled" type="reset" value="'Input reset' button" />
+		</td>
+	</tr>
+	<tr>
+		<th>Upload button:</th>
+		<td>
+			<a class="button upload" href="#">Upload<span><input type="file" /></span></a>
+			<a class="button upload gray disabled" href="#">Upload disabled<span><input type="file" disabled="disabled" /></span></a>
+		</td>
+	</tr>
+	<tr>
+		<th>Dropdown button:</th>
+		<td>
+			<div class="button dropdown">
+				<span>Dropdown button</span>
+				<img src="images/invis.gif" alt="Toggle" class="sprite">
+				<ul>
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+				</ul>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>Others:</th>
+		<td>
+			<ul class="button-switcher">
+				<li class="active"><a href="#">Button1</a></li>
+				<li><a href="#">Button2</a></li>
+				<li><a href="#">Button3</a></li>
+			</ul>
+		</td>
+	</tr>
+</table>

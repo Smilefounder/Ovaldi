@@ -1,0 +1,15 @@
+<ul class="quicklinks">
+	<li><a href="#"><img src="images/invis.gif" class="icon users">Users</a></li>
+	<li class="last j_DropDown">
+		<a>
+			<img src="images/invis.gif" class="icon profile">
+			<img src="images/invis.gif" class="icon chevron-down-white">
+			Admin
+		</a>
+		<ul class="j_DropDownContent hide">
+			<li><a href="#">Change language</a></li>
+			<li><a href="#">Change password</a></li>
+			<li><a href="#">Sign out</a></li>
+		</ul>
+	</li>
+</ul>

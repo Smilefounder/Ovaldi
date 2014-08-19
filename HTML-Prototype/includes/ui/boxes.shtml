@@ -1,0 +1,15 @@
+<div class="box">
+	Default box(Light gray border)
+</div>
+<div class="box border-gray">
+	Gray border box
+</div>
+<div class="box border-light-blue">
+	Light blue border box
+</div>
+<div class="box border-blue">
+	Blue border box
+</div>
+<div class="box bg-light-gray">
+	Gray background box
+</div>

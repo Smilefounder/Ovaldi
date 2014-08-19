@@ -1,0 +1,229 @@
+<div class="topbar">
+	<h1 class="title">Style editor: <strong>common.css</strong></h1>
+</div>
+<div class="wrap with-topbar">
+	<div class="block style-editor">
+		<ol>
+			<li>
+				<span class="arrow active"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">#body-container</span>
+				<span class="separator">{</span>
+				<ul>
+					<li>
+						<span class="text attribute" contenteditable="true">margin</span>
+						<span class="separator">:</span>
+						<span class="text value" contenteditable="true">0 auto</span>
+						<span class="separator">;</span>
+					</li>
+					<li>
+						<span class="text attribute" contenteditable="true">width</span>
+						<span class="separator">:</span>
+						<span class="text value" contenteditable="true">960px</span>
+						<span class="separator">;</span>
+					</li>
+				</ul>
+				<a class="action" href="#" title="Add Property"><img class="icon plus-small" src="images/invis.gif"></a>
+				<ol>
+					<li>
+						<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+						<span class="text selector" contenteditable="true">#header</span>
+						<span class="separator">{</span>
+						<span class="separator">}</span>
+					</li>
+					<li>
+						<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+						<span class="text selector" contenteditable="true">#body</span>
+						<span class="separator">{</span>
+						<span class="separator">}</span>
+					</li>
+					<li>
+						<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+						<span class="text selector" contenteditable="true">#footer</span>
+						<span class="separator">{</span>
+						<span class="separator">}</span>
+					</li>
+				</ol>
+				<a class="action" href="#" title="Add Selector"><img class="icon plus-small" src="images/invis.gif"></a>
+				<span class="separator">}</span>
+				<span class="label label-info"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form .title</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+			<li>
+				<span class="arrow"><img class="sprite" src="images/invis.gif"></span>
+				<span class="text selector" contenteditable="true">.login-form th,.login-form td</span>
+				<span class="separator">{</span>
+				<span class="separator">}</span>
+				<span class="label label-info" title="Page name here"><strong>3</strong> pages affected</span>
+			</li>
+		</ol>
+		<a class="action" href="#" title="Add Selector"><img class="icon plus-small" src="images/invis.gif"></a>
+	</div>
+</div>
+<script>
+jQuery.fn.selectText = function(){
+    var doc = document;
+    var element = this[0];
+    console.log(this, element);
+    if (doc.body.createTextRange) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(element);
+        range.select();
+    } else if (window.getSelection) {
+        var selection = window.getSelection();        
+        var range = document.createRange();
+        range.selectNodeContents(element);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+};
+$(function(){
+	$('.text').click(function(){
+		if(!$(this).hasClass('highlight')){
+			$(this).selectText();
+		}
+		$(this).addClass('highlight');
+	}).blur(function(){
+		$(this).removeClass('highlight');
+	});
+	$('.label').tooltip();
+})
+</script>

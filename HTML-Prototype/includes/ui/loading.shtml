@@ -1,0 +1,7 @@
+<div class="block loading">
+    <div class="layer"></div>
+    <div class="wrap">
+        <span>Loading</span>
+        <img src="images/loading.gif">
+    </div>
+</div>

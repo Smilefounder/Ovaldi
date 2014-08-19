@@ -1,0 +1,55 @@
+<div class="block">
+	<div class="form-row">
+		<div class="span3">
+			<label for="InputText">Input text:</label>
+		</div>
+		<div class="span9">
+			<input type="text" id="InputText" placeholder="Placeholder text">
+			<em class="form-tip">Tips for this input</em>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="InputPassword">Input password:</label>
+		</div>
+		<div class="span9">
+			<input type="password" id="InputPassword" value="password">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="ReadOnlyText">Readonly:</label>
+		</div>
+		<div class="span9">
+			<input type="text" id="ReadOnlyText" value="Readonly value" readonly="readonly">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="DisabledText">Disabled:</label>
+		</div>
+		<div class="span9">
+			<input type="text" id="DisabledText" value="Disabled value" disabled="disabled">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="Textarea">Textarea:</label>
+		</div>
+		<div class="span9">
+			<textarea id="Textarea" placeholder="Placeholder text"></textarea>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="Select">Select:</label>
+		</div>
+		<div class="span9">
+			<select id="Select">
+				<option>Please select...</option>
+				<option>Option 1</option>
+				<option>Option 2</option>
+			</select>
+		</div>
+	</div>
+</div>

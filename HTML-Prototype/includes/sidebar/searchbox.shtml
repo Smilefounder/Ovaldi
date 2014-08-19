@@ -1,0 +1,4 @@
+<div class="searchbox">
+	<input type="text" name="keywords" placeholder="search">
+	<button type="submit"><img src="images/invis.gif" class="icon search"></button>
+</div>

@@ -1,0 +1,25 @@
+<a class="button J_DialogLink" href="dialog">Inline content dialog</a>
+<a class="button dialog-link" href="iframe-dialog.shtml">Iframe dialog</a>
+<div class="hide">
+	<div id="dialog">
+		<div class="content">
+			<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+		</div>
+		<div class="buttons">
+			<a class="button blue" href="#">Save</a>
+			<a class="button gray" href="#">Cancel</a>
+		</div>
+	</div>
+</div>
+<script>
+$(function(){
+	$('.J_DialogLink').one('click', function (e) {
+		e.preventDefault();
+		$(this).pop({
+			popupOnTop: true,
+			useContent: true,
+			contentId:$(this).attr('href')
+		}).click();
+	});
+})
+</script>

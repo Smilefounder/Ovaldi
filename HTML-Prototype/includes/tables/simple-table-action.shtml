@@ -1,0 +1,80 @@
+<div class="simple-table">
+	<table>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Date</th>
+				<th>Column 3</th>
+				<th>Column 4</th>
+				<th>Column 5</th>
+				<th class="action"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

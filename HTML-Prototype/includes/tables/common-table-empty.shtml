@@ -1,0 +1,26 @@
+<div class="common-table">
+	<div class="fixed"><table></table></div>
+	<table>
+		<thead>
+			<tr>
+				<th class="sort asc active"><a href="#">Title<img class="sprite" src="images/invis.gif"></a></th>
+				<th class="sort desc"><a href="#">Date<img class="sprite" src="images/invis.gif"></a></th>
+				<th class="sort asc"><a href="#">Column 4<img class="sprite" src="images/invis.gif"></a></th>
+				<th class="sort asc"><a href="#">Column 5<img class="sprite" src="images/invis.gif"></a></th>
+				<th class="sort asc"><a href="#">Column 6<img class="sprite" src="images/invis.gif"></a></th>
+				<th class="sort asc"><a href="#">Column 7<img class="sprite" src="images/invis.gif"></a></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="empty">
+				<td colspan="100">Empty</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script>
+$(function(){
+	$('.common-table').checkableTable();
+	$('.common-table').scrollFixTable();
+});
+</script>

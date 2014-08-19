@@ -1,0 +1,12 @@
+<nav class="block menu">
+	<ul>
+		<li class="active current"><a href="index.shtml">Dashboard</a></li>
+		<li>
+			<span class="arrow"><img src="images/invis.gif" class="sprite"></span>
+			<a href="#">Module</a>
+			<ul>
+				<li><a href="module-site-import-step1.shtml">Site import</a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>

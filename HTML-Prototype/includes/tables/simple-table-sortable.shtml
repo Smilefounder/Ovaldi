@@ -1,0 +1,125 @@
+<div class="simple-table" id="simpleTableSortable">
+	<table>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Date</th>
+				<th>Column 3</th>
+				<th>Column 4</th>
+				<th>Column 5</th>
+				<th class="action"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a>
+					</div>
+				</td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a>
+					</div>
+				</td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a>
+					</div>
+				</td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a>
+					</div>
+				</td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="draggable">
+					<div><img src="images/invis.gif" class="icon drag"></div>
+					<a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a>
+				</td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a>
+					</div>
+				</td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a>
+					</div>
+				</td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a>
+					</div>
+				</td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script>
+$(function(){
+    $('#simpleTableSortable tbody').sortable({
+		handle: '.icon.drag'
+	});
+});
+</script>
