@@ -1,0 +1,58 @@
+<div class="block">
+	<div class="form-row">
+		<div class="span3">
+			<label for="InputMini">Mini:</label>
+		</div>
+		<div class="span9">
+			<input type="text" class="mini" id="InputMini" placeholder=".mini">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="InputSmall">Small:</label>
+		</div>
+		<div class="span9">
+			<input type="text" class="small" id="InputSmall" placeholder=".small 20%">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="InputMedium">Medium:</label>
+		</div>
+		<div class="span9">
+			<input type="text" class="medium" id="InputMedium" placeholder=".medium 35%">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="InputLarge">Large:</label>
+		</div>
+		<div class="span9">
+			<input type="text" class="large" id="InputLarge" placeholder=".large 50%">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="InputXLarge">X-Large:</label>
+		</div>
+		<div class="span9">
+			<input type="text" class="xlarge" id="InputXLarge" placeholder=".xlarge 65%">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="InputXXLarge">XX-Large:</label>
+		</div>
+		<div class="span9">
+			<input type="text" class="xxlarge" id="InputXXLarge" placeholder=".xxlarge 80%">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="InputHuge">Huge:</label>
+		</div>
+		<div class="span9">
+			<input type="text" class="huge" id="InputHuge" placeholder=".huge 95%">
+		</div>
+	</div>
+</div>

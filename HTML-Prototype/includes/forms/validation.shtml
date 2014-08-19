@@ -1,0 +1,103 @@
+<div class="block">
+	<form id="J_SampleForm">
+		<div class="form-row">
+			<div class="span3">
+				<label for="Username">Username:</label>
+			</div>
+			<div class="span9">
+				<input type="text" id="Username" class="validate[required,maxSize[8]]">
+				<em class="form-tip">Required, max size = 8</em>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="span3">
+				<label for="Password">Password:</label>
+			</div>
+			<div class="span9">
+				<input type="password" id="Password" class="validate[required,minSize[5],maxSize[10]]">
+				<em class="form-tip">Required, min size = 5, max size = 10</em>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="span3">
+				<label for="ConfirmPassword">Confirm Password:</label>
+			</div>
+			<div class="span9">
+				<input type="password" id="ConfirmPassword" class="validate[required,equals[Password]]">
+				<em class="form-tip">Required, equals Password</em>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="span3">
+				<label for="Age">Age:</label>
+			</div>
+			<div class="span5">
+				<input type="text" id="Age" class="validate[required,custom[integer],min[18],max[120]]">
+			</div>
+			<div class="span1">
+				<label>Gender:</label>
+			</div>
+			<div class="span3">
+				<ul class="form-list">
+					<li><input type="radio" id="Male" name="Gender" class="validate[required]" autocomplete="off"><label for="Male" class="inline">Male</label></li>
+					<li><input type="radio" id="Female" name="Gender" class="validate[required]" autocomplete="off"><label for="Female" class="inline">Female</label></li>
+				</ul>
+				<em class="form-tip">Required</em>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="span3">
+				<label for="Select2Validation">Select2:</label>
+			</div>
+			<div class="span9">
+				<select class="select2 validate[required]" id="Select2Validation">
+					<option></option>
+					<option>Option 1</option>
+					<option>Option 2</option>
+					<option>Option 3</option>
+					<option>Option 4</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="span3">
+				<label for="Select2MutipleValidation">Select2 mutiple:</label>
+			</div>
+			<div class="span9">
+				<select class="select2 validate[required]" id="Select2MutipleValidation" multiple="multiple">
+					<option></option>
+					<option>Option 1</option>
+					<option>Option 2</option>
+					<option>Option 3</option>
+					<option>Option 4</option>
+					<option>Option 5</option>
+					<option>Option 6</option>
+					<option>Option 7</option>
+					<option>Option 8</option>
+					<option>Option 9</option>
+					<option>Option 10</option>
+					<option>Option 11</option>
+					<option>Option 12</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-row">
+			<button type="submit">Submit</button>
+			<a class="button gray" onclick="$('#J_SampleForm').validationEngine('hide');">Hide prompts</a>
+		</div>
+	</form>
+</div>
+<script>
+$(function(){
+	//Make select2 work with jQueryValidationEngine
+	$.each($(".select2-container"), function (i, n) {
+		$(n).next().show().fadeTo(0, 0).height("0px").css("left", "auto"); // make the original select visible for validation engine and hidden for us
+		$(n).prepend($(n).next());
+		$(n).delay(500).queue(function () {
+			$(this).removeClass("validate[required]"); //remove the class name from select2 container(div), so that validation engine dose not validate it
+			$(this).dequeue();
+		});
+	});
+	$("#J_SampleForm").validationEngine('attach',{promptPosition : 'topLeft'});
+})
+</script>

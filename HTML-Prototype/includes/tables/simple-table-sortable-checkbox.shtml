@@ -1,0 +1,137 @@
+<div class="simple-table" id="simpleTableSortableCheckbox">
+	<table>
+		<thead>
+			<tr>
+				<th class="checkbox"><input type="checkbox" autocomplete="off" class="select-all"></th>
+				<th>Title</th>
+				<th>Date</th>
+				<th>Column 3</th>
+				<th>Column 4</th>
+				<th>Column 5</th>
+				<th class="action"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="checkbox draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<input type="checkbox" autocomplete="off" class="select">
+					</div>
+				</td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="checkbox draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<input type="checkbox" autocomplete="off" class="select">
+					</div>
+				</td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="checkbox draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<input type="checkbox" autocomplete="off" class="select">
+					</div>
+				</td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="checkbox draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<input type="checkbox" autocomplete="off" class="select">
+					</div>
+				</td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="checkbox draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<input type="checkbox" autocomplete="off" class="select">
+					</div>
+				</td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="checkbox draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<input type="checkbox" autocomplete="off" class="select">
+					</div>
+				</td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="checkbox draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<input type="checkbox" autocomplete="off" class="select">
+					</div>
+				</td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+			<tr>
+				<td class="checkbox draggable">
+					<div>
+						<img src="images/invis.gif" class="icon drag">
+						<input type="checkbox" autocomplete="off" class="select">
+					</div>
+				</td>
+				<td><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr</a></td>
+				<td>2014-01-23</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</td>
+				<td class="action"><a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon minus-small" alt="Delete"></a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script>
+$(function(){
+	$('#simpleTableSortableCheckbox').checkableTable();
+    $('#simpleTableSortableCheckbox tbody').sortable({
+		handle: '.icon.drag'
+	});
+});
+</script>

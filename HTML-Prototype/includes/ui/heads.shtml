@@ -1,0 +1,19 @@
+<div class="head">
+	<h2 class="title">Default head</h2>
+</div>
+<div class="head blue">
+	<h2 class="title">Blue head</h2>
+</div>
+<div class="head light-blue">
+	<h2 class="title">Lightblue head</h2>
+</div>
+<div class="head light-gray">
+	<h2 class="title">Lightgray head</h2>
+</div>
+<div class="head light-blue">
+	<h2 class="title">Head with action</h2>
+	<ul class="actions">
+		<li><a title="Save" href="#"><img src="images/invis.gif" class="icon save"></a></li>
+		<li><a title="Edit" href="#"><img src="images/invis.gif" class="icon edit"></a></li>
+	</ul>
+</div>

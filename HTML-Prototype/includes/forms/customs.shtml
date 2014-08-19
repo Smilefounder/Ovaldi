@@ -1,0 +1,153 @@
+<div class="block">
+	<div class="form-row">
+		<div class="span3">
+			<label for="Select2">Select2:</label>
+		</div>
+		<div class="span9">
+			<select class="select2" id="Select2">
+				<option></option>
+				<option>Option 1</option>
+				<option>Option 2</option>
+				<option>Option 3</option>
+				<option>Option 4</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="Select2Mutiple">Select2 mutiple:</label>
+		</div>
+		<div class="span9">
+			<select class="select2" id="Select2Mutiple" multiple="multiple">
+				<option></option>
+				<option>Option 1</option>
+				<option>Option 2</option>
+				<option>Option 3</option>
+				<option>Option 4</option>
+				<option>Option 5</option>
+				<option>Option 6</option>
+				<option>Option 7</option>
+				<option>Option 8</option>
+				<option>Option 9</option>
+				<option>Option 10</option>
+				<option>Option 11</option>
+				<option>Option 12</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label>Checkbox list:</label>
+		</div>
+		<div class="span9">
+			<ul class="form-list">
+				<li><input type="checkbox" id="checkbox1"><label for="checkbox1" class="inline">Checkbox 1</label></li>
+				<li><input type="checkbox" id="checkbox2"><label for="checkbox2" class="inline">Checkbox 2</label></li>
+				<li><input type="checkbox" id="checkbox3"><label for="checkbox3" class="inline">Checkbox 3</label></li>
+				<li><input type="checkbox" id="checkbox4"><label for="checkbox4" class="inline">Checkbox 4</label></li>
+			</ul>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label>Radio button list:</label>
+		</div>
+		<div class="span9">
+			<ul class="form-list">
+				<li><input type="radio" id="radio1" name="radioList"><label for="radio1" class="inline">Radio 1</label></li>
+				<li><input type="radio" id="radio2" name="radioList"><label for="radio2" class="inline">Radio 2</label></li>
+				<li><input type="radio" id="radio3" name="radioList"><label for="radio3" class="inline">Radio 3</label></li>
+				<li><input type="radio" id="radio4" name="radioList"><label for="radio4" class="inline">Radio 4</label></li>
+			</ul>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label>File:</label>
+		</div>
+		<div class="span9">
+			<div class="custom-file">
+				<input type="text" readonly="readonly">
+				<a class="button">Browser<span><input type="file"></span></a>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="date">Files from media library:</label>
+		</div>
+		<div class="span9">
+			<ul class="form-list images">
+				<li>
+					<div class="file-thumbnail">
+						<img src="images/demo-1.jpg">
+						<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small"></a>
+					</div>
+				</li>
+				<li>
+					<div class="file-thumbnail">
+						<img src="images/demo-2.jpg">
+						<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small"></a>
+					</div>
+				</li>
+				<li>
+					<div class="file-thumbnail">
+						<img src="images/demo-3.jpg">
+						<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small"></a>
+					</div>
+				</li>
+			</ul>
+			<ul class="form-list files">
+				<li>
+					<div class="file-regular">
+						<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small"></a>
+						<span>File name.xxx</span>
+					</div>
+				</li>
+				<li>
+					<div class="file-regular">
+						<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small"></a>
+						<span>File name.xxx</span>
+					</div>
+				</li>
+				<li>
+					<div class="file-regular">
+						<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small"></a>
+						<span>File name.xxx</span>
+					</div>
+				</li>
+			</ul>
+			<a class="action" href="#"><img src="images/invis.gif" class="icon plus-small"></a>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="date">Date:</label>
+		</div>
+		<div class="span9">
+			<input class="J_Datepicker" type="text" id="date" name="date">
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="span3">
+			<label for="date">Tags input:</label>
+		</div>
+		<div class="span9">
+			<input type="text" name="Tags" class="J_TagsInput" value="Tag 1, Tag 2, Tag 3">
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		$('.select2').select2({
+			allowClear:true,
+			minimumResultsForSearch:-1,
+			placeholder:'Please select...',
+			width:'resolve'
+		});
+		$('.custom-file').customFile();
+		$('.J_Datepicker').datepicker();
+		$('.J_TagsInput').tagbox({
+		});
+	})
+</script>

@@ -1,0 +1,14 @@
+<div class="wizard">
+	<div class="container">
+		<span class="active">Step 1<b></b></span>
+		<span>Step 2<b></b></span>
+		<span>Step 3<b></b></span>
+	</div>
+</div>
+<div class="wizard">
+	<div class="container">
+		<a href="#step1" class="active">Step 1<b></b></a>
+		<a href="#step2">Step 2<b></b></a>
+		<a href="#step3">Step 3<b></b></a>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+<!--#include file="includes/head.shtml" -->
+<body>
+<div id="body-container">
+	<header id="header">
+		<!--#include file="includes/header/logo.shtml" -->
+		<ul class="header-panel">
+			<li><a href="index.shtml"><img class="icon back" src="images/invis.gif">Back</a></li>
+		</ul>
+		<!--#include file="includes/header/quicklinks.shtml" -->
+	</header>
+	<div id="main-container" class="clearfix">
+		<div class="wrap">
+			<h1 class="title">Site import</h1>
+			<div class="wizard">
+				<div class="container">
+					<span>Select a site</span>
+					<span class="active">Results<b></b></span>
+				</div>
+			</div>
+			<div class="block message success content">
+				<p>Import success, here are the pages you imported:</p>
+				<ul>
+					<li>
+						home.html
+						<ul>
+							<li>articles.html</li>
+							<li>about-us.html</li>
+							<li>contact.html</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="wizard-buttons">
+				<a class="button gray" href="model-site-import-step1.shtml">&laquo; Import another</a>
+				<a class="button" href="#">View the site &raquo;</a>
+			</div>
+		</div>
+	</div>
+	<!--#include file="includes/footer.shtml" -->
+</div>
+</body>
+</html>

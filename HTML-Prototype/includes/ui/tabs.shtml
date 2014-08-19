@@ -1,0 +1,42 @@
+<div class="J_Tabs">
+	<ul>
+		<li><a href="#J_Tab1">Tab 1</a></li>
+		<li><a href="#J_Tab2">Tab 2</a></li>
+		<li><a href="#J_Tab3">Tab 3</a></li>
+	</ul>
+	<div id="J_Tab1">
+		<strong>Tab1</strong>
+		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+	</div>
+	<div id="J_Tab2">
+		<strong>Tab2</strong>
+		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+	</div>
+	<div id="J_Tab3">
+		<strong>Tab3</strong>
+		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+	</div>
+</div>
+<div class="J_Tabs tabs-bottom">
+	<div id="J_Tab1">
+		<strong>Tab1</strong>
+		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+	</div>
+	<div id="J_Tab2">
+		<strong>Tab2</strong>
+		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+	</div>
+	<div id="J_Tab3">
+		<strong>Tab3</strong>
+		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+	</div>
+	<ul>
+		<li><a href="#J_Tab1">Tab 1</a></li>
+		<li><a href="#J_Tab2">Tab 2</a></li>
+		<li><a href="#J_Tab3">Tab 3</a></li>
+	</ul>
+</div>
+<script>
+	//jQuery Tab
+	$('.J_Tabs').tabs();
+</script>

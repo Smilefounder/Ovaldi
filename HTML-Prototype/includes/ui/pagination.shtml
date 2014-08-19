@@ -1,0 +1,15 @@
+<div class="pagination">
+	<a class="control disabled" href="#">Prev</a>
+	<a class="active" href="#">1</a>
+	<a href="#">2</a>
+	<a href="#">3</a>
+	<a href="#">4</a>
+	<a href="#">5</a>
+	...
+	<a href="#">96</a>
+	<a href="#">97</a>
+	<a href="#">98</a>
+	<a href="#">99</a>
+	<a href="#">100</a>
+	<a class="control" href="#">Next</a>
+</div>

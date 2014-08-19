@@ -1,0 +1,8 @@
+<div class="block notification">
+	<a class="close" title="Close"><img class="icon close" src="images/invis.gif"></a>
+	<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+</div>
+<div class="block notification error">
+	<a class="close" title="Close"><img class="icon close" src="images/invis.gif"></a>
+	<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+</div>
