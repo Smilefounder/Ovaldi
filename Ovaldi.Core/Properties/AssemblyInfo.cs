@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Ovaldi.Site")]
+[assembly: AssemblyTitle("Ovaldi.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Ovaldi.Site")]
+[assembly: AssemblyProduct("Ovaldi.Core")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b2e508c4-5331-4514-9967-7dc4cc5dd2a4")]
+[assembly: Guid("0fa55355-5df1-441d-98eb-7444ff98bb07")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ovaldi.Site", "Ovaldi.Site\Ovaldi.Site.csproj", "{0130DA75-FA7F-4BA8-89BB-9CCD7F1E6E68}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ovaldi.Web", "Ovaldi.Web\Ovaldi.Web.csproj", "{EEF581A5-D2CD-406E-A999-93BBA6C36798}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ovaldi.Core", "Ovaldi.Core\Ovaldi.Core.csproj", "{124663EE-1F97-49E8-AC44-6AFEDB09ED62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0130DA75-FA7F-4BA8-89BB-9CCD7F1E6E68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0130DA75-FA7F-4BA8-89BB-9CCD7F1E6E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0130DA75-FA7F-4BA8-89BB-9CCD7F1E6E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0130DA75-FA7F-4BA8-89BB-9CCD7F1E6E68}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EEF581A5-D2CD-406E-A999-93BBA6C36798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EEF581A5-D2CD-406E-A999-93BBA6C36798}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEF581A5-D2CD-406E-A999-93BBA6C36798}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEF581A5-D2CD-406E-A999-93BBA6C36798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{124663EE-1F97-49E8-AC44-6AFEDB09ED62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{124663EE-1F97-49E8-AC44-6AFEDB09ED62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{124663EE-1F97-49E8-AC44-6AFEDB09ED62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{124663EE-1F97-49E8-AC44-6AFEDB09ED62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
