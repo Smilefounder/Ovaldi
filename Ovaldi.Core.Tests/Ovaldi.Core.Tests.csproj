@@ -1,16 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{124663EE-1F97-49E8-AC44-6AFEDB09ED62}</ProjectGuid>
+    <ProjectGuid>{75044B1B-1BD7-41CE-893F-EE1EDF306FD4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ovaldi.Core</RootNamespace>
-    <AssemblyName>Ovaldi.Core</AssemblyName>
+    <RootNamespace>Ovaldi.Core.Tests</RootNamespace>
+    <AssemblyName>Ovaldi.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,30 +38,24 @@
     <Reference Include="Kooboo.Common">
       <HintPath>..\packages\Kooboo.Common.5.0.5343.26015\lib\net45\Kooboo.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Kooboo.Common.Data, Version=5.0.5344.32258, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kooboo.Common.Data.5.0.5344.32258\lib\net45\Kooboo.Common.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Kooboo.Common.Web">
-      <HintPath>..\packages\Kooboo.Common.Web.5.0.5343.26016\lib\net45\Kooboo.Common.Web.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.dll</HintPath>
@@ -69,66 +68,53 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.XML" />
   </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <ItemGroup>
-    <Compile Include="IBaseDir.cs" />
-    <Compile Include="Models\CacheSettings.cs" />
-    <Compile Include="Models\DataRuleSetting.cs" />
-    <Compile Include="Models\ExpirationPolicy.cs" />
-    <Compile Include="Models\FullNameHelper.cs" />
-    <Compile Include="Models\HtmlMeta.cs" />
-    <Compile Include="Models\IIdentifiable.cs" />
-    <Compile Include="Models\IInheritable.cs" />
-    <Compile Include="Models\IInheritableExtensions.cs" />
-    <Compile Include="Models\ISiteObject.cs" />
-    <Compile Include="Models\Layout\Layout.cs" />
-    <Compile Include="Models\Page\IPageContent.cs" />
-    <Compile Include="Models\Page\LinkTarget.cs" />
-    <Compile Include="Models\Page\Navigation.cs" />
-    <Compile Include="Models\Page\Page.cs" />
-    <Compile Include="Models\Page\PageExtensions.cs" />
-    <Compile Include="Models\Page\PagePermission.cs" />
-    <Compile Include="Models\Page\PageRoute.cs" />
-    <Compile Include="Models\Page\PageRouteExtensions.cs" />
-    <Compile Include="Models\Page\PageType.cs" />
-    <Compile Include="Models\Site\Binding.cs" />
-    <Compile Include="Models\Site\ReleaseMode.cs" />
-    <Compile Include="Models\Site\Site.cs" />
-    <Compile Include="Models\Site\SiteContent.cs" />
-    <Compile Include="Models\Site\SiteExtensions.cs" />
-    <Compile Include="Models\Site\Smtp.cs" />
-    <Compile Include="Models\SiteFile\File.cs" />
-    <Compile Include="Models\SiteFile\IncludingFileSetting.cs" />
-    <Compile Include="Models\SiteFile\Set.cs" />
-    <Compile Include="Models\View\View.cs" />
-    <Compile Include="Persistence\FileSystem\SiteExtensions.cs" />
-    <Compile Include="Persistence\FileSystem\SiteProvider.cs" />
-    <Compile Include="Persistence\FileSystem\Storage\DataContractSurrogateHelper.cs" />
-    <Compile Include="Persistence\FileSystem\Storage\DirectoryObjectFileStorage.cs" />
-    <Compile Include="Persistence\FileSystem\Storage\IFileStorage.cs" />
-    <Compile Include="Persistence\FileSystem\Storage\SiteObjectDataContractSurrogate.cs" />
-    <Compile Include="Persistence\FileSystem\Storage\SitePropertySerialization.cs" />
-    <Compile Include="Persistence\FileSystem\XmlSerialization.cs" />
-    <Compile Include="Persistence\ILayoutProvider.cs" />
-    <Compile Include="Persistence\IPageProvider.cs" />
-    <Compile Include="Persistence\IProvider.cs" />
-    <Compile Include="Persistence\ISiteContentProvider.cs" />
-    <Compile Include="Persistence\ISiteFileProvider.cs" />
-    <Compile Include="Persistence\ISiteProvider.cs" />
-    <Compile Include="Persistence\IViewProvider.cs" />
+    <Compile Include="Persistence\FileSystem\SiteProviderTests.cs" />
+    <Compile Include="XmlSerializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RouteValuesHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\Ovaldi.Core\Ovaldi.Core.csproj">
+      <Project>{124663ee-1f97-49e8-ac44-6afedb09ed62}</Project>
+      <Name>Ovaldi.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
