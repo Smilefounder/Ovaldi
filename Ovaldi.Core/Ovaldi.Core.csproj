@@ -106,13 +106,17 @@
     <Compile Include="Models\SiteFile\IncludingFileSetting.cs" />
     <Compile Include="Models\SiteFile\Set.cs" />
     <Compile Include="Models\View\View.cs" />
+    <Compile Include="Persistence\FileSystem\LayoutProvider.cs" />
+    <Compile Include="Persistence\FileSystem\PageProvider.cs" />
     <Compile Include="Persistence\FileSystem\SiteExtensions.cs" />
+    <Compile Include="Persistence\FileSystem\SiteObjectProviderBase.cs" />
     <Compile Include="Persistence\FileSystem\SiteProvider.cs" />
     <Compile Include="Persistence\FileSystem\Storage\DataContractSurrogateHelper.cs" />
     <Compile Include="Persistence\FileSystem\Storage\DirectoryObjectFileStorage.cs" />
     <Compile Include="Persistence\FileSystem\Storage\IFileStorage.cs" />
     <Compile Include="Persistence\FileSystem\Storage\SiteObjectDataContractSurrogate.cs" />
     <Compile Include="Persistence\FileSystem\Storage\SitePropertySerialization.cs" />
+    <Compile Include="Persistence\FileSystem\ViewProvider.cs" />
     <Compile Include="Persistence\FileSystem\XmlSerialization.cs" />
     <Compile Include="Persistence\ILayoutProvider.cs" />
     <Compile Include="Persistence\IPageProvider.cs" />

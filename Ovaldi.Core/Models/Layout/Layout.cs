@@ -16,6 +16,15 @@ namespace Ovaldi.Core.Models
 {
     public partial class Layout : ISiteObject, IIdentifiable
     {
+        public Layout()
+        {
+
+        }
+        public Layout(Site site, string name)
+        {
+            this.Site = site;
+            this.Name = name;
+        }
         public Site Site
         {
             get;
@@ -34,7 +43,7 @@ namespace Ovaldi.Core.Models
             }
         }
     }
-    public partial class  Layout : ISiteObject, IInheritable<Layout>
+    public partial class Layout : ISiteObject, IInheritable<Layout>
     {
         public string Name { get; set; }
         public string TemplateType { get; set; }

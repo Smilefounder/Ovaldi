@@ -163,7 +163,6 @@ namespace Ovaldi.Core.Models
         //www.mysite.com         en
         //www.anothersite.com    xm
         //www.x.com
-        // TODO: TO be changed. 
         /// </summary>
         public Binding[] Bindings
         {

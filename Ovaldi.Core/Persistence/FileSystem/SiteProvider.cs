@@ -50,7 +50,7 @@ namespace Ovaldi.Core.Persistence.FileSystem
             }
             protected override string GetItemPath(Site o)
             {
-                return o.Name;
+                return "";
             }
             protected override string GetDataFilePath(Site o)
             {
