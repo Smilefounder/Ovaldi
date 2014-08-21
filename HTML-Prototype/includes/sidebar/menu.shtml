@@ -6,6 +6,7 @@
 			<a href="#">Module</a>
 			<ul>
 				<li><a href="module-site-import-step1.shtml">Site import</a></li>
+				<li><a href="module-page-editor.shtml">Page editor</a></li>
 			</ul>
 		</li>
 	</ul>

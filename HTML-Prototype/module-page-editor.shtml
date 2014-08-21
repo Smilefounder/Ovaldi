@@ -1,0 +1,184 @@
+<!--#include file="includes/head.shtml" -->
+<body>
+<div id="body-container" class="no-sidebar">
+	<header id="header">
+		<!--#include file="includes/header/logo.shtml" -->
+		<ul class="header-panel">
+			<li><a href="#"><img src="images/invis.gif" class="icon save">Save</a></li>
+			<li><a href="index.shtml"><img src="images/invis.gif" class="icon back">Back</a></li>
+		</ul>
+		<!--#include file="includes/header/quicklinks.shtml" -->
+	</header>
+	<div id="main-container" class="clearfix">
+		<div class="topbar">
+			<h1 class="title">Edit page:<strong>Sample</strong></h1>
+		</div>
+		<div class="wrap with-topbar">
+			<div class="block editor">
+				<div class="editor">
+					<iframe src="SampleSite/index.html"></iframe>
+				</div>
+				<div class="panel">
+					<div class="J_Tabs">
+						<ul>
+							<li><a href="#J_Tab_1">Content</a></li>
+							<li><a href="#J_Tab_2">Style</a></li>
+						</ul>
+						<div id="J_Tab_1">
+							<div class="settings">
+								<div class="code-viewer">
+									<h6 class="title">Code:</h6>
+									<div class="container">
+										<ul>
+											<li>
+												<span class="code active">&lt;h6 class="title"&gt;</span>
+												<ul>
+													<li><span class="code">&lt;a href="#"&gt;Lorem ipsum dolor sit amet&lt;/a&gt;</span></li>
+												</ul>
+												<span class="code">&lt;/h6&gt;</span>
+											</li>
+										</ul>
+									</div>
+									<div class="bottom">
+										<a href="#">div.item</a>&gt;<a class="active" href="#">h6.title</a>&gt;<a href="#">a</a>
+									</div>
+								</div>
+							</div>
+							<div class="block list active">
+								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Label</h6>
+								<div class="container">
+									<ul>
+										<li>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
+											<span>Lorem ipsum dolor sit amet</span>
+										</li>
+										<li>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
+											<span>Lorem ipsum dolor sit amet</span>
+										</li>
+										<li>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
+											<span>Lorem ipsum dolor sit amet</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="block list active">
+								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Data</h6>
+								<div class="container">
+									<ul>
+										<li>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
+											<span>Lorem ipsum dolor sit amet</span>
+										</li>
+										<li>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
+											<span>Lorem ipsum dolor sit amet</span>
+										</li>
+										<li>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
+											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
+											<span>Lorem ipsum dolor sit amet</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="block thumbnail active">
+								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Image</h6>
+								<div class="container">
+									<ul class="clearfix">
+										<li>
+											<a href="#" title="Click to edit"><img src="images/demo-1.jpg" alt="Image"></a>
+											<a class="action" href="#" title="Click to remove this image"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
+										</li>
+										<li>
+											<a href="#" title="Click to edit"><img src="images/demo-2.jpg" alt="Image"></a>
+											<a class="action" href="#" title="Click to remove this image"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
+										</li>
+										<li>
+											<a href="#" title="Click to edit"><img src="images/demo-3.jpg" alt="Image"></a>
+											<a class="action" href="#" title="Click to remove this image"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div id="J_Tab_2">
+							<div class="block thumbnail active">
+								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Layout</h6>
+								<div class="container">
+									<div class="layout-box">
+										<span class="label left">position: relative</span>
+										<span class="label right">z-index: auto</span>
+										<div class="position">
+											<span class="label">position</span>
+											<input type="text" class="top null" value="0">
+											<input type="text" class="right null" value="0">
+											<input type="text" class="bottom null" value="0">
+											<input type="text" class="left null" value="0">
+											<div class="margin">
+												<span class="label">margin</span>
+												<input type="text" class="top null" value="0">
+												<input type="text" class="right null" value="0">
+												<input type="text" class="bottom null" value="0">
+												<input type="text" class="left null" value="0">
+												<div class="border">
+													<span class="label">border</span>
+													<input type="text" class="top null" value="0">
+													<input type="text" class="right null" value="0">
+													<input type="text" class="bottom null" value="0">
+													<input type="text" class="left null" value="0">
+													<div class="padding">
+														<span class="label">padding</span>
+														<input type="text" class="top null" value="0">
+														<input type="text" class="right null" value="0">
+														<input type="text" class="bottom null" value="0">
+														<input type="text" class="left null" value="0">
+														<div class="content">
+															<input type="text" class="width" value="200">
+															<span class="text">&times;</span>
+															<input type="text" class="height" value="50">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="block list active">
+								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Border</h6>
+								<div class="container">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--#include file="includes/footer.shtml" -->
+</div>
+<script>
+	$(function(){
+		//jQuery Tab
+		$('.J_Tabs').tabs();
+		//Layout box
+		$('.layout-box div').mouseover(function(e){
+			e.stopPropagation();
+			$(this).not('.position').addClass('hover');
+			$(this).parent().removeClass('hover');
+		}).mouseout(function(){
+			$(this).removeClass('hover');
+			$(this).parent(':not(.position)').addClass('hover');
+		})
+	})
+</script>
+</body>
+</html>
