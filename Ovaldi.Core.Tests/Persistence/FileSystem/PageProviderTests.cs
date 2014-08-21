@@ -40,10 +40,11 @@ namespace Ovaldi.Core.Tests.Persistence.FileSystem
                 siteProvider.Add(sampleSite);
             }
         }
+
         [TestMethod]
         public void Test_Add_Get_Updata_Remove()
         {
-            var page = new Page(sampleSite, "Home")
+            var page = new Page(sampleSite, "Test_Add_Get_Updata_Remove")
                 {
                     CacheToDisk = true
                 };
@@ -53,7 +54,7 @@ namespace Ovaldi.Core.Tests.Persistence.FileSystem
             //获取页面
             var actualPage1 = pageProvider.Get(page);
             //断言判断
-            Assert.AreEqual(page.FullName, actualPage1.FullName);
+            Assert.AreEqual(page.AbsoluteName, actualPage1.AbsoluteName);
 
             Assert.AreEqual(page.Site, actualPage1.Site);
 
@@ -75,19 +76,46 @@ namespace Ovaldi.Core.Tests.Persistence.FileSystem
             var actualPage3 = pageProvider.Get(page);
 
             Assert.IsNull(actualPage3);
-
-
         }
 
         [TestMethod]
         public void Test_All()
         {
+            var page = new Page(sampleSite, "Test_All")
+            {
+                CacheToDisk = true
+            };
+            //添加Page
+            pageProvider.Add(page);
 
+            var allViews = pageProvider.All(sampleSite);
+
+            Assert.AreEqual(1, allViews.Count());
+
+            pageProvider.Remove(page);
         }
         [TestMethod]
         public void Test_AddSubPage_ChildPages()
         {
+            var parentPage = new Page(sampleSite, "Parent");
+            var subPage = new Page(parentPage, "Sub");
 
+            pageProvider.Add(parentPage);
+            pageProvider.Add(subPage);
+
+            var allPages = pageProvider.All(sampleSite);
+
+            Assert.AreEqual(2, allPages.Count());
+
+
+            var childPages = pageProvider.ChildPages(parentPage);
+
+            Assert.AreEqual(1, childPages.Count());
+
+            Assert.AreEqual(subPage.GetParent().AbsoluteName, childPages.First().GetParent().AbsoluteName);
+
+            pageProvider.Remove(subPage);
+            pageProvider.Remove(parentPage);
         }
     }
 }

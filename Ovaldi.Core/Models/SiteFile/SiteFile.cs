@@ -8,6 +8,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,8 +18,13 @@ namespace Ovaldi.Core.Models
     /// <summary>
     /// 样式或者脚本文件
     /// </summary>
-    public class File
+    public class SiteFile : ISiteObject
     {
+        /// <summary>
+        /// 属于哪个站点下的文件
+        /// </summary>
+        public Site Site { get; set; }
+
         public string FileName { get; set; }
 
         /// <summary>
@@ -30,14 +36,13 @@ namespace Ovaldi.Core.Models
         /// Scripts/folder1/script2.js
         /// 
         /// </summary>
-        public string AbsoluteName { get; set; }
-
-        /// <summary>
-        /// 文件内容
-        /// 并不会每次都读取文件内容出来。只有当获取单个文件或者列表查询时使用 includeContent=true 时才会读取文件内容。
-        /// </summary>
-        public string Content { get; set; }
-
+        public string AbsoluteName
+        {
+            get
+            {
+                return Path.Combine(Directory, FileName);
+            }
+        }    
         /// <summary>
         /// 文件所在的目录名，比如：
         /// /

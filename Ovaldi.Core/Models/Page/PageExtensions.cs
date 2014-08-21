@@ -16,12 +16,22 @@ namespace Ovaldi.Core.Models
 {
     public static class PageExtensions
     {
+        public static Page GetParent(this Page page)
+        {
+            var parentAbsoluteName = FullNameHelper.GetParentAbsoluteName(page.AbsoluteName);
+            if (!string.IsNullOrEmpty(parentAbsoluteName))
+            {
+                return new Page(page.Site, parentAbsoluteName);
+            }
+            return null;
+        }
+
         public static string GetVirutalPath(this Page page)
         {
             var segment = page.Name;
             string virtualPath = "";
             var route = page.Route;
-            var parent = page.Parent;
+            var parent = page.GetParent();
             var site = page.Site;
             if (page.Route != null && !string.IsNullOrEmpty(route.Identifier))
             {
@@ -64,5 +74,6 @@ namespace Ovaldi.Core.Models
             }
             return page.Name;
         }
+
     }
 }

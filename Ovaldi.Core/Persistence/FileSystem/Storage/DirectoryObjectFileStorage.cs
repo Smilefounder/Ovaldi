@@ -8,6 +8,7 @@
 #endregion
 using Kooboo.Common.Data.IsolatedStorage;
 using Ovaldi.Core.Models;
+using Ovaldi.Core.Persistence.FileSystem.Storage.DataContract;
 using System;
 using System.Collections.Generic;
 using System.IO;

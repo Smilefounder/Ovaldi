@@ -50,7 +50,7 @@ namespace Ovaldi.Core.Models
                 {
                     this.AbsoluteName = this.Name;
                 }
-                var parentFullName = FullNameHelper.GetParentFullName(this.AbsoluteName);
+                var parentFullName = FullNameHelper.GetParentAbsoluteName(this.AbsoluteName);
                 if (!string.IsNullOrEmpty(parentFullName))
                 {
                     return new Site(parentFullName);

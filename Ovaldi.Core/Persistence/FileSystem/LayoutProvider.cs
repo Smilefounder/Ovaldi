@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 
 namespace Ovaldi.Core.Persistence.FileSystem
 {
+    [Kooboo.Common.ObjectContainer.Dependency.DependencyAttribute(typeof(ILayoutProvider))]
+    [Kooboo.Common.ObjectContainer.Dependency.DependencyAttribute(typeof(IProvider<Layout>))]
     public class LayoutProvider : SiteObjectProviderBase<Layout>, ILayoutProvider
     {
         #region ctor

@@ -23,10 +23,10 @@ namespace Ovaldi.Core.Models
         }
         public static IEnumerable<string> Split(string fullName)
         {
-            return fullName.Split(new char[] { '~', '/' }, StringSplitOptions.RemoveEmptyEntries);
+            return fullName.Split(new char[] { '~', '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public static string GetParentFullName(string fullName)
+        public static string GetParentAbsoluteName(string fullName)
         {
             var namePaths = Split(fullName).ToArray();
 

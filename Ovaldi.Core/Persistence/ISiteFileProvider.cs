@@ -9,6 +9,7 @@
 using Ovaldi.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,9 +24,8 @@ namespace Ovaldi.Core.Persistence
         /// </summary>
         /// <param name="site"></param>
         /// <param name="path"></param>
-        /// <param name="readContent">读取文件的内容</param>
         /// <returns></returns>
-        IEnumerable<File> AllFiles(Site site, string path, bool readContent = false);
+        IEnumerable<SiteFile> AllFiles(Site site, string path);
         /// <summary>
         /// 添加文件
         /// </summary>
@@ -34,7 +34,20 @@ namespace Ovaldi.Core.Persistence
         /// <param name="content"></param>
         void AddFile(Site site, string absoluteFileName, string content);
 
-        File GetFile(Site site, string absoluteFileName);
+        void AddFile(Site site, string absoluteFileName, byte[] data);
+
+        /// <summary>
+        /// 更新文件
+        /// 只能更新文本内容的文件
+        /// </summary>
+        /// <param name="site"></param>
+        /// <param name="absoluteFileName"></param>
+        /// <param name="content"></param>
+        void UpdateFile(Site site, string absoluteFileName, string content);
+
+        string GetFile(Site site, string absoluteFileName);
+
+        byte[] GetFileData(Site site, string absoluteFileName);
 
         void DeleteFile(Site site, string absoluteFileName);
 

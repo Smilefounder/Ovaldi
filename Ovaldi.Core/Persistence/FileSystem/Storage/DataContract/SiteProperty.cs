@@ -13,12 +13,12 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ovaldi.Core.Persistence.FileSystem.Storage
+namespace Ovaldi.Core.Persistence.FileSystem.Storage.DataContract
 {
-    [DataContract(Name = "Site", Namespace = "Ovaldi.Core.Tests")]
-    internal class SitePropertySerialization
+    [DataContract(Name = "Site", Namespace = "Ovaldi.Core.Models")]
+    internal class SiteProperty
     {
-        [DataMember(Name = "SiteName")]
-        public string SiteAbsoluteName { get; set; }
+        [DataMember(Name = "AbsoluteName")]
+        public string AbsoluteName { get; set; }
     }
 }

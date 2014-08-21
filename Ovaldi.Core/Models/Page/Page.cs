@@ -24,13 +24,13 @@ namespace Ovaldi.Core.Models
         public Page(Site site, string fullName)
         {
             this.Site = site;
-            this.FullName = fullName;
+            this.AbsoluteName = fullName;
             this.Name = FullNameHelper.GetName(fullName);
         }
         public Page(Page parent, string name)
         {
             this.Site = parent.Site;
-            this.FullName = FullNameHelper.Combine(parent.FullName, name);
+            this.AbsoluteName = FullNameHelper.Combine(parent.AbsoluteName, name);
             this.Name = name;
         }
         #endregion
@@ -40,39 +40,16 @@ namespace Ovaldi.Core.Models
             get;
             set;
         }
-        public Page Parent
-        {
-            get
-            {
-                var parentFullName = FullNameHelper.GetParentFullName(this.FullName);
-                if (!string.IsNullOrEmpty(parentFullName))
-                {
-                    return new Page(this.Site, parentFullName);
-                }
-                return null;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    this.FullName = FullNameHelper.Combine(value.FullName, this.Name);
-                }
-                else
-                {
-                    this.FullName = this.Name;
-                }
-            }
-        }
 
         public string UUID
         {
             get
             {
-                return this.FullName;
+                return this.AbsoluteName;
             }
             set
             {
-                this.FullName = value;
+                this.AbsoluteName = value;
             }
         }       
     }
@@ -80,7 +57,7 @@ namespace Ovaldi.Core.Models
     {
 
         public string Name { get; set; }
-        public string FullName { get; set; }
+        public string AbsoluteName { get; set; }
         
         public bool IsDefault { get; set; }
 

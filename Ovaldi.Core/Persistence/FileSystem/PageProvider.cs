@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 
 namespace Ovaldi.Core.Persistence.FileSystem
 {
+    [Kooboo.Common.ObjectContainer.Dependency.DependencyAttribute(typeof(IPageProvider))]
+    [Kooboo.Common.ObjectContainer.Dependency.DependencyAttribute(typeof(IProvider<Page>))]
     public class PageProvider : SiteObjectProviderBase<Page>, IPageProvider
     {
         #region .ctor
@@ -73,7 +75,7 @@ namespace Ovaldi.Core.Persistence.FileSystem
         #region ChildPages
         public IEnumerable<Page> ChildPages(Page parentPage)
         {
-            return GetFileStorage(parentPage.Site).GetList(parentPage.FullName);
+            return GetFileStorage(parentPage.Site).GetList(parentPage.AbsoluteName);
         }
 
         #endregion

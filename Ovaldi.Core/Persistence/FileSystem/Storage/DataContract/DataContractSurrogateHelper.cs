@@ -14,7 +14,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ovaldi.Core.Persistence.FileSystem.Storage
+namespace Ovaldi.Core.Persistence.FileSystem.Storage.DataContract
 {
     public static class DataContractSurrogateHelper
     {
