@@ -26,7 +26,7 @@
 						</ul>
 						<div id="J_Tab_1">
 							<div class="settings">
-								<div class="code-viewer">
+								<div class="kb-code-viewer">
 									<h6 class="title">Code:</h6>
 									<div class="container">
 										<ul>
@@ -43,68 +43,19 @@
 										<a href="#">div.item</a>&gt;<a class="active" href="#">h6.title</a>&gt;<a href="#">a</a>
 									</div>
 								</div>
-							</div>
-							<div class="block list active">
-								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Label</h6>
-								<div class="container">
-									<ul>
-										<li>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
-											<span>Lorem ipsum dolor sit amet</span>
-										</li>
-										<li>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
-											<span>Lorem ipsum dolor sit amet</span>
-										</li>
-										<li>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
-											<span>Lorem ipsum dolor sit amet</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div class="block list active">
-								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Data</h6>
-								<div class="container">
-									<ul>
-										<li>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
-											<span>Lorem ipsum dolor sit amet</span>
-										</li>
-										<li>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
-											<span>Lorem ipsum dolor sit amet</span>
-										</li>
-										<li>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
-											<a class="action" href="#"><img src="images/invis.gif" class="icon edit-small" alt="Edit"></a>
-											<span>Lorem ipsum dolor sit amet</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div class="block thumbnail active">
-								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Image</h6>
-								<div class="container">
-									<ul class="clearfix">
-										<li>
-											<a href="#" title="Click to edit"><img src="images/demo-1.jpg" alt="Image"></a>
-											<a class="action" href="#" title="Click to remove this image"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
-										</li>
-										<li>
-											<a href="#" title="Click to edit"><img src="images/demo-2.jpg" alt="Image"></a>
-											<a class="action" href="#" title="Click to remove this image"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
-										</li>
-										<li>
-											<a href="#" title="Click to edit"><img src="images/demo-3.jpg" alt="Image"></a>
-											<a class="action" href="#" title="Click to remove this image"><img src="images/invis.gif" class="icon minus-small" alt="Remove"></a>
-										</li>
-									</ul>
+								<p class="buttons">
+									<a class="button" href="#">Edit this block</a>
+								</p>
+								<div class="kb-code-editor">
+									<div class="container">
+										<h6 class="title">
+											<a href="#" contenteditable="true">Lorem ipsum dolor sit amet</a>
+										</h6>
+									</div>
+									<p class="buttons">
+										<a class="button" href="#">Save</a>
+										<a class="button gray" href="#">Cancel</a>
+									</p>
 								</div>
 							</div>
 						</div>
