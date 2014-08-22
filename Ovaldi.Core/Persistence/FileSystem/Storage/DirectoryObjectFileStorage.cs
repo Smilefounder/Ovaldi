@@ -161,10 +161,10 @@ namespace Ovaldi.Core.Persistence.FileSystem.Storage
         }
         protected virtual void Serialize(T item, string filePath)
         {
-            using (var storageFileStream = isolatedStorage.OpenFile(filePath, FileMode.OpenOrCreate))
+            using (var memoryStream = new MemoryStream())
             {
-                XmlSerialization.Serialize(item, storageFileStream.Stream, GetDataContractSerializerSettings());
-                isolatedStorage.SaveFile(storageFileStream);
+                XmlSerialization.Serialize(item, memoryStream, GetDataContractSerializerSettings());
+                isolatedStorage.UpdateFile(filePath, memoryStream);
             }
         }
         #endregion

@@ -48,11 +48,12 @@ namespace Ovaldi.Core.Persistence.FileSystem
         {
             var storage = site.GetIsolatedStorage(_baseDir);
 
-            var memoryStream = new MemoryStream();
+            using (var memoryStream = new MemoryStream())
+            {
+                memoryStream.WriteString(content);
 
-            memoryStream.WriteString(content);
-
-            storage.CreateFile(absoluteFileName, memoryStream);
+                storage.CreateFile(absoluteFileName, memoryStream);
+            }
         }
 
         public void AddFile(Site site, string absoluteFileName, byte[] data)
@@ -72,12 +73,10 @@ namespace Ovaldi.Core.Persistence.FileSystem
 
             var storage = site.GetIsolatedStorage(_baseDir);
 
-            using (var fileStorage = storage.OpenFile(absoluteFileName, FileMode.Open))
+            using (var memoryStream = new MemoryStream())
             {
-                var memoryStream = new MemoryStream();
                 memoryStream.WriteString(content);
-                fileStorage.Stream = memoryStream;
-                storage.SaveFile(fileStorage);
+                storage.UpdateFile(absoluteFileName, memoryStream);
             }
         }
 

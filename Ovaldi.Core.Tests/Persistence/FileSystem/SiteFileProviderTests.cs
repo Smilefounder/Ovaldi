@@ -74,19 +74,37 @@ namespace Ovaldi.Core.Tests.Persistence.FileSystem
         }
 
         [TestMethod]
-        public void Test_AddFile()
+        public void Test_AddFile_IsFileExists_GetFile_DeleteFile()
         {
             var dir = "Test_CreateFile";
 
             siteFileProvider.AddDirectory(sampleSite, dir);
 
             var absoluteFileName = Path.Combine(dir, "script1.js");
-            siteFileProvider.AddFile(sampleSite, absoluteFileName, "var a=1;");
+            var fileContent = "var a=1;";
+            var fileData = Encoding.UTF8.GetBytes(fileContent);
+
+            siteFileProvider.AddFile(sampleSite, absoluteFileName, fileContent);
 
             Assert.IsTrue(siteFileProvider.IsFileExists(sampleSite, absoluteFileName));
 
-            var file = siteFileProvider.GetFile(sampleSite, absoluteFileName);            
+            var actualFileContent = siteFileProvider.GetFile(sampleSite, absoluteFileName);
 
+            Assert.AreEqual(fileContent, actualFileContent);
+
+            var actualFileData = siteFileProvider.GetFileData(sampleSite, absoluteFileName);
+            
+            var newFileContent = "var b = 1;";
+
+            siteFileProvider.UpdateFile(sampleSite, absoluteFileName, newFileContent);
+
+            var actualFileContent1 = siteFileProvider.GetFile(sampleSite, absoluteFileName);
+
+            Assert.AreEqual(newFileContent, actualFileContent1);
+
+            siteFileProvider.DeleteFile(sampleSite, absoluteFileName);
+
+            Assert.IsFalse(siteFileProvider.IsFileExists(sampleSite, absoluteFileName));
         }
     }
 }
