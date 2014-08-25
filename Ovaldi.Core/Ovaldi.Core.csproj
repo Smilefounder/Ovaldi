@@ -52,6 +52,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.Razor.dll</HintPath>
@@ -69,13 +73,34 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrontAPI\Html\FrontHtmlHelper.cs" />
+    <Compile Include="FrontAPI\Html\IFrontHtmlHelper.cs" />
+    <Compile Include="FrontAPI\Html\LoadMetaExtensions.cs" />
+    <Compile Include="FrontAPI\Html\LoadScriptsExtensions.cs" />
+    <Compile Include="FrontAPI\Html\LoadStylesExtensions.cs" />
+    <Compile Include="FrontAPI\Html\PageLinkExtensions.cs" />
+    <Compile Include="FrontAPI\Html\PagerExtensions.cs" />
+    <Compile Include="FrontAPI\Html\PlaceHolderExtensions.cs" />
+    <Compile Include="FrontAPI\Html\ResizeImageLinkExtensions.cs" />
+    <Compile Include="FrontAPI\Html\ViewLinkExtensions.cs" />
+    <Compile Include="FrontAPI\NavigationHelper.cs" />
+    <Compile Include="FrontAPI\Url\FrontUrlHelper.cs" />
+    <Compile Include="FrontAPI\Url\IFrontUrlHelper.cs" />
+    <Compile Include="FrontAPI\Url\MediaContentUrlExtensions.cs" />
+    <Compile Include="FrontAPI\Url\ModuleResourceExtensions.cs" />
+    <Compile Include="FrontAPI\Url\PageUrlExtensions.cs" />
+    <Compile Include="FrontAPI\Url\ResizeImageUrlExtensions.cs" />
+    <Compile Include="FrontAPI\Url\SiteResourceUrlExtensions.cs" />
+    <Compile Include="FrontAPI\Url\SubmissionUrlExtensions.cs" />
+    <Compile Include="FrontAPI\Url\ViewUrlExtensions.cs" />
+    <Compile Include="FrontRequestChannel.cs" />
     <Compile Include="IBaseDir.cs" />
     <Compile Include="Models\CacheSettings.cs" />
     <Compile Include="Models\DataRuleSetting.cs" />
@@ -106,6 +131,8 @@
     <Compile Include="Models\SiteFile\IncludingFileSetting.cs" />
     <Compile Include="Models\SiteFile\Set.cs" />
     <Compile Include="Models\View\View.cs" />
+    <Compile Include="PageRequestContext.cs" />
+    <Compile Include="Page_Context.cs" />
     <Compile Include="Persistence\FileSystem\LayoutProvider.cs" />
     <Compile Include="Persistence\FileSystem\PageProvider.cs" />
     <Compile Include="Persistence\FileSystem\SiteExtensions.cs" />
@@ -130,6 +157,45 @@
     <Compile Include="Persistence\IViewProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteValuesHelper.cs" />
+    <Compile Include="Services\Page\IFrontPageService.cs" />
+    <Compile Include="SiteFlow\PageFlow\PageMappedContext.cs" />
+    <Compile Include="Services\Page\PageContentRenderer.cs" />
+    <Compile Include="Services\Site\IFrontSiteService.cs" />
+    <Compile Include="SiteFlow\PageFlow\PageRequestFlow.cs" />
+    <Compile Include="SiteFlow\SiteMappedContext.cs" />
+    <Compile Include="SiteFlow\Args\BeginSiteRequestEventArgs.cs" />
+    <Compile Include="SiteFlow\PageFlow\Args\EndPageRequestEvengArgs.cs" />
+    <Compile Include="SiteFlow\Args\EndSiteRequestEventArgs.cs" />
+    <Compile Include="SiteFlow\Args\ErrorEventArgs.cs" />
+    <Compile Include="SiteFlow\PageFlow\Args\PostCreatePageContextEventArgs.cs" />
+    <Compile Include="SiteFlow\PageFlow\Args\PostExecutePageEventArgs.cs" />
+    <Compile Include="SiteFlow\Args\PostExecuteRequestHandlerEventArgs.cs" />
+    <Compile Include="SiteFlow\PageFlow\Args\PostMapPageEventArgs.cs" />
+    <Compile Include="SiteFlow\Args\PostMapRequestHandlerEventArgs.cs" />
+    <Compile Include="SiteFlow\Args\PostMapSiteEventArgs.cs" />
+    <Compile Include="SiteFlow\PageFlow\Args\PostRenderPageEventArgs.cs" />
+    <Compile Include="SiteFlow\PageFlow\Args\PreCreatePageContextEventArgs.cs" />
+    <Compile Include="SiteFlow\PageFlow\Args\PreExecutePageEventArgs.cs" />
+    <Compile Include="SiteFlow\Args\PreExecuteRequestHandlerEventArgs.cs" />
+    <Compile Include="SiteFlow\PageFlow\Args\PreMapPageEventArgs.cs" />
+    <Compile Include="SiteFlow\Args\PreMapRequestHandlerEventArgs.cs" />
+    <Compile Include="SiteFlow\Args\PreMapSiteEventArgs.cs" />
+    <Compile Include="SiteFlow\PageFlow\Args\PreRenderPageEventArgs.cs" />
+    <Compile Include="SiteFlow\Context\FrontHttpContextWrapper.cs" />
+    <Compile Include="SiteFlow\Context\FrontHttpRequestWrapper.cs" />
+    <Compile Include="SiteFlow\Context\FrontHttpResponseWrapper.cs" />
+    <Compile Include="SiteFlow\Context\FrontUrlRoutingModule.cs" />
+    <Compile Include="SiteFlow\Context\KoobooCMSResponseModule.cs" />
+    <Compile Include="SiteFlow\Context\OutputTextWriterWrapper.cs" />
+    <Compile Include="SiteFlow\PageFlow\IPageRequestFlow.cs" />
+    <Compile Include="SiteFlow\PageFlow\IPageRequestFlowEvents.cs" />
+    <Compile Include="SiteFlow\IRequestHandler.cs" />
+    <Compile Include="SiteFlow\ISiteRequestFlow.cs" />
+    <Compile Include="SiteFlow\ISiteRequestFlowEvents.cs" />
+    <Compile Include="SiteFlow\PageFlow\PageRequestFlowAdapter.cs" />
+    <Compile Include="SiteFlow\PageFlow\PageRequestHandler.cs" />
+    <Compile Include="SiteFlow\SiteRequestFlow.cs" />
+    <Compile Include="SiteFlow\SiteRequestFlowAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
