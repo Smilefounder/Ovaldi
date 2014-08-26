@@ -20,13 +20,15 @@ namespace Ovaldi.Core.SiteFlow.Context
     {
         private readonly HttpContext _context;
 
-        public FrontHttpContextWrapper(HttpContext httpContext, SiteRequestFlowAdapter siteRequestFlowAdapter)
+        public FrontHttpContextWrapper(HttpContext httpContext, SiteMappedContext siteMappedContext)
             : base(httpContext)
         {
             _context = httpContext;
 
-            this._request = new FrontHttpRequestWrapper(httpContext.Request, siteRequestFlowAdapter);
+            this._request = new FrontHttpRequestWrapper(httpContext.Request, siteMappedContext);
         }
+        public SiteMappedContext SiteMappedContext { get; private set; }
+
         FrontHttpRequestWrapper _request;
         public override HttpRequestBase Request
         {

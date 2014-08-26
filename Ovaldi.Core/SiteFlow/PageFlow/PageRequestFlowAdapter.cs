@@ -170,7 +170,7 @@ namespace Ovaldi.Core.SiteFlow
         /// <param name="httpContext">The HTTP context.</param>
         /// <param name="site">The site.</param>
         /// <param name="exception">The exception.</param>
-        public bool Error(ControllerContext controllerContext, Site site, Exception exception)
+        public bool Error(ControllerContext controllerContext, SiteMappedContext siteMappedContext, Exception exception)
         {
             Contract.Requires(controllerContext != null);
             Contract.Requires(exception != null);
@@ -178,7 +178,7 @@ namespace Ovaldi.Core.SiteFlow
             var handled = false;
             foreach (var item in _events)
             {
-                var args = new ErrorEventArgs(controllerContext, site, exception);
+                var args = new ErrorEventArgs(controllerContext, siteMappedContext, exception);
                 item.Error(this, args);
                 handled = args.ExceptionHandled;
                 if (handled == true)

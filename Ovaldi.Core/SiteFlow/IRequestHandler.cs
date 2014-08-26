@@ -21,6 +21,6 @@ namespace Ovaldi.Core.SiteFlow
     /// </summary>
     public interface IRequestHandler
     {
-        void ExecuteRequest(ControllerContext controllerContext);
+        void ExecuteRequest();
     }
 }

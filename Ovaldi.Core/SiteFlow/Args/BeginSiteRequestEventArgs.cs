@@ -17,10 +17,11 @@ namespace Ovaldi.Core.SiteFlow.Args
 {
     public class BeginSiteRequestEventArgs
     {
-        public BeginSiteRequestEventArgs(HttpContextBase httpContext)
+        public BeginSiteRequestEventArgs(HttpContext httpContext, SiteMappedContext siteMappedContext)
         {
             this.HttpContext = httpContext;
         }
-        public HttpContextBase HttpContext { get; private set; }
+        public HttpContext HttpContext { get; private set; }
+        public SiteMappedContext SiteMappedContext { get; private set; }
     }
 }

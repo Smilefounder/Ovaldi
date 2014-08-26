@@ -18,13 +18,13 @@ namespace Ovaldi.Core.SiteFlow.Args
 {
     public class EndSiteRequestEventArgs
     {
-        public EndSiteRequestEventArgs(HttpContextBase httpContext, Site site)
+        public EndSiteRequestEventArgs(HttpContextBase httpContext, SiteMappedContext siteMappedContext)
         {
             this.HttpContext = httpContext;
-            this.Site = site;
+            this.SiteMappedContext = siteMappedContext;
         }
         public HttpContextBase HttpContext { get; private set; }
-        public Site Site { get; private set; }
+        public SiteMappedContext SiteMappedContext { get; private set; }
 
     }
 }

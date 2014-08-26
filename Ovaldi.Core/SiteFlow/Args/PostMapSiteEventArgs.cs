@@ -22,12 +22,12 @@ namespace Ovaldi.Core.SiteFlow.Args
         /// Pres the map site event arguments.
         /// </summary>
         /// <param name="httpContext">The HTTP context.</param>
-        public PostMapSiteEventArgs(HttpContextBase httpContext, SiteMappedContext mappedContext)            
+        public PostMapSiteEventArgs(HttpContext httpContext, SiteMappedContext mappedContext)            
         {
             this.HttpContext = httpContext;
             this.MappedContext = mappedContext;
         }
-        public HttpContextBase HttpContext { get; private set; }
+        public HttpContext HttpContext { get; private set; }
         /// <summary>
         /// Site对象运行被替换。
         /// 用于：A/B Site test

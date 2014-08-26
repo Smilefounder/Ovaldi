@@ -27,16 +27,15 @@ namespace Ovaldi.Core.SiteFlow.Context
     {
         #region .ctor
         private HttpRequest _request;
-        private SiteRequestFlowAdapter _siteRequestFlowAdapter;
-        public FrontHttpRequestWrapper(HttpRequest httpRequest, SiteRequestFlowAdapter siteRequestFlowAdapter)
+        public FrontHttpRequestWrapper(HttpRequest httpRequest, SiteMappedContext siteMappedContext)
             : base(httpRequest)
         {
             this._request = httpRequest;
-            this._siteRequestFlowAdapter = siteRequestFlowAdapter;
+            this.SiteMappedContext = siteMappedContext;
             // 原始的AppRelativeCurrentExecutionFilePath
             appRelativeCurrentExecutionFilePath = httpRequest.AppRelativeCurrentExecutionFilePath;
 
-            ResolveSite();
+            SetRequestPath();
         }
         #endregion
 
@@ -127,7 +126,7 @@ namespace Ovaldi.Core.SiteFlow.Context
         }
 
 
-        internal void ResolveSite()
+        internal void SetRequestPath()
         {
             if (IgnoreResolveSite(appRelativeCurrentExecutionFilePath))
             {
@@ -138,7 +137,6 @@ namespace Ovaldi.Core.SiteFlow.Context
                 appRelativeCurrentExecutionFilePath = appRelativeCurrentExecutionFilePath.TrimEnd('/') + "/" + PathInfo;
             }
 
-            SiteMappedContext = this._siteRequestFlowAdapter.MapSite(new HttpContextWrapper(HttpContext.Current));
 
             if (SiteMappedContext != null)
             {
@@ -182,7 +180,7 @@ namespace Ovaldi.Core.SiteFlow.Context
                     Thread.CurrentThread.CurrentUICulture = culture;
                 }
             }
-            
+
             //decode the request url. for chinese character
             this.RequestUrl = HttpUtility.UrlDecode(this.RequestUrl);
         }

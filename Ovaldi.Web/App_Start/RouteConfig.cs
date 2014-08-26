@@ -18,6 +18,8 @@ namespace Ovaldi.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            Kooboo.Common.Web.Routing.RouteTableRegister.RegisterRoutes(routes);
         }
     }
 }

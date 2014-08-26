@@ -19,10 +19,10 @@ namespace Ovaldi.Core.SiteFlow.Args
 {
     public class ErrorEventArgs
     {
-        public ErrorEventArgs(ControllerContext controllerContext, Site site, Exception e)
+        public ErrorEventArgs(ControllerContext controllerContext, SiteMappedContext siteMappedContext, Exception e)
         {
             this.ControllerContext = controllerContext;
-            this.Site = site;
+            this.SiteMappedContext = siteMappedContext;
             this.Exception = e;
         }
         public ControllerContext ControllerContext { get; private set; }
@@ -32,7 +32,7 @@ namespace Ovaldi.Core.SiteFlow.Args
         /// <value>
         /// The site.
         /// </value>
-        public Site Site { get; private set; }
+        public SiteMappedContext SiteMappedContext { get; private set; }
 
         /// <summary>
         /// Gets the exception.

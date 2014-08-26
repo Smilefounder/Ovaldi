@@ -6,6 +6,9 @@
 // See the file LICENSE.txt for details.
 // 
 #endregion
+using Kooboo.Common.ObjectContainer.Dependency;
+using Ovaldi.Core.Services;
+using Ovaldi.Core.SiteFlow.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,31 +17,39 @@ using System.Threading.Tasks;
 
 namespace Ovaldi.Core.SiteFlow
 {
+    [Dependency(typeof(ISiteRequestFlow))]
     public class SiteRequestFlow : ISiteRequestFlow
     {
-        public System.Web.HttpContextBase RenewHttpContext(System.Web.HttpContextBase httpContext)
+        IFrontSiteService _frontSiteService;
+        PageRequestFlowAdapter _pageRequestFlowAdapter;
+        public SiteRequestFlow(IFrontSiteService frontSiteService, PageRequestFlowAdapter pageRequestFlowAdapter)
         {
-            throw new NotImplementedException();
+            _frontSiteService = frontSiteService;
+            _pageRequestFlowAdapter = pageRequestFlowAdapter;
+        }
+        public SiteMappedContext MapSite(System.Web.HttpContext httpContext)
+        {
+            return _frontSiteService.MapSite(httpContext.Request);
         }
 
-        public SiteMappedContext MapSite(System.Web.HttpContextBase httpContext)
+        public System.Web.HttpContextBase RenewHttpContext(System.Web.HttpContext httpContext, SiteMappedContext siteMappedContext)
         {
-            throw new NotImplementedException();
+            return new FrontHttpContextWrapper(httpContext, siteMappedContext);
         }
 
         public IRequestHandler MapRequestHandler(System.Web.Mvc.ControllerContext controllerContext, SiteMappedContext siteMappedContext)
         {
-            throw new NotImplementedException();
+            return new PageRequestHandler(controllerContext, _pageRequestFlowAdapter, siteMappedContext);
         }
 
-        public void ExecuteRequestHandler(System.Web.Mvc.ControllerContext controllerContext, SiteMappedContext siteMappedContext, IRequestHandler requestHandler)
+        public void ExecuteRequestHandler(System.Web.Mvc.ControllerContext controllerContext, IRequestHandler requestHandler, SiteMappedContext siteMappedContext)
         {
-            throw new NotImplementedException();
+            requestHandler.ExecuteRequest();
         }
 
-        public void EndSiteRequest(System.Web.HttpContextBase httpContext, Models.Site site)
+        public void EndSiteRequest(System.Web.HttpContextBase httpContext, SiteMappedContext siteMappedContext)
         {
-            throw new NotImplementedException();
+            //end site request
         }
     }
 }

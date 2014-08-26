@@ -38,9 +38,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Kooboo.Common, Version=5.0.5347.20385, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Kooboo.Common.5.0.5347.20385\lib\net45\Kooboo.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Kooboo.Common.Data, Version=5.0.5347.20385, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Kooboo.Common.Data.5.0.5347.20385\lib\net45\Kooboo.Common.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Kooboo.Common.Web, Version=5.0.5347.20385, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Kooboo.Common.Web.5.0.5347.20385\lib\net45\Kooboo.Common.Web.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
@@ -103,6 +111,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="routes.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -114,6 +123,12 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ovaldi.Core\Ovaldi.Core.csproj">
+      <Project>{124663ee-1f97-49e8-ac44-6afedb09ed62}</Project>
+      <Name>Ovaldi.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

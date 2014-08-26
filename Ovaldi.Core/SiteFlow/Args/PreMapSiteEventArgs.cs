@@ -17,10 +17,10 @@ namespace Ovaldi.Core.SiteFlow.Args
 {
     public class PreMapSiteEventArgs
     {
-        public PreMapSiteEventArgs(HttpContextBase httpContext)
+        public PreMapSiteEventArgs(HttpContext httpContext)
         {
             this.HttpContext = httpContext;
         }
-        public HttpContextBase HttpContext { get; private set; }
+        public HttpContext HttpContext { get; private set; }
     }
 }

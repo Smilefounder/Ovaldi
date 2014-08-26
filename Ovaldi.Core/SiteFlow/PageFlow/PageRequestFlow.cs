@@ -15,9 +15,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Kooboo.Common.ObjectContainer.Dependency;
 
 namespace Ovaldi.Core.SiteFlow.PageFlow
 {
+    [Dependency(typeof(IPageRequestFlow))]
     public class PageRequestFlow : IPageRequestFlow
     {
         public PageMappedContext MapPage(System.Web.Mvc.ControllerContext controllerContext, SiteMappedContext siteMappedContext)

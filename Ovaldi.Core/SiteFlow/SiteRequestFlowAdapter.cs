@@ -45,21 +45,6 @@ namespace Ovaldi.Core.SiteFlow
 
         #region Methods
 
-        /// <summary>
-        /// 根据需要创建一个自定义的HttpContext
-        /// </summary>
-        /// <param name="httpContext">The HTTP context.</param>
-        /// <returns></returns>
-        public HttpContextBase RenewHttpContext(HttpContextBase httpContext)
-        {
-            Contract.Requires(httpContext != null);
-            foreach (var item in _events)
-            {
-                item.BeginSiteRequest(this, new BeginSiteRequestEventArgs(httpContext));
-            }
-            var newHttpContext = _siteRequestFlow.RenewHttpContext(httpContext);
-            return newHttpContext;
-        }
 
         /// <summary>
         /// 根据当前的请求地址，查找对应的站点。
@@ -68,7 +53,7 @@ namespace Ovaldi.Core.SiteFlow
         /// </summary>
         /// <param name="httpContext">The HTTP context.</param>
         /// <returns></returns>
-        public SiteMappedContext MapSite(HttpContextBase httpContext)
+        public SiteMappedContext MapSite(HttpContext httpContext)
         {
             Contract.Requires(httpContext != null);
             foreach (var item in _events)
@@ -87,6 +72,22 @@ namespace Ovaldi.Core.SiteFlow
             }
 
             return mappedContext;
+        }
+
+        /// <summary>
+        /// 根据需要创建一个自定义的HttpContext
+        /// </summary>
+        /// <param name="httpContext">The HTTP context.</param>
+        /// <returns></returns>
+        public HttpContextBase RenewHttpContext(HttpContext httpContext, SiteMappedContext siteMappedContext)
+        {
+            Contract.Requires(httpContext != null);
+            foreach (var item in _events)
+            {
+                item.BeginSiteRequest(this, new BeginSiteRequestEventArgs(httpContext, siteMappedContext));
+            }
+            var newHttpContext = _siteRequestFlow.RenewHttpContext(httpContext, siteMappedContext);
+            return newHttpContext;
         }
 
         /// <summary>
@@ -129,7 +130,7 @@ namespace Ovaldi.Core.SiteFlow
                 item.PreExecuteRequestHandler(this, new PreExecuteRequestHandlerEventArgs(controllerContext, siteMappedContext, requestHandler));
             }
 
-            _siteRequestFlow.ExecuteRequestHandler(controllerContext, siteMappedContext, requestHandler);
+            _siteRequestFlow.ExecuteRequestHandler(controllerContext, requestHandler, siteMappedContext);
 
             foreach (var item in _events)
             {
@@ -142,17 +143,17 @@ namespace Ovaldi.Core.SiteFlow
         /// 站点请求结束
         /// </summary>
         /// <param name="httpContext"></param>
-        public void EndSiteRequest(HttpContextBase httpContext, Site site)
+        public void EndSiteRequest(HttpContextBase httpContext, SiteMappedContext siteMappedContext)
         {
             Contract.Requires(httpContext != null);
-            Contract.Requires(site != null);
+            Contract.Requires(siteMappedContext != null);
 
             foreach (var item in _events)
             {
-                item.EndSiteRequest(this, new EndSiteRequestEventArgs(httpContext, site));
+                item.EndSiteRequest(this, new EndSiteRequestEventArgs(httpContext, siteMappedContext));
             }
 
-            _siteRequestFlow.EndSiteRequest(httpContext, site);
+            _siteRequestFlow.EndSiteRequest(httpContext, siteMappedContext);
         }
 
         /// <summary>
@@ -161,14 +162,14 @@ namespace Ovaldi.Core.SiteFlow
         /// <param name="httpContext">The HTTP context.</param>
         /// <param name="site">The site.</param>
         /// <param name="exception">The exception.</param>
-        public bool Error(ControllerContext controllerContext, Site site, Exception exception)
+        public bool Error(ControllerContext controllerContext, SiteMappedContext siteMappedContext, Exception exception)
         {
             Contract.Requires(controllerContext != null);
             Contract.Requires(exception != null);
             var handled = false;
             foreach (var item in _events)
             {
-                var args = new ErrorEventArgs(controllerContext, site, exception);
+                var args = new ErrorEventArgs(controllerContext, siteMappedContext, exception);
                 item.Error(this, args);
                 if (args.ExceptionHandled == true)
                 {

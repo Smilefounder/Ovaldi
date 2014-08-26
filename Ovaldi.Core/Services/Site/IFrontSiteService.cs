@@ -19,6 +19,6 @@ namespace Ovaldi.Core.Services
 {
     public interface IFrontSiteService
     {
-        SiteMappedContext MapSite(HttpRequestBase httpRequest);
+        SiteMappedContext MapSite(HttpRequest httpRequest);
     }
 }

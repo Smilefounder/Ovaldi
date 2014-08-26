@@ -22,20 +22,20 @@ namespace Ovaldi.Core.SiteFlow
     public interface ISiteRequestFlow
     {
         /// <summary>
-        /// 根据需要创建一个自定义的HttpContext
-        /// </summary>
-        /// <param name="httpContext">The HTTP context.</param>
-        /// <returns></returns>
-        HttpContextBase RenewHttpContext(HttpContextBase httpContext);
-
-        /// <summary>
         /// 根据当前的请求地址，查找对应的站点。
         /// 1. 预览模式   dev~ + 站点名称
         /// 2. 正式访问   域名 + site path
         /// </summary>
         /// <param name="httpContext">The HTTP context.</param>
         /// <returns></returns>
-        SiteMappedContext MapSite(HttpContextBase httpContext);
+        SiteMappedContext MapSite(HttpContext httpContext);
+
+        /// <summary>
+        /// 根据需要创建一个自定义的HttpContext
+        /// </summary>
+        /// <param name="httpContext">The HTTP context.</param>
+        /// <returns></returns>
+        HttpContextBase RenewHttpContext(HttpContext httpContext, SiteMappedContext siteMappContext);
 
         /// <summary>
         /// 查找处理请求的Handler
@@ -50,12 +50,12 @@ namespace Ovaldi.Core.SiteFlow
         /// </summary>
         /// <param name="controllerContext">The controller context.</param>
         /// <param name="requestHandler">The request handler.</param>
-        void ExecuteRequestHandler(ControllerContext controllerContext, SiteMappedContext siteMappedContext, IRequestHandler requestHandler);
+        void ExecuteRequestHandler(ControllerContext controllerContext, IRequestHandler requestHandler, SiteMappedContext siteMappedContext);
 
         /// <summary>
         /// 站点请求结束
         /// </summary>
         /// <param name="httpContext"></param>
-        void EndSiteRequest(HttpContextBase httpContext, Site site);
+        void EndSiteRequest(HttpContextBase httpContext, SiteMappedContext siteMappedContext);
     }
 }
