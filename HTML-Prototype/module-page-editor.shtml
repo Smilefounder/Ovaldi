@@ -60,6 +60,25 @@
 							</div>
 						</div>
 						<div id="J_Tab_2">
+							<div class="settings">
+								<div class="kb-code-viewer">
+									<h6 class="title">Code:</h6>
+									<div class="container">
+										<ul>
+											<li>
+												<span class="code active">&lt;h6 class="title"&gt;</span>
+												<ul>
+													<li><span class="code">&lt;a href="#"&gt;Lorem ipsum dolor sit amet&lt;/a&gt;</span></li>
+												</ul>
+												<span class="code">&lt;/h6&gt;</span>
+											</li>
+										</ul>
+									</div>
+									<div class="bottom">
+										<a href="#">div.item</a>&gt;<a class="active" href="#">h6.title</a>&gt;<a href="#">a</a>
+									</div>
+								</div>
+							</div>
 							<div class="block thumbnail active">
 								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Layout</h6>
 								<div class="container">
@@ -103,9 +122,99 @@
 								</div>
 							</div>
 							<div class="block list active">
+								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Background</h6>
+								<div class="container">
+									<table>
+										<tr>
+											<th><label>Image</label></th>
+											<td>
+												<div class="file-thumbnail">
+													<img src="images/demo-1.jpg">
+													<a href="#" class="action"><img class="icon minus-small" src="images/invis.gif"></a>
+												</div>
+												<a class="button" href="#">Change image</a>
+											</td>
+										</tr>
+										<tr>
+											<th><label>Background repeat</label></th>
+											<td>
+												<select>
+													<option>No repeat</option>
+													<option>Repeat X</option>
+													<option>Repeat Y</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th><label>Background position X</label></th>
+											<td>
+												<input type="number">
+											</td>
+										</tr>
+										<tr>
+											<th><label>Background position Y</label></th>
+											<td>
+												<input type="number">
+											</td>
+										</tr>
+										<tr>
+											<th><label>Color</label></th>
+											<td>
+												Color picker
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="block list active">
 								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Border</h6>
 								<div class="container">
-									
+									<table>
+										<tr>
+											<th><label>Width</label></th>
+											<td><input type="number"></td>
+										</tr>
+										<tr>
+											<th><label>Style</label></th>
+											<td>
+												<select>
+													<option>Dashed</option>
+													<option>Dotted</option>
+													<option>Double</option>
+													<option>Grovve</option>
+													<option>Ridge</option>
+													<option>Solid</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th><label>Color</label></th>
+											<td>Color picker</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="block list active">
+								<h6 class="title"><img src="images/invis.gif" class="sprite" alt="Toggle">Corner sizes</h6>
+								<div class="container">
+									<div class="kb-corner-editor">
+										<div class="kb-corner-editor-wrap">
+											<input type="number" class="input-left-top" value="0">
+											<input type="number" class="input-right-top" value="0">
+											<input type="number" class="input-right-bottom" value="0">
+											<input type="number" class="input-left-bottom" value="0">
+											<div class="box-model">
+												<span class="left-top"></span>
+												<span class="right-top"></span>
+												<span class="right-bottom"></span>
+												<span class="left-bottom"></span>
+											</div>
+										</div>
+										<p>
+											<input type="checkbox" id="KbLockCorner">
+											<label for="KbLockCorner" class="inline">Lock corners together</label>
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>

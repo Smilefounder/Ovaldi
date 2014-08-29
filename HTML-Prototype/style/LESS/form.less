@@ -215,6 +215,10 @@ div.radio {
 		}
 	}
 
+	.file-thumbnail {
+		display: block;
+	}
+
 	&.images {
 		margin-bottom: 10px;
 	}
@@ -371,6 +375,7 @@ div.radio {
 }
 
 .file-thumbnail {
+	display: inline-block;
 	height: 100px;
 	position: relative;
 
@@ -732,7 +737,11 @@ body .select2-drop-active {
 		border-top: 1px solid #EEE;
 		font-weight: 600;
 		padding: 10px;
-		width: auto;
+		width: 45%;
+
+		&:first-child {
+			width: auto;
+		}
 	}
 
 	td {
@@ -1019,19 +1028,6 @@ body .select2-drop-active {
 .key-value {
 	th {
 		padding: 0 5px 5px 0 !important;
-
-		&.key {
-			width: 35%;
-		}
-
-		&.value {
-			width: 65%;
-		}
-
-		&.action {
-			padding: 0;
-			width: 16px;
-		}
 	}
 
 	td {
@@ -1041,6 +1037,19 @@ body .select2-drop-active {
 		&.action {
 			padding-right: 0 !important;
 		}
+	}
+
+	.key {
+		width: 35%;
+	}
+
+	.value {
+		width: 65%;
+	}
+
+	.action {
+		padding: 0;
+		width: 16px;
 	}
 
 	input,
