@@ -9,6 +9,8 @@
 		background: #FFF;
 		border: 1px solid #CCC;
 		border-bottom: none;
+		height: 200px;
+		overflow: auto;
 		padding: 10px;
 	}
 
@@ -67,5 +69,90 @@
 
 	.buttons {
 		margin-top: 10px;
+	}
+}
+/* @module: Corner editor */
+.kb-corner-editor {
+	padding: 10px;
+
+	.kb-corner-editor-wrap {
+		height: 50px;
+		margin-bottom: 10px;
+		position: relative;
+	}
+
+	.input-left-top,
+	.input-left-bottom,
+	.input-right-top,
+	.input-right-bottom {
+		position: absolute;
+		text-align: center;
+		width: 50px;
+	}
+
+	.input-left-top {
+		left: 0;
+		top: 0;
+	}
+
+	.input-left-bottom {
+		bottom: 0;
+		left: 0;
+	}
+
+	.input-right-top {
+		right: 0;
+		top: 0;
+	}
+
+	.input-right-bottom {
+		bottom: 0;
+		right: 0;
+	}
+
+	.box-model {
+		bottom: 0;
+		left: 60px;
+		margin: 0 auto;
+		position: absolute;
+		right: 60px;
+		top: 0;
+
+		.left-top,
+		.left-bottom,
+		.right-top,
+		.right-bottom {
+			height: 15px;
+			position: absolute;
+			width: 15px;
+		}
+
+		.left-top {
+			border-left: 3px solid #999;
+			border-top: 3px solid #999;
+			left: 0;
+			top: 0;
+		}
+
+		.left-bottom {
+			border-bottom: 3px solid #999;
+			border-left: 3px solid #999;
+			bottom: 0;
+			left: 0;
+		}
+
+		.right-top {
+			border-right: 3px solid #999;
+			border-top: 3px solid #999;
+			right: 0;
+			top: 0;
+		}
+
+		.right-bottom {
+			border-bottom: 3px solid #999;
+			border-right: 3px solid #999;
+			bottom: 0;
+			right: 0;
+		}
 	}
 }
