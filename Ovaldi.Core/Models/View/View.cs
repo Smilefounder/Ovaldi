@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Ovaldi.Core.Models
 {
-    public partial class View : ISiteObject, IInheritable<View>, IIdentifiable
+    public partial class View : ISiteObject, IInheritable, IIdentifiable
     {
         public Site Site
         {

@@ -1,0 +1,71 @@
+/* @module: Code viewer */
+.kb-code-viewer {
+	.title {
+		font-size: 12px;
+		font-weight: 600;
+	}
+
+	.container {
+		background: #FFF;
+		border: 1px solid #CCC;
+		border-bottom: none;
+		padding: 10px;
+	}
+
+	li ul {
+		margin-left: 30px;
+	}
+
+	.code {
+		cursor: pointer;
+
+		&.active,
+		&.hover {
+			background: #39F;
+			color: #FFF;
+			.rounded(3px);
+		}
+	}
+
+	.bottom {
+		background: #F5F5F5;
+		border: 1px solid #CCC;
+
+		a {
+			display: inline-block;
+			line-height: 20px;
+			margin: 0 5px;
+			padding: 0 5px;
+
+			&:hover {
+				background: #DDD;
+			}
+
+			&.active,
+			&.hover {
+				background: #39F;
+				color: #FFF;
+			}
+		}
+	}
+}
+/* @module: Code editor */
+.kb-code-editor {
+	.container {
+		background: #FFF;
+		border: 1px solid #CCC;
+		padding: 10px;
+
+		[contenteditable] {
+			outline: 1px dotted #333;
+		}
+
+		* {
+			font-size: 12px;
+		}
+	}
+
+	.buttons {
+		margin-top: 10px;
+	}
+}

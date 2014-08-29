@@ -138,7 +138,7 @@ namespace Ovaldi.Core.SiteFlow
                 item.PreRenderPage(this, new PreRenderPageEventArgs(page_context, actionResult));
             }
 
-            _pageRequestFlow.ExecutePage(page_context);
+            _pageRequestFlow.RenderPage(page_context,actionResult);
 
             foreach (var item in _events)
             {

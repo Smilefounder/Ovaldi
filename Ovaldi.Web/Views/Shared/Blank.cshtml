@@ -1,0 +1,34 @@
+﻿@using Kooboo.Common.Web.WebResourceLoader;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="robots" content="noindex,nofllow" />
+    <link rel="shortcut icon" href='~/Images/favicon.ico' />
+    <title>
+        @ViewBag.Title
+    </title>
+    @Html.ExternalResources("siteStyles")
+    @Html.ExternalResources("siteScripts")
+
+    @RenderSection("ScriptCSS", false)
+</head>
+<body>
+    <div id="body-container" class="no-sidebar">
+        @Html.Partial("_Loading_Info")
+        <header id="header">
+            @Html.Partial("_Logo")
+            @RenderSection("Panel", false)
+            @Html.Partial("_QuickLinks")
+        </header>
+        <div id="main-container" class="clearfix">
+            <div class="wrap">
+                @RenderBody()
+            </div>
+        </div>
+        <footer id="footer">
+            @Html.Partial("_Footer")
+        </footer>
+    </div>
+    @Html.Partial("_Script")
+</body>
+</html>

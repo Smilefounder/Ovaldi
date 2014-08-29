@@ -24,6 +24,7 @@ namespace Ovaldi.Core.SiteFlow.Context
             : base(httpContext)
         {
             _context = httpContext;
+            this.SiteMappedContext = siteMappedContext;
 
             this._request = new FrontHttpRequestWrapper(httpContext.Request, siteMappedContext);
         }

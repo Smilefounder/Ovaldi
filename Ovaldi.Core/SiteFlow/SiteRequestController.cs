@@ -18,17 +18,23 @@ namespace Ovaldi.Core.SiteFlow
 {
     public class SiteRequestController : Controller
     {
+        #region .ctor
         SiteRequestFlowAdapter _siteRequestFlowAdapter;
         SiteMappedContext _siteMappedContext;
         public SiteRequestController(SiteRequestFlowAdapter siteRequestFlowAdapter)
         {
             _siteRequestFlowAdapter = siteRequestFlowAdapter;
-        }
+        } 
+        #endregion
+
+        #region OnActionExecuting
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
             _siteMappedContext = ((FrontHttpContextWrapper)this.ControllerContext.HttpContext).SiteMappedContext;
-        }
+        } 
+        #endregion
+
         public ActionResult Index()
         {
             var requestHandler = _siteRequestFlowAdapter.MapRequestHandler(this.ControllerContext, _siteMappedContext);
@@ -37,17 +43,22 @@ namespace Ovaldi.Core.SiteFlow
 
             return null;
         }
+        #region OnException
         protected override void OnException(ExceptionContext filterContext)
         {
             base.OnException(filterContext);
 
             _siteRequestFlowAdapter.Error(this.ControllerContext, _siteMappedContext, filterContext.Exception);
-        }
+        } 
+        #endregion
+
+        #region OnResultExecuted
         protected override void OnResultExecuted(ResultExecutedContext filterContext)
         {
             base.OnResultExecuted(filterContext);
 
             _siteRequestFlowAdapter.EndSiteRequest(this.ControllerContext.HttpContext, _siteMappedContext);
-        }
+        } 
+        #endregion
     }
 }

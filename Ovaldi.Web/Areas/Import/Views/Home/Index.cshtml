@@ -1,0 +1,30 @@
+﻿@model Ovaldi.Web.Areas.Import.Service.ImportOptions
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/Blank.cshtml";
+}
+
+<h1 class="title">Site import</h1>
+<div class="wizard">
+    <div class="container">
+        <span class="active">Select a site<b></b></span>
+        <span>Results</span>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    <div class="block common-form">
+
+        <table>
+            @Html.ValidationSummary(true)
+            @Html.EditorFor(it => it.SiteName, new { HtmlAttributes = new { @class = "medium" } })
+            @Html.EditorFor(it => it.Url, new { HtmlAttributes = new { @class = "medium" } })
+            @Html.EditorFor(it => it.Deep, new { HtmlAttributes = new { @class = "mini" } })
+            @Html.EditorFor(it => it.Pages, new { HtmlAttributes = new { @class = "mini" } })
+        </table>
+
+    </div>
+    <div class="wizard-buttons">
+        <button type="submit">Import &raquo;</button>
+    </div>
+}

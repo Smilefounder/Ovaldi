@@ -1,0 +1,82 @@
+@import "LESS/less-element.less";
+@import "LESS/grid.less";
+@import "LESS/base.less";
+
+.block.framework {
+	margin-bottom: 20px;
+
+	> .box {
+		min-height: 200px;
+		position: relative;
+	}
+	/* Notification
+	---------------------------------------------------------------*/
+	.block.notification {
+		margin-bottom: 20px;
+		padding: 10px 30px 10px 10px !important;
+		position: relative;
+		right: 0;
+		top: 0;
+		width: 50%;
+		z-index: 1;
+	}
+	/* Message
+	---------------------------------------------------------------*/
+	.block.message {
+		margin-bottom: 20px;
+	}
+	/* Loading
+	---------------------------------------------------------------*/
+	.block.loading {
+		display: block;
+
+		.layer {
+			z-index: 1;
+		}
+
+		.wrap {
+			z-index: 2;
+		}
+	}
+	/* Buttons
+	---------------------------------------------------------------*/
+	.box.buttons {
+		.button,
+		button,
+		input[type="submit"],
+		input[type="reset"],
+		input[type="button"] {
+			float: left;
+			margin: 0 5px 5px 0;
+		}
+	}
+	/* Icon list
+	---------------------------------------------------------------*/
+	.icon-list {
+		background: lighten(@light-blue,20%);
+		color: #FFF;
+		padding: 10px;
+		.clearfix();
+
+		li {
+			float: left;
+			margin-bottom: 10px;
+			min-height: 40px;
+			width: 20%;
+
+			.icon-wrap {
+				float: left;
+				width: 40px;
+			}
+		}
+
+		.icon {
+			float: left;
+			margin-right: 5px;
+		}
+	}
+
+	.box.bg-light-blue .icon-list {
+		color: #FFF;
+	}
+}

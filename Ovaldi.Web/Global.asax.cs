@@ -7,12 +7,14 @@ using System.Web.Routing;
 
 namespace Ovaldi.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : Kooboo.Common.Web.HttpApplicationEx
     {
-        protected void Application_Start()
+        public override void Application_Start(object sender, EventArgs e)
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            base.Application_Start(sender, e);
         }
     }
 }

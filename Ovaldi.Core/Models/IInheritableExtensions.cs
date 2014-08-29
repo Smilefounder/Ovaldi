@@ -16,19 +16,22 @@ namespace Ovaldi.Core.Models
 {
     public static class IInheritableExtensions
     {
-        public static bool HasParentVersion<T>(this IInheritable<T> obj)
+        public static bool HasParentVersion<T>(this T obj)
+            where T : IInheritable
         {
-            throw new NotImplementedException();
+            return false;
         }
 
-        public static bool IsLocalized<T>(this IInheritable<T> obj, Site site)
+        public static bool IsLocalized<T>(this T obj, Site site)
+            where T : IInheritable
         {
             return true;
         }
 
-        public static T LastVersion<T>(this IInheritable<T> obj, Site site)
+        public static T LastVersion<T>(this T obj, Site site)
+            where T : IInheritable
         {
-            throw new NotImplementedException();
+            return (T)obj;
         }
     }
 }

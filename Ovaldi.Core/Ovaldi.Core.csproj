@@ -37,8 +37,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Kooboo.Common.Data.5.0.5347.20385\lib\net45\Kooboo.Common.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Kooboo.Common.Web">
-      <HintPath>..\packages\Kooboo.Common.Web.5.0.5343.26016\lib\net45\Kooboo.Common.Web.dll</HintPath>
+    <Reference Include="Kooboo.Common.Web, Version=5.0.5352.18190, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Kooboo.Common.Web.5.0.5352.18190\lib\net45\Kooboo.Common.Web.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>

@@ -17,7 +17,7 @@ using System.Web.Routing;
 
 namespace Ovaldi.Core.Models
 {
-    public partial class Page : ISiteObject, IInheritable<Page>, IIdentifiable
+    public partial class Page : ISiteObject, IInheritable, IIdentifiable
     {
         #region .ctor
         public Page() { }
@@ -51,18 +51,18 @@ namespace Ovaldi.Core.Models
             {
                 this.AbsoluteName = value;
             }
-        }       
+        }
     }
     public partial class Page
     {
 
         public string Name { get; set; }
         public string AbsoluteName { get; set; }
-        
+
         public bool IsDefault { get; set; }
 
         private bool enableTheming = true;
-        
+
         public bool EnableTheming
         {
             get
@@ -75,7 +75,7 @@ namespace Ovaldi.Core.Models
             }
         }
         private bool enableScript = true;
-        
+
         public bool EnableScript
         {
             get
@@ -87,10 +87,10 @@ namespace Ovaldi.Core.Models
                 enableScript = value;
             }
         }
-       
+
         public HtmlMeta HtmlMeta { get; set; }
         private PageRoute route = new PageRoute();
-       
+
         public PageRoute Route
         {
             get
@@ -107,7 +107,7 @@ namespace Ovaldi.Core.Models
             }
         }
         Navigation navigation = new Navigation();
-     
+
         public Navigation Navigation
         {
             get
@@ -117,7 +117,7 @@ namespace Ovaldi.Core.Models
             set { this.navigation = value; }
         }
         PagePermission permission = new PagePermission();
-        
+
         public PagePermission Permission
         {
             get { return this.permission; }
@@ -128,7 +128,7 @@ namespace Ovaldi.Core.Models
         /// wrap for Layout
         /// </summary>
         /// <value>The name of the layout template.</value>
-     
+
         public string Layout
         {
             get;
@@ -146,7 +146,7 @@ namespace Ovaldi.Core.Models
         //}
 
         private List<DataRuleSetting> dataRules = new List<DataRuleSetting>();
-        
+
         public List<DataRuleSetting> DataRules
         {
             get { return this.dataRules; }
@@ -157,7 +157,7 @@ namespace Ovaldi.Core.Models
         }
 
         private List<string> plugins = new List<string>();
-        
+
         public List<string> Plugins
         {
             get
@@ -169,10 +169,10 @@ namespace Ovaldi.Core.Models
                 plugins = value;
             }
         }
-        
+
         public PageType PageType { get; set; }
 
-        
+
         public CacheSettings OutputCache { get; set; }
 
         public bool EnabledCache
@@ -183,7 +183,7 @@ namespace Ovaldi.Core.Models
             }
         }
         private Dictionary<string, string> customFields;
-        
+
         public Dictionary<string, string> CustomFields
         {
             get
@@ -204,7 +204,7 @@ namespace Ovaldi.Core.Models
         }
 
         private bool? published;
-        
+
         public bool? Published
         {
             get
@@ -221,19 +221,19 @@ namespace Ovaldi.Core.Models
             }
         }
 
-        
+
         public string UserName { get; set; }
 
-        
+
         public string ContentTitle { get; set; }
 
-        
+
         public bool Searchable { get; set; }
 
-        
+
         public bool RequireHttps { get; set; }
 
-        
+
         public bool CacheToDisk { get; set; }
 
         /// <summary>
@@ -246,5 +246,10 @@ namespace Ovaldi.Core.Models
         /// 默认从站点
         /// </summary>
         public IncludingFileSetting[] Styles { get; set; }
+
+        /// <summary>
+        /// 页面自己的Content
+        /// </summary>
+        public string Html { get; set; }
     }
 }

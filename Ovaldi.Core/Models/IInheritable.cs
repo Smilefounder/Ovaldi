@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ovaldi.Core.Models
 {
-    public interface IInheritable<T>
+    public interface IInheritable
     {        
     }
 }

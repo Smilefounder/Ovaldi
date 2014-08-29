@@ -43,7 +43,7 @@ namespace Ovaldi.Core.Models
             }
         }
     }
-    public partial class Layout : ISiteObject, IInheritable<Layout>
+    public partial class Layout : ISiteObject, IInheritable
     {
         public string Name { get; set; }
         public string TemplateType { get; set; }
