@@ -150,18 +150,17 @@ namespace Ovaldi.Core.FrontAPI
         {
             RouteValueDictionary routeValues = RouteValuesHelper.GetRouteValues(values);
 
-            page = page;
-
             if (page == null)
             {
                 return new HtmlString("");
             }
-            if (page.Route != null && !string.IsNullOrEmpty(page.Route.ExternalUrl))
-            {
-                return new HtmlString(page.Route.ExternalUrl);
-            }
+            var route = page.Route == null ? null : page.Route.FirstOrDefault();
+            //if (route != null && !string.IsNullOrEmpty(route.ExternalUrl))
+            //{
+            //    return new HtmlString(route.ExternalUrl);
+            //}
 
-            var pageRoute = page.Route.ToMvcRoute();
+            var pageRoute = route.ToMvcRoute();
 
             routeValues = RouteValuesHelper.MergeRouteValues(pageRoute.Defaults, routeValues);
 

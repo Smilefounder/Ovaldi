@@ -57,26 +57,26 @@ namespace Ovaldi.Core.FrontAPI
                 return GetPageContents(frontHtmlHelper, id).Length == 0;
             }
         }
-        private static PageContent[] GetPageContents(IFrontHtmlHelper frontHtmlHelper, string id)
+        private static IPageContent[] GetPageContents(IFrontHtmlHelper frontHtmlHelper, string id)
         {
-            var pageContents = (frontHtmlHelper.Page_Context.PageRequestContext.Page.PageContents ?? new PageContent[0]).Where(it => it.PlaceHolderId.Equals(id, StringComparison.InvariantCultureIgnoreCase)).ToArray();
+            var pageContents = (frontHtmlHelper.Page_Context.PageRequestContext.Page.PageContents ?? new IPageContent[0]).Where(it => it.PlaceHolderId.Equals(id, StringComparison.InvariantCultureIgnoreCase)).ToArray();
             return pageContents;
         }
         #endregion
 
         #region Private methods
-        private static PageContent[] GetContents(Page page, string id)
+        private static IPageContent[] GetContents(Page page, string id)
         {
-            var positions = (page.PageContents ?? new PageContent[0])
+            var positions = (page.PageContents ?? new IPageContent[0])
                 .Where(it => it.PlaceHolderId.Equals(id, StringComparison.InvariantCultureIgnoreCase))
                 .ToArray();
             return positions;
         }
-        private static IEnumerable<IHtmlString> RenderPositionContents(IFrontHtmlHelper htmlHelper, IEnumerable<PageContent> pageContents)
+        private static IEnumerable<IHtmlString> RenderPositionContents(IFrontHtmlHelper htmlHelper, IEnumerable<IPageContent> pageContents)
         {
             return pageContents.Select(it => RenderPageContent(htmlHelper, it)).Where(it => it != null);
         }
-        private static IHtmlString RenderPageContent(IFrontHtmlHelper htmlHelper, PageContent pageContent)
+        private static IHtmlString RenderPageContent(IFrontHtmlHelper htmlHelper, IPageContent pageContent)
         {
             var renderer = ResolvePageContentRenderer(pageContent);
 
@@ -86,11 +86,11 @@ namespace Ovaldi.Core.FrontAPI
             }
             return null;
         }
-        private static PageContentRenderer<PageContent> ResolvePageContentRenderer(PageContent pageContent)
+        private static PageContentRenderer<IPageContent> ResolvePageContentRenderer(IPageContent pageContent)
         {
             Type genericType = typeof(PageContentRenderer<>);
             Type genericTypeParameter = pageContent.GetType();
-            var pageContentRender = (PageContentRenderer<PageContent>)Kooboo.Common.ObjectContainer.EngineContext.Current.ResolveGeneric(genericType, genericTypeParameter);
+            var pageContentRender = (PageContentRenderer<IPageContent>)Kooboo.Common.ObjectContainer.EngineContext.Current.ResolveGeneric(genericType, genericTypeParameter);
 
             return pageContentRender;
         }

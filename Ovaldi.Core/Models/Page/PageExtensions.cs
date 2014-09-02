@@ -30,10 +30,10 @@ namespace Ovaldi.Core.Models
         {
             var segment = page.Name;
             string virtualPath = "";
-            var route = page.Route;
+            var route = page.Route == null ? null : page.Route.FirstOrDefault();
             var parent = page.GetParent();
             var site = page.Site;
-            if (page.Route != null && !string.IsNullOrEmpty(route.Identifier))
+            if (route != null && !string.IsNullOrEmpty(route.Identifier))
             {
                 if ((route.Identifier.StartsWith("#") || route.Identifier == "*") && parent != null)
                 {
@@ -68,10 +68,10 @@ namespace Ovaldi.Core.Models
 
         public static string GetLinkText(this Page page)
         {
-            if (page.Navigation != null && !string.IsNullOrEmpty(page.Navigation.DisplayText))
-            {
-                return page.Navigation.DisplayText;
-            }
+            //if (page.Navigation != null && !string.IsNullOrEmpty(page.Navigation.DisplayText))
+            //{
+            //    return page.Navigation.DisplayText;
+            //}
             return page.Name;
         }
 

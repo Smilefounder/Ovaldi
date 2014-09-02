@@ -295,10 +295,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Import\Controllers\HomeController.cs" />
     <Compile Include="Areas\Import\ImportAreaRegistration.cs" />
+    <Compile Include="Areas\Import\Service\AnalyzeContext.cs" />
     <Compile Include="Areas\Import\Service\HttpData.cs" />
     <Compile Include="Areas\Import\Service\HttpPage.cs" />
     <Compile Include="Areas\Import\Service\Image.cs" />
     <Compile Include="Areas\Import\Service\ImportOptions.cs" />
+    <Compile Include="Areas\Import\Service\IPageAnalyzer.cs" />
+    <Compile Include="Areas\Import\Service\PageDownloader.cs" />
     <Compile Include="Areas\Import\Service\Script.cs" />
     <Compile Include="Areas\Import\Service\SiteDownloader.cs" />
     <Compile Include="Areas\Import\Service\HttpRequest.cs" />
@@ -405,6 +408,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Import\NewFolder1\" />
     <Folder Include="Areas\Import\Views\Shared\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />

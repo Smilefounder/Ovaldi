@@ -53,7 +53,7 @@ namespace Ovaldi.Core.Models
         public string TemplateExtension { get; set; }
         public string Body { get; set; }
         public string[] Plugins { get; set; }
-        public DataRuleSetting[] DataRules { get; set; }
+        //public DataRuleSetting[] DataRules { get; set; }
         //public Parameter[] Parameters { get; set; }
     }
 }

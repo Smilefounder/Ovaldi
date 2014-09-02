@@ -38,9 +38,15 @@
     <Reference Include="Kooboo.Common">
       <HintPath>..\packages\Kooboo.Common.5.0.5343.26015\lib\net45\Kooboo.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Kooboo.Common.Data">
+      <HintPath>..\packages\Kooboo.Common.Data.5.0.5352.18190\lib\net45\Kooboo.Common.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1408.0717\lib\net40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
@@ -88,6 +94,7 @@
     <Compile Include="Persistence\FileSystem\SiteFileProviderTests.cs" />
     <Compile Include="Persistence\FileSystem\SiteProviderTests.cs" />
     <Compile Include="Persistence\FileSystem\ViewProviderTests.cs" />
+    <Compile Include="SiteImport\PageLinkAnalyzerTests.cs" />
     <Compile Include="XmlSerializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

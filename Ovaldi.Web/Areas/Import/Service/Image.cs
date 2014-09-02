@@ -12,5 +12,8 @@ namespace Ovaldi.Web.Areas.Import.Service
             this.Url = url;
         }
         public string Url { get; private set; }
+        public void Download()
+        { 
+        }
     }
 }

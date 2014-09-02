@@ -164,7 +164,16 @@ namespace Ovaldi.Core.Persistence.FileSystem.Storage
             using (var memoryStream = new MemoryStream())
             {
                 XmlSerialization.Serialize(item, memoryStream, GetDataContractSerializerSettings());
-                isolatedStorage.UpdateFile(filePath, memoryStream);
+
+                if (isolatedStorage.FileExists(filePath))
+                {
+                    isolatedStorage.UpdateFile(filePath, memoryStream);
+                }
+                else
+                {
+                    isolatedStorage.CreateFile(filePath, memoryStream);
+                }
+
             }
         }
         #endregion

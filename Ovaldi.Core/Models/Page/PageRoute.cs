@@ -21,7 +21,7 @@ namespace Ovaldi.Core.Models
         /// <summary>
         /// Gets or sets the link target.
         /// </summary>
-        public LinkTarget? LinkTarget { get; set; }
+        //public LinkTarget? LinkTarget { get; set; }
 
         private string identifier;
         /// <summary>
@@ -64,7 +64,7 @@ namespace Ovaldi.Core.Models
         /// <summary>
         /// 用来给页面设置一个外部链接，如果这个值不为空，那页面在生成URL的时候会直接返回这个链接。
         /// </summary>
-        public string ExternalUrl { get; set; }
+        //public string ExternalUrl { get; set; }
 
         private string GetRouteUrl()
         {

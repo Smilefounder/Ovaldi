@@ -55,10 +55,10 @@ namespace Ovaldi.Core.FrontAPI
             };
             builder.MergeAttributes<string, object>(htmlValues);
             builder.MergeAttribute("href", url);
-            if (page != null && page.Route != null)
-            {
-                builder.MergeAttribute("target", page.Route.LinkTarget.ToString());
-            }
+            //if (page != null && page.Route != null)
+            //{
+            //    builder.MergeAttribute("target", page.Route.LinkTarget.ToString());
+            //}
             var html = new HtmlString(builder.ToString(TagRenderMode.Normal));
 
 #if Page_Trace

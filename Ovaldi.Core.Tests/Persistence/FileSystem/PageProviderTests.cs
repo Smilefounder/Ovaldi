@@ -46,8 +46,9 @@ namespace Ovaldi.Core.Tests.Persistence.FileSystem
         {
             var page = new Page(sampleSite, "Test_Add_Get_Updata_Remove")
                 {
-                    CacheToDisk = true
+                    HtmlTitle = "htmltitle"
                 };
+
             //添加页面
             pageProvider.Add(page);
 
@@ -58,16 +59,16 @@ namespace Ovaldi.Core.Tests.Persistence.FileSystem
 
             Assert.AreEqual(page.Site, actualPage1.Site);
 
-            Assert.AreEqual(page.CacheToDisk, actualPage1.CacheToDisk);
+            Assert.AreEqual(page.HtmlTitle, actualPage1.HtmlTitle);
 
             //修改页面
-            actualPage1.ContentTitle = "Content title1";
+            actualPage1.HtmlTitle = "Content title1";
 
             pageProvider.Update(actualPage1, page);
             //重新获取页面
             var actualPage2 = pageProvider.Get(page);
             //修改断言
-            Assert.AreEqual(actualPage1.ContentTitle, actualPage2.ContentTitle);
+            Assert.AreEqual(actualPage1.HtmlTitle, actualPage2.HtmlTitle);
 
             //删除页面
             pageProvider.Remove(page);
@@ -83,7 +84,7 @@ namespace Ovaldi.Core.Tests.Persistence.FileSystem
         {
             var page = new Page(sampleSite, "Test_All")
             {
-                CacheToDisk = true
+                HtmlTitle = "htmltitle"
             };
             //添加Page
             pageProvider.Add(page);

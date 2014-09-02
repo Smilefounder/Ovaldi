@@ -11,7 +11,7 @@ namespace Ovaldi.Web.Areas.Import.Service
         {
         }
         public string Url { get; private set; }
-
+        public string Content { get; private set; }
         public List<Image> Images { get; private set; }
 
         public void Download()

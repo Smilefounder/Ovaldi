@@ -16,15 +16,10 @@ namespace Ovaldi.Core.Models
 {
     public class HtmlMeta
     {
-        public string Author { get; set; }
-        public string Keywords { get; set; }
-        public string Description { get; set; }
-        public Dictionary<string, string> Customs
-        {
-            get;
-            set;
-        }
-        public string HtmlTitle { get; set; }
-        public string Canonical { get; set; }
-    }
+        public string Name { get; set; }
+        public string Content { get; set; }
+        public string HttpEquiv { get; set; }
+        public Dictionary<string, string> Attributes { get; set; }
+    } 
+
 }

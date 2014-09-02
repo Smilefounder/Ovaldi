@@ -32,6 +32,16 @@ namespace Ovaldi.Web.Areas.Import.Service
 
         public void Download()
         {
+            //downloaded cotentn.
+
+
+            //parse
+
+            foreach (var style in Styles)
+            {
+                style.Download();
+            }
+
 
         }
         private void ParseLinks()

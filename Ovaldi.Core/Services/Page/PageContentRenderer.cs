@@ -18,7 +18,7 @@ using System.Web;
 namespace Ovaldi.Core.Services
 {
     public interface PageContentRenderer<T>
-       where T : PageContent
+       where T : IPageContent
     {
         IHtmlString Render(IFrontHtmlHelper htmlHelper, T pagePosition);
     }

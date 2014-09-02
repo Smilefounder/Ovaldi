@@ -17,7 +17,7 @@ namespace Ovaldi.Core.Models
     public class CacheSettings
     {
         private bool? _enable;
-        public bool? EnableCaching
+        public bool? EnableCache
         {
             get
             {

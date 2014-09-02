@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Routing;
 
@@ -88,42 +89,52 @@ namespace Ovaldi.Core.Models
             }
         }
 
-        public HtmlMeta HtmlMeta { get; set; }
+        public HtmlMeta[] HtmlMetas { get; set; }
         private PageRoute route = new PageRoute();
+        /// <summary>
+        /// 
+        /// </summary>
+        public PageRoute[] Route
+        {
+            get;
+            set;
+            //get
+            //{
+            //    if (route == null)
+            //    {
+            //        return PageRoute.Default;
+            //    }
+            //    return route;
+            //}
+            //set
+            //{
+            //    route = value;
+            //}
+        }
+        //Navigation navigation = new Navigation();
 
-        public PageRoute Route
+        //public Navigation Navigation
+        //{
+        //    get
+        //    {
+        //        return this.navigation;
+        //    }
+        //    set { this.navigation = value; }
+        //}
+        //PagePermission permission = new PagePermission();
+
+        //public PagePermission Permission
+        //{
+        //    get { return this.permission; }
+        //    set { this.permission = value; }
+        //}
+        public bool UseLayout
         {
             get
             {
-                if (route == null)
-                {
-                    return PageRoute.Default;
-                }
-                return route;
-            }
-            set
-            {
-                route = value;
+                return !string.IsNullOrEmpty(Layout);
             }
         }
-        Navigation navigation = new Navigation();
-
-        public Navigation Navigation
-        {
-            get
-            {
-                return this.navigation;
-            }
-            set { this.navigation = value; }
-        }
-        PagePermission permission = new PagePermission();
-
-        public PagePermission Permission
-        {
-            get { return this.permission; }
-            set { this.permission = value; }
-        }
-
         /// <summary>
         /// wrap for Layout
         /// </summary>
@@ -135,7 +146,12 @@ namespace Ovaldi.Core.Models
             set;
         }
 
-        public PageContent[] PageContents { get; set; }
+        /// <summary>
+        /// 页面自己的Content
+        /// </summary>
+        public string Html { get; set; }
+
+        public IPageContent[] PageContents { get; set; }
 
         //private List<PagePosition> pagePositions = new List<PagePosition>();
         //[DataMember(Order = 20)]//
@@ -145,19 +161,21 @@ namespace Ovaldi.Core.Models
         //    set { this.pagePositions = value; }
         //}
 
-        private List<DataRuleSetting> dataRules = new List<DataRuleSetting>();
+        //private List<DataRuleSetting> dataRules = new List<DataRuleSetting>();
 
-        public List<DataRuleSetting> DataRules
-        {
-            get { return this.dataRules; }
-            set
-            {
-                this.dataRules = value;
-            }
-        }
+        //public List<DataRuleSetting> DataRules
+        //{
+        //    get { return this.dataRules; }
+        //    set
+        //    {
+        //        this.dataRules = value;
+        //    }
+        //}
 
         private List<string> plugins = new List<string>();
-
+        /// <summary>
+        /// plugin要有参数
+        /// </summary>
         public List<string> Plugins
         {
             get
@@ -170,18 +188,18 @@ namespace Ovaldi.Core.Models
             }
         }
 
-        public PageType PageType { get; set; }
+        //public PageType PageType { get; set; }
 
 
         public CacheSettings OutputCache { get; set; }
 
-        public bool EnabledCache
-        {
-            get
-            {
-                return OutputCache != null && OutputCache.EnableCaching == true;
-            }
-        }
+        //public bool EnabledCache
+        //{
+        //    get
+        //    {
+        //        return OutputCache != null && OutputCache.EnableCaching == true;
+        //    }
+        //}
         private Dictionary<string, string> customFields;
 
         public Dictionary<string, string> CustomFields
@@ -203,38 +221,19 @@ namespace Ovaldi.Core.Models
             }
         }
 
-        private bool? published;
+        public bool Published { get; set; }
 
-        public bool? Published
-        {
-            get
-            {
-                if (published == null)
-                {
-                    published = true;
-                }
-                return published;
-            }
-            set
-            {
-                published = value;
-            }
-        }
+        //public string ContentTitle { get; set; }
 
+        public string HtmlTitle { get; set; }
 
-        public string UserName { get; set; }
-
-
-        public string ContentTitle { get; set; }
-
-
-        public bool Searchable { get; set; }
+        //public bool Searchable { get; set; }
 
 
         public bool RequireHttps { get; set; }
 
 
-        public bool CacheToDisk { get; set; }
+        //public bool CacheToDisk { get; set; }
 
         /// <summary>
         /// 页面引用的脚本文件（组）
@@ -246,10 +245,5 @@ namespace Ovaldi.Core.Models
         /// 默认从站点
         /// </summary>
         public IncludingFileSetting[] Styles { get; set; }
-
-        /// <summary>
-        /// 页面自己的Content
-        /// </summary>
-        public string Html { get; set; }
     }
 }
