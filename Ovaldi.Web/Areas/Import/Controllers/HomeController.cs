@@ -1,4 +1,4 @@
-﻿using Ovaldi.Web.Areas.Import.Service;
+﻿using Ovaldi.Core.SiteImport;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +9,23 @@ namespace Ovaldi.Web.Areas.Import.Controllers
 {
     public class HomeController : Controller
     {
+        #region .ctor
+        ISiteDownloader _siteDownloader;
+        public HomeController(ISiteDownloader siteDownloader)
+        {
+            this._siteDownloader = siteDownloader;
+        }
+        #endregion
         // GET: Import/Home
         public ActionResult Index()
         {
-            return View(new ImportOptions());
+            return View(new DownloadOptions());
         }
         [HttpPost]
-        public ActionResult Index(ImportOptions model)
+        public ActionResult Index(DownloadOptions model)
         {
-            SiteDownloader downloader = new SiteDownloader(model);
-            TempData["DownloadList"] = downloader.Download();
+            var list = _siteDownloader.Download(model);
+            TempData["DownloadList"] = list;
             return RedirectToAction("Results");
         }
         public ActionResult Results()

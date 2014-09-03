@@ -95,6 +95,8 @@
     <Compile Include="Persistence\FileSystem\SiteProviderTests.cs" />
     <Compile Include="Persistence\FileSystem\ViewProviderTests.cs" />
     <Compile Include="SiteImport\PageLinkAnalyzerTests.cs" />
+    <Compile Include="SiteImport\ScriptAnalyzerTests.cs" />
+    <Compile Include="SiteImport\StyleSheetAnalyzerTests.cs" />
     <Compile Include="XmlSerializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

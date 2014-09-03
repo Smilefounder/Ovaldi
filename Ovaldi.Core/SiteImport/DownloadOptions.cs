@@ -7,9 +7,9 @@ using System.Web;
 
 namespace Ovaldi.Core.SiteImport
 {
-    public class ImportOptions
+    public class DownloadOptions
     {
-        public ImportOptions()
+        public DownloadOptions()
         {
             this.Deep = 2;
             this.Pages = 20;

@@ -6,6 +6,7 @@
 // See the file LICENSE.txt for details.
 // 
 #endregion
+using Kooboo.Common.ObjectContainer.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,31 +15,43 @@ using System.Threading.Tasks;
 
 namespace Ovaldi.Core.SiteImport
 {
+    [Dependency(typeof(IPageAnalyzer), Key = "PageLinkAnalyzer")]
     public class PageLinkAnalyzer : IPageAnalyzer
     {
-        public void Analyze(AnalyzeContext context)
+        public void Analyze(PageDownloadContext context)
         {
             var links = context.HtmlDocument.DocumentNode.Descendants()
                 .Where(lnks => lnks.Name == "a" &&
                              lnks.Attributes["href"] != null &&
-                             lnks.InnerText.Trim().Length > 0)
-                             .Select(lnks => UriHelper.GetInsideAbsoluteUrl(context.PageUrl, lnks.Attributes["href"].Value))
-                             .Where(it => !string.IsNullOrEmpty(it));
+                             lnks.InnerText.Trim().Length > 0);
+            //.Select(lnks => UriHelper.GetInsideAbsoluteUrl(context.PageUrl, lnks.Attributes["href"].Value))
+            //.Where(it => !string.IsNullOrEmpty(it));
 
 
-            if (context.CurrentLevel <= context.Options.Deep)
+            if (context.PageLevel.Level < context.SiteDownloadContext.Options.Deep)
             {
-                foreach (var nextLevelUrl in links.Take(context.Options.Pages))
+                int count = 0;
+                foreach (var link in links)
                 {
-                    DownloadNextLevelPages(context, nextLevelUrl);
+                    var insideUrl = UriHelper.GetInsideAbsoluteUrl(context.PageLevel.Url, link.Attributes["href"].Value);
+
+                    if (!string.IsNullOrEmpty(insideUrl))
+                    {
+                        var absolutePath = new Uri(insideUrl).AbsolutePath;
+                        link.Attributes["href"].Value = absolutePath;
+                        var pageLevel = new PageLevel(insideUrl, context.PageLevel.Level + 1);
+                        if (!context.SiteDownloadContext.DownloadedList.Contains(pageLevel, new PageLevelComparer()) && !context.SiteDownloadContext.DownloadQueue.Contains(pageLevel, new PageLevelComparer()))
+                        {
+                            context.SiteDownloadContext.DownloadQueue.Enqueue(pageLevel);
+                            count++;
+                        }
+                    }
+                    if (count >= context.SiteDownloadContext.Options.Pages)
+                    {
+                        break;
+                    }
                 }
             }
         }
-
-        private void DownloadNextLevelPages(AnalyzeContext analyzeContext, string nextLevelUrl)
-        {
-            analyzeContext.PageDownloader.Download(nextLevelUrl, analyzeContext.Options, analyzeContext.CurrentLevel + 1);
-        }
-
     }
 }

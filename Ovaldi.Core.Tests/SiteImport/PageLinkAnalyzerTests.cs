@@ -23,13 +23,7 @@ namespace Ovaldi.Core.Tests.SiteImport
         public void Test_Analyze()
         {
             var pageLinkAnalyzer = new PageLinkAnalyzer();
-            var mock = new Moq.Mock<IPageDownloader>();
-            List<string> links = new List<string>();
-            mock.Setup(it => it.Download(Moq.It.IsAny<string>(), Moq.It.IsAny<ImportOptions>(), Moq.It.IsAny<int>()))
-                .Callback<string, ImportOptions, int>((url, options, currentLevel) =>
-                {
-                    links.Add(url);
-                });
+
             var pageHtml = @"<html>
 <head>
 
@@ -43,14 +37,12 @@ namespace Ovaldi.Core.Tests.SiteImport
 </div>
 </body>
             </html>";
+            SiteDownloadContext siteDownloadContext = new SiteDownloadContext(null, new DownloadOptions() { SiteName = "Test_Analyze", Url = "localhost", Pages = 20, Deep = 1 });
+            PageDownloadContext pageDownloadContext = new PageDownloadContext(siteDownloadContext, new PageLevel("http://localhost", 1), pageHtml);
 
-            AnalyzeContext context = new AnalyzeContext(mock.Object, new ImportOptions() { SiteName = "Test_Analyze", Url = "localhost", Pages = 20, Deep = 1 }, "http://localhost", pageHtml, 1);
+            pageLinkAnalyzer.Analyze(pageDownloadContext);
 
-            pageLinkAnalyzer.Analyze(context);
-
-            Assert.AreEqual(2, links.Count());
-            Assert.AreEqual("http://localhost/page1", links.First());
-            Assert.AreEqual("http://localhost/page2", links.Skip(1).First());
+            Assert.AreEqual(2, siteDownloadContext.DownloadQueue.Count);
         }
     }
 }

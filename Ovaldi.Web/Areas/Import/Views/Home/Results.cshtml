@@ -1,4 +1,4 @@
-﻿@model List<string>
+﻿@model List<Ovaldi.Core.SiteImport.PageLevel>
 @{
     ViewBag.Title = "Results";
     Layout = "~/Views/Shared/Blank.cshtml";
@@ -16,7 +16,7 @@
     <ul>
         @foreach (var item in Model)
         {
-            <li>@item</li>
+            <li>@item.Url</li>
         }
     </ul>
 </div>

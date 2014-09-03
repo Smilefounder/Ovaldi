@@ -6,7 +6,6 @@
 // See the file LICENSE.txt for details.
 // 
 #endregion
-using Ovaldi.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +14,14 @@ using System.Threading.Tasks;
 
 namespace Ovaldi.Core.SiteImport
 {
-    public interface IPageDownloader
+    public class PageLevel
     {
-        void Download(PageLevel pageLevel, SiteDownloadContext context);
+        public PageLevel(string url, int level)
+        {
+            this.Url = url;
+            this.Level = level;
+        }
+        public string Url { get; private set; }
+        public int Level { get; private set; }
     }
 }

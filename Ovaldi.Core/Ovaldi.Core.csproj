@@ -201,13 +201,20 @@
     <Compile Include="SiteFlow\SiteRequestController.cs" />
     <Compile Include="SiteFlow\SiteRequestFlow.cs" />
     <Compile Include="SiteFlow\SiteRequestFlowAdapter.cs" />
-    <Compile Include="SiteImport\AnalyzeContext.cs" />
-    <Compile Include="SiteImport\ImportOptions.cs" />
+    <Compile Include="SiteImport\PageLevel.cs" />
+    <Compile Include="SiteImport\PageDownloadContext.cs" />
+    <Compile Include="SiteImport\PageLevelComparer.cs" />
+    <Compile Include="SiteImport\SiteDownloadContext.cs" />
+    <Compile Include="SiteImport\HttpClient.cs" />
+    <Compile Include="SiteImport\IHttpClient.cs" />
+    <Compile Include="SiteImport\DownloadOptions.cs" />
     <Compile Include="SiteImport\IPageAnalyzer.cs" />
     <Compile Include="SiteImport\IPageDownloader.cs" />
+    <Compile Include="SiteImport\ISiteDownloader.cs" />
     <Compile Include="SiteImport\PageDownloader.cs" />
     <Compile Include="SiteImport\PageLinkAnalyzer.cs" />
-    <Compile Include="SiteImport\ScriptSheetAnalyzer.cs" />
+    <Compile Include="SiteImport\ScriptAnalyzer.cs" />
+    <Compile Include="SiteImport\SiteDownloader.cs" />
     <Compile Include="SiteImport\StyleSheetAnalyzer.cs" />
     <Compile Include="SiteImport\UriHelper.cs" />
   </ItemGroup>

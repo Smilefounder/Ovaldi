@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace Ovaldi.Core.Persistence.FileSystem
 {
+    [Kooboo.Common.ObjectContainer.Dependency.DependencyAttribute(typeof(ISiteFileProvider))]
     public class SiteFileProvider : ISiteFileProvider
     {
         #region .ctor

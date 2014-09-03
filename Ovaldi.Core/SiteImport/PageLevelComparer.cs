@@ -6,7 +6,6 @@
 // See the file LICENSE.txt for details.
 // 
 #endregion
-using Ovaldi.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +14,16 @@ using System.Threading.Tasks;
 
 namespace Ovaldi.Core.SiteImport
 {
-    public interface IPageDownloader
+    public class PageLevelComparer : IEqualityComparer<PageLevel>
     {
-        void Download(PageLevel pageLevel, SiteDownloadContext context);
+        public bool Equals(PageLevel x, PageLevel y)
+        {
+            return StringComparer.OrdinalIgnoreCase.Equals(x.Url, y.Url);
+        }
+
+        public int GetHashCode(PageLevel obj)
+        {
+            return obj.GetHashCode();
+        }
     }
 }

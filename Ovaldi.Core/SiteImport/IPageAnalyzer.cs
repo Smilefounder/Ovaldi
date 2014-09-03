@@ -7,6 +7,6 @@ namespace Ovaldi.Core.SiteImport
 {
     public interface IPageAnalyzer
     {
-        void Analyze(AnalyzeContext context);
+        void Analyze(PageDownloadContext context);
     }
 }

@@ -34,8 +34,9 @@ namespace Ovaldi.Core.SiteImport
                     return absoluteUrl.ToString();
                 }
                 else if (Uri.IsWellFormedUriString(url, UriKind.Absolute))
-                {
+                {                    
                     var uri = new Uri(url);
+                    
                     if (uri.Host == baseUri.Host)
                     {
                         return uri.ToString();
