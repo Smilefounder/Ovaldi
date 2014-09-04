@@ -16,21 +16,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Kooboo.Common.ObjectContainer.Dependency;
+using Ovaldi.Core.Services;
 
 namespace Ovaldi.Core.SiteFlow.PageFlow
 {
     [Dependency(typeof(IPageRequestFlow))]
     public class PageRequestFlow : IPageRequestFlow
     {
+        IFrontPageService _frontPageService;
+        public PageRequestFlow(IFrontPageService frontPageService)
+        {
+            _frontPageService = frontPageService;
+        }
         public PageMappedContext MapPage(System.Web.Mvc.ControllerContext controllerContext, SiteMappedContext siteMappedContext)
         {
-            var page = new Page(siteMappedContext.Site, "Home");
-            return new PageMappedContext()
-            {
-                Page = page,
-                MatchedVirtualPath = "/",
-                QueryStringPath = ""
-            };
+            return _frontPageService.MapPage(controllerContext.HttpContext, siteMappedContext);
+            //var page = new Page(siteMappedContext.Site, "Home");
+            //return new PageMappedContext()
+            //{
+            //    Page = page,
+            //    MatchedVirtualPath = "/",
+            //    QueryStringPath = ""
+            //};
         }
 
         public Page_Context CreatePageContext(System.Web.Mvc.ControllerContext controllerContext, SiteMappedContext siteMappedContext, PageMappedContext pageMappedContext)
@@ -56,7 +63,7 @@ namespace Ovaldi.Core.SiteFlow.PageFlow
                 throw new Exception(string.Format("The layout does not exists. Layout name:{0}".Localize(), page_context.PageLayout));
             }
 
-            return new ContentResult() { Content = "page content" };
+            return new ContentResult() { Content = page_context.PageRequestContext.Page.Html };
             //ViewResult viewResult = new FrontViewResult(ControllerContext, layout.FileExtension.ToLower(), layout.TemplateFileVirutalPath);
 
             //if (viewResult != null)

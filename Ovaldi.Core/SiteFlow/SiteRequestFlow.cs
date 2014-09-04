@@ -6,6 +6,7 @@
 // See the file LICENSE.txt for details.
 // 
 #endregion
+using Kooboo.Common.ObjectContainer;
 using Kooboo.Common.ObjectContainer.Dependency;
 using Ovaldi.Core.Services;
 using Ovaldi.Core.SiteFlow.Context;
@@ -20,6 +21,7 @@ namespace Ovaldi.Core.SiteFlow
     [Dependency(typeof(ISiteRequestFlow))]
     public class SiteRequestFlow : ISiteRequestFlow
     {
+        #region .ctor
         IFrontSiteService _frontSiteService;
         PageRequestFlowAdapter _pageRequestFlowAdapter;
         public SiteRequestFlow(IFrontSiteService frontSiteService, PageRequestFlowAdapter pageRequestFlowAdapter)
@@ -27,6 +29,8 @@ namespace Ovaldi.Core.SiteFlow
             _frontSiteService = frontSiteService;
             _pageRequestFlowAdapter = pageRequestFlowAdapter;
         }
+        #endregion
+
         public SiteMappedContext MapSite(System.Web.HttpContext httpContext)
         {
             return _frontSiteService.MapSite(httpContext.Request);
@@ -39,7 +43,16 @@ namespace Ovaldi.Core.SiteFlow
 
         public IRequestHandler MapRequestHandler(System.Web.Mvc.ControllerContext controllerContext, SiteMappedContext siteMappedContext)
         {
-            return new PageRequestHandler(controllerContext, _pageRequestFlowAdapter, siteMappedContext);
+            var pageMappedContext = _pageRequestFlowAdapter.MapPage(controllerContext, siteMappedContext);
+            if (pageMappedContext != null)
+            {
+                return new PageRequestHandler(controllerContext, _pageRequestFlowAdapter, siteMappedContext, pageMappedContext);
+            }
+            else
+            {
+                return EngineContext.Current.Resolve<NoPageRequestHandler>(new Parameter("controllerContext", controllerContext), new Parameter("siteMappedContext", siteMappedContext));
+            }
+
         }
 
         public void ExecuteRequestHandler(System.Web.Mvc.ControllerContext controllerContext, IRequestHandler requestHandler, SiteMappedContext siteMappedContext)

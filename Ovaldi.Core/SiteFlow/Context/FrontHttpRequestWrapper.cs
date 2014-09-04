@@ -34,8 +34,8 @@ namespace Ovaldi.Core.SiteFlow.Context
             this.SiteMappedContext = siteMappedContext;
             // 原始的AppRelativeCurrentExecutionFilePath
             appRelativeCurrentExecutionFilePath = httpRequest.AppRelativeCurrentExecutionFilePath;
-
-            SetRequestPath();
+            RequestUrl = appRelativeCurrentExecutionFilePath.TrimStart('~');
+            ResetContext();
         }
         #endregion
 
@@ -126,7 +126,7 @@ namespace Ovaldi.Core.SiteFlow.Context
         }
 
 
-        internal void SetRequestPath()
+        internal void ResetContext()
         {
             if (IgnoreResolveSite(appRelativeCurrentExecutionFilePath))
             {
@@ -136,8 +136,6 @@ namespace Ovaldi.Core.SiteFlow.Context
             {
                 appRelativeCurrentExecutionFilePath = appRelativeCurrentExecutionFilePath.TrimEnd('/') + "/" + PathInfo;
             }
-
-
             if (SiteMappedContext != null)
             {
                 //trim "~/"
@@ -145,7 +143,7 @@ namespace Ovaldi.Core.SiteFlow.Context
 
                 this.Site = SiteMappedContext.Site;
 
-                if (SiteMappedContext.RequestChannel == FrontRequestChannel.Debug)
+                if (SiteMappedContext.RequestChannel == FrontRequestChannel.Preview)
                 {
                     //preview url
                     #region dev~

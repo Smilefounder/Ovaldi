@@ -7,6 +7,7 @@
 // 
 #endregion
 using Kooboo.Common.ObjectContainer.Dependency;
+using Kooboo.Common.Web;
 using Ovaldi.Core.Models;
 using Ovaldi.Core.Persistence;
 using System;
@@ -61,7 +62,7 @@ namespace Ovaldi.Core.SiteImport
                 _siteFileProvider.AddFile(pageDownloadContext.SiteDownloadContext.Site, filePath, styleContent);
             }
 
-            return absolutePath;
+            return UrlUtility.Combine("/", SiteExtensions.PREFIX_FRONT_PREVIEW_URL + pageDownloadContext.SiteDownloadContext.Site.AbsoluteName, filePath);
         }
     }
 }

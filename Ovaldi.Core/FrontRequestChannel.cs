@@ -20,7 +20,7 @@ namespace Ovaldi.Core
         /// <summary>
         /// s~site1
         /// </summary>
-        Debug,
+        Preview,
         /// <summary>
         /// www.site1.com
         /// </summary>

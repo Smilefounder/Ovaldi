@@ -160,8 +160,10 @@
     <Compile Include="Persistence\IViewProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteValuesHelper.cs" />
+    <Compile Include="Services\Page\FrontPageService.cs" />
     <Compile Include="Services\Page\IFrontPageService.cs" />
     <Compile Include="Services\Site\FrontSiteService.cs" />
+    <Compile Include="SiteFlow\NoPageRequestHandler.cs" />
     <Compile Include="SiteFlow\PageFlow\PageMappedContext.cs" />
     <Compile Include="Services\Page\PageContentRenderer.cs" />
     <Compile Include="Services\Site\IFrontSiteService.cs" />

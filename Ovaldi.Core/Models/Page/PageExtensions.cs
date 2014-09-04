@@ -26,18 +26,25 @@ namespace Ovaldi.Core.Models
             return null;
         }
 
-        public static string GetVirutalPath(this Page page)
+        public static string[] GetVirtualPaths(this Page page)
+        {
+            if (page.Routes == null || page.Routes.Length == 0)
+            {
+                return new[] { GetVirtualPath(page, null) };
+            }
+            return page.Routes.Select(it => GetVirtualPath(page, it)).ToArray();
+        }
+        public static string GetVirtualPath(this Page page, PageRoute route)
         {
             var segment = page.Name;
             string virtualPath = "";
-            var route = page.Route == null ? null : page.Route.FirstOrDefault();
             var parent = page.GetParent();
             var site = page.Site;
             if (route != null && !string.IsNullOrEmpty(route.Identifier))
             {
                 if ((route.Identifier.StartsWith("#") || route.Identifier == "*") && parent != null)
                 {
-                    return parent.LastVersion(site).GetVirutalPath();
+                    return parent.LastVersion(site).GetVirtualPaths().First();
                 }
                 else if (route.Identifier.StartsWith("/"))
                 {
@@ -53,7 +60,7 @@ namespace Ovaldi.Core.Models
             }
             if (parent != null)
             {
-                virtualPath = UrlUtility.Combine(parent.LastVersion(site).GetVirutalPath(), segment);
+                virtualPath = UrlUtility.Combine(parent.LastVersion(site).GetVirtualPaths().First(), segment);
             }
             else
             {
@@ -65,7 +72,6 @@ namespace Ovaldi.Core.Models
             }
             return virtualPath;
         }
-
         public static string GetLinkText(this Page page)
         {
             //if (page.Navigation != null && !string.IsNullOrEmpty(page.Navigation.DisplayText))
