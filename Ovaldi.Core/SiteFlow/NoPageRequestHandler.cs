@@ -10,6 +10,7 @@ using Kooboo.Common;
 using Ovaldi.Core.Persistence;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,9 +31,8 @@ namespace Ovaldi.Core.SiteFlow
             this._siteFileProvider = siteFileProvider;
         }
         public void ExecuteRequest()
-        {
-            ///AppRelativeCurrentExecutionFilePath start with ~/
-            var requestUrl = this._controllerContext.HttpContext.Request.AppRelativeCurrentExecutionFilePath.Substring(2);
+        {            
+            var requestUrl = this._siteMappedContext.RequestUrl.TrimStart('/');
 
             if (!string.IsNullOrEmpty(requestUrl))
             {
@@ -42,6 +42,23 @@ namespace Ovaldi.Core.SiteFlow
 
                     _controllerContext.HttpContext.Response.OutputStream.Write(fileData, 0, fileData.Length);
 
+                    var contentType = Kooboo.Common.IO.IOUtility.MimeType(requestUrl);
+                    if (!string.IsNullOrEmpty(Path.GetExtension(requestUrl)))
+                    {
+                        contentType = Kooboo.Common.IO.IOUtility.MimeType(requestUrl);
+                    }
+                    else
+                    {
+                        if (requestUrl.Contains("Styles"))
+                        {
+                            contentType = "text/css";
+                        }
+                        if (requestUrl.Contains("Scripts"))
+                        {
+                            contentType = "application/x-javascript";
+                        }
+                    }
+                    _controllerContext.HttpContext.Response.ContentType = contentType;
                     return;
                 }
             }

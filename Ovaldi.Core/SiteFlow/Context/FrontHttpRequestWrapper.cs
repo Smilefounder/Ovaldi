@@ -120,18 +120,8 @@ namespace Ovaldi.Core.SiteFlow.Context
         #endregion
 
         #region ResolveSite
-        private static bool IgnoreResolveSite(string appRelativeCurrentExecutionFilePath)
-        {
-            return appRelativeCurrentExecutionFilePath.ToLower().Contains("/cms_data/");
-        }
-
-
         internal void ResetContext()
         {
-            if (IgnoreResolveSite(appRelativeCurrentExecutionFilePath))
-            {
-                return;
-            }
             if (!string.IsNullOrEmpty(this.PathInfo))
             {
                 appRelativeCurrentExecutionFilePath = appRelativeCurrentExecutionFilePath.TrimEnd('/') + "/" + PathInfo;

@@ -14,13 +14,16 @@
 <div class="block message success content">
     <p>Import success, here are the pages you imported:</p>
     <ul>
-        @foreach (var item in Model)
+        @if (Model != null)
         {
-            <li>@item.Url</li>
+            foreach (var item in Model)
+            {
+                <li>@item.Url</li>
+            }
         }
     </ul>
 </div>
 <div class="wizard-buttons">
-    <a class="button gray" href="model-site-import-step1.shtml">&laquo; Import another</a>
-    <a class="button" href="#">View the site &raquo;</a>
+    <a class="button gray" href="@Url.Action("Index")">&laquo; Import another</a>
+    <a class="button" href="@ViewBag.PreviewUrl" target="_blank">View the site &raquo;</a>
 </div>

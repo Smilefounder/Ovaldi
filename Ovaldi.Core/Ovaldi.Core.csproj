@@ -164,6 +164,7 @@
     <Compile Include="Services\Page\IFrontPageService.cs" />
     <Compile Include="Services\Site\FrontSiteService.cs" />
     <Compile Include="SiteFlow\NoPageRequestHandler.cs" />
+    <Compile Include="SiteFlow\NoSiteRequestHandler.cs" />
     <Compile Include="SiteFlow\PageFlow\PageMappedContext.cs" />
     <Compile Include="Services\Page\PageContentRenderer.cs" />
     <Compile Include="Services\Site\IFrontSiteService.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="SiteFlow\SiteRequestController.cs" />
     <Compile Include="SiteFlow\SiteRequestFlow.cs" />
     <Compile Include="SiteFlow\SiteRequestFlowAdapter.cs" />
+    <Compile Include="SiteImport\ImageAnalyzer.cs" />
     <Compile Include="SiteImport\PageLevel.cs" />
     <Compile Include="SiteImport\PageDownloadContext.cs" />
     <Compile Include="SiteImport\PageLevelComparer.cs" />

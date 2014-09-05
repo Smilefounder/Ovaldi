@@ -43,16 +43,22 @@ namespace Ovaldi.Core.SiteFlow
 
         public IRequestHandler MapRequestHandler(System.Web.Mvc.ControllerContext controllerContext, SiteMappedContext siteMappedContext)
         {
-            var pageMappedContext = _pageRequestFlowAdapter.MapPage(controllerContext, siteMappedContext);
-            if (pageMappedContext != null)
+            if (siteMappedContext == null)
             {
-                return new PageRequestHandler(controllerContext, _pageRequestFlowAdapter, siteMappedContext, pageMappedContext);
+                return EngineContext.Current.Resolve<NoSiteRequestHandler>(new Parameter("controllerContext", controllerContext));
             }
             else
             {
-                return EngineContext.Current.Resolve<NoPageRequestHandler>(new Parameter("controllerContext", controllerContext), new Parameter("siteMappedContext", siteMappedContext));
+                var pageMappedContext = _pageRequestFlowAdapter.MapPage(controllerContext, siteMappedContext);
+                if (pageMappedContext != null)
+                {
+                    return new PageRequestHandler(controllerContext, _pageRequestFlowAdapter, siteMappedContext, pageMappedContext);
+                }
+                else
+                {
+                    return EngineContext.Current.Resolve<NoPageRequestHandler>(new Parameter("controllerContext", controllerContext), new Parameter("siteMappedContext", siteMappedContext));
+                }
             }
-
         }
 
         public void ExecuteRequestHandler(System.Web.Mvc.ControllerContext controllerContext, IRequestHandler requestHandler, SiteMappedContext siteMappedContext)

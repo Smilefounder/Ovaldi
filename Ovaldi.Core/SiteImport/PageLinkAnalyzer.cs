@@ -7,6 +7,7 @@
 // 
 #endregion
 using Kooboo.Common.ObjectContainer.Dependency;
+using Ovaldi.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,18 +38,21 @@ namespace Ovaldi.Core.SiteImport
 
                     if (!string.IsNullOrEmpty(insideUrl))
                     {
-                        var absolutePath = new Uri(insideUrl).AbsolutePath;
-                        link.Attributes["href"].Value = absolutePath;
-                        var pageLevel = new PageLevel(insideUrl, context.PageLevel.Level + 1);
-                        if (!context.SiteDownloadContext.DownloadedList.Contains(pageLevel, new PageLevelComparer()) && !context.SiteDownloadContext.DownloadQueue.Contains(pageLevel, new PageLevelComparer()))
+                        if (count < context.SiteDownloadContext.Options.Pages)
                         {
-                            context.SiteDownloadContext.DownloadQueue.Enqueue(pageLevel);
-                            count++;
+                            var absolutePath = new Uri(insideUrl).AbsolutePath;
+                            link.Attributes["href"].Value = "/" + SiteExtensions.PREFIX_FRONT_PREVIEW_URL + context.SiteDownloadContext.Site.AbsoluteName + absolutePath;
+                            var pageLevel = new PageLevel(insideUrl, context.PageLevel.Level + 1);
+                            if (!context.SiteDownloadContext.DownloadedList.Contains(pageLevel, new PageLevelComparer()) && !context.SiteDownloadContext.DownloadQueue.Contains(pageLevel, new PageLevelComparer()))
+                            {
+                                context.SiteDownloadContext.DownloadQueue.Enqueue(pageLevel);
+                                count++;
+                            }
                         }
-                    }
-                    if (count >= context.SiteDownloadContext.Options.Pages)
-                    {
-                        break;
+                        else
+                        {
+                            link.Attributes["href"].Value = insideUrl;
+                        }
                     }
                 }
             }

@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Ovaldi.Core.SiteImport
@@ -57,12 +58,48 @@ namespace Ovaldi.Core.SiteImport
             var filePath = Path.Combine("Styles", absolutePath.Trim('/'));
             if (!_siteFileProvider.IsFileExists(pageDownloadContext.SiteDownloadContext.Site, filePath))
             {
-                var styleContent = _httpClient.DownloadString(styleUrl);
+                var styleContent = DownloadStyleWithImages(pageDownloadContext, styleUrl, filePath);
 
                 _siteFileProvider.AddFile(pageDownloadContext.SiteDownloadContext.Site, filePath, styleContent);
             }
 
             return UrlUtility.Combine("/", SiteExtensions.PREFIX_FRONT_PREVIEW_URL + pageDownloadContext.SiteDownloadContext.Site.AbsoluteName, filePath);
+        }
+
+        private string DownloadStyleWithImages(PageDownloadContext pageDownloadContext, string styleUrl, string styleFilePath)
+        {
+            var styleContent = _httpClient.DownloadString(styleUrl);
+            MatchEvaluator urlDelegate = new MatchEvaluator(delegate(Match m)
+            {
+                // Change relative (to the original CSS) URL references to make them relative to the requested URL (controller / action)
+                string url = m.Value;
+
+                var rawAbsoluteUrl = new Uri(new Uri(styleUrl), url).ToString();
+                string fileName = Path.GetFileName(url);
+
+                var imagePath = "images/" + fileName;
+
+                var styleImagePath = Path.Combine(Path.GetDirectoryName(styleFilePath), imagePath);
+
+                if (!_siteFileProvider.IsFileExists(pageDownloadContext.SiteDownloadContext.Site, styleImagePath))
+                {
+                    try
+                    {
+                        var data = _httpClient.DownloadData(rawAbsoluteUrl);
+                        _siteFileProvider.AddFile(pageDownloadContext.SiteDownloadContext.Site, styleImagePath, data);
+                    }
+                    catch (Exception e)
+                    {
+                        Kooboo.Common.Logging.Logger.LoggerInstance.Error(e.Message,e);
+                    }                    
+                }
+                return imagePath;
+            });
+
+            styleContent = Regex.Replace(styleContent, @"(?<=url\(\s*([""']?))(?<url>[^'""]+?)(?=\1\s*\))", urlDelegate, RegexOptions.IgnoreCase);
+
+            return styleContent;
+
         }
     }
 }
