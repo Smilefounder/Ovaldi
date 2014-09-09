@@ -32,9 +32,8 @@
 							<li><a href="#J_Tab_2">Style</a></li>
 						</ul>
 						<div id="J_Tab_1">
-							<div class="box bg-light-gray">
-								<div class="block kb-code-viewer">
-									<h6 class="title">Code:</h6>
+							<div class="left-column">
+								<div class="kb-code-viewer">
 									<div class="container">
 										<ul>
 											<li>
@@ -50,16 +49,16 @@
 										<a href="#">div.item</a>&gt;<a class="active" href="#">h6.title</a>&gt;<a href="#">a</a>
 									</div>
 								</div>
-								<div class="block kb-code-editor">
-									<div class="container">
-										<h6 class="title">
-											<a href="#" contenteditable="true">Lorem ipsum dolor sit amet</a>
-										</h6>
-									</div>
-									<p class="buttons">
-										<a class="button" href="#">Save</a>
-										<a class="button gray" href="#">Cancel</a>
-									</p>
+							</div>
+							<div class="vertical-drag-bar"></div>
+							<div class="right-column">
+								<div class="J_Tabs tabs-small">
+									<ul>
+										<li><a href="#J_Tab_2_1">Tab1</a></li>
+										<li><a href="#J_Tab_2_2">Tab2</a></li>
+									</ul>
+									<div id="J_Tab_2_1">Tab1</div>
+									<div id="J_Tab_2_2">Tab2</div>
 								</div>
 							</div>
 						</div>

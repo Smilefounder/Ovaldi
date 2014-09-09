@@ -490,13 +490,10 @@
 			height: 30%;
 			left: 0;
 			overflow: hidden;
+			padding-top: 2px;
 			top: auto;
 			width: auto;
 			.box-sizing(border-box);
-
-			.ui-tabs {
-				position: static;
-			}
 
 			.ui-tabs-panel {
 				bottom: 0;
@@ -504,7 +501,66 @@
 				overflow: auto;
 				position: absolute;
 				right: 0;
-				top: 40px;
+				top: 32px;
+			}
+
+			.left-column,
+			.right-column {
+				bottom: 0;
+				overflow: auto;
+				position: absolute;
+				top: 0;
+				.box-sizing(border-box);
+			}
+
+			.left-column {
+				left: 0;
+				width: 70%;
+
+				.kb-code-viewer {
+					.container {
+						border: none;
+						bottom: 21px;
+						height: auto;
+						left: 0;
+						position: absolute;
+						right: 0;
+						top: 0;
+					}
+
+					.bottom {
+						border: none;
+						border-top: 1px solid #CCC;
+						bottom: 0;
+						left: 0;
+						position: absolute;
+						right: 0;
+					}
+				}
+			}
+
+			.right-column {
+				background: #F9F9F9;
+				padding: 10px 0 10px 5px;
+				right: 0;
+				width: 30%;
+
+				.ui-tabs-panel {
+					left: 5px;
+					top: 40px;
+				}
+			}
+
+			.vertical-drag-bar {
+				background: #CCC;
+				bottom: 0;
+				cursor: ew-resize;
+				margin-right: -5px;
+				position: absolute;
+				right: 30%;
+				top: 0;
+				width: 5px;
+				z-index: 99;
 			}
 		}
 
