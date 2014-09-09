@@ -50,6 +50,28 @@
 			}
 		}
 	}
+
+	&.flexible {
+		ul {
+			margin-left: 18px;
+			position: relative;
+
+			ul {
+				margin-left: 30px;
+			}
+		}
+
+		.sprite {
+			.sprite(@plus-mini);
+			position: absolute;
+			left: -16px;
+			top: 4px;
+
+			&.active {
+				.sprite(@minus-mini);
+			}
+		}
+	}
 }
 /* @module: Code editor */
 .kb-code-editor {

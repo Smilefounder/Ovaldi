@@ -33,9 +33,10 @@
 						</ul>
 						<div id="J_Tab_1">
 							<div class="left-column">
-								<div class="kb-code-viewer">
+								<div class="kb-code-viewer flexible">
 									<div class="container">
 										<ul>
+											<img src="images/invis.gif" class="sprite active">
 											<li>
 												<span class="code active">&lt;h6 class="title"&gt;</span>
 												<ul>
