@@ -66,9 +66,9 @@ namespace Ovaldi.Core.FrontAPI
 
 
             var sitePath = "";// Site.AsActual().SitePath;
-            if (RequestChannel == FrontRequestChannel.Debug || RequestChannel == FrontRequestChannel.Design || RequestChannel == FrontRequestChannel.Unknown)
+            if (RequestChannel == FrontRequestChannel.Preview || RequestChannel == FrontRequestChannel.Design || RequestChannel == FrontRequestChannel.Unknown)
             {
-                sitePath = SiteExtensions.PREFIX_FRONT_DEBUG_URL + Site.AbsoluteName;
+                sitePath = SiteExtensions.PREFIX_FRONT_PREVIEW_URL + Site.AbsoluteName;
             }
             var urlSplit = url.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
             IEnumerable<string> urlPaths = urlSplit;
@@ -154,7 +154,7 @@ namespace Ovaldi.Core.FrontAPI
             {
                 return new HtmlString("");
             }
-            var route = page.Route == null ? null : page.Route.FirstOrDefault();
+            var route = page.Routes == null ? null : page.Routes.FirstOrDefault();
             //if (route != null && !string.IsNullOrEmpty(route.ExternalUrl))
             //{
             //    return new HtmlString(route.ExternalUrl);
@@ -175,7 +175,7 @@ namespace Ovaldi.Core.FrontAPI
             string pageUrl = contentUrl;
             if (!string.IsNullOrEmpty(contentUrl) || (string.IsNullOrEmpty(pageUrl) && !page.IsDefault))
             {
-                pageUrl = Kooboo.Common.Web.UrlUtility.Combine(page.GetVirutalPath(), contentUrl);
+                pageUrl = Kooboo.Common.Web.UrlUtility.Combine(page.GetVirtualPath(route), contentUrl);
             }
             if (string.IsNullOrEmpty(pageUrl))
             {

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Ovaldi.Core.Persistence.FileSystem
@@ -22,7 +23,7 @@ namespace Ovaldi.Core.Persistence.FileSystem
     public class PageProvider : SiteObjectProviderBase<Page>, IPageProvider
     {
         #region .ctor
-        static System.Threading.ReaderWriterLockSlim _lock = new System.Threading.ReaderWriterLockSlim();
+        static System.Threading.ReaderWriterLockSlim _lock = new System.Threading.ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
         IBaseDir _baseDir = null;
         public PageProvider(IBaseDir baseDir)
         {

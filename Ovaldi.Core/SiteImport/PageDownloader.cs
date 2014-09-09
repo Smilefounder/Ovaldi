@@ -28,20 +28,22 @@ namespace Ovaldi.Core.SiteImport
             var pageName = absolutePath.Replace("/", "-");
             var page = new Page(siteDownloadContext.Site, pageName)
             {
-                Route = new[] { new PageRoute() {
+                Routes = new[] { new PageRoute() {
                     Identifier= absolutePath
-                } }
+                } },
+                IsDefault = pageLevel.Level == 0
             };
             if (_pageProvider.Get(page) == null)
             {
                 var text = _httpClient.DownloadString(pageLevel.Url);
                 if (!string.IsNullOrEmpty(text))
                 {
+                    var pageDownloadContext = new PageDownloadContext(siteDownloadContext, pageLevel, text);
                     foreach (var analyzer in _analyzers)
                     {
-                        analyzer.Analyze(new PageDownloadContext(siteDownloadContext, pageLevel, text));
+                        analyzer.Analyze(pageDownloadContext);
                     }
-                    page.Html = text;
+                    page.Html = pageDownloadContext.HtmlDocument.DocumentNode.InnerHtml;
                     _pageProvider.Add(page);
                     siteDownloadContext.DownloadedList.Add(pageLevel);
                 }

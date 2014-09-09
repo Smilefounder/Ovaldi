@@ -17,8 +17,21 @@ namespace Ovaldi.Core.SiteFlow
 {
     public class SiteMappedContext
     {
-        public Site Site { get; set; }
-        public FrontRequestChannel RequestChannel { get; set; }
-        public Binding MatchedBinding { get; set; }
+        public SiteMappedContext(Site site, Binding matchedBinding, FrontRequestChannel requestChannel, string requestUrl, string appRelativeCurrentExecutionFilePath)
+        {
+            this.Site = site;
+            this.RequestChannel = requestChannel;
+            this.MatchedBinding = matchedBinding;
+            this.RequestUrl = requestUrl;
+            this.AppRelativeCurrentExecutionFilePath = appRelativeCurrentExecutionFilePath;
+        }
+        public Site Site { get; private set; }
+        public FrontRequestChannel RequestChannel { get; private set; }
+        public Binding MatchedBinding { get; private set; }
+
+        public string RequestUrl { get; private set; }
+        public string AppRelativeCurrentExecutionFilePath { get; set; }
+
+
     }
 }

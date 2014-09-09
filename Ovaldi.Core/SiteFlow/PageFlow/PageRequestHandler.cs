@@ -29,7 +29,8 @@ namespace Ovaldi.Core.SiteFlow
         ControllerContext _controllerContext;
         SiteMappedContext _siteMappedContext;
         PageRequestFlowAdapter _pageRequestFlowAdapter;
-        public PageRequestHandler(ControllerContext controllerContext, PageRequestFlowAdapter pageRequestFlowAdapter, SiteMappedContext siteMappedContext)
+        PageMappedContext _pageMappedContext;
+        public PageRequestHandler(ControllerContext controllerContext, PageRequestFlowAdapter pageRequestFlowAdapter, SiteMappedContext siteMappedContext, PageMappedContext pageMappedContext)
         {
             Contract.Requires(siteMappedContext != null);
             Contract.Requires(pageRequestFlowAdapter != null);
@@ -37,6 +38,7 @@ namespace Ovaldi.Core.SiteFlow
             this._controllerContext = controllerContext;
             this._siteMappedContext = siteMappedContext;
             this._pageRequestFlowAdapter = pageRequestFlowAdapter;
+            this._pageMappedContext = pageMappedContext;
         }
         #endregion
 
@@ -52,16 +54,12 @@ namespace Ovaldi.Core.SiteFlow
 
             try
             {
-                var httpContextWrapper = (FrontHttpContextWrapper)_controllerContext.HttpContext;
-
-                var pageMappedContext = _pageRequestFlowAdapter.MapPage(_controllerContext, this._siteMappedContext);
-
-                if (pageMappedContext == null)
+                if (_pageMappedContext == null)
                 {
                     throw new HttpException(0x194, string.Format(SR.GetString("Path_not_found"), new object[] { _controllerContext.HttpContext.Request.Path }));
                 }
 
-                var page_context = _pageRequestFlowAdapter.CreatePageContext(_controllerContext, _siteMappedContext, pageMappedContext);
+                var page_context = _pageRequestFlowAdapter.CreatePageContext(_controllerContext, _siteMappedContext, _pageMappedContext);
 
                 var actionResult = _pageRequestFlowAdapter.ExecutePage(page_context);
 

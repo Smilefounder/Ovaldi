@@ -26,10 +26,11 @@ namespace Ovaldi.Web.Areas.Import.Controllers
         {
             var list = _siteDownloader.Download(model);
             TempData["DownloadList"] = list;
-            return RedirectToAction("Results");
+            return RedirectToAction("Results", new { siteName = model.SiteName });
         }
-        public ActionResult Results()
+        public ActionResult Results(string siteName)
         {
+            ViewBag.PreviewUrl = Url.Content("~/") + Ovaldi.Core.Models.SiteExtensions.PREFIX_FRONT_PREVIEW_URL + siteName;
             return View(TempData["DownloadList"]);
         }
     }

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Ovaldi.Core.Services
 {
@@ -20,6 +21,6 @@ namespace Ovaldi.Core.Services
     {
         Page GetDefaultPage(Site site);
 
-        PageMappedContext MapPage(Site site, string url);
+        PageMappedContext MapPage(HttpContextBase httpContext, SiteMappedContext siteMappedContext);
     }
 }

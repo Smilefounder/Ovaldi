@@ -90,6 +90,8 @@ namespace Ovaldi.Core.Persistence.FileSystem.Storage
                 if (IsValidDataItem(Path.Combine(rootPathInStorage, itemFullName)))
                 {
                     var o = _initialize(itemFullName);
+                    //get object
+                    o = Get(o);
                     if (o != null)
                     {
                         list.Add(o);

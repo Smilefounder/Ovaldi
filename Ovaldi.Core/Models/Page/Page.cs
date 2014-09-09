@@ -94,7 +94,7 @@ namespace Ovaldi.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public PageRoute[] Route
+        public PageRoute[] Routes
         {
             get;
             set;

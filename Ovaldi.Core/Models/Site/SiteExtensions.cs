@@ -17,7 +17,7 @@ namespace Ovaldi.Core.Models
 {
     public static class SiteExtensions
     {
-        public static string PREFIX_FRONT_DEBUG_URL = "dev~";
+        public static string PREFIX_FRONT_PREVIEW_URL = "preview~";
 
         public static string GetVersionUsedInUrl(this Site site)
         {
@@ -29,7 +29,7 @@ namespace Ovaldi.Core.Models
             //    site = site.Parent;
             //}
             //return sb.Remove(sb.Length - 1, 1).ToString();
-        }  
+        }
         public static string GetDisplayText(this Site site)
         {
             return (string.IsNullOrEmpty(site.DisplayName) == true ? site.Name : site.DisplayName);

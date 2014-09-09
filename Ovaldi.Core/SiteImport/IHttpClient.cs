@@ -17,5 +17,6 @@ namespace Ovaldi.Core.SiteImport
     public interface IHttpClient
     {
         string DownloadString(string url);
+        byte[] DownloadData(string url);
     }
 }
