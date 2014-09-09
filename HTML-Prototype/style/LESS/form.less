@@ -99,6 +99,12 @@ label {
 	}
 }
 
+/* Number input
+----------------------------------------------------------*/
+.input-number {
+	display: inline-block;
+}
+
 /* CodeMirror
 ----------------------------------------------------------*/
 .CodeMirror {
@@ -758,13 +764,14 @@ body .select2-drop-active {
 		}
 	}
 
-	tr.border td {
+	.border td {
 		border-bottom: 1px solid #CCC;
 	}
 
 	input[type="text"],
 	input[type="password"],
-	select {
+	select,
+	.ui-spinner {
 		float: left;
 		margin-right: 10px;
 	}
@@ -776,6 +783,17 @@ body .select2-drop-active {
 	.text {
 		float: left;
 		margin-right: 10px;
+	}
+
+	.unit {
+		float: left;
+		margin-left: -6px;
+		margin-right: 10px;
+	}
+
+	.field {
+		padding: 10px 0;
+		.clearfix();
 	}
 	/* Common form panel */
 	&.with-panel {
