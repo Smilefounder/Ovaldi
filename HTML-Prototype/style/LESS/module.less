@@ -94,8 +94,6 @@
 	}
 }
 /* @module: Layout box */
-
-
 .kb-layout-box {
 	position: relative;
 
@@ -326,5 +324,53 @@
 	.field {
 		margin-top: 10px;
 		.clearfix();
+	}
+}
+/* @module: Splitter */
+.kb-splitter {
+	background: #CCC;
+	bottom: 400px;
+	cursor: ns-resize;
+	height: 5px;
+	left: 0;
+	position: absolute;
+	right: 0;
+	z-index: 999;
+
+	.toggle-button {
+		background: #CCC;
+		cursor: pointer;
+		height: 16px;
+		line-height: 16px;
+		left: 50%;
+		margin-left: -20px;
+		position: absolute;
+		text-align: center;
+		top: -16px;
+		width: 40px;
+		.rounded(3px 3px 0 0);
+		.opacity(60);
+
+		.sprite {
+			.sprite(@chevron-up-gray);
+		}
+
+		&:hover {
+			.opacity(100);
+		}
+
+		&.active .sprite {
+			.sprite(@chevron-down-gray);
+		}
+	}
+
+	&.horizontal {
+		bottom: 0;
+		cursor: ew-resize;
+		height: auto;
+		left: auto;
+		right: 500px;
+		top: 0;
+		width: 5px;
 	}
 }
