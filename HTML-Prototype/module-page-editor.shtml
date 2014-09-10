@@ -53,7 +53,9 @@
 									</div>
 								</div>
 							</div>
-							<div class="kb-splitter horizontal"></div>
+							<div class="kb-splitter horizontal">
+								<div class="toggle-button toggle-to-right active"><img src="images/invis.gif" class="sprite"></div>
+							</div>
 							<div class="right-column">
 								<div class="J_Tabs tabs-small">
 									<ul>

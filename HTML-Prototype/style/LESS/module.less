@@ -372,5 +372,40 @@
 		right: 500px;
 		top: 0;
 		width: 5px;
+
+		.toggle-button {
+			height: 40px;
+			line-height: 40px;
+			margin: -20px 0 0 0;
+			top: 50%;
+			width: 16px;
+
+			&.toggle-to-left {
+				left: auto;
+				right: -16px;
+				.rounded(0 3px 3px 0);
+
+				.sprite {
+					.sprite(@chevron-right-gray);
+				}
+
+				&.active .sprite {
+					.sprite(@chevron-left-gray);
+				}
+			}
+
+			&.toggle-to-right {
+				left: -16px;
+				.rounded(3px 0 0 3px);
+
+				.sprite {
+					.sprite(@chevron-left-gray);
+				}
+
+				&.active .sprite {
+					.sprite(@chevron-right-gray);
+				}
+			}
+		}
 	}
 }
