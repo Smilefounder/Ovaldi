@@ -50,6 +50,32 @@
 			}
 		}
 	}
+
+	&.flexible {
+
+		.code-tree {
+			margin-left: 18px;
+		}
+
+		ul {
+			margin-left: 30px;
+		}
+
+		li {
+			position: relative;
+		}
+
+		.sprite {
+			.sprite(@plus-mini);
+			position: absolute;
+			left: -16px;
+			top: 4px;
+
+			&.active {
+				.sprite(@minus-mini);
+			}
+		}
+	}
 }
 /* @module: Code editor */
 .kb-code-editor {
@@ -71,13 +97,145 @@
 		margin-top: 10px;
 	}
 }
+/* @module: Layout box */
+.kb-layout-box {
+	position: relative;
+
+	> .label {
+		bottom: 0;
+		top: auto !important;
+
+		&.left {
+			left: 0;
+		}
+
+		&.right {
+			left: auto;
+			right: 0;
+		}
+	}
+
+	div {
+		padding: 24px;
+		position: relative;
+
+		&.hover {
+			background: #39F;
+			color: #FFF;
+
+			> .label,
+			> input,
+			> .text {
+				color: #FFF !important;
+			}
+		}
+	}
+
+	.label {
+		background: none;
+		color: #555;
+		left: 4px;
+		line-height: 1.5;
+		padding: 0;
+		position: absolute;
+		top: 0;
+	}
+
+	.input-top,
+	.input-bottom,
+	.input-left,
+	.input-right {
+		background: none;
+		border: none;
+		height: 20px;
+		padding: 0;
+		position: absolute;
+		text-align: center;
+		width: 20px;
+
+		&.null {
+			color: #999;
+		}
+
+		&:focus {
+			background: #FFF;
+			color: #555 !important;
+		}
+	}
+
+	.input-top {
+		left: 50%;
+		margin-left: -10px;
+		top: 2px;
+	}
+
+	.input-bottom {
+		bottom: 2px;
+		left: 50%;
+		margin-left: -10px;
+	}
+
+	.input-left {
+		left: 2px;
+		top: 50%;
+		margin-top: -10px;
+	}
+
+	.input-right {
+		right: 2px;
+		top: 50%;
+		margin-top: -10px;
+	}
+
+	.margin {
+		background: #FFF;
+		border: 1px dashed #BBB;
+	}
+
+	.border {
+		background: #BBB;
+		border: 1px solid #888;
+	}
+
+	.padding {
+		background: #DDD;
+		border: 1px solid #888;
+	}
+
+	.content {
+		background: #DDD;
+		border: 1px solid #888;
+		padding: 40px;
+		text-align: center;
+
+		.text {
+			color: #555;
+		}
+	}
+
+	.input-height,
+	.input-width {
+		background: none;
+		border: none;
+		height: 20px;
+		padding: 0;
+		text-align: center;
+		width: 24px;
+
+		&.null {
+			color: #999;
+		}
+
+		&:focus {
+			background: #FFF;
+			color: #555 !important;
+		}
+	}
+}
 /* @module: Corner editor */
 .kb-corner-editor {
-	padding: 10px;
-
 	.kb-corner-editor-wrap {
-		height: 50px;
-		margin-bottom: 10px;
+		height: 80px;
 		position: relative;
 	}
 
@@ -85,9 +243,9 @@
 	.input-left-bottom,
 	.input-right-top,
 	.input-right-bottom {
+		line-height: 14px;
 		position: absolute;
-		text-align: center;
-		width: 50px;
+		width: 60px;
 	}
 
 	.input-left-top {
@@ -110,21 +268,32 @@
 		right: 0;
 	}
 
+	.ui-spinner {
+		margin-right: 2px;
+
+		input {
+			height: 20px;
+			padding: 3px;
+			text-align: center;
+			width: 26px;
+		}
+	}
+
 	.box-model {
 		bottom: 0;
-		left: 60px;
+		left: 65px;
 		margin: 0 auto;
 		position: absolute;
-		right: 60px;
+		right: 65px;
 		top: 0;
 
 		.left-top,
 		.left-bottom,
 		.right-top,
 		.right-bottom {
-			height: 15px;
+			height: 20px;
 			position: absolute;
-			width: 15px;
+			width: 20px;
 		}
 
 		.left-top {
@@ -153,6 +322,94 @@
 			border-right: 3px solid #999;
 			bottom: 0;
 			right: 0;
+		}
+	}
+
+	.field {
+		margin-top: 10px;
+		.clearfix();
+	}
+}
+/* @module: Splitter */
+.kb-splitter {
+	background: #CCC;
+	bottom: 400px;
+	cursor: ns-resize;
+	height: 5px;
+	left: 0;
+	position: absolute;
+	right: 0;
+	z-index: 999;
+
+	.toggle-button {
+		background: #CCC;
+		cursor: pointer;
+		height: 16px;
+		line-height: 16px;
+		left: 50%;
+		margin-left: -20px;
+		position: absolute;
+		text-align: center;
+		top: -16px;
+		width: 40px;
+		.rounded(3px 3px 0 0);
+		.opacity(60);
+
+		.sprite {
+			.sprite(@chevron-up-gray);
+		}
+
+		&:hover {
+			.opacity(100);
+		}
+
+		&.active .sprite {
+			.sprite(@chevron-down-gray);
+		}
+	}
+
+	&.horizontal {
+		bottom: 0;
+		cursor: ew-resize;
+		height: auto;
+		left: auto;
+		right: 500px;
+		top: 0;
+		width: 5px;
+
+		.toggle-button {
+			height: 40px;
+			line-height: 40px;
+			margin: -20px 0 0 0;
+			top: 50%;
+			width: 16px;
+
+			&.toggle-to-left {
+				left: auto;
+				right: -16px;
+				.rounded(0 3px 3px 0);
+
+				.sprite {
+					.sprite(@chevron-right-gray);
+				}
+
+				&.active .sprite {
+					.sprite(@chevron-left-gray);
+				}
+			}
+
+			&.toggle-to-right {
+				left: -16px;
+				.rounded(3px 0 0 3px);
+
+				.sprite {
+					.sprite(@chevron-left-gray);
+				}
+
+				&.active .sprite {
+					.sprite(@chevron-right-gray);
+				}
+			}
 		}
 	}
 }
