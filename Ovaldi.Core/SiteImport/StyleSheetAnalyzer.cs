@@ -59,8 +59,10 @@ namespace Ovaldi.Core.SiteImport
             if (!_siteFileProvider.IsFileExists(pageDownloadContext.SiteDownloadContext.Site, filePath))
             {
                 var styleContent = DownloadStyleWithImages(pageDownloadContext, styleUrl, filePath);
-
-                _siteFileProvider.AddFile(pageDownloadContext.SiteDownloadContext.Site, filePath, styleContent);
+                if (!string.IsNullOrEmpty(styleContent))
+                {
+                    _siteFileProvider.AddFile(pageDownloadContext.SiteDownloadContext.Site, filePath, styleContent);
+                }
             }
 
             return UrlUtility.Combine("/", SiteExtensions.PREFIX_FRONT_PREVIEW_URL + pageDownloadContext.SiteDownloadContext.Site.AbsoluteName, filePath);
@@ -69,37 +71,36 @@ namespace Ovaldi.Core.SiteImport
         private string DownloadStyleWithImages(PageDownloadContext pageDownloadContext, string styleUrl, string styleFilePath)
         {
             var styleContent = _httpClient.DownloadString(styleUrl);
-            MatchEvaluator urlDelegate = new MatchEvaluator(delegate(Match m)
+            if (!string.IsNullOrEmpty(styleContent))
             {
-                // Change relative (to the original CSS) URL references to make them relative to the requested URL (controller / action)
-                string url = m.Value;
-
-                var rawAbsoluteUrl = new Uri(new Uri(styleUrl), url).ToString();
-                string fileName = Path.GetFileName(url);
-
-                var imagePath = "images/" + fileName;
-
-                var styleImagePath = Path.Combine(Path.GetDirectoryName(styleFilePath), imagePath);
-
-                if (!_siteFileProvider.IsFileExists(pageDownloadContext.SiteDownloadContext.Site, styleImagePath))
+                MatchEvaluator urlDelegate = new MatchEvaluator(delegate(Match m)
                 {
-                    try
+                    // Change relative (to the original CSS) URL references to make them relative to the requested URL (controller / action)
+                    string url = m.Value;
+
+                    var rawAbsoluteUrl = new Uri(new Uri(styleUrl), url).ToString();
+                    string fileName = Path.GetFileName(url);
+
+                    var imagePath = "images/" + fileName;
+
+                    var styleImagePath = Path.Combine(Path.GetDirectoryName(styleFilePath), imagePath);
+
+                    if (!_siteFileProvider.IsFileExists(pageDownloadContext.SiteDownloadContext.Site, styleImagePath))
                     {
                         var data = _httpClient.DownloadData(rawAbsoluteUrl);
-                        _siteFileProvider.AddFile(pageDownloadContext.SiteDownloadContext.Site, styleImagePath, data);
+                        if (data != null)
+                        {
+                            _siteFileProvider.AddFile(pageDownloadContext.SiteDownloadContext.Site, styleImagePath, data);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        Kooboo.Common.Logging.Logger.LoggerInstance.Error(e.Message,e);
-                    }                    
-                }
-                return imagePath;
-            });
+                    return imagePath;
+                });
 
-            styleContent = Regex.Replace(styleContent, @"(?<=url\(\s*([""']?))(?<url>[^'""]+?)(?=\1\s*\))", urlDelegate, RegexOptions.IgnoreCase);
+                styleContent = Regex.Replace(styleContent, @"(?<=url\(\s*([""']?))(?<url>[^'""]+?)(?=\1\s*\))", urlDelegate, RegexOptions.IgnoreCase);
 
-            return styleContent;
-
+                return styleContent;
+            }
+            return null;
         }
     }
 }

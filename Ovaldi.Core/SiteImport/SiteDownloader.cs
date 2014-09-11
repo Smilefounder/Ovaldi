@@ -22,18 +22,22 @@ namespace Ovaldi.Core.SiteImport
     {
         ISiteProvider _siteProvider;
         IPageDownloader _pageDownloader;
-        public SiteDownloader(ISiteProvider siteProvider, IPageDownloader pageDownloader)
+        DownloadOptions _options;
+        public DownloadOptions Options { get { return _options; } }
+
+        public SiteDownloader(ISiteProvider siteProvider, IPageDownloader pageDownloader, DownloadOptions options)
         {
             _siteProvider = siteProvider;
             _pageDownloader = pageDownloader;
+            _options = options;
         }
-        public IEnumerable<PageLevel> Download(DownloadOptions options)
+        public IEnumerable<PageLevel> Download()
         {
-            var site = CreateSite(options.SiteName);
+            var site = CreateSite(_options.SiteName);
 
-            var siteDownloadContext = new SiteDownloadContext(site, options);
+            var siteDownloadContext = new SiteDownloadContext(site, _options);
 
-            siteDownloadContext.DownloadQueue.Enqueue(new PageLevel(options.Url, 0));
+            siteDownloadContext.DownloadQueue.Enqueue(new PageLevel(_options.Url, 0));
 
             while (siteDownloadContext.DownloadQueue.Count > 0)
             {

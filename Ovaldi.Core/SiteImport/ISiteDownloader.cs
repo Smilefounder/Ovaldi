@@ -16,6 +16,7 @@ namespace Ovaldi.Core.SiteImport
 {
     public interface ISiteDownloader
     {
-        IEnumerable<PageLevel> Download(DownloadOptions options);
+        DownloadOptions Options { get; }
+        IEnumerable<PageLevel> Download();
     }
 }

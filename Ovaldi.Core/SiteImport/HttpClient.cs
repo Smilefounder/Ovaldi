@@ -26,20 +26,27 @@ namespace Ovaldi.Core.SiteImport
             //为什么不能用WebClient? 因为确定encoding需要html内容
             //var text = (new WebClient()).DownloadString(url);
             //return text;
-
-            var httpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
-
-            httpWebRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-
-            httpWebRequest.Method = "GET";
-            httpWebRequest.AllowAutoRedirect = false;
-
-            var webResponse = httpWebRequest.GetResponse();
-
-            if (webResponse is HttpWebResponse)
+            try
             {
-                return ProcessHttpWebResponse((HttpWebResponse)webResponse);
+                var httpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+
+                httpWebRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+
+                httpWebRequest.Method = "GET";
+                httpWebRequest.AllowAutoRedirect = false;
+
+                var webResponse = httpWebRequest.GetResponse();
+
+                if (webResponse is HttpWebResponse)
+                {
+                    return ProcessHttpWebResponse((HttpWebResponse)webResponse);
+                }
             }
+            catch (Exception e)
+            {
+                Kooboo.Common.Logging.Logger.LoggerInstance.Error(e.Message, e);
+            }
+            
             return null;
         }
         protected virtual string ProcessHttpWebResponse(HttpWebResponse httpWebResponse)
@@ -144,8 +151,17 @@ namespace Ovaldi.Core.SiteImport
         }
         public byte[] DownloadData(string url)
         {
-            var data = (new WebClient()).DownloadData(url);
-            return data;
+            try
+            {
+                var data = (new WebClient()).DownloadData(url);
+                return data;
+            }
+            catch (Exception e)
+            {
+                Kooboo.Common.Logging.Logger.LoggerInstance.Error(e.Message, e);
+            }
+            return null;
+
         }
     }
 }

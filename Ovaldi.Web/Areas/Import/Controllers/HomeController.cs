@@ -1,4 +1,6 @@
-﻿using Ovaldi.Core.SiteImport;
+﻿using Kooboo.Common.Web;
+using System.Web.Routing;
+using Ovaldi.Core.SiteImport;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +12,9 @@ namespace Ovaldi.Web.Areas.Import.Controllers
     public class HomeController : Controller
     {
         #region .ctor
-        ISiteDownloader _siteDownloader;
-        public HomeController(ISiteDownloader siteDownloader)
+
+        public HomeController()
         {
-            this._siteDownloader = siteDownloader;
         }
         #endregion
         // GET: Import/Home
@@ -24,9 +25,29 @@ namespace Ovaldi.Web.Areas.Import.Controllers
         [HttpPost]
         public ActionResult Index(DownloadOptions model)
         {
-            var list = _siteDownloader.Download(model);
-            TempData["DownloadList"] = list;
-            return RedirectToAction("Results", new { siteName = model.SiteName });
+            var data = new JsonResultData(ModelState);
+            var downloader = SiteDownloaderFactory.GetSiteDownloader(Session.SessionID);
+            if (downloader != null)
+            {
+                data.AddMessage("一个Session只能有一个下载任务");
+                data.Success = false;
+            }
+            else
+            {
+                downloader = SiteDownloaderFactory.CreateSiteDownloader(Session.SessionID, model);
+                downloader.Download();
+                data.RedirectUrl = Url.Action("Downloading", ControllerContext.RequestContext.AllRouteValues());
+            }
+            //var list = _siteDownloader.Download(model);
+            //TempData["DownloadList"] = list;
+            //return RedirectToAction("Results", new { siteName = model.SiteName });
+
+            return Json(data);
+        }
+
+        public ActionResult Downloading()
+        {
+            return View();
         }
         public ActionResult Results(string siteName)
         {

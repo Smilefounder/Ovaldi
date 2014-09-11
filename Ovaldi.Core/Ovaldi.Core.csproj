@@ -219,6 +219,7 @@
     <Compile Include="SiteImport\PageLinkAnalyzer.cs" />
     <Compile Include="SiteImport\ScriptAnalyzer.cs" />
     <Compile Include="SiteImport\SiteDownloader.cs" />
+    <Compile Include="SiteImport\SiteDownloaderFactory.cs" />
     <Compile Include="SiteImport\StyleSheetAnalyzer.cs" />
     <Compile Include="SiteImport\UriHelper.cs" />
   </ItemGroup>

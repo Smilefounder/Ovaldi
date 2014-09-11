@@ -53,8 +53,11 @@ namespace Ovaldi.Core.SiteImport
             if (!_siteFileProvider.IsFileExists(pageDownloadContext.SiteDownloadContext.Site, filePath))
             {
                 var data = _httpClient.DownloadData(imageUrl);
+                if (data!=null)
+                {
+                    _siteFileProvider.AddFile(pageDownloadContext.SiteDownloadContext.Site, filePath, data);
+                }
 
-                _siteFileProvider.AddFile(pageDownloadContext.SiteDownloadContext.Site, filePath, data);
             }
 
             return UrlUtility.Combine("/", SiteExtensions.PREFIX_FRONT_PREVIEW_URL + pageDownloadContext.SiteDownloadContext.Site.AbsoluteName, filePath);
