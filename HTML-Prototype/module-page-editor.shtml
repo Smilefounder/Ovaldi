@@ -35,7 +35,17 @@
 							<div class="left-column">
 								<div class="kb-code-viewer flexible">
 									<div class="container">
-										<ul>
+										<ul class="code-tree">
+											<li>
+												<span class="code active">
+													<img src="images/invis.gif" class="sprite active">
+													&lt;body <code>class</code>="<code>title</code>"&gt;
+												</span>
+												<ul>
+													<li><span class="code">&lt;a href="#"&gt;<code>Lorem ipsum dolor sit amet</code>&lt;/a&gt;</span></li>
+												</ul>
+												<span class="code">&lt;/body&gt;</span>
+											</li>
 											<li>
 												<span class="code active">
 													<img src="images/invis.gif" class="sprite active">
@@ -53,9 +63,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="kb-splitter horizontal">
-								<div class="toggle-button toggle-to-right active"><img src="images/invis.gif" class="sprite"></div>
-							</div>
+							<div class="kb-splitter horizontal"></div>
 							<div class="right-column">
 								<div class="J_Tabs tabs-small">
 									<ul>
