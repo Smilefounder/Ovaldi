@@ -20,8 +20,29 @@ namespace Ovaldi.Core.SiteImport
         private volatile static Dictionary<string, ISiteDownloader> siteDownloaders = new Dictionary<string, ISiteDownloader>();
         public static ISiteDownloader CreateSiteDownloader(string sessionId, DownloadOptions options)
         {
-            var downloader = EngineContext.Current.Resolve<ISiteDownloader>(new Parameter("options", options));
-            return downloader;
+            //为了避免检查是否存在已有的downloader，和IsCompleted状态发送变化的影响，锁放在最外面。
+            lock (siteDownloaders)
+            {
+                if (siteDownloaders.ContainsKey(sessionId))
+                {
+                    var downloader = siteDownloaders[sessionId];
+                    if (downloader.IsCompleted == true)
+                    {
+                        siteDownloaders.Remove(sessionId);
+                    }
+                    else
+                    {
+                        throw new Exception("一个Session只能有一个下载任务");
+                    }
+                }
+
+                if (!siteDownloaders.ContainsKey(sessionId))
+                {
+                    var downloader = EngineContext.Current.Resolve<ISiteDownloader>(new Parameter("options", options));
+                    siteDownloaders[sessionId] = downloader;
+                }
+            }
+            return siteDownloaders[sessionId];
         }
 
         public static ISiteDownloader GetSiteDownloader(string sessionId)
@@ -31,19 +52,6 @@ namespace Ovaldi.Core.SiteImport
                 return siteDownloaders[sessionId];
             }
             return null;
-        }
-        public static void SetSiteDownloader(string sessionId, ISiteDownloader siteDownloader)
-        {
-            if (!siteDownloaders.ContainsKey(sessionId))
-            {
-                lock (siteDownloaders)
-                {
-                    if (!siteDownloaders.ContainsKey(sessionId))
-                    {
-                        siteDownloaders[sessionId] = siteDownloader;
-                    }
-                }
-            }
         }
     }
 }

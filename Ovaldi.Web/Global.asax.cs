@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kooboo.Common.Web.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,10 @@ namespace Ovaldi.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            ModelMetadataProviders.Current = new KoobooDataAnnotationsModelMetadataProvider();
+            ModelValidatorProviders.Providers.RemoveAt(0);
+            ModelValidatorProviders.Providers.Insert(0, new KoobooDataAnnotationsModelValidatorProvider());
 
             base.Application_Start(sender, e);
         }

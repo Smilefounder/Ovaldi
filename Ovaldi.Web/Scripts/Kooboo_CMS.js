@@ -81,6 +81,9 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
             var id = new Date().getTime();
             var handle = $(this).pop({
                 id: id,
+                //width: 800,
+                //height: 580,
+                frameHeight: "100%",
                 popupOnTop: true,
                 onclose: function () {
                 }
@@ -110,7 +113,7 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
     };
     $.fn.dropdownButton = function () {
         var dom = $(this);
-        var dropdown = dom.find('.button.dropdown');
+        var dropdown = dom.find('.dropdown-button');
         $(document).click(function () {
             dropdown.removeClass('active');
             dropdown.children('ul').slideUp('fast');
@@ -319,23 +322,19 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
             e.stopPropagation();
         });
 
-        table.find('.icon.drag').click(function (e) {
-            e.stopPropagation();
-        });
-
-        //(function sync_header_width() {
-        //    var $thead = table.find('thead');
-        //    var $tbody = table.find('tbody');
-        //    var $th = $thead.first().find('th').toArray();
-        //    var $td = $tbody.find('tr:last-child td');
-        //    if ($th.length == $td.length) {
-        //        _.each($td, function (td, index) {
-        //            if (index < $th.length) {
-        //                $($th[index]).css('width', $(td).css('width'));
-        //            }
-        //        });
-        //    }
-        //}());
+        (function sync_header_width() {
+            var $thead = table.find('thead');
+            var $tbody = table.find('tbody');
+            var $th = $thead.first().find('th').toArray();
+            var $td = $tbody.find('tr:last-child td');
+            if ($th.length == $td.length) {
+                _.each($td, function (td, index) {
+                    if (index < $th.length) {
+                        $($th[index]).css('width', $(td).css('width'));
+                    }
+                });
+            }
+        }());
 
         // var all_checkboxes = table.find("input:checkbox.select");
         var $selectAll = table.find("input:checkbox.select-all");
@@ -343,51 +342,51 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
         table.reset_check_relateds({ check_relateds: $check_relateds, selector: selector });
 
         $selectAll.change(function () {
-            if ($(this).prop('checked')) {
-                table.find("input:checkbox.select:not(:disabled)").prop('checked', true).parents('tr').addClass('active');
+            if ($(this).attr("checked")) {
+                table.find("input:checkbox.select:not(:disabled)").attr("checked", true).parents('tr').addClass('active');
             } else {
-                table.find("input:checkbox.select").prop('checked', false).parents('tr').removeClass('active');
+                table.find("input:checkbox.select").attr("checked", false).parents('tr').removeClass('active');
             }
             table.reset_check_relateds({ check_relateds: $check_relateds, selector: selector });
         });
 
         var selectOptional = function () {
-            $('th.checkbox.mutiple > div').click(function (e) {
+            $('th.checkbox.mutiple div').click(function (e) {
                 e.stopPropagation();
-                $(this).children('.dropdown').toggle('fast');
+                $(this).children('ul').toggleClass("hide");
             }).find("input:checkbox").click(function (e) {
                 e.stopPropagation();
             });
 
-            var optionUl = table.find('th.checkbox.mutiple ul');
+            var optionUl = table.find('th.checkbox.mutiple div ul');
             optionUl.find("li.none").click(function () {
-                $("input:checkbox").prop('checked', false);
+                $("input:checkbox").attr("checked", false);
                 $("input:checkbox").parents('tbody tr').removeClass('active');
                 table.reset_check_relateds({ check_relateds: $check_relateds, selector: selector });
             });
             optionUl.find("li.all").click(function () {
-                $("input:checkbox").prop('checked', true);
+                $("input:checkbox").attr("checked", true);
                 $("input:checkbox").parents('tbody tr').addClass('active');
                 table.reset_check_relateds({ check_relateds: $check_relateds, selector: selector });
             });
             optionUl.find("li.docs").click(function () {
-                $("input:checkbox").prop('checked', false);
+                $("input:checkbox").attr("checked", false);
                 $("input:checkbox").parents('tbody tr').removeClass('active');
-                $("input:checkbox.doc").prop('checked', true);
+                $("input:checkbox.doc").attr("checked", true);
                 $("input:checkbox.doc").parents('tbody tr').addClass('active');
                 table.reset_check_relateds({ check_relateds: $check_relateds, selector: selector });
             });
             optionUl.find("li.folders").click(function () {
-                $("input:checkbox").prop('checked', false);
+                $("input:checkbox").attr("checked", false);
                 $("input:checkbox").parents('tbody tr').removeClass('active');
-                $("input:checkbox.folder").prop('checked', true);
+                $("input:checkbox.folder").attr("checked", true);
                 $("input:checkbox.folder").parents('tbody tr').addClass('active');
                 table.reset_check_relateds({ check_relateds: $check_relateds, selector: selector });
             });
         };
         selectOptional();
 
-        var trCollection = table.find('tbody tr:not(.empty)');
+        var trCollection = table.find('tbody tr');
         trCollection.checkableTR(trCollection);
 
         return table;
@@ -398,64 +397,23 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
         var trCollection = trCollection || $(this);
         var selector = 'input:checkbox.select:checked';
         var $tbody = $tr.closest('tbody');
-        $tr.click(function () {
+        $tr.click(function (e) {
+            e.stopPropagation();
             var $self = $(this);
             var $checkbox = $self.find('input:checkbox,input:radio');
             if ($checkbox.is("input:radio")) {
                 trCollection.removeClass('active');
             }
-            if (!$checkbox.prop('disabled')) {
+            if ($checkbox.attr('disabled') != 'disabled') {
                 $self.toggleClass('active');
                 if ($self.hasClass('active')) {
-                    $checkbox.prop('checked', true);
+                    $checkbox.attr('checked', true);
                 } else {
-                    $checkbox.prop('checked', false);
+                    $checkbox.removeAttr('checked');
                 }
                 $tbody.reset_check_relateds({ check_relateds: $check_relateds, selector: selector });
             }
         });
-    }
-    $.fn.customFile = function () {
-        var textInput = $(this).find('input:text');
-        var fileInput = $(this).find('input:file');
-        var button = $(this).find('.button');
-        textInput.css('padding-right', button.outerWidth() + 6);
-        textInput.click(function () {
-            fileInput.click();
-        })
-        fileInput.change(function () {
-            textInput.val(fileInput.val());
-        });
-    }
-    $.fn.scrollFixTable = function (target) {
-        if (target == null) {
-            target = $('#main > .wrap');
-        }
-        var $table = $(this);
-        var $tableHead = $table.find('thead');
-        var $fixedHead = $('<div class="fixed">');
-        var $fixedHeadTable = $('<table>');
-        $fixedHead.prepend($fixedHeadTable);
-        $fixedHeadTable.prepend($tableHead.clone(true, true));
-        $fixedHead.prependTo($table);
-        $fixedHead.children('table').width($tableHead.width());
-        $fixedHead.find('th').each(function (i) {
-            $(this).width($tableHead.find('th').eq(i).width())
-        })
-        $(window).resize(function () {
-            $fixedHead.children('table').width($tableHead.width());
-            $fixedHead.find('th').each(function (i) {
-                $(this).width($tableHead.find('th').eq(i).width())
-            })
-        })
-        target.scroll(function () {
-            $fixedHead.css('top', target.scrollTop());
-            if (target.scrollTop() != 0) {
-                $fixedHead.show();
-            } else {
-                $fixedHead.hide();
-            }
-        })
     }
     $.fn.grid = function (options) {
         options = $.extend({
@@ -500,7 +458,31 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
                 parse_JsonResultData(data, textStatus, jqXHR);
             }, message);
         });
-
+        $('[data-command-type="Post"]').click(function (e) {
+            var $self = $(this);
+            var $selected = $table.find("input:checkbox[checked]");
+            $selected = $selected.filter(':not(.select-all)');
+            var id = $selected.data("id-property");
+            if (id === undefined) {
+                id = "ID-PROPERTY-UNDEFINED";
+            }
+            var selectedValues = [];
+            $selected.each(function () {
+                selectedValues.push($(this).val());
+            });
+            var tempForm = $('<form>', {
+                'action': $self.attr('href'),
+                'target': '_top',
+                'method': 'post'
+            }).appendTo('body');
+            $('<input>').attr({
+                type: 'hidden',
+                name: id,
+                value: selectedValues.join(',')
+            }).appendTo(tempForm);
+            tempForm.submit();
+            return false;
+        });
         $('[data-command-type="Download"]').click(function (e) {
             var selectedModel = grid.getSelecteds();
 
@@ -514,12 +496,13 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
         $('[data-command-type="Redirect"]').click(function () {
             var $self = $(this);
             var $selected = $table.find(options.checkSelector);
+            $selected = $selected.filter(':not(.select-all)');
             var id = $selected.data("id-property");
             var selectedValues = [];
             $selected.each(function () {
                 selectedValues.push($(this).val());
             });
-            var value = selectedValues.join(',');
+            var value = encodeURIComponent(selectedValues.join(','));
             window.location.href = ($self.attr('href') + "&" + id + "=" + value);
             return false;
         });
@@ -572,6 +555,31 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
                 parse_JsonResultData(data, textStatus, jqXHR);
             }, message);
         });
+        $('[data-command-type="Post"]').click(function (e) {
+            var $self = $(this);
+            var $selected = $table.find("input:checkbox[checked]");
+            $selected = $selected.filter(':not(.select-all)');
+            var id = $selected.data("id-property");
+            if (id === undefined) {
+                id = "ID-PROPERTY-UNDEFINED";
+            }
+            var selectedValues = [];
+            $selected.each(function () {
+                selectedValues.push($(this).val());
+            });
+            var tempForm = $('<form>', {
+                'action': $self.attr('href'),
+                'target': '_top',
+                'method': 'post'
+            }).appendTo('body');
+            $('<input>').attr({
+                type: 'hidden',
+                name: id,
+                value: selectedValues.join(',')
+            }).appendTo(tempForm);
+            tempForm.submit();
+            return false;
+        });
         $('[data-command-type="Download"]').click(function () {
             var selectedModel = { folders: grid.getSelectedFolders(), docs: grid.getSelectedDocs() };
             $.fileDownload($(this).attr("href"), { httpMethod: "POST", data: selectedModel })
@@ -581,12 +589,13 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
         $('[data-command-type="Redirect"]').click(function () {
             var $self = $(this);
             var $selected = $table.find("input:checkbox[checked]");
+            $selected = $selected.filter(':not(.select-all)');
             var id = $selected.data("id-property");
             var selectedValues = [];
             $selected.each(function () {
                 selectedValues.push($(this).val());
             });
-            var value = selectedValues.join(',');
+            var value = encodeURIComponent(selectedValues.join(','));
             window.location.href = ($self.attr('href') + "&" + id + "=" + value);
             return false;
         });
@@ -718,7 +727,11 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
                 openOnclick: true,
 
                 allowTransparency: true,
+                frameborder: '0',
+                border: '0',
 
+                frameWidth: '100%',
+                frameHeight: '100%',
                 unbindEvents: 'click',
 
                 show: 'fade', //jquery dialog option
@@ -731,10 +744,6 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
                 onload: function (currentHandle, pop, config) { }, // on pop content loaded 
                 onclose: function (currentHandle, pop, config) { } // on pop closed
             };
-
-            if (config.isIframe) {
-                config.dialogClass = 'iframe-dialog';
-            }
 
             if (_.isString($(option))) {
                 config.id = option;
@@ -770,6 +779,21 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
                 config.title = this.attr('title');
             }
             pop.dialog(config);
+            //if (config.maxAble) {
+            //    pop.dialogExtend({
+            //        "maximize": true,
+            //        "dblclick": "maximize",
+            //        "icons": {
+            //            "maximize": "ui-icon-extlink",
+            //            "restore": "ui-icon-newwin"
+            //        },
+            //        events: {
+            //            restore: function (evt, dlg) {
+            //                $(dlg).dialog("option", "position", 'center');
+            //            }
+            //        }
+            //    });
+            //}
             if (config.openOnclick) {
                 function showPop() {
                     show();
@@ -828,13 +852,21 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
 
                         if (pop.find('iframe').length == 0) {
                             iframe = $(__iframe).appendTo(pop);
+                            iframe.css('width', config.frameWidth);
+                            iframe.attr('frameborder', config.frameborder);
                             iframe.attr('allowTransparency', config.allowTransparency);
 
+                            iframe.attr('border', config.border);
                             iframe.attr('src', config.url);
                             iframe.attr('id', "pop_iframe" + config.id);
 
                             if (config.frameConfig) {
                                 iframe.attr(config.frameConfig);
+                            }
+
+                            if (config.height <= 200) {
+
+                                iframe.css("height", "90%");
                             }
 
                             if (config.frameHeight == 'auto') {
@@ -1136,20 +1168,140 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
             $("input[type=file].filestyle").filestyle();
         }
 
-        window.loading.hide();
-        $(window).ready(function () {
+        if (!window.keepLoading) {
             window.loading.hide();
-        });
+            $(window).ready(function () {
+                window.loading.hide();
+            });
+        }
     });
 
     // form post
     $(function () {
-        //check form changed
+        //默认的绑定延迟一点执行，可以允许特定的页面在这个绑定之前做一些事情
         setTimeout(function () {
+            //check form changed
             $('form:not(.no-stop) input,form:not(.no-stop) select:not(.select)').change(function () {
                 window.leaveConfirm.stop();
             });
-        }, 1000);
+
+            $('[data-ajaxform]').click(function (e) {
+                e.preventDefault();
+                var ajaxFormParam = {
+                    async: true,
+                    beforeSend: function () {
+                        window.loading.show();
+                    },
+                    success: function (response, statusText, xhr, $form) {
+                        parse_JsonResultData.call(this, response, statusText, xhr, $form)
+                    },
+                    error: function () {
+                        window.loading.hide();
+                    }
+                };
+
+
+                var $self = $(this);
+                var formId = $self.data('ajaxform');
+                var form = [];
+                if (formId != '') {
+                    form = $('#' + formId);
+                }
+                if (form.length == 0) {
+                    form = $self.closest('form:not(:submit)');
+                }
+                if (form.length == 0) {
+                    form = $('form:not(:submit)').closest('form');
+                }
+
+                if ($self.data('ajax-async') != undefined) {
+                    ajaxFormParam.async = $self.data('ajax-async');
+                }
+                if ($self.attr('href') != undefined && $self.attr('href') != '') {
+                    ajaxFormParam.url = $self.attr('href');
+                }
+                if (window.ajaxFormParam) {
+                    ajaxFormParam = $.extend(ajaxFormParam, window.ajaxFormParam);
+                }
+                $('.field-validation-error').empty();
+                if (!form.valid()) {
+                    if (form.find('.tabs').length) {
+                        var selector = 'input.input-validation-error,select.input-validation-error';
+                        $(selector).parents('div.tab-content')
+                                .each(function () {
+                                    var tab = $(this);
+                                    var li = $('a[href="#' + tab.attr('id') + '"]')
+                                    .hide().show('pulsate', {}, 100)
+                                    .show('highlight', {}, 200)
+                                    .show('pulsate', {}, 300)
+                                    .show('highlight', {}, 400);
+                                });
+                    }
+                }
+                else {
+                    window.leaveConfirm.pass();
+                    var confirmMsg = $self.data('confirm');
+                    if (confirmMsg) {
+                        if (!confirm(confirmMsg)) {
+                            return false;
+                        }
+                    }
+                    form.ajaxForm(ajaxFormParam);
+                    form.submit();
+                }
+            });
+
+            $('[data-download-form]').click(function (e) {
+                var $self = $(this);
+                var formId = $self.data('download-form');
+                var _retrun = $self.data('return');
+                var form = [];
+                if (formId != '') {
+                    form = $('#' + formId);
+                }
+                if (form.length == 0) {
+                    form = $self.closest('form:not(:submit)');
+                }
+                if (form.length == 0) {
+                    form = $('form:not(:submit)').closest('form');
+                }
+
+                if ($self.attr('href') != undefined && $self.attr('href') != '') {
+                    ajaxFormParam.url = $self.attr('href');
+                }
+
+                $('.field-validation-error').empty();
+                if (!form.valid()) {
+                    if (form.find('.tabs').length) {
+                        var selector = 'input.input-validation-error,select.input-validation-error';
+                        $(selector).parents('div.tab-content')
+                                .each(function () {
+                                    var tab = $(this);
+                                    var li = $('a[href="#' + tab.attr('id') + '"]')
+                                    .hide().show('pulsate', {}, 100)
+                                    .show('highlight', {}, 200)
+                                    .show('pulsate', {}, 300)
+                                    .show('highlight', {}, 400);
+                                });
+                    }
+                }
+                else {
+                    window.leaveConfirm.pass();
+                    var confirmMsg = $self.data('confirm');
+                    if (confirmMsg) {
+                        if (!confirm(confirmMsg)) {
+                            return false;
+                        }
+                    }
+                    form.submit();
+                    setTimeout(function () {
+                        if (_retrun) {
+                            location.href = _retrun;
+                        }
+                    }, 1000);
+                }
+            });
+        }, 500);
 
         $(document).ajaxStop(function () {
             window.loading.hide();
@@ -1162,122 +1314,7 @@ function parse_JsonResultData(response, statusText, xhr, $form) {
         $(".upload-button input:file").change(function () {
             $(this).parent().submit();
         });
-        $('[data-ajaxform]').click(function (e) {
-            e.preventDefault();
-            var ajaxFormParam = {
-                async: true,
-                beforeSend: function () {
-                    window.loading.show();
-                },
-                success: function (response, statusText, xhr, $form) {
-                    parse_JsonResultData.call(this, response, statusText, xhr, $form)
-                },
-                error: function () {
-                    window.loading.hide();
-                }
-            };
 
-
-            var $self = $(this);
-            var formId = $self.data('ajaxform');
-            var form = [];
-            if (formId != '') {
-                form = $('#' + formId);
-            }
-            if (form.length == 0) {
-                form = $self.closest('form:not(:submit)');
-            }
-            if (form.length == 0) {
-                form = $('form:not(:submit)').closest('form');
-            }
-
-            if ($self.data('ajax-async') != undefined) {
-                ajaxFormParam.async = $self.data('ajax-async');
-            }
-            if ($self.attr('href') != undefined && $self.attr('href') != '') {
-                ajaxFormParam.url = $self.attr('href');
-            }
-            if (window.ajaxFormParam) {
-                ajaxFormParam = $.extend(ajaxFormParam, window.ajaxFormParam);
-            }
-            $('.field-validation-error').empty();
-            if (!form.valid()) {
-                if (form.find('.tabs').length) {
-                    var selector = 'input.input-validation-error,select.input-validation-error';
-                    $(selector).parents('div.tab-content')
-                            .each(function () {
-                                var tab = $(this);
-                                var li = $('a[href="#' + tab.attr('id') + '"]')
-                                .hide().show('pulsate', {}, 100)
-                                .show('highlight', {}, 200)
-                                .show('pulsate', {}, 300)
-                                .show('highlight', {}, 400);
-                            });
-                }
-            }
-            else {
-                window.leaveConfirm.pass();
-                var confirmMsg = $self.data('confirm');
-                if (confirmMsg) {
-                    if (!confirm(confirmMsg)) {
-                        return false;
-                    }
-                }
-                form.ajaxForm(ajaxFormParam);
-                form.submit();
-            }
-        });
-
-        $('[data-download-form]').click(function (e) {
-            var $self = $(this);
-            var formId = $self.data('download-form');
-            var _retrun = $self.data('return');
-            var form = [];
-            if (formId != '') {
-                form = $('#' + formId);
-            }
-            if (form.length == 0) {
-                form = $self.closest('form:not(:submit)');
-            }
-            if (form.length == 0) {
-                form = $('form:not(:submit)').closest('form');
-            }
-
-            if ($self.attr('href') != undefined && $self.attr('href') != '') {
-                ajaxFormParam.url = $self.attr('href');
-            }
-
-            $('.field-validation-error').empty();
-            if (!form.valid()) {
-                if (form.find('.tabs').length) {
-                    var selector = 'input.input-validation-error,select.input-validation-error';
-                    $(selector).parents('div.tab-content')
-                            .each(function () {
-                                var tab = $(this);
-                                var li = $('a[href="#' + tab.attr('id') + '"]')
-                                .hide().show('pulsate', {}, 100)
-                                .show('highlight', {}, 200)
-                                .show('pulsate', {}, 300)
-                                .show('highlight', {}, 400);
-                            });
-                }
-            }
-            else {
-                window.leaveConfirm.pass();
-                var confirmMsg = $self.data('confirm');
-                if (confirmMsg) {
-                    if (!confirm(confirmMsg)) {
-                        return false;
-                    }
-                }
-                form.submit();
-                setTimeout(function () {
-                    if (_retrun) {
-                        location.href = _retrun;
-                    }
-                }, 100);
-            }
-        });
     });
 
     //knockout extension

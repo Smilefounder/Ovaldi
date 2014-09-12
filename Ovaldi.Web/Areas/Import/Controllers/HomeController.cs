@@ -26,28 +26,19 @@ namespace Ovaldi.Web.Areas.Import.Controllers
         public ActionResult Index(DownloadOptions model)
         {
             var data = new JsonResultData(ModelState);
-            var downloader = SiteDownloaderFactory.GetSiteDownloader(Session.SessionID);
-            if (downloader != null)
+            data.RunWithTry((jsonData) =>
             {
-                data.AddMessage("一个Session只能有一个下载任务");
-                data.Success = false;
-            }
-            else
-            {
-                downloader = SiteDownloaderFactory.CreateSiteDownloader(Session.SessionID, model);
+                var downloader = SiteDownloaderFactory.CreateSiteDownloader(Session.SessionID, model);
                 downloader.Download();
                 data.RedirectUrl = Url.Action("Downloading", ControllerContext.RequestContext.AllRouteValues());
-            }
-            //var list = _siteDownloader.Download(model);
-            //TempData["DownloadList"] = list;
-            //return RedirectToAction("Results", new { siteName = model.SiteName });
-
+            });
             return Json(data);
         }
 
         public ActionResult Downloading()
         {
-            return View();
+            var downloader = SiteDownloaderFactory.GetSiteDownloader(Session.SessionID);
+            return View(downloader);
         }
         public ActionResult Results(string siteName)
         {

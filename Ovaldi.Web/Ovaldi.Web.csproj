@@ -117,10 +117,8 @@
     <Content Include="Images\svg-preview.png" />
     <Content Include="Images\svg-view.png" />
     <Content Include="Scripts\html5shiv.js" />
-    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.4.js" />
-    <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.form.custom.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.signalR-2.1.1.js" />
     <Content Include="Scripts\jquery.signalR-2.1.1.min.js" />
@@ -307,6 +305,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +396,9 @@
     <Content Include="Views\Shared\EditorTemplates\_Search.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\_TR.cshtml" />
     <Content Include="Areas\Import\Views\Home\Results.cshtml" />
+    <Content Include="Areas\Import\Views\Home\Downloading.cshtml" />
+    <Content Include="Views\Shared\View.cshtml" />
+    <Content Include="Views\Shared\_IconImage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

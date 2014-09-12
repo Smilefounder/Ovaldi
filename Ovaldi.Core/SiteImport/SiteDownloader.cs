@@ -23,6 +23,7 @@ namespace Ovaldi.Core.SiteImport
         ISiteProvider _siteProvider;
         IPageDownloader _pageDownloader;
         DownloadOptions _options;
+        public bool IsCompleted { get; private set; }
         public DownloadOptions Options { get { return _options; } }
 
         public SiteDownloader(ISiteProvider siteProvider, IPageDownloader pageDownloader, DownloadOptions options)
