@@ -29,6 +29,16 @@
 		}
 	}
 
+	.code-field {
+		border: 2px solid orange;
+		display: none;
+		font-size: 11px;
+		height: 22px;
+		margin: -4px 0 0 -4px;
+		padding: 2px;
+		position: absolute;
+	}
+
 	.bottom {
 		background: #F5F5F5;
 		border: 1px solid #CCC;
@@ -61,18 +71,19 @@
 			margin-left: 30px;
 		}
 
-		li {
-			position: relative;
+		.sprite {
+			float: left;
+			margin: 4px 0 0 -16px;
+			.sprite(@minus-mini);
 		}
 
-		.sprite {
-			.sprite(@plus-mini);
-			position: absolute;
-			left: -16px;
-			top: 4px;
+		.collapsed {
+			.sprite {
+				.sprite(@plus-mini);
+			}
 
-			&.active {
-				.sprite(@minus-mini);
+			.collapsible {
+				display: none;
 			}
 		}
 	}

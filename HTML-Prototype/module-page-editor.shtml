@@ -36,25 +36,30 @@
 								<div class="kb-code-viewer flexible">
 									<div class="container">
 										<ul class="code-tree">
-											<li>
-												<span class="code active">
-													<img src="images/invis.gif" class="sprite active">
-													&lt;body <code>class</code>="<code>title</code>"&gt;
+											<li class="collapsed">
+												<span class="code">
+													<img src="images/invis.gif" class="sprite">
+													&lt;body <code>id</code>="<code>body-container</code>"&gt;
 												</span>
-												<ul>
-													<li><span class="code">&lt;a href="#"&gt;<code>Lorem ipsum dolor sit amet</code>&lt;/a&gt;</span></li>
+												<ul class="collapsible">
+													<li>
+														<span class="code active">
+															<img src="images/invis.gif" class="sprite">
+															&lt;h6 <code>class</code>="<code>title</code>"&gt;
+														</span>
+														<ul>
+															<li><span class="code">&lt;a href="#"&gt;Lorem ipsum dolor sit amet&lt;/a&gt;</span></li>
+														</ul>
+														<span class="code">&lt;/h6&gt;</span>
+													</li>
+													<li>
+														<span class="code">&lt;p <code>class</code>="<code>content</code>"&gt;
+														</span>
+														<code>Lorem ipsum dolor sit amet</code>
+														<span class="code">&lt;/p&gt;</span>
+													</li>
 												</ul>
-												<span class="code">&lt;/body&gt;</span>
-											</li>
-											<li>
-												<span class="code active">
-													<img src="images/invis.gif" class="sprite active">
-													&lt;h6 <code>class</code>="<code>title</code>"&gt;
-												</span>
-												<ul>
-													<li><span class="code">&lt;a href="#"&gt;Lorem ipsum dolor sit amet&lt;/a&gt;</span></li>
-												</ul>
-												<span class="code">&lt;/h6&gt;</span>
+												<span class="code collapsible">&lt;/body&gt;</span>
 											</li>
 										</ul>
 									</div>
@@ -107,7 +112,7 @@
 										<li><a href="#J_Tab_3_6">Font</a></li>
 									</ul>
 									<div id="J_Tab_3_1">
-										<div class="kb-layout-box">
+										<div class="block with-padding kb-layout-box">
 											<span class="label left">position: relative</span>
 											<span class="label right">z-index: auto</span>
 											<div class="position">
