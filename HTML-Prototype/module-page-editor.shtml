@@ -39,10 +39,10 @@
 											<li>
 												<img src="images/invis.gif" class="sprite">
 												<span class="code">
-													&lt;body <code>id</code>="<code>body-container</code>"&gt;
+													&lt;body <code>id</code>="<code>body-container</code>"
 													<span class="new-attribute">
 														<img src="images/invis.gif" class="icon insert-text" title="Insert attribute">
-													</span>
+													</span>&gt;
 												</span>
 												<ul class="collapsible">
 													<li class="collapsed">
@@ -57,10 +57,10 @@
 													</li>
 													<li>
 														<span class="code">
-															&lt;p <code>class</code>="<code>content</code>"&gt;
+															&lt;p <code>class</code>="<code>content</code>"
 															<span class="new-attribute">
 																<img src="images/invis.gif" class="icon insert-text" title="Insert attribute">
-															</span>
+															</span>&gt;
 														</span>
 														<code>Lorem ipsum dolor sit amet</code>
 														<span class="code">&lt;/p&gt;</span>
