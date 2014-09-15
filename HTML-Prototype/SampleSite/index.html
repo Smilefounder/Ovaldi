@@ -6,11 +6,15 @@
 <link href="style/reset.css" rel="stylesheet">
 <link href="style/base.css" rel="stylesheet">
 <link href="style/common.css" rel="stylesheet">
-<link href="style/kooboo-editor.css" rel="stylesheet">
 <script src="js/jquery-1.11.0.min.js"></script>
-<script src="js/kooboo-editor.js"></script>
 <!--[if lte IE 7]><link href="style/ie.css" rel="stylesheet"><![endif]-->
 <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<!-- Source from kooboo cms -->
+<link rel="stylesheet/less" href="../js/inline-editor/kooboo-editor.less">
+<link rel="stylesheet/less" href="../js/inline-editor/kb-inline-menu.less">
+<script src="../js/inline-editor/less-1.7.0.min.js"></script>
+<script src="../js/inline-editor/kooboo-editor.js"></script>
 </head>
 
 <body>
@@ -126,5 +130,14 @@ $(function(){
 	//$('[data-view]').KoobooCopyMask();
 })
 </script>
+<div class="kb-inline-menu">
+	<h6 class="title">Block</h6>
+	<div class="wrap">
+		<ul>
+			<li><a href="#">Edit text</a></li>
+			<li><a href="#">Edit html</a></li>
+		</ul>
+	</div>
+</div>
 </body>
 </html>
