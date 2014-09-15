@@ -40,7 +40,9 @@
 												<img src="images/invis.gif" class="sprite">
 												<span class="code">
 													&lt;body <code>id</code>="<code>body-container</code>"&gt;
-													<img src="images/invis.gif" class="icon insert-text" title="Insert attribute">
+													<span class="new-attribute">
+														<img src="images/invis.gif" class="icon insert-text" title="Insert attribute">
+													</span>
 												</span>
 												<ul class="collapsible">
 													<li class="collapsed">
@@ -56,7 +58,9 @@
 													<li>
 														<span class="code">
 															&lt;p <code>class</code>="<code>content</code>"&gt;
-															<img src="images/invis.gif" class="icon insert-text" title="Insert attribute">
+															<span class="new-attribute">
+																<img src="images/invis.gif" class="icon insert-text" title="Insert attribute">
+															</span>
 														</span>
 														<code>Lorem ipsum dolor sit amet</code>
 														<span class="code">&lt;/p&gt;</span>
