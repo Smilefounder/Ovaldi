@@ -20,6 +20,7 @@
 
 	.code {
 		cursor: pointer;
+		position: relative;
 
 		&.active,
 		&.hover {
@@ -27,6 +28,21 @@
 			color: #FFF;
 			.rounded(3px);
 		}
+
+		.insert-text {
+			display: none;
+			position: absolute;
+			right: 7px;
+			top: -8px;
+		}
+
+		&:hover .insert-text {
+			display: block;
+		}
+	}
+
+	code {
+		cursor: text;
 	}
 
 	.code-field {

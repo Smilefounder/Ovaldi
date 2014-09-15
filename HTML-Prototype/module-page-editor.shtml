@@ -36,24 +36,27 @@
 								<div class="kb-code-viewer flexible">
 									<div class="container">
 										<ul class="code-tree">
-											<li class="collapsed">
+											<li>
+												<img src="images/invis.gif" class="sprite">
 												<span class="code">
-													<img src="images/invis.gif" class="sprite">
 													&lt;body <code>id</code>="<code>body-container</code>"&gt;
+													<img src="images/invis.gif" class="icon insert-text" title="Insert attribute">
 												</span>
 												<ul class="collapsible">
-													<li>
+													<li class="collapsed">
+														<img src="images/invis.gif" class="sprite">
 														<span class="code active">
-															<img src="images/invis.gif" class="sprite">
 															&lt;h6 <code>class</code>="<code>title</code>"&gt;
 														</span>
-														<ul>
+														<ul class="collapsible">
 															<li><span class="code">&lt;a href="#"&gt;Lorem ipsum dolor sit amet&lt;/a&gt;</span></li>
 														</ul>
-														<span class="code">&lt;/h6&gt;</span>
+														<span class="code collapsible">&lt;/h6&gt;</span>
 													</li>
 													<li>
-														<span class="code">&lt;p <code>class</code>="<code>content</code>"&gt;
+														<span class="code">
+															&lt;p <code>class</code>="<code>content</code>"&gt;
+															<img src="images/invis.gif" class="icon insert-text" title="Insert attribute">
 														</span>
 														<code>Lorem ipsum dolor sit amet</code>
 														<span class="code">&lt;/p&gt;</span>
