@@ -42,10 +42,10 @@ namespace Ovaldi.Core.SiteImport
                         {
                             var absolutePath = new Uri(insideUrl).AbsolutePath;
                             link.Attributes["href"].Value = "/" + SiteExtensions.PREFIX_FRONT_PREVIEW_URL + context.SiteDownloadContext.Site.AbsoluteName + absolutePath;
-                            var pageLevel = new PageLevel(insideUrl, context.PageLevel.Level + 1);
-                            if (!context.SiteDownloadContext.DownloadedList.Contains(pageLevel, new PageLevelComparer()) && !context.SiteDownloadContext.DownloadQueue.Contains(pageLevel, new PageLevelComparer()))
+                            var nextPageLevel = new PageLevel(insideUrl, context.PageLevel.Level + 1);
+                            if (!new PageLevelComparer().Equals(context.PageLevel, nextPageLevel) && !context.SiteDownloadContext.DownloadedPages.Contains(nextPageLevel, new PageLevelComparer()) && !context.SiteDownloadContext.DownloadQueue.Contains(nextPageLevel, new PageLevelComparer()))
                             {
-                                context.SiteDownloadContext.DownloadQueue.Enqueue(pageLevel);
+                                context.SiteDownloadContext.DownloadQueue.Enqueue(nextPageLevel);
                                 count++;
                             }
                         }

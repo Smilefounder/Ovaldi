@@ -45,7 +45,7 @@ namespace Ovaldi.Core.SiteImport
                     }
                     page.Html = pageDownloadContext.HtmlDocument.DocumentNode.InnerHtml;
                     _pageProvider.Add(page);
-                    siteDownloadContext.DownloadedList.Add(pageLevel);
+                    siteDownloadContext.DownloadedPages.Add(pageLevel);
                 }
             }
 

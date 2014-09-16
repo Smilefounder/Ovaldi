@@ -204,7 +204,9 @@
     <Compile Include="SiteFlow\SiteRequestController.cs" />
     <Compile Include="SiteFlow\SiteRequestFlow.cs" />
     <Compile Include="SiteFlow\SiteRequestFlowAdapter.cs" />
+    <Compile Include="SiteImport\DownloadCompletedEventArgs.cs" />
     <Compile Include="SiteImport\ImageAnalyzer.cs" />
+    <Compile Include="SiteImport\PageDownloadedEventArgs.cs" />
     <Compile Include="SiteImport\PageLevel.cs" />
     <Compile Include="SiteImport\PageDownloadContext.cs" />
     <Compile Include="SiteImport\PageLevelComparer.cs" />

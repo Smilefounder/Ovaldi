@@ -16,8 +16,17 @@ namespace Ovaldi.Core.SiteImport
 {
     public interface ISiteDownloader
     {
+        string SessionId { get; }
         DownloadOptions Options { get; }
+
         bool IsCompleted { get; }
+
+        IList<PageLevel> DownloadedPages { get; }
+        Queue<PageLevel> DownloadQueue { get; }
+
+        event EventHandler<PageDownloadedEventArgs> PageDownloaded;
+        event EventHandler<DownloadCompletedEventArgs> DownloadCompleted;
+
         IEnumerable<PageLevel> Download();
     }
 }

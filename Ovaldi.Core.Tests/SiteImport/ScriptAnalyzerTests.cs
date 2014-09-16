@@ -51,7 +51,7 @@ namespace Ovaldi.Core.Tests.SiteImport
 </body>
 </html>";
 
-            SiteDownloadContext siteDownloadContext = new SiteDownloadContext(null, new DownloadOptions() { SiteName = "Test_Analyze", Url = "localhost", Pages = 20, Deep = 1 });
+            SiteDownloadContext siteDownloadContext = new SiteDownloadContext(null, new DownloadOptions() { SiteName = "Test_Analyze", Url = "localhost", Pages = 20, Deep = 1 }, null, null);
             PageDownloadContext pageDownloadContext = new PageDownloadContext(siteDownloadContext, new PageLevel("http://localhost", 1), pageHtml);
 
             scriptAnalyzer.Analyze(pageDownloadContext);
