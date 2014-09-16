@@ -17,18 +17,17 @@ namespace Ovaldi.Core.SiteImport
 {
     public class SiteDownloadContext
     {
-        public SiteDownloadContext(Site site, DownloadOptions options)
+        public SiteDownloadContext(Site site, DownloadOptions options, IList<PageLevel> downloadedPages, Queue<PageLevel> downloadQueue)
         {
             this.Site = site;
             this.Options = options;
-
-            this.DownloadedList = new List<PageLevel>();
-            this.DownloadQueue = new Queue<PageLevel>();
+            this.DownloadedPages = downloadedPages ?? new List<PageLevel>();
+            this.DownloadQueue = downloadQueue ?? new Queue<PageLevel>();
         }
         public Site Site { get; private set; }
         public DownloadOptions Options { get; private set; }
 
-        public IList<PageLevel> DownloadedList { get; private set; }
+        public IList<PageLevel> DownloadedPages { get; private set; }
 
         public Queue<PageLevel> DownloadQueue { get; private set; }
 

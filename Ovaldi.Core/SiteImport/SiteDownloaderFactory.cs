@@ -38,7 +38,7 @@ namespace Ovaldi.Core.SiteImport
 
                 if (!siteDownloaders.ContainsKey(sessionId))
                 {
-                    var downloader = EngineContext.Current.Resolve<ISiteDownloader>(new Parameter("options", options));
+                    var downloader = EngineContext.Current.Resolve<ISiteDownloader>(new Parameter("sessionId", sessionId), new Parameter("options", options));
                     siteDownloaders[sessionId] = downloader;
                 }
             }
@@ -52,6 +52,11 @@ namespace Ovaldi.Core.SiteImport
                 return siteDownloaders[sessionId];
             }
             return null;
+        }
+
+        public static void RemoveSiteDownloader(string sessionId)
+        {
+            siteDownloaders.Remove(sessionId);
         }
     }
 }

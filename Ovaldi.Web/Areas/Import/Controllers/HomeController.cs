@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
+using System.Threading;
 
 namespace Ovaldi.Web.Areas.Import.Controllers
 {
@@ -29,21 +31,53 @@ namespace Ovaldi.Web.Areas.Import.Controllers
             data.RunWithTry((jsonData) =>
             {
                 var downloader = SiteDownloaderFactory.CreateSiteDownloader(Session.SessionID, model);
-                downloader.Download();
-                data.RedirectUrl = Url.Action("Downloading", ControllerContext.RequestContext.AllRouteValues());
+                downloader.PageDownloaded += downloader_PageDownloaded;
+                downloader.DownloadCompleted += downloader_DownloadCompleted;
+
+                Thread thread = new Thread(() =>
+                {
+                    downloader.Download();
+                });
+                thread.Start();
+
+                data.RedirectUrl = Url.Action("Results", new { siteName = model.SiteName });
             });
             return Json(data);
         }
 
-        public ActionResult Downloading()
+        void downloader_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
-            var downloader = SiteDownloaderFactory.GetSiteDownloader(Session.SessionID);
-            return View(downloader);
+            var downloader = (ISiteDownloader)sender;
+            var sessionId = ((ISiteDownloader)sender).SessionId;
+            var connectionId = ChatHub.GetConnectionId(sessionId);
+            if (!string.IsNullOrEmpty(connectionId))
+            {
+                //GlobalHost.ConnectionManager.GetHubContext<ChatHub>().Clients.Client(connectionId).broadcastMessage("test", "downloader_DownloadCompleted");
+
+                GlobalHost.ConnectionManager.GetHubContext<ChatHub>().Clients.Client(connectionId).onDownloadCompleted(e.DownloadedPages);
+            }
+
+            SiteDownloaderFactory.RemoveSiteDownloader(sessionId);
         }
+
+        void downloader_PageDownloaded(object sender, PageDownloadedEventArgs e)
+        {
+            var downloader = (ISiteDownloader)sender;
+            var sessionId = downloader.SessionId;
+            var connectionId = ChatHub.GetConnectionId(sessionId);
+            if (!string.IsNullOrEmpty(connectionId))
+            {
+                //GlobalHost.ConnectionManager.GetHubContext<ChatHub>().Clients.Client(connectionId).broadcastMessage("test", "downloader_PageDownloaded");
+                GlobalHost.ConnectionManager.GetHubContext<ChatHub>().Clients.Client(connectionId).onPageDownloaded(new { CurrentPage = e.DownloadedPage, DownloadedPages = downloader.DownloadedPages.Count, Remains = downloader.DownloadQueue.Count });
+            }
+        }
+
         public ActionResult Results(string siteName)
         {
+            var siteDownloader = SiteDownloaderFactory.GetSiteDownloader(Session.SessionID);
+
             ViewBag.PreviewUrl = Url.Content("~/") + Ovaldi.Core.Models.SiteExtensions.PREFIX_FRONT_PREVIEW_URL + siteName;
-            return View(TempData["DownloadList"]);
+            return View(siteDownloader);
         }
     }
 }
