@@ -48,9 +48,9 @@
 				<div class="item kooboo-repeated">
 					<a class="thumbnail" href="#"><img src="images/thumbnail.png" alt="Thumbnail"></a>
 					<div class="text">
-						<h6 class="title"><a href="article.html">Lorem ipsum dolor sit amet</a></h6>
-						<span class="date">2011-01-20</span>
-						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+						<h6 class="title"><a href="article.html" class="kb-inline-editor-field" contenteditable="true" spellcheck="false">Lorem ipsum dolor sit amet</a></h6>
+						<span class="date kb-inline-editor-field" contenteditable="true" spellcheck="false">2011-01-20</span>
+						<p class="kb-inline-editor-field" contenteditable="true" spellcheck="false">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
 						<a class="comment" href="#">2 Comments</a>
 					</div>
 				</div>
@@ -143,9 +143,8 @@ $(function(){
 		dialogClass: 'kb-inline-dialog',
 		resizable: false,
 		position: {
-			my: 'right-20 center',
-			at: 'left top',
-			of: $('.J_Dialog')
+			my: 'left+100 top+50',
+			at: 'left top'
 		}
 	});
 	$('.J_Dialog').click(function() {

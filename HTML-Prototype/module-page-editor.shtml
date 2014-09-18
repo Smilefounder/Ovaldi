@@ -119,7 +119,7 @@
 										<li><a href="#J_Tab_3_6">Font</a></li>
 									</ul>
 									<div id="J_Tab_3_1">
-										<div class="block with-padding kb-layout-box">
+										<div class="panel-block with-margin kb-layout-box">
 											<span class="label left">position: relative</span>
 											<span class="label right">z-index: auto</span>
 											<div class="position">
@@ -167,7 +167,9 @@
 															<img src="images/demo-1.jpg">
 															<a href="#" class="action"><img class="icon minus-small" src="images/invis.gif"></a>
 														</div>
-														<a class="button" href="#">Change image</a>
+														<p>
+															<a class="button" href="#">Change image</a>
+														</p>
 													</td>
 												</tr>
 												<tr>
@@ -196,6 +198,12 @@
 													<th><label>Color</label></th>
 													<td>
 														Color picker
+													</td>
+												</tr>
+												<tr>
+													<th><label>Opacity</label></th>
+													<td>
+														Slider
 													</td>
 												</tr>
 											</table>
@@ -227,11 +235,17 @@
 													<th><label>Color</label></th>
 													<td>Color picker</td>
 												</tr>
+												<tr>
+													<th><label>Opacity</label></th>
+													<td>
+														Slider
+													</td>
+												</tr>
 											</table>
 										</div>
 									</div>
 									<div id="J_Tab_3_4">
-										<div class="kb-corner-editor">
+										<div class="panel-block with-margin kb-corner-editor">
 											<div class="kb-corner-editor-wrap">
 												<span class="input-left-top"><input class="J_Spinner" type="text" min="0" value="0">px</span>
 												<span class="input-right-top"><input class="J_Spinner" type="text" min="0" value="0">px</span>
@@ -279,6 +293,12 @@
 												<tr>
 													<th><label>Color</label></th>
 													<td>Color picker</td>
+												</tr>
+												<tr>
+													<th><label>Opacity</label></th>
+													<td>
+														Slider
+													</td>
 												</tr>
 											</table>
 										</div>
