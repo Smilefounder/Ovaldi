@@ -1,4 +1,5 @@
 @import "less-element.less";
+@import "../../style/LESS/sprites.less";
 /* @module: Inline menu
 -----------------------------------------------------------*/
 .kb-inline-menu {
@@ -83,4 +84,61 @@
 .kb-inline-editor-field {
 	background: #FFFFD3;
 	border: 1px solid #E9E9AE;
+}
+
+.kb-inline-form {
+	width: 280px;
+
+	table {
+		width: 100%;
+	}
+
+	th {
+		font-weight: 400;
+		padding: 5px 10px 5px 0;
+		text-align: left;
+		vertical-align: text-top;
+		white-space: nowrap;
+	}
+
+	td {
+		padding: 5px 0;
+	}
+}
+
+.kb-file-thumbnail {
+	display: inline-block;
+	max-width: 100%;
+	position: relative;
+
+	img {
+		display: block;
+		max-width: 100%;
+	}
+
+	.action {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+
+.kb-inline-button {
+	background: #0078B1;
+	color: #FFF;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 14px;
+	height: 28px;
+	line-height: 28px;
+	min-width: 100px;
+	padding: 0 10px;
+	text-align: center;
+	.box-sizing(border-box);
+	.transition(0.2s);
+
+	&:hover {
+		background: darken(#0078B1, 5%);
+		text-decoration: none;
+	}
 }

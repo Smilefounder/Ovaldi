@@ -27,12 +27,13 @@
 			color: #FFF;
 			.rounded(3px);
 		}
-		
-		.new-attribute{
+
+		.new-attribute {
 			display: inline-block;
 			height: 100%;
 			position: relative;
 			width: 0;
+
 			.insert-text {
 				display: none;
 				position: absolute;
@@ -376,14 +377,14 @@
 	.toggle-button {
 		background: #CCC;
 		cursor: pointer;
-		height: 16px;
-		line-height: 16px;
+		height: 25px;
+		line-height: 25px;
 		left: 50%;
-		margin-left: -20px;
+		margin-left: -30px;
 		position: absolute;
 		text-align: center;
-		top: -16px;
-		width: 40px;
+		top: -25px;
+		width: 60px;
 		.rounded(3px 3px 0 0);
 		.opacity(60);
 
@@ -398,6 +399,10 @@
 		&.active .sprite {
 			.sprite(@chevron-down-gray);
 		}
+	}
+
+	&.minimum {
+		height: 0;
 	}
 
 	&.horizontal {
@@ -442,6 +447,11 @@
 					.sprite(@chevron-right-gray);
 				}
 			}
+		}
+
+		&.minimum {
+			height: auto;
+			width: 0;
 		}
 	}
 }
