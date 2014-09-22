@@ -86,6 +86,8 @@
 	border: 1px solid #E9E9AE;
 }
 
+/* @module: Inline form
+-----------------------------------------------------------*/
 .kb-inline-form {
 	width: 280px;
 
@@ -104,8 +106,22 @@
 	td {
 		padding: 5px 0;
 	}
+
+	.buttons {
+		border-top: 1px solid #CCC;
+		margin-top: 10px;
+		overflow: hidden;
+		padding-top: 10px;
+
+		.kb-inline-button {
+			float: left;
+			margin-right: 10px;
+		}
+	}
 }
 
+/* @module: Inline file thumbnail
+-----------------------------------------------------------*/
 .kb-file-thumbnail {
 	display: inline-block;
 	max-width: 100%;
@@ -123,6 +139,8 @@
 	}
 }
 
+/* @module: Inline button
+-----------------------------------------------------------*/
 .kb-inline-button {
 	background: #0078B1;
 	color: #FFF;
@@ -140,5 +158,19 @@
 	&:hover {
 		background: darken(#0078B1, 5%);
 		text-decoration: none;
+	}
+
+	&.gray {
+		background: #CCC;
+		color: #000;
+
+		&:hover {
+			background: darken(#CCC, 5%);
+		}
+
+		&.disabled {
+			background: lighten(#CCC, 5%);
+			color: #666;
+		}
 	}
 }
