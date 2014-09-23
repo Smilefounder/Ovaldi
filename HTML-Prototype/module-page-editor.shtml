@@ -21,6 +21,18 @@
 			<div class="block-visual-editor vertical">
 				<div class="editor">
 					<iframe class="visual-frame" src="SampleSite/index.html"></iframe>
+					<div class="kb-inline-menu">
+						<h6 class="title">Block</h6>
+						<div class="wrap">
+							<ul>
+								<li><a href="#">Edit text</a></li>
+								<li><a class="J_DialogLink" href="#J_DialogBackground">Edit background</a></li>
+								<li><a class="J_DialogLink" href="#J_DialogImage">Edit image</a></li>
+								<li><a class="J_DialogLink" href="#J_DialogStyle">Edit style</a></li>
+								<li><a href="#">Open this link</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 				<div class="kb-splitter">
 					<div class="toggle-button active"><img src="images/invis.gif" class="sprite"></div>
@@ -28,8 +40,8 @@
 				<div class="panel">
 					<div class="J_Tabs tabs-small">
 						<ul>
-							<li><a href="#J_Tab_1">Content</a></li>
-							<li><a href="#J_Tab_2">Style</a></li>
+							<li><a href="#J_Tab_1">HTML</a></li>
+							<li><a href="#J_Tab_2">Validator</a></li>
 						</ul>
 						<div id="J_Tab_1">
 							<div class="left-column">
@@ -77,265 +89,67 @@
 							</div>
 							<div class="kb-splitter horizontal"></div>
 							<div class="right-column">
-								<div class="J_Tabs tabs-small">
-									<ul>
-										<li><a href="#J_Tab_2_1">Tab1</a></li>
-										<li><a href="#J_Tab_2_2">Tab2</a></li>
-									</ul>
-									<div id="J_Tab_2_1">Tab1</div>
-									<div id="J_Tab_2_2">Tab2</div>
+								<div class="kb-style-editor">
+									<ol>
+										<li>
+											<span class="arrow active"><img class="sprite" src="images/invis.gif"></span>
+											<span class="start-tag">
+												<span class="text selector" contenteditable="true">#body-container</span>
+												<span class="bracket">{</span>
+											</span>
+											<ul class="">
+												<li>
+													<span class="text attribute" contenteditable="true">margin</span>
+													<span class="separator">:</span>
+													<span class="text value" contenteditable="true">0 auto</span>
+													<span class="separator">;</span>
+												</li>
+												<li>
+													<span class="text attribute" contenteditable="true">width</span>
+													<span class="separator">:</span>
+													<span class="text value" contenteditable="true">960px</span>
+													<span class="separator">;</span>
+												</li>
+											</ul>
+											<a class="action" href="#" title="Add Property"><img class="icon plus-small" src="images/invis.gif"></a>
+											<span class="bracket end-tag">}</span>
+											<span class="label label-info"><strong>3</strong> pages affected</span>
+											<span class="source-file">test.css</span>
+										</li>
+									</ol>
 								</div>
+								<script>
+									jQuery.fn.selectText = function(){
+										var doc = document;
+										var element = this[0];
+										if (doc.body.createTextRange) {
+											var range = document.body.createTextRange();
+											range.moveToElementText(element);
+											range.select();
+										} else if (window.getSelection) {
+											var selection = window.getSelection();        
+											var range = document.createRange();
+											range.selectNodeContents(element);
+											selection.removeAllRanges();
+											selection.addRange(range);
+										}
+									};
+									$(function(){
+										$('.kb-style-editor .text').click(function(){
+											if(!$(this).hasClass('highlight')){
+												$(this).selectText();
+											}
+											$(this).addClass('highlight');
+										}).blur(function(){
+											$(this).removeClass('highlight');
+										});
+										$('.kb-style-editor .label').tooltip();
+									});
+								</script>
 							</div>
 						</div>
 						<div id="J_Tab_2">
-							<div class="left-column">
-								<div class="kb-code-viewer flexible">
-									<div class="container">
-										<ul>
-											<img src="images/invis.gif" class="sprite active">
-											<li>
-												<span class="code active">&lt;h6 class="title"&gt;</span>
-												<ul>
-													<li><span class="code">&lt;a href="#"&gt;Lorem ipsum dolor sit amet&lt;/a&gt;</span></li>
-												</ul>
-												<span class="code">&lt;/h6&gt;</span>
-											</li>
-										</ul>
-									</div>
-									<div class="bottom">
-										<a href="#">div.item</a>&gt;<a class="active" href="#">h6.title</a>&gt;<a href="#">a</a>
-									</div>
-								</div>
-							</div>
-							<div class="kb-splitter horizontal"></div>
-							<div class="right-column">
-								<div class="J_Tabs tabs-small">
-									<ul>
-										<li><a href="#J_Tab_3_1">Layout</a></li>
-										<li><a href="#J_Tab_3_2">Background</a></li>
-										<li><a href="#J_Tab_3_3">Border</a></li>
-										<li><a href="#J_Tab_3_4">Corner</a></li>
-										<li><a href="#J_Tab_3_5">Shadow</a></li>
-										<li><a href="#J_Tab_3_6">Font</a></li>
-									</ul>
-									<div id="J_Tab_3_1">
-										<div class="panel-block with-margin kb-layout-box">
-											<span class="label left">position: relative</span>
-											<span class="label right">z-index: auto</span>
-											<div class="position">
-												<span class="label">position</span>
-												<input type="text" class="input-top null" value="0">
-												<input type="text" class="input-right null" value="0">
-												<input type="text" class="input-bottom null" value="0">
-												<input type="text" class="input-left null" value="0">
-												<div class="margin">
-													<span class="label">margin</span>
-													<input type="text" class="input-top null" value="0">
-													<input type="text" class="input-right null" value="0">
-													<input type="text" class="input-bottom null" value="0">
-													<input type="text" class="input-left null" value="0">
-													<div class="border">
-														<span class="label">border</span>
-														<input type="text" class="input-top null" value="0">
-														<input type="text" class="input-right null" value="0">
-														<input type="text" class="input-bottom null" value="0">
-														<input type="text" class="input-left null" value="0">
-														<div class="padding">
-															<span class="label">padding</span>
-															<input type="text" class="input-top null" value="0">
-															<input type="text" class="input-right null" value="0">
-															<input type="text" class="input-bottom null" value="0">
-															<input type="text" class="input-left null" value="0">
-															<div class="content">
-																<input type="text" class="input-width" value="200">
-																<span class="text">&times;</span>
-																<input type="text" class="input-height" value="50">
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div id="J_Tab_3_2">
-										<div class="common-form">
-											<table>
-												<tr>
-													<th><label>Image</label></th>
-													<td>
-														<div class="file-thumbnail">
-															<img src="images/demo-1.jpg">
-															<a href="#" class="action"><img class="icon minus-small" src="images/invis.gif"></a>
-														</div>
-														<p>
-															<a class="button" href="#">Change image</a>
-														</p>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Repeated</label></th>
-													<td>
-														<select>
-															<option>No repeat</option>
-															<option>Repeat X</option>
-															<option>Repeat Y</option>
-														</select>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Position X</label></th>
-													<td>
-														<input class="J_Spinner mini" type="text"><span class="unit">px</span>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Position Y</label></th>
-													<td>
-														<input class="J_Spinner mini" type="text"><span class="unit">px</span>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Color</label></th>
-													<td>
-														Color picker
-													</td>
-												</tr>
-												<tr>
-													<th><label>Opacity</label></th>
-													<td>
-														Slider
-													</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									<div id="J_Tab_3_3">
-										<div class="common-form">
-											<table>
-												<tr>
-													<th><label>Width</label></th>
-													<td>
-														<input class="J_Spinner mini" type="text"><span class="unit">px</span>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Style</label></th>
-													<td>
-														<select>
-															<option>Dashed</option>
-															<option>Dotted</option>
-															<option>Double</option>
-															<option>Grovve</option>
-															<option>Ridge</option>
-															<option>Solid</option>
-														</select>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Color</label></th>
-													<td>Color picker</td>
-												</tr>
-												<tr>
-													<th><label>Opacity</label></th>
-													<td>
-														Slider
-													</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									<div id="J_Tab_3_4">
-										<div class="panel-block with-margin kb-corner-editor">
-											<div class="kb-corner-editor-wrap">
-												<span class="input-left-top"><input class="J_Spinner" type="text" min="0" value="0">px</span>
-												<span class="input-right-top"><input class="J_Spinner" type="text" min="0" value="0">px</span>
-												<span class="input-right-bottom"><input class="J_Spinner" type="text" min="0" value="0">px</span>
-												<span class="input-left-bottom"><input class="J_Spinner" type="text" min="0" value="0">px</span>
-												<div class="box-model">
-													<span class="left-top"></span>
-													<span class="right-top"></span>
-													<span class="right-bottom"></span>
-													<span class="left-bottom"></span>
-												</div>
-											</div>
-											<p class="field">
-												<input type="checkbox" id="KbLockCorner">
-												<label for="KbLockCorner" class="inline">Lock corners together</label>
-											</p>
-										</div>
-									</div>
-									<div id="J_Tab_3_5">
-										<div class="common-form">
-											<p class="field">
-												<input type="checkbox" id="ShadowEnable" checked="checked">
-												<label class="inline" for="ShadowEnable">Enable shadow</label>
-											</p>
-											<hr>
-											<table>
-												<tr>
-													<th><label>Direction</label></th>
-													<td>
-														<input class="J_Spinner mini" type="text"><span class="unit">°</span>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Distance</label></th>
-													<td>
-														<input class="J_Spinner mini" type="text"><span class="unit">px</span>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Blur</label></th>
-													<td>
-														<input class="J_Spinner mini" type="text"><span class="unit">px</span>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Color</label></th>
-													<td>Color picker</td>
-												</tr>
-												<tr>
-													<th><label>Opacity</label></th>
-													<td>
-														Slider
-													</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									<div id="J_Tab_3_6">
-										<div class="common-form">
-											<table>
-												<tr>
-													<th><label>Font family</label></th>
-													<td>
-														<select>
-															<option>Arial</option>
-															<option>Others</option>
-														</select>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Font size</label></th>
-													<td>
-														<input class="J_Spinner mini" type="text" value="12"><span class="unit">px</span>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Blur</label></th>
-													<td>
-														<input class="J_Spinner mini" type="text"><span class="unit">px</span>
-													</td>
-												</tr>
-												<tr>
-													<th><label>Color</label></th>
-													<td>Color picker</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
+							Validator
 						</div>
 					</div>
 				</div>
@@ -343,6 +157,289 @@
 		</div>
 	</div>
 	<!--#include file="includes/footer.shtml" -->
+</div>
+<div class="hide">
+	<div class="J_Dialog" id="J_DialogImage" title="Image">
+		<div class="common-form">
+			<div class="field">
+				<div class="file-thumbnail">
+					<img src="images/demo-1.jpg">
+					<a href="#" class="action"><img class="icon minus-small" src="images/invis.gif"></a>
+				</div>
+				<p>
+					<a class="button" href="#">Change image</a>
+				</p>
+			</div>
+			<div class="field">
+				<input type="text" placeholder="Title">
+			</div>
+			<div class="field">
+				<input type="text" placeholder="ALT">
+			</div>
+			<div class="buttons">
+				<a class="button" href="#">Save</a>
+				<a class="button gray" href="#">Cancel</a>
+			</div>
+		</div>
+	</div>
+	<div class="J_Dialog" id="J_DialogBackground" title="Background Image">
+		<div class="common-form">
+			<div class="field">
+				<div class="file-thumbnail">
+					<img src="images/demo-1.jpg">
+					<a href="#" class="action"><img class="icon minus-small" src="images/invis.gif"></a>
+				</div>
+				<p>
+					<a class="button" href="#">Change image</a>
+				</p>
+			</div>
+			<div class="field">
+				<select>
+					<option>No repeat</option>
+					<option>Repeated</option>
+					<option>Repeat X</option>
+					<option>Repeat Y</option>
+				</select>
+			</div>
+			<div class="field">
+				<input class="J_Spinner" type="text" placeholder="Position X">px
+			</div>
+			<div class="field">
+				<input class="J_Spinner" type="text" placeholder="Position Y">px
+			</div>
+			<div class="buttons">
+				<a class="button" href="#">Save</a>
+				<a class="button gray" href="#">Cancel</a>
+			</div>
+		</div>
+	</div>
+	<div class="J_Dialog_2" id="J_DialogStyle" title="Edit style">
+		<div class="J_Accordion">
+			<h3>Position</h3>
+			<div>
+				<div class="kb-layout-box">
+					<span class="label left">position: relative</span>
+					<span class="label right">z-index: auto</span>
+					<div class="position">
+						<span class="label">position</span>
+						<input type="text" class="input-top null" value="0">
+						<input type="text" class="input-right null" value="0">
+						<input type="text" class="input-bottom null" value="0">
+						<input type="text" class="input-left null" value="0">
+						<div class="margin">
+							<span class="label">margin</span>
+							<input type="text" class="input-top null" value="0">
+							<input type="text" class="input-right null" value="0">
+							<input type="text" class="input-bottom null" value="0">
+							<input type="text" class="input-left null" value="0">
+							<div class="border">
+								<span class="label">border</span>
+								<input type="text" class="input-top null" value="0">
+								<input type="text" class="input-right null" value="0">
+								<input type="text" class="input-bottom null" value="0">
+								<input type="text" class="input-left null" value="0">
+								<div class="padding">
+									<span class="label">padding</span>
+									<input type="text" class="input-top null" value="0">
+									<input type="text" class="input-right null" value="0">
+									<input type="text" class="input-bottom null" value="0">
+									<input type="text" class="input-left null" value="0">
+									<div class="content">
+										<input type="text" class="input-width" value="200">
+										<span class="text">&times;</span>
+										<input type="text" class="input-height" value="50">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h3>Background</h3>
+			<div>
+				<div class="common-form">
+					<table>
+						<tr>
+							<th><label>Image</label></th>
+							<td>
+								<div class="file-thumbnail">
+									<img src="images/demo-1.jpg">
+									<a href="#" class="action"><img class="icon minus-small" src="images/invis.gif"></a>
+								</div>
+								<p>
+									<a class="button" href="#">Change image</a>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Repeated</label></th>
+							<td>
+								<select>
+									<option>No repeat</option>
+									<option>Repeat X</option>
+									<option>Repeat Y</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Position X</label></th>
+							<td>
+								<input class="J_Spinner mini" type="text"><span class="unit">px</span>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Position Y</label></th>
+							<td>
+								<input class="J_Spinner mini" type="text"><span class="unit">px</span>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Color</label></th>
+							<td>
+								Color picker
+							</td>
+						</tr>
+						<tr>
+							<th><label>Opacity</label></th>
+							<td>
+								Slider
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h3>Border</h3>
+			<div>
+				<div class="common-form">
+					<table>
+						<tr>
+							<th><label>Width</label></th>
+							<td>
+								<input class="J_Spinner mini" type="text"><span class="unit">px</span>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Style</label></th>
+							<td>
+								<select>
+									<option>Dashed</option>
+									<option>Dotted</option>
+									<option>Double</option>
+									<option>Grovve</option>
+									<option>Ridge</option>
+									<option>Solid</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Color</label></th>
+							<td>Color picker</td>
+						</tr>
+						<tr>
+							<th><label>Opacity</label></th>
+							<td>
+								Slider
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h3>Corner</h3>
+			<div>
+				<div class="panel-block with-margin kb-corner-editor">
+					<div class="kb-corner-editor-wrap">
+						<span class="input-left-top"><input class="J_Spinner" type="text" min="0" value="0">px</span>
+						<span class="input-right-top"><input class="J_Spinner" type="text" min="0" value="0">px</span>
+						<span class="input-right-bottom"><input class="J_Spinner" type="text" min="0" value="0">px</span>
+						<span class="input-left-bottom"><input class="J_Spinner" type="text" min="0" value="0">px</span>
+						<div class="box-model">
+							<span class="left-top"></span>
+							<span class="right-top"></span>
+							<span class="right-bottom"></span>
+							<span class="left-bottom"></span>
+						</div>
+					</div>
+					<p class="field">
+						<input type="checkbox" id="KbLockCorner">
+						<label for="KbLockCorner" class="inline">Lock corners together</label>
+					</p>
+				</div>
+			</div>
+			<h3>Shadow</h3>
+			<div>
+				<div class="common-form">
+					<p class="field">
+						<input type="checkbox" id="ShadowEnable" checked="checked">
+						<label class="inline" for="ShadowEnable">Enable shadow</label>
+					</p>
+					<hr>
+					<table>
+						<tr>
+							<th><label>Direction</label></th>
+							<td>
+								<input class="J_Spinner mini" type="text"><span class="unit">°</span>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Distance</label></th>
+							<td>
+								<input class="J_Spinner mini" type="text"><span class="unit">px</span>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Blur</label></th>
+							<td>
+								<input class="J_Spinner mini" type="text"><span class="unit">px</span>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Color</label></th>
+							<td>Color picker</td>
+						</tr>
+						<tr>
+							<th><label>Opacity</label></th>
+							<td>
+								Slider
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h3>Font</h3>
+			<div>
+				<div class="common-form">
+					<table>
+						<tr>
+							<th><label>Font family</label></th>
+							<td>
+								<select>
+									<option>Arial</option>
+									<option>Others</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Font size</label></th>
+							<td>
+								<input class="J_Spinner mini" type="text" value="12"><span class="unit">px</span>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Blur</label></th>
+							<td>
+								<input class="J_Spinner mini" type="text"><span class="unit">px</span>
+							</td>
+						</tr>
+						<tr>
+							<th><label>Color</label></th>
+							<td>Color picker</td>
+	
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <script>
 	$(function(){
@@ -365,6 +462,33 @@
 		$('.J_Spinner').spinner({
 			min: 0
 		});
+		$('.J_Dialog').dialog({
+			autoOpen: false,
+			dialogClass: 'kb-inline-dialog',
+			resizable: false,
+			position: {
+				my: 'left+100 top+50',
+				at: 'left top',
+				of: $('.block-visual-editor')
+			}
+		});
+		$('.J_Dialog_2').dialog({
+			autoOpen: false,
+			dialogClass: 'kb-inline-dialog',
+			resizable: false,
+			position: {
+				my: 'left+100 top+50',
+				at: 'left top',
+				of: $('.block-visual-editor')
+			},
+			width:400
+		});
+		$('.J_DialogLink').click(function() {
+			var target = $(this).attr('href');
+			$(target).dialog('open');
+		});
+		//Accordion
+		$('.J_Accordion').accordion();
 	})
 </script>
 </body>
