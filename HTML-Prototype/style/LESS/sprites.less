@@ -126,6 +126,8 @@
 @users: "0 -1908px 16px 12px";
 @warning-small: "0 -1920px 12px 12px";
 @warning: "0 -1932px 28px 24px";
+@zoom-in: "0 -1956px 16px 16px";
+@zoom-out: "0 -1972px 16px 16px";
 
 .sprite (@sprite) {
 	background: url(./images/sprites.png) no-repeat e( `@{sprite}.split(' ')[0]` ) e( `@{sprite}.split(' ')[1]` );
@@ -903,5 +905,17 @@
 		background-position: 0 -1932px;
 		height: 24px;
 		width: 28px;
+	}
+
+	&.zoom-in {
+		background-position: 0 -1956px;
+		height: 16px;
+		width: 16px;
+	}
+
+	&.zoom-out {
+		background-position: 0 -1972px;
+		height: 16px;
+		width: 16px;
 	}
 }

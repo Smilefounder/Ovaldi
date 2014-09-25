@@ -22,7 +22,7 @@
 <body>
 <div id="body-container">
 	<header id="header" class="clearfix">
-		<h1 class="logo"><a href="index.html">Sample site</a></h1>
+		<h1 class="logo"><a href="index.html" class="kb-inline-editor-field" contenteditable="true" spellcheck="false">Sample site</a></h1>
 		<nav class="nav">
 			<ul>
 				<li><a href="#">Home</a></li>
@@ -125,56 +125,5 @@
 		<p>Copyright &copy; 2009 - 2013 <a href="#">Kooboo team</a></p>
 	</footer>
 </div>
-<div id="J_Dialog" title="Image">
-	<div class="kb-inline-form">
-		<div class="field">
-			<div class="kb-file-thumbnail">
-				<img src="../images/demo-1.jpg">
-				<a href="#" class="action"><img class="icon minus-small" src="../images/invis.gif"></a>
-			</div>
-			<p>
-				<a class="kb-inline-button" href="#">Change image</a>
-			</p>
-		</div>
-		<table>
-			<tr>
-				<td colspan="2">
-				</td>
-			</tr>
-			<tr>
-				<th><label>Title</label></th>
-				<td>
-					<input type="text">
-				</td>
-			</tr>
-			<tr>
-				<th><label>ALT</label></th>
-				<td>
-					<input type="text">
-				</td>
-			</tr>
-		</table>
-		<div class="buttons">
-			<a class="kb-inline-button" href="#">Save</a>
-			<a class="kb-inline-button gray" href="#">Cancel</a>
-		</div>
-	</div>
-</div>
-<script>
-$(function(){
-	$('#J_Dialog').dialog({
-		autoOpen: false,
-		dialogClass: 'kb-inline-dialog',
-		resizable: false,
-		position: {
-			my: 'left+100 top+50',
-			at: 'left top'
-		}
-	});
-	$('.J_Dialog').click(function() {
-		$('#J_Dialog').dialog('open');
-	});
-})
-</script>
 </body>
 </html>

@@ -332,6 +332,82 @@
 /* Visual editor
 ----------------------------------------------------------*/
 .block-visual-editor {
+
+	&.fullscreen {
+		background: #FFF;
+		bottom: 0;
+		left: 0;
+		position: fixed;
+		right: 0;
+		top: 0;
+		z-index: 9999;
+	}
+	/* Toolbar */
+	.toolbar {
+		background: none;
+		border: none;
+		left: 20px;
+		padding: 0;
+		position: absolute;
+		top: 20px;
+		z-index: 999;
+
+		li {
+			float: left;
+			margin-right: 5px;
+		}
+
+		a {
+			background: #FFF;
+			border: 1px solid #DDD;
+			display: block;
+			height: 24px;
+			line-height: 28px;
+			text-align: center;
+			width: 24px;
+			.rounded(3px);
+			.opacity(50);
+
+			&:hover {
+				.opacity(100);
+			}
+
+			&.disabled {
+				cursor: not-allowed;
+				.opacity(50);
+			}
+		}
+
+		.action-undo {
+			.sprite {
+				.sprite(@undo-blue);
+			}
+
+			&.disabled .sprite {
+				.sprite(@undo-gray);
+			}
+		}
+
+		.action-redo {
+			.sprite {
+				.sprite(@redo-blue);
+			}
+
+			&.disabled .sprite {
+				.sprite(@redo-gray);
+			}
+		}
+
+		.action-fullscreen {
+			.sprite {
+				.sprite(@zoom-in);
+			}
+
+			&.active .sprite {
+				.sprite(@zoom-out);
+			}
+		}
+	}
 	/* Editor */
 	.editor {
 		bottom: 0;
@@ -484,8 +560,12 @@
 		right: 0;
 		top: 0;
 
+		&.fullscreen {
+			position: fixed;
+		}
+
 		.editor {
-			bottom: 405px;
+			bottom: 305px;
 			right: 0;
 		}
 
@@ -496,7 +576,7 @@
 		.panel {
 			background: #F9F9F9;
 			border: none;
-			height: 400px;
+			height: 300px;
 			left: 0;
 			overflow: hidden;
 			padding-top: 2px;

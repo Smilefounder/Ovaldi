@@ -366,7 +366,7 @@
 /* @module: Splitter */
 .kb-splitter {
 	background: #CCC;
-	bottom: 400px;
+	bottom: 300px;
 	cursor: ns-resize;
 	height: 5px;
 	left: 0;
@@ -553,22 +553,15 @@
 		}
 	}
 
-	.start-tag {
-		display: inline-block;
-		max-width: 70%;
-	}
-
-	.end-tag {
-		clear: left;
-		display: block;
-		float: left;
-	}
-
 	.bracket {
 		color: #666;
 		height: 22px;
 		line-height: 20px;
 		margin: 0 2px;
+	}
+
+	.symbol {
+		color: #666;
 	}
 
 	.text {
@@ -593,6 +586,18 @@
 			outline: 1px solid #999;
 			.box-shadow(0 0 5px 1px rgba(0,0,0,.5));
 		}
+	}
+
+	.start-tag {
+		display: inline-block;
+		max-width: 70%;
+	}
+
+	.end-tag {
+		clear: left;
+		display: block;
+		float: left;
+		margin-top: 2px;
 	}
 
 	.source-file {
