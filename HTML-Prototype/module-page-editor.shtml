@@ -36,13 +36,18 @@
 								<li><a class="J_DialogLink" href="#J_DialogBackground">Edit background</a></li>
 								<li><a class="J_DialogLink" href="#J_DialogImage">Edit image</a></li>
 								<li><a class="J_DialogLink" href="#J_DialogStyle">Edit style</a></li>
-								<li><a href="#">Open this link</a></li>
+								<li><a href="#">Direct to this page</a></li>
 							</ul>
+						</div>
+						<div class="actions">
+							<a class="action" href="#" title="Copy"><img src="images/invis.gif" class="icon copy"></a>
+							<a class="action" href="#" title="Insert"><img src="images/invis.gif" class="icon insert"></a>
+							<a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon trash-blue"></a>
 						</div>
 					</div>
 				</div>
 				<div class="kb-splitter">
-					<div class="toggle-button active"><img src="images/invis.gif" class="sprite"></div>
+					<div class="toggle-button"><img src="images/invis.gif" class="sprite"></div>
 				</div>
 				<div class="panel">
 					<div class="J_Tabs tabs-small">
