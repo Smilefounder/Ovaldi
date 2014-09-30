@@ -26,142 +26,107 @@
 						<li><a class="action-fullscreen" href="javascript:;" title="Fullscreen"><img src="images/invis.gif" class="sprite"></a></li>
 					</ul>
 				</div>
-				<div class="editor">
-					<iframe class="visual-frame" src="SampleSite/index.html"></iframe>
-					<div class="kb-inline-menu">
-						<h6 class="title">Block</h6>
-						<div class="wrap">
-							<ul>
-								<li><a href="#">Edit text</a></li>
-								<li><a class="J_DialogLink" href="#J_DialogBackground">Edit background</a></li>
-								<li><a class="J_DialogLink" href="#J_DialogImage">Edit image</a></li>
-								<li><a class="J_DialogLink" href="#J_DialogStyle">Edit style</a></li>
-								<li><a href="#">Direct to this page</a></li>
-							</ul>
-						</div>
-						<div class="actions">
-							<a class="action" href="#" title="Copy"><img src="images/invis.gif" class="icon copy"></a>
-							<a class="action" href="#" title="Insert"><img src="images/invis.gif" class="icon insert"></a>
-							<a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon trash-blue"></a>
+				<div id="kbSplitContainer" data-dojo-type="tal/widgets/SplitContainer" data-dojo-props="horizontal:true,dock:'bottom'">
+					<div class="kb-split-panel" data-kooboo-region="panel1" style="height:70%">
+						<div id="kbEmbedFrame" class="editor">
+							<iframe class="visual-frame" src="SampleSite/index.html"></iframe>
+							<div id="kb_inlinemenu" data-dojo-type="tal/widgets/InlineMenu" data-dojo-props="zIndex:9999"></div>
+							<div class="kb-inline-menu">
+								<h6 class="title">Block</h6>
+								<div class="wrap">
+									<ul>
+										<li><a href="#">Edit text</a></li>
+										<li><a class="J_DialogLink" href="#J_DialogBackgroundImage">Edit background image</a></li>
+										<li><a class="J_DialogLink" href="#J_DialogImage">Edit image</a></li>
+										<li><a class="J_DialogLink" href="#J_DialogStyle">Edit style</a></li>
+										<li><a class="J_DialogLink" href="#J_DialogStyle">Edit style</a></li>
+										<li><a href="#">Direct to this page</a></li>
+									</ul>
+								</div>
+								<div class="actions">
+									<a class="action" href="#" title="Copy"><img src="images/invis.gif" class="icon copy"></a>
+									<a class="action" href="#" title="Insert"><img src="images/invis.gif" class="icon insert"></a>
+									<a class="action" href="#" title="Delete"><img src="images/invis.gif" class="icon trash-blue"></a>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="kb-splitter">
-					<div class="toggle-button"><img src="images/invis.gif" class="sprite"></div>
-				</div>
-				<div class="panel">
-					<div class="J_Tabs tabs-small">
-						<ul>
-							<li><a href="#J_Tab_1">HTML</a></li>
-							<li><a href="#J_Tab_2">Validator</a></li>
-						</ul>
-						<div id="J_Tab_1">
-							<div class="left-column">
-								<div class="kb-code-viewer flexible">
-									<div class="container">
-										<ul class="code-tree">
-											<li>
-												<img src="images/invis.gif" class="sprite">
-												<span class="code">
-													&lt;body <code>id</code>="<code>body-container</code>"
-													<span class="new-attribute">
-														<img src="images/invis.gif" class="icon insert-text" title="Insert attribute">
-													</span>&gt;
-												</span>
-												<ul class="collapsible">
-													<li class="collapsed">
-														<img src="images/invis.gif" class="sprite">
-														<span class="code active">
-															&lt;h6 <code>class</code>="<code>title</code>"&gt;
-														</span>
-														<ul class="collapsible">
-															<li><span class="code">&lt;a href="#"&gt;Lorem ipsum dolor sit amet&lt;/a&gt;</span></li>
-														</ul>
-														<span class="code collapsible">&lt;/h6&gt;</span>
-													</li>
-													<li>
-														<span class="code">
-															&lt;p <code>class</code>="<code>content</code>"
-															<span class="new-attribute">
-																<img src="images/invis.gif" class="icon insert-text" title="Insert attribute">
-															</span>&gt;
-														</span>
-														<code>Lorem ipsum dolor sit amet</code>
-														<span class="code">&lt;/p&gt;</span>
-													</li>
-												</ul>
-												<span class="code collapsible">&lt;/body&gt;</span>
-											</li>
-										</ul>
+					<div class="kb-split-panel" data-kooboo-region="panel2" style="height:30%;">
+						<div id="kbDragPane" class="panel">
+							<div class="J_Tabs tabs-small">
+								<ul>
+									<li><a href="#J_Tab_1">HTML</a></li>
+									<li><a href="#J_Tab_2">Validator</a></li>
+								</ul>
+								<div id="J_Tab_1">
+									<div class="left-column">
+										<div id="kbHtmlViewer" data-dojo-type="tal/widgets/HtmlViewer"></div>
 									</div>
-									<div class="bottom">
-										<a href="#">div.item</a>&gt;<a class="active" href="#">h6.title</a>&gt;<a href="#">a</a>
+									<div class="kb-splitter horizontal"></div>
+									<div class="right-column">
+										<div class="kb-style-editor">
+											<a class="action" href="#" title="New rule"><img class="icon plus-small" src="images/invis.gif"></a>
+											<ol>
+												<li>
+													<span class="arrow active"><img class="sprite" src="images/invis.gif"></span>
+													<span class="start-tag">
+														<span class="text selector" contenteditable="true">#body-container</span>
+														<span class="bracket">{</span>
+													</span>
+													<ul class="">
+														<li>
+															<span class="text attribute" contenteditable="true">margin</span>
+															<span class="symbol">:</span>
+															<span class="text value" contenteditable="true">0 auto</span>
+															<span class="symbol">;</span>
+														</li>
+														<li>
+															<span class="text attribute" contenteditable="true">width</span>
+															<span class="symbol">:</span>
+															<span class="text value" contenteditable="true">960px</span>
+															<span class="symbol">;</span>
+														</li>
+													</ul>
+													<a class="action" href="#" title="Add Property"><img class="icon plus-small" src="images/invis.gif"></a>
+													<span class="bracket end-tag">}</span>
+													<span class="label label-info J_Tooltip" title="Page name here"><strong>3</strong> pages affected</span>
+													<span class="source-file">test.css</span>
+												</li>
+											</ol>
+										</div>
+										<script>
+											jQuery.fn.selectText = function(){
+												var doc = document;
+												var element = this[0];
+												if (doc.body.createTextRange) {
+													var range = document.body.createTextRange();
+													range.moveToElementText(element);
+													range.select();
+												} else if (window.getSelection) {
+													var selection = window.getSelection();        
+													var range = document.createRange();
+													range.selectNodeContents(element);
+													selection.removeAllRanges();
+													selection.addRange(range);
+												}
+											};
+											$(function(){
+												$('.kb-style-editor .text').click(function(){
+													if(!$(this).hasClass('highlight')){
+														$(this).selectText();
+													}
+													$(this).addClass('highlight');
+												}).blur(function(){
+													$(this).removeClass('highlight');
+												});
+											});
+										</script>
 									</div>
 								</div>
-							</div>
-							<div class="kb-splitter horizontal"></div>
-							<div class="right-column">
-								<div class="kb-style-editor">
-									<a class="action" href="#" title="New rule"><img class="icon plus-small" src="images/invis.gif"></a>
-									<ol>
-										<li>
-											<span class="arrow active"><img class="sprite" src="images/invis.gif"></span>
-											<span class="start-tag">
-												<span class="text selector" contenteditable="true">#body-container</span>
-												<span class="bracket">{</span>
-											</span>
-											<ul class="">
-												<li>
-													<span class="text attribute" contenteditable="true">margin</span>
-													<span class="symbol">:</span>
-													<span class="text value" contenteditable="true">0 auto</span>
-													<span class="symbol">;</span>
-												</li>
-												<li>
-													<span class="text attribute" contenteditable="true">width</span>
-													<span class="symbol">:</span>
-													<span class="text value" contenteditable="true">960px</span>
-													<span class="symbol">;</span>
-												</li>
-											</ul>
-											<a class="action" href="#" title="Add Property"><img class="icon plus-small" src="images/invis.gif"></a>
-											<span class="bracket end-tag">}</span>
-											<span class="label label-info J_Tooltip" title="Page name here"><strong>3</strong> pages affected</span>
-											<span class="source-file">test.css</span>
-										</li>
-									</ol>
+								<div id="J_Tab_2">
+									Validator
 								</div>
-								<script>
-									jQuery.fn.selectText = function(){
-										var doc = document;
-										var element = this[0];
-										if (doc.body.createTextRange) {
-											var range = document.body.createTextRange();
-											range.moveToElementText(element);
-											range.select();
-										} else if (window.getSelection) {
-											var selection = window.getSelection();        
-											var range = document.createRange();
-											range.selectNodeContents(element);
-											selection.removeAllRanges();
-											selection.addRange(range);
-										}
-									};
-									$(function(){
-										$('.kb-style-editor .text').click(function(){
-											if(!$(this).hasClass('highlight')){
-												$(this).selectText();
-											}
-											$(this).addClass('highlight');
-										}).blur(function(){
-											$(this).removeClass('highlight');
-										});
-									});
-								</script>
 							</div>
-						</div>
-						<div id="J_Tab_2">
-							Validator
 						</div>
 					</div>
 				</div>
@@ -213,7 +178,7 @@
 			</table>
 		</div>
 	</div>
-	<div class="J_Dialog" id="J_DialogBackground" title="Background Image">
+	<div class="J_Dialog" id="J_DialogBackgroundImage" title="Background Image">
 		<div class="common-form">
 			<table>
 				<tr>
@@ -248,18 +213,6 @@
 					<th><label>Position Y</label></th>
 					<td>
 						<input class="J_Spinner mini" type="text"><span class="unit">px</span>
-					</td>
-				</tr>
-				<tr>
-					<th><label>Color</label></th>
-					<td>
-						Color picker
-					</td>
-				</tr>
-				<tr>
-					<th><label>Opacity</label></th>
-					<td>
-						Slider
 					</td>
 				</tr>
 			</table>
@@ -543,5 +496,9 @@
 		})
 	})
 </script>
+
+<script src="talEditor/dojoConfig.js"></script>
+<script src="talEditor/lib/dojo/dojo.js"></script>
+<script src="talEditor/src/htmlEditor.js"></script>
 </body>
 </html>

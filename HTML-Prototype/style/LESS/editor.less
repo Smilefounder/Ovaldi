@@ -342,6 +342,15 @@
 		top: 0;
 		z-index: 9999;
 	}
+
+	.kb-split-container {
+		bottom: 0;
+		height: auto;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
 	/* Toolbar */
 	.toolbar {
 		background: none;
@@ -414,7 +423,7 @@
 		left: 0;
 		overflow: hidden;
 		position: absolute;
-		right: 401px;
+		right: 0;
 		top: 0;
 		/* jQueryUI tabs */
 		.ui-tabs {
@@ -470,15 +479,14 @@
 	}
 	/* Panel */
 	.panel {
-		border-left: 1px solid #DDD;
 		bottom: 0;
+		left: 0;
 		overflow-x: hidden;
 		overflow-y: scroll;
 		padding-top: 10px;
 		position: absolute;
 		right: 0;
 		top: 0;
-		width: 400px;
 
 		.box {
 			border-left: none;
@@ -554,35 +562,14 @@
 	}
 
 	&.vertical {
-		bottom: 0;
-		left: 0;
-		position: absolute;
-		right: 0;
-		top: 0;
-
-		&.fullscreen {
-			position: fixed;
-		}
-
-		.editor {
-			bottom: 0;
-			right: 0;
-		}
-
 		.visual-frame {
 			padding: 0;
 		}
 
 		.panel {
 			background: #F9F9F9;
-			border: none;
-			height: 0;
-			left: 0;
 			overflow: hidden;
 			padding-top: 2px;
-			top: auto;
-			width: auto;
-			.box-sizing(border-box);
 
 			.ui-tabs-panel {
 				bottom: 0;
