@@ -490,7 +490,6 @@
 	})
 </script>
 <div id="kb_container" style="width:0px;">
-	<div id="kb_changeimagedialog" data-dojo-type="tal/widgets/ChangeImageDialog"></div>
     <script type="text/javascript" src="/talEditor/lib/tinymce/tinymce.min.js"></script>
     <script type="text/javascript" src="/talEditor/dojoConfig.js"></script>
     <script type="text/javascript" src="/talEditor/lib/dojo/dojo.js"></script>
