@@ -1,0 +1,90 @@
+<div class="${baseClass} flexible">
+    <div class="container"
+         data-dojo-attach-event="click:_onTreeClick,mouseover:_onMouseover,mouseout:_onMouseout">
+
+        <ul class="code-tree" data-dojo-attach-point="treeNode"></ul>
+
+        <input type="text" data-dojo-attach-point="inputNode" class="code-field"/>
+    </div>
+    <div class="bottom" data-dojo-attach-event="click:_onPathClick,mouseover:_onMouseover,mouseout:_onMouseout">
+        <!--ko foreach:paths-->
+        <!--ko if:$parent.paths().length == ($index()+1) -->
+        <a href="javascript:;" class="active" data-bind="text:$data.tagName,attr:{'${uuidKey}':$data.uuid}"></a>
+        <!--/ko-->
+        <!--ko if:$parent.paths().length>($index()+1) -->
+        <a href="javascript:;" data-bind="text:$data.tagName,attr:{'${uuidKey}':$data.uuid}"></a><span>&gt;</span>
+        <!--/ko-->
+        <!--/ko-->
+    </div>
+
+    <script id="${id}_ko_tree_tmpl" type="text/html" data-dojo-attach-point="tmplNode">
+        <li data-bind="attr:{'${uuidKey}':uuid}">
+            <!--ko if:$data.nodeType==3 -->
+                <code class="node-text" data-bind="text:$data.textContent,attr:{'${uuidKey}':$data.uuid}"></code>
+            <!--/ko-->
+
+            <!--ko if:$data.nodeType==1 && $data.selfClosing-->
+            <span class="code wrapper" data-bind="attr:{'${uuidKey}':$data.uuid}">
+                &lt;<span data-bind="text:$data.tagName,attr:{'${uuidKey}':$data.uuid}"></span>
+                <!--ko foreach:$data.attributes-->
+                <span>
+                    <code class="attr-name" data-bind="text:$data.name,attr:{'${uuidKey}':$parent.uuid}"></code>="<code class="attr-value" data-bind="text:$data.value,attr:{'${uuidKey}':$parent.uuid}"></code>"
+                </span>
+                <!--/ko-->
+                <span class="new-attribute" >
+                    <img data-bind="attr:{'${uuidKey}':$data.uuid}" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wD/ACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw==" class="icon insert-text add-attr" title="${insertAttrTitle}">
+                </span>
+                /&gt;
+            </span>
+            <!--/ko-->
+
+            <!--ko if:$data.nodeType==1 && !$data.selfClosing && $data.textOnly -->
+                <span class="code wrapper" data-bind="attr:{'${uuidKey}':$data.uuid}">
+                    &lt;<span data-bind="text:$data.tagName,attr:{'${uuidKey}':$data.uuid}"></span>
+                    <!--ko foreach:$data.attributes-->
+                    <span>
+                        <code class="attr-name" data-bind="text:$data.name,attr:{'${uuidKey}':$parent.uuid}"></code>="<code class="attr-value" data-bind="text:$data.value,attr:{'${uuidKey}':$parent.uuid}"></code>"
+                    </span>
+                    <!--/ko-->
+                    <span class="new-attribute" >
+                        <img data-bind="attr:{'${uuidKey}':$data.uuid}" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wD/ACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw==" class="icon insert-text add-attr" title="${insertAttrTitle}">
+                    </span>
+                    &gt;
+                </span>
+                <!--ko if: $data.children.length==1 -->
+                <code class="node-text code" data-bind="text:$data.children[0].textContent,attr:{'${uuidKey}':$data.children[0].uuid}"></code>
+                <!--/ko-->
+                <!--ko if: $data.children.length>1 -->
+                <ul data-bind="template:{name:'${id}_ko_tree_tmpl',foreach:$data.children}"></ul>
+                <!--/ko-->
+                <span class="code wrapper" data-bind="attr:{'${uuidKey}':$data.uuid}">
+                    &lt;/<span data-bind="text:$data.tagName,attr:{'${uuidKey}':$data.uuid}"></span>&gt;
+                </span>
+            <!--/ko-->
+
+            <!--ko if:$data.nodeType==1&&!$data.selfClosing&&!$data.textOnly-->
+            <!-- ko if:$data.children.length-->
+            <img class="sprite" data-bind="attr:{'${uuidKey}':$data.uuid}" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wD/ACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw==">
+            <!--/ko-->
+            <span class="code wrapper" data-bind="attr:{'${uuidKey}':$data.uuid}">
+                &lt;<span data-bind="text:$data.tagName,attr:{'${uuidKey}':$data.uuid}"></span>
+                <!--ko foreach:$data.attributes-->
+                <span>
+                    <code class="attr-name" data-bind="text:$data.name,attr:{'${uuidKey}':$parent.uuid}"></code>="<code class="attr-value" data-bind="text:$data.value,attr:{'${uuidKey}':$parent.uuid}"></code>"
+                </span>
+                <!--/ko-->
+                <span class="new-attribute" >
+                    <img data-bind="attr:{'${uuidKey}':$data.uuid}" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wD/ACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw==" class="icon insert-text add-attr" title="${insertAttrTitle}">
+                </span>
+                &gt;
+            </span>
+            <!-- ko if:$data.children.length-->
+            <ul class="collapsible" data-bind="template:{name:'${id}_ko_tree_tmpl',foreach:$data.children}"></ul>
+            <!--/ko-->
+            <span class="code wrapper collapsible" data-bind="attr:{'${uuidKey}':$data.uuid}">
+                &lt;/<span data-bind="text:$data.tagName,attr:{'${uuidKey}':$data.uuid}"></span>&gt;
+            </span>
+            <!--/ko-->
+        </li>
+    </script>
+</div>

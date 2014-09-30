@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>test Masker</title>
+    <script type="text/javascript" src="../../dojoConfig.js"></script>
+    <script type="text/javascript" src="../dojo/dojo.js"></script>
+    <script type="text/javascript" src="../util/doh/runner.js"></script>
+    <script type="text/javascript">
+        require([
+            "doh/runner",
+            "dojo/parser",
+            "dojo/dom-style",
+            "dijit/registry",
+            "dojo/domReady!"
+        ], function (doh, parser, domStyle, registry) {
+            var bk = dojo.byId("bk");
+            doh.register("parse", function () {
+                return parser.parse();
+            });
+            doh.register("Masker mask/unmask tests", [
+                {
+                    name: "test mask",
+                    timeout: 10000,
+                    runTest: function () {
+                        var masker = registry.byId("mk");
+                        masker.mask(bk);
+                        doh.is(masker.get("el"), bk);
+                        doh.is(domStyle.get(masker.domNode, "display"), "block");
+                    }
+                },
+                {
+                    name: "test unmask",
+                    timeout: 10000,
+                    runTest: function () {
+                        var masker = registry.byId("mk");
+                        masker.unmask();
+                        doh.is(masker.get("el"), null);
+                        doh.is(domStyle.get(masker.domNode, "display"), "none");
+                    }
+                }
+            ]);
+            doh.run();
+        });
+    </script>
+</head>
+<body>
+<div id="bk" style="width:200px;height:200px;margin-left:50px;margin-top:50px;">This is a block</div>
+<div id="mk" data-dojo-type="tal/widgets/Masker"></div>
+</body>
+</html>

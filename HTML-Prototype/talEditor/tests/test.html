@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Hello Dojo!</title>
+    <script type="text/javascript">
+        /*var oldOpen = XMLHttpRequest.prototype.open;
+         XMLHttpRequest.prototype.open = function () {
+         console.log("open", arguments);
+         oldOpen.apply(this, arguments);
+         };*/
+    </script>
+    <link rel="Stylesheet" href="../src/widgets/css/reset.css" type="text/css"/>
+    <link rel="Stylesheet" href="../src/widgets/css/CodeViewer.css" type="text/css"/>
+    <link rel="Stylesheet" href="../lib/jquery-ui/jquery-ui.min.css" type="text/css"/>
+    <link rel="Stylesheet" href="../src/widgets/css/Splitter.less" type="text/css"/>
+    <script type="text/javascript" src="../lib/less-1.7.0.min.js"></script>
+</head>
+<body class="tundra">
+<div style="border-bottom:solid 1px #CCC">
+    <iframe src="./html.html" width="100%" height="" frameborder="0"></iframe>
+</div>
+<div data-dojo-type="tal/widgets/Splitter"></div>
+
+<div id="kb_container" style="position:absolute;right:5px;top:5px;width:400px;">
+    <script type="text/javascript" src="../lib/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="../dojoConfig.js"></script>
+    <script type="text/javascript" src="../lib/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        require(["dojo/parser","dojo/domReady!"],function(parser){
+            parser.parse();
+        })
+    </script>
+</div>
+</body>
+</html>
