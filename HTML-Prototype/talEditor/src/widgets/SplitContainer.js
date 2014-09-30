@@ -88,9 +88,16 @@ define([
                 spaceAvailable = this._contentBox[dim] - thickness,
                 panel1Box = domGeom.getMarginBox(this.panel1),
                 panel2Box = domGeom.getMarginBox(this.panel2),
-                wh1 = spaceAvailable / (panel1Box[dim] + panel2Box[dim]) * panel1Box[dim],
-                wh2 = spaceAvailable / (panel1Box[dim] + panel2Box[dim]) * panel2Box[dim];
+                wh1 = Math.round(spaceAvailable / (panel1Box[dim] + panel2Box[dim]) * panel1Box[dim]),
+                wh2 = Math.round(spaceAvailable / (panel1Box[dim] + panel2Box[dim]) * panel2Box[dim]);
 
+            if(isHorizontal){
+                domStyle.set(this.panel1, "width", this._contentBox["w"] + "px");
+                domStyle.set(this.panel2, "width", this._contentBox["w"] + "px");
+            }else{
+                domStyle.set(this.panel1, "height", this._contentBox["h"] + "px");
+                domStyle.set(this.panel2, "height", this._contentBox["h"] + "px");
+            }
             domStyle.set(this.panel1, attr, wh1 + "px");
             domStyle.set(this.panel2, attr, wh2 + "px");
 
