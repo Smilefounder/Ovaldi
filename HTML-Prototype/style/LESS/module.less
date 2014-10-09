@@ -21,8 +21,13 @@
 	.code {
 		cursor: pointer;
 
-		&.active,
 		&.hover {
+			background: #5BD0FF;
+			color: #FFF;
+			.rounded(3px);
+		}
+
+		&.active {
 			background: #39F;
 			color: #FFF;
 			.rounded(3px);
@@ -52,13 +57,14 @@
 	}
 
 	.code-field {
-		border: 2px solid orange;
+		border: 1px solid #A0A0A0;
 		display: none;
 		font-size: 11px;
 		height: 22px;
 		margin: -4px 0 0 -4px;
 		padding: 2px;
 		position: absolute;
+		.box-shadow(0 0 5px rgba(0,0,0,.3));
 	}
 
 	.bottom {
@@ -417,6 +423,12 @@
 	}
 
 	&.horizontal {
+
+		.kb-split-panel {
+			height: 100%;
+			top: 0;
+		}
+
 		.kb-splitter {
 			cursor: ew-resize;
 			height: 100%;

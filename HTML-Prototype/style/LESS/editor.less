@@ -571,13 +571,34 @@
 			overflow: hidden;
 			padding-top: 2px;
 
-			.ui-tabs-panel {
+			.tabs-small > .ui-tabs-panel {
 				bottom: 0;
 				left: 0;
 				overflow: auto;
 				position: absolute;
 				right: 0;
 				top: 32px;
+			}
+
+			.kb-code-viewer {
+				.container {
+					border: none;
+					bottom: 21px;
+					height: auto;
+					left: 0;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
+
+				.bottom {
+					border: none;
+					border-top: 1px solid #CCC;
+					bottom: 0;
+					left: 0;
+					position: absolute;
+					right: 0;
+				}
 			}
 
 			.left-column,
@@ -592,27 +613,6 @@
 			.left-column {
 				left: 0;
 				right: 505px;
-
-				.kb-code-viewer {
-					.container {
-						border: none;
-						bottom: 21px;
-						height: auto;
-						left: 0;
-						position: absolute;
-						right: 0;
-						top: 0;
-					}
-
-					.bottom {
-						border: none;
-						border-top: 1px solid #CCC;
-						bottom: 0;
-						left: 0;
-						position: absolute;
-						right: 0;
-					}
-				}
 			}
 
 			.right-column {
