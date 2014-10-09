@@ -6,8 +6,19 @@ define([
     return declare([_WidgetBase,_TemplatedMixin],{
         baseClass:"kb-position-panel",
         templateString:template,
-        set
+        setPosition:function(){
+
+        },
         setMargin:function() {
+
+        },
+        setBorder:function(){
+
+        },
+        setPadding:function(){
+
+        },
+        setSize:function(){
 
         }
     });
