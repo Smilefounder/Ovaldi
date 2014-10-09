@@ -1,0 +1,53 @@
+<div class="${baseClass} common-form">
+    <table>
+        <tbody><tr>
+            <th><label>${labelSrc}</label></th>
+            <td>
+                <div class="file-thumbnail">
+                    <img data-bind="src:src">
+                    <a class="action" href="javascript:;" alt="${labelClearSrc}" data-dojo-attach-event="click:_clearSrc">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wD/ACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw==" class="icon minus-small">
+                    </a>
+                </div>
+                <p>
+                    <a href="javascript:;" class="button" data-dojo-attach-event="click:_onChange">${buttonChange}</a>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelRepeated}</label></th>
+            <td>
+                <select>
+                    <option>No repeat</option>
+                    <option>Repeat X</option>
+                    <option>Repeat Y</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelPositionX}</label></th>
+            <td>
+                <input class="J_Spinner mini" type="text" data-bind="value:positionX"><span class="unit">px</span>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelPositionY}</label></th>
+            <td>
+                <input class="J_Spinner mini" type="text" data-bind="value:positionY"><span class="unit">px</span>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelColor}</label></th>
+            <td>
+                Color picker
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelOpacity}</label></th>
+            <td>
+                Slider
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

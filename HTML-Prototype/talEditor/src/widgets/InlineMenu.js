@@ -14,8 +14,9 @@ define([
     "dojo/dom-geometry",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
-    "dojo/text!./templates/InlineMenu.html"
-], function (declare, array, lang, on, string, domStyle, domClass, domAttr, domConst, domGeom, _WidgetBase, _TemplatedMixin, template) {
+    "dojo/text!./templates/InlineMenu.html",
+    "dojo/i18n!./nls/InlineMenu"
+], function (declare, array, lang, on, string, domStyle, domClass, domAttr, domConst, domGeom, _WidgetBase, _TemplatedMixin, template, res) {
     return declare([_WidgetBase, _TemplatedMixin], {
         baseClass: "kb-inline-menu",
         templateString: template,
@@ -25,7 +26,10 @@ define([
         menusNode: null,
         constructor: function () {
             dojo.safeMixin(this, arguments);
-            this._handlers = [];
+        },
+        postMixInProperties: function () {
+            lang.mixin(this, res);
+            this.inherited(arguments);
         },
         postCreate: function () {
             this.inherited(arguments);
@@ -42,21 +46,23 @@ define([
             var menus = this.menus, menu;
             for (var i = 0, j = menus.length; i < j; i++) {
                 menu = menus[i];
-                if (menu.visibility) {
-                    domStyle.set(menu.dom, "display", menu.visibility.apply(this, [menu]) ? "block" : "none");
+                var visibility = menu.visibility;
+                if (lang.isFunction(menu.visibility)) {
+                    visibility = menu.visibility.apply(this, [menu]);
                 }
+                domStyle.set(menu.dom, "display", visibility ? "block" : "none");
             }
         },
         _renderMenu: function (menu) {
             menu.dom = domConst.toDom(string.substitute('<li><a href="javascript:;">${0}</a></li>', [menu.text]));
-            this._handlers = this._handlers.concat([
-                on(menu.dom, "click", lang.hitch(this, function () {
-                    menu.callback && menu.callback.apply(this, [menu]);
-                }))
-            ]);
-            if (menu.visibility) {
-                domStyle.set(menu.dom, "display", menu.visibility.apply(this, [menu]) ? "block" : "none");
+            this.own(on(menu.dom, "click", lang.hitch(this, function () {
+                menu.callback && menu.callback.apply(this, [menu]);
+            })));
+            var visibility = menu.visibility;
+            if (lang.isFunction(menu.visibility)) {
+                visibility = menu.visibility.apply(this, [menu]);
             }
+            domStyle.set(menu.dom, "display", visibility ? "block" : "none");
             domConst.place(menu.dom, this.menusNode);
         },
         show: function (x, y) {
@@ -68,15 +74,8 @@ define([
         hide: function () {
             domStyle.set(this.domNode, "left", "-1000px");
         },
-        _cleanupHandlers: function () {
-            var h;
-            while (h = this._handlers.pop()) {
-                h.remove();
-            }
-        },
         destroy: function () {
             this.inherited(arguments);
-            this._cleanupHandlers();
             delete this.menusNode;
         }
     });

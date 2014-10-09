@@ -1,0 +1,33 @@
+<div class="${baseClass} common-form">
+    <table>
+        <tr>
+            <th><label>$labelWidth}</label></th>
+            <td>
+                <input class="J_Spinner mini" type="text" data-dojo-attach-point="widthNode"><span class="unit">px</span>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelStyle}</label></th>
+            <td>
+                <select data-dojo-attach-point="styleNode">
+                    <option>Dashed</option>
+                    <option>Dotted</option>
+                    <option>Double</option>
+                    <option>Grovve</option>
+                    <option>Ridge</option>
+                    <option>Solid</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelColor}</label></th>
+            <td>Color picker</td>
+        </tr>
+        <tr>
+            <th><label>${labelOpacity}</label></th>
+            <td>
+                Slider
+            </td>
+        </tr>
+    </table>
+</div>

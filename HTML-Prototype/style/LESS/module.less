@@ -9,7 +9,7 @@
 		background: #FFF;
 		border: 1px solid #CCC;
 		border-bottom: none;
-		height: 200px;
+		/*height: 200px;*/
 		overflow: auto;
 		padding: 10px;
 	}
@@ -367,6 +367,7 @@
 .kb-split-container {
 	height: 500px;
 	position: relative;
+	overflow:hidden;
 
 	.kb-splitter-cover {
 		bottom: 0;
@@ -375,6 +376,7 @@
 		right: 0;
 		top: 0;
 		z-index: 5;
+		display:none;
 	}
 
 	.kb-split-panel {
@@ -417,6 +419,12 @@
 	}
 
 	&.horizontal {
+		.kb-split-panel {
+			top: 0;
+			position: absolute;
+			height: 100%;
+			z-index: 4;
+		}
 		.kb-splitter {
 			cursor: ew-resize;
 			height: 100%;
