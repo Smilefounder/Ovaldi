@@ -28,25 +28,26 @@
 					</div>
 					
 				
-				<div id="kbSplitContainer" data-dojo-type="tal/widgets/SplitContainer" data-dojo-props="horizontal:true,dock:'bottom',style:'position:relative;overflow:hidden;height:100%;width:100%'">
-					<div id="kbEmbedFrame" class="editor" data-kooboo-region="panel1" style="height:70%">
-						<div id="kbShade" style="position:absolute;width:100%;height:100%;z-index:10;display:none"></div>
-						<iframe class="visual-frame" src="SampleSite/test-index.html"></iframe>
-						<div id="kb_inlinemenu" data-dojo-type="tal/widgets/InlineMenu" data-dojo-props="zIndex:9999"></div>
+				<div id="kbSplitContainer" data-dojo-type="tal/widgets/SplitContainer" data-dojo-props="horizontal:false,dock:'bottom'">
+					<div class="kb-split-panel" data-kooboo-region="panel1" style="height:70%">
+						<div id="kbEmbedFrame" class="editor">
+							<iframe class="visual-frame" src="SampleSite/test-index.html"></iframe>
+							<div id="kb_inlinemenu" data-dojo-type="tal/widgets/InlineMenu" data-dojo-props="zIndex:9999"></div>
+						</div>
 					</div>
-					
-					<div id="kbDragPane" class="panel" data-kooboo-region="panel2"style="height:30%;" >
+					<div class="kb-split-panel" data-kooboo-region="panel2" style="height:30%">
+					<div id="kbDragPane" class="panel">
 						<div class="J_Tabs tabs-small">
 							<ul>
 								<li><a href="#J_Tab_1">HTML</a></li>
 								<li><a href="#J_Tab_2">Validator</a></li>
 							</ul>
 							<div id="J_Tab_1">
-								<div class="left-column">
-									<div id="kbHtmlViewer" data-dojo-type="tal/widgets/HtmlViewer"></div>
-								</div>
-								<div class="kb-splitter horizontal"></div>
-								<div class="right-column">
+								<div data-dojo-type="tal/widgets/SplitContainer" data-dojo-props="horizontal:true">
+									<div class="kb-split-panel left-column" data-kooboo-region="panel1" style="width:70%">
+										<div id="kbHtmlViewer" data-dojo-type="tal/widgets/HtmlViewer"></div>
+									</div>
+									<div class="kb-split-panel right-column" data-kooboo-region="panel2" style="width:30%">
 									<div class="kb-style-editor">
 										<a class="action" href="#" title="New rule"><img class="icon plus-small" src="images/invis.gif"></a>
 										<ol>
@@ -113,6 +114,7 @@
 					</div>
 					
 				</div>
+					</div>
 			</div>
 		</div>
 	</div>

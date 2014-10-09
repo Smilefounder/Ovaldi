@@ -3,6 +3,8 @@
          data-dojo-attach-event="click:_onTreeClick,mouseover:_onMouseover,mouseout:_onMouseout">
 
         <ul class="code-tree" data-dojo-attach-point="treeNode"></ul>
+
+        <input type="text" data-dojo-attach-point="inputNode" class="code-field"/>
     </div>
 
     <div class="bottom" data-dojo-attach-point="pathNode" data-dojo-attach-event="click:_onPathClick,mouseover:_onMouseover,mouseout:_onMouseout"></div>
@@ -10,7 +12,7 @@
     <script data-dojo-attach-point="treeTmpl" type="text/template">
         <li ${uuidKey}="<%=utils.getUuid(node)%>">
             <%if(node.nodeType==3){%>
-            <span class="node-text" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.textContent%></span>
+            <code class="node-text" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.textContent%></code>
             <%}%>
 
             <%if(node.nodeType==1&&utils.isVoidElement(node)){%>
@@ -18,7 +20,7 @@
             <span ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.tagName.toLowerCase()%></span>
             <%for(var i=0,j=node.attributes.length;i<j;i++){%>
                     <span>
-                        <span class="attr-name" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].name%></span>="<span class="attr-value" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].value%></span>"
+                        <code class="attr-name" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].name%></code>="<code class="attr-value" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].value%></code>"
                     </span>
             <%}%>
                     <span class="new-attribute" >
@@ -32,7 +34,7 @@
             <span ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.tagName.toLowerCase()%></span>
             <%for(var i=0,j=node.attributes.length;i<j;i++){%>
                         <span>
-                            <span class="attr-name" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].name%></span>="<span class="attr-value" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].value%></span>"
+                            <code class="attr-name" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].name%></code>="<code class="attr-value" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].value%></code>"
                         </span>
             <%}%>
                     <span class="new-attribute" >
@@ -40,7 +42,7 @@
                     </span>
             &gt;</span>
             <%for(var child=node.childNodes,i=0,j=child.length;i<j;i++){%>
-            <span class="node-text code" ${uuidKey}="<%=utils.getUuid(child[i])%>"><%=child[i].textContent%></span>
+            <code class="node-text code" ${uuidKey}="<%=utils.getUuid(child[i])%>"><%=child[i].textContent%></code>
             <%}%>
             <span class="code wrapper" ${uuidKey}="<%=utils.getUuid(node)%>">
             &lt;/<span ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.tagName.toLowerCase()%></span>&gt;
@@ -55,7 +57,7 @@
             <span ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.tagName.toLowerCase()%></span>
             <%for(var i=0,j=node.attributes.length;i<j;i++){%>
                     <span>
-                        <span class="attr-name" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].name%></span>="<span class="attr-value" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].value%></span>"
+                        <code class="attr-name" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].name%></code>="<code class="attr-value" ${uuidKey}="<%=utils.getUuid(node)%>"><%=node.attributes[i].value%></code>"
                     </span>
             <%}%>
                 <span class="new-attribute" >
@@ -65,9 +67,7 @@
             <%if(node.childNodes.length){%>
             <ul class="collapsible">
                 <%for(var child=node.childNodes,i=0,j=child.length;i<j;i++){%>
-                <%if(!utils.skip(child[i])){%>
-                    <%=utils.render(child[i])%>
-                <%}%>
+                <%=utils.render(child[i])%>
                 <%}%>
             </ul>
             <%}%>

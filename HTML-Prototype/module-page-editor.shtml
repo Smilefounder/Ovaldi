@@ -26,7 +26,7 @@
 						<li><a class="action-fullscreen" href="javascript:;" title="Fullscreen"><img src="images/invis.gif" class="sprite"></a></li>
 					</ul>
 				</div>
-				<div id="kbSplitContainer" data-dojo-type="tal/widgets/SplitContainer" data-dojo-props="horizontal:true,dock:'bottom'">
+				<div id="kbSplitContainer" data-dojo-type="tal/widgets/SplitContainer" data-dojo-props="horizontal:false,dock:'bottom'">
 					<div class="kb-split-panel" data-kooboo-region="panel1" style="height:70%">
 						<div id="kbEmbedFrame" class="editor">
 							<iframe class="visual-frame" src="SampleSite/index.html"></iframe>
@@ -59,69 +59,72 @@
 									<li><a href="#J_Tab_2">Validator</a></li>
 								</ul>
 								<div id="J_Tab_1">
-									<div class="left-column">
-										<div id="kbHtmlViewer" data-dojo-type="tal/widgets/HtmlViewer"></div>
-									</div>
-									<div class="kb-splitter horizontal"></div>
-									<div class="right-column">
-										<div class="kb-style-editor">
-											<a class="action" href="#" title="New rule"><img class="icon plus-small" src="images/invis.gif"></a>
-											<ol>
-												<li>
-													<span class="arrow active"><img class="sprite" src="images/invis.gif"></span>
-													<span class="start-tag">
-														<span class="text selector" contenteditable="true">#body-container</span>
-														<span class="bracket">{</span>
-													</span>
-													<ul class="">
-														<li>
-															<span class="text attribute" contenteditable="true">margin</span>
-															<span class="symbol">:</span>
-															<span class="text value" contenteditable="true">0 auto</span>
-															<span class="symbol">;</span>
-														</li>
-														<li>
-															<span class="text attribute" contenteditable="true">width</span>
-															<span class="symbol">:</span>
-															<span class="text value" contenteditable="true">960px</span>
-															<span class="symbol">;</span>
-														</li>
-													</ul>
-													<a class="action" href="#" title="Add Property"><img class="icon plus-small" src="images/invis.gif"></a>
-													<span class="bracket end-tag">}</span>
-													<span class="label label-info J_Tooltip" title="Page name here"><strong>3</strong> pages affected</span>
-													<span class="source-file">test.css</span>
-												</li>
-											</ol>
+									<div data-dojo-type="tal/widgets/SplitContainer" data-dojo-props="horizontal:true,dock:'right'">
+										<div class="kb-split-panel left-column" data-kooboo-region="panel1" style="width:70%">
+												<div id="kbHtmlViewer" data-dojo-type="tal/widgets/HtmlViewer"></div>
 										</div>
-										<script>
-											jQuery.fn.selectText = function(){
-												var doc = document;
-												var element = this[0];
-												if (doc.body.createTextRange) {
-													var range = document.body.createTextRange();
-													range.moveToElementText(element);
-													range.select();
-												} else if (window.getSelection) {
-													var selection = window.getSelection();        
-													var range = document.createRange();
-													range.selectNodeContents(element);
-													selection.removeAllRanges();
-													selection.addRange(range);
-												}
-											};
-											$(function(){
-												$('.kb-style-editor .text').click(function(){
-													if(!$(this).hasClass('highlight')){
-														$(this).selectText();
-													}
-													$(this).addClass('highlight');
-												}).blur(function(){
-													$(this).removeClass('highlight');
-												});
-											});
-										</script>
+										<div class="kb-split-panel right-column" data-kooboo-region="panel2" style="width:30%">
+												<div class="kb-style-editor">
+													<a class="action" href="#" title="New rule"><img class="icon plus-small" src="images/invis.gif"></a>
+													<ol>
+														<li>
+															<span class="arrow active"><img class="sprite" src="images/invis.gif"></span>
+															<span class="start-tag">
+																<span class="text selector" contenteditable="true">#body-container</span>
+																<span class="bracket">{</span>
+															</span>
+															<ul class="">
+																<li>
+																	<span class="text attribute" contenteditable="true">margin</span>
+																	<span class="symbol">:</span>
+																	<span class="text value" contenteditable="true">0 auto</span>
+																	<span class="symbol">;</span>
+																</li>
+																<li>
+																	<span class="text attribute" contenteditable="true">width</span>
+																	<span class="symbol">:</span>
+																	<span class="text value" contenteditable="true">960px</span>
+																	<span class="symbol">;</span>
+																</li>
+															</ul>
+															<a class="action" href="#" title="Add Property"><img class="icon plus-small" src="images/invis.gif"></a>
+															<span class="bracket end-tag">}</span>
+															<span class="label label-info J_Tooltip" title="Page name here"><strong>3</strong> pages affected</span>
+															<span class="source-file">test.css</span>
+														</li>
+													</ol>
+												</div>
+												<script>
+													jQuery.fn.selectText = function(){
+														var doc = document;
+														var element = this[0];
+														if (doc.body.createTextRange) {
+															var range = document.body.createTextRange();
+															range.moveToElementText(element);
+															range.select();
+														} else if (window.getSelection) {
+															var selection = window.getSelection();        
+															var range = document.createRange();
+															range.selectNodeContents(element);
+															selection.removeAllRanges();
+															selection.addRange(range);
+														}
+													};
+													$(function(){
+														$('.kb-style-editor .text').click(function(){
+															if(!$(this).hasClass('highlight')){
+																$(this).selectText();
+															}
+															$(this).addClass('highlight');
+														}).blur(function(){
+															$(this).removeClass('highlight');
+														});
+													});
+												</script>
+										</div>
 									</div>
+									
+									
 								</div>
 								<div id="J_Tab_2">
 									Validator

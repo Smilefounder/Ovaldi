@@ -4,6 +4,7 @@
 require([
     "dojo/_base/config",
     "dojo/_base/lang",
+    "dojo/_base/array",
     "dojo/parser",
     "dojo/on",
     "dojo/keys",
@@ -16,13 +17,13 @@ require([
     "dijit/registry",
     "dojox/uuid/generateTimeBasedUuid",
     "dojo/domReady!"
-], function (config, lang, parser, on, keys, domClass, domAttr, domStyle, domConst, domGeom, Masker, registry) {
+], function (config, lang, array, parser, on, keys, domClass, domAttr, domStyle, domConst, domGeom, Masker, registry) {
     var win = window,
         doc = document,
         body = doc.body,
+        isEditing = false,
         kbContainer = dojo.byId("kbContainer"),
-        kbHover, kbHolder, kbMasker,
-        mceEditor, editEl, ptopic;
+        kbHover, kbHolder, kbMasker, editEl, ptopic;
 
     parser.parse(kbContainer).then(function () {
         kbHover = registry.byId("kbHover");
@@ -34,23 +35,19 @@ require([
         });
         on(body, "mouseover", function (e) {
             if (body == e.target ||
-                mceEditor ||
+                isEditing ||
                 kbHover.domNode.contains(e.target) ||
                 kbHolder.domNode.contains(e.target) ||
                 kbMasker.domNode.contains(e.target)) {
                 return;
             }
             ptopic && ptopic.publish("dom/mouseover", e);
-
-            if (e.target.isContentEditable) {
-                return;
-            }
             kbHover.mask(e.target);
 
         });
         on(body, "mouseout", function (e) {
             if (body == e.target ||
-                mceEditor ||
+                isEditing ||
                 kbHover.domNode.contains(e.target) ||
                 kbHolder.domNode.contains(e.target) ||
                 kbMasker.domNode.contains(e.target)) {
@@ -60,22 +57,18 @@ require([
             ptopic && ptopic.publish("dom/mouseout", e);
         });
         on(body, "click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
             if (body == e.target ||
-                mceEditor ||
+                isEditing ||
                 kbHover.domNode.contains(e.target) ||
                 kbHolder.domNode.contains(e.target) ||
-                kbMasker.domNode.contains(e.target) ||
-                (editEl && editEl.contains(e.target))) {
+                kbMasker.domNode.contains(e.target)) {
                 return;
             }
             //TODO://判断是否点击在tinymce的二级菜单上，或者暂时停止监听click事件
 
             ptopic && ptopic.publish("dom/click", e);
-            e.preventDefault();
-            e.stopPropagation();
-            if (e.target.isContentEditable) {
-                return;
-            }
             kbHolder.mask(e.target);
         });
         on(win, "resize,scroll", function (e) {
@@ -130,13 +123,14 @@ require([
                 }
             });
             ptopic.subscribe("inlinemenu/edit", function (e) {
-                var el = editEl = e.refEl;
+                var el = e.refEl;
+                isEditing = true;
                 if (el.firstElementChild) {//init text/html editor
                     //TODO:保留原始DOM，记录原始DOM的所有attributes
                     //不能用clone原始DOM的方式，因为用户进入tinymce编辑时，也可以在CodeViewer中修改
                     //问题:CodeViewer中是否可以修改DOM结构？如果可以，正在编辑的tinymce难以同步
                     var uuid = dojox.uuid.generateTimeBasedUuid();
-                    domClass.add(el, [uuid, "kb-inline-editor-field"]);
+                    domClass.add(el, uuid);
                     tinymce.init({
                         selector: el.tagName + "." + uuid,
                         inline: true,
@@ -160,7 +154,6 @@ require([
                             });
                         },
                         init_instance_callback: function (ed) {
-                            mceEditor = ed;
                             ed.focus();
                             //TODO:考虑引入tinymce.full就不需要定时器了
                             setTimeout(function () {
@@ -172,14 +165,12 @@ require([
                                 kbMasker.mask(el);
                             });
                             ed.on("remove", function () {
-                                domClass.remove(el, [uuid, "kb-inline-editor-field"]);
+                                domClass.remove(el, uuid);
                                 kbMasker.unmask();
 
                                 //TODO:将tinymce产生的attribute删除
                                 //更新CodeViewer
                                 ptopic && ptopic.publish("dom/modified", {target: el});
-                                editEl = null;
-                                mceEditor = null;
                                 //TODO:启用Toolbar
                             });
                             //更新CodeViewer,此时el内的元素已经被tinyMCE更新，旧的内存引用失效
@@ -189,6 +180,10 @@ require([
                         exit_onexitcallback: function (ed) {
                             ed.save();
                             ed.remove();
+                            //等待tinymce工具条销毁再退出编辑模式
+                            setTimeout(function () {
+                                isEditing = false;
+                            }, 10);
                         }
                     });
                 } else {//init text/plain editor
@@ -213,6 +208,7 @@ require([
                                 node = document.createTextNode(text);
                             range.deleteContents();
                             range.insertNode(node);
+                            node.parentNode.normalize();
                             range.setStart(node, node.length);
                             range.collapse(true);
                             sel.removeAllRanges();
@@ -228,7 +224,7 @@ require([
                     }
 
                     var uuid = dojox.uuid.generateTimeBasedUuid();
-                    domClass.add(el, [uuid, "kb-inline-editor-field"]);
+                    domClass.add(el, uuid);
                     tinymce.init({
                         selector: el.tagName + "." + uuid,
                         inline: true,
@@ -248,7 +244,6 @@ require([
                             });
                         },
                         init_instance_callback: function (ed) {
-                            mceEditor = ed;
                             ed.focus();
                             setTimeout(function () {
                                 ed.focus();
@@ -262,14 +257,13 @@ require([
                             });
                             ed.on("remove", function () {
                                 _clearupHandlers();
-                                domClass.remove(el, [uuid, "kb-inline-editor-field"]);
+                                el.normalize();
+                                domClass.remove(el, uuid);
                                 kbMasker.unmask();
                                 //TODO:将tinymce产生的attribute删除
 
                                 //更新CodeViewer
                                 ptopic && ptopic.publish("dom/modified", {target: el});
-                                editEl = null;
-                                mceEditor = null;
                                 //TODO:启用Toolbar
                             });
                             //更新CodeViewer,此时el内的元素已经被tinymce更新，旧的内存引用失效
@@ -279,6 +273,9 @@ require([
                         exit_onexitcallback: function (ed) {
                             ed.save();
                             ed.remove();
+                            setTimeout(function(){
+                                isEditing = false;
+                            },10);
                         }
                     });
                 }

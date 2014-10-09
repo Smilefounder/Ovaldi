@@ -19,36 +19,37 @@ define([
         templateString: template,
         container: null,
         spriteNode: null,
-        horizontal: true,//horizontal(true) or vertical(false), default is true
+        horizontal: true,
         docked: false,
-        dock: null,//horizontal:"top"/"bottom",vertical:"left"/"right"
+        size: 5,
+        dock: null,//vertical:"top"/"bottom",horizontal:"left"/"right"
         lastPoint: null,
         constructor: function () {
             this.inherited(arguments);
             this._handlers = [];
         },
-        postCreate: function () {
-            this.inherited(arguments);
-            domStyle.set(this.spriteNode, "display", this.dock ? "block" : "none");
+        startup: function () {
+            this.own(on(this.spriteNode, touch.press, function (e) {
+                e.stopPropagation();
+            }));
         },
         toggle: function () {
             var isHorizontal = this.horizontal,
-                attr = isHorizontal ? "height" : "width",
-                splitterAttr = isHorizontal ? "top" : "left",
-                thickness = 5,
-                dim = isHorizontal?"h":"w",
-                point = geom.getMarginBox(this.domNode)[isHorizontal?"t":"l"],
+                attr = isHorizontal ? "width" : "height",
+                splitterAttr = isHorizontal ? "left" : "top",
+                dim = isHorizontal ? "w" : "h",
+                point = geom.getMarginBox(this.domNode)[isHorizontal ? "l" : "t"],
                 contentBox = geom.getContentBox(this.container.containerNode),
                 pos, ret;
 
             if (this.docked) {
                 this.set("docked", false);
-                domStyle.set(this.domNode, attr, thickness + "px");
+                domStyle.set(this.domNode, attr, this.size + "px");
                 if (this.lastPoint >= this.container._contentBox[dim]) {
                     this.set("lastPoint", Math.round(this.container._contentBox[dim] / 2));
                 }
                 domStyle.set(this.domNode, splitterAttr, this.lastPoint + "px");
-                ret = [this.lastPoint, thickness];
+                ret = [this.lastPoint, this.size];
             } else {
                 this.set("docked", true);
                 switch (this.dock) {
@@ -77,42 +78,31 @@ define([
             e.stopPropagation();
             e.preventDefault();
         },
+        _setDockAttr: function (dock) {
+            this._set("dock", dock);
+            domClass[this.dock ? "add" : "remove"](this.spriteNode, ["toggle-button", "toggle-to-" + this.dock]);
+        },
         _setDockedAttr: function (docked) {
             this._set("docked", docked);
-            var cls = "";
-            switch (this.dock) {
-                case "left":
-                    cls = "";
-                    break;
-                case "right":
-                    cls = "";
-                    break;
-                case "top":
-                    cls = "";
-                    break;
-                case "bottom":
-                    cls = "";
-                    break;
-            }
-            domClass.add(this.domNode, cls);
+            domClass[docked ? "remove" : "add"](this.spriteNode, "active");
         },
         _startDrag: function (e) {
             var de = this.ownerDocument,
                 isHorizontal = this.horizontal,
-                axis = isHorizontal ? "pageY" : "pageX",
-                splitterAttr = isHorizontal ? "top" : "left",
-                thickness = domStyle.get(this.domNode, isHorizontal ? "height" : "width"),
+                axis = isHorizontal ? "pageX" : "pageY",
+                attr = isHorizontal ? "width" : "height",
+                splitterAttr = isHorizontal ? "left" : "top",
                 contentPos = geom.position(this.container.containerNode),
-                offset = contentPos[isHorizontal ? "y" : "x"],
+                offset = contentPos[isHorizontal ? "x" : "y"],
                 contentBox = geom.getContentBox(this.container.containerNode),
-                min = contentBox[isHorizontal ? "t" : "l"],//minimum left/ minimum top
-                max = contentBox[isHorizontal ? "h" : "w"] - thickness;//maximum left/maximum top
+                min = contentBox[isHorizontal ? "l" : "t"],//minimum left/ minimum top
+                max = contentBox[isHorizontal ? "w" : "h"] - this.size;//maximum left/maximum top
 
             this._handlers = this._handlers.concat([
                 on(de, touch.move, lang.hitch(this, function (e) {
                     var pos = Math.min(Math.max(e[axis] - offset, min), max);
                     domStyle.set(this.domNode, splitterAttr, pos + "px");
-                    this.emit("Drag", e, [pos, thickness]);
+                    this.emit("Drag", e, [pos, this.size]);
                 })),
                 on(de, "dragstart", function (e) {
                     e.stopPropagation();

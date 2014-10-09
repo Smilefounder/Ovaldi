@@ -5,14 +5,14 @@
 //因此dojo.require(“some.module”)，是dojo加载文件“/web/scripts/dojo-1.3/some/module.js”，
 //也就是说packages的路径设置是相对于dojo.js文件来定位的
 (function () {
-    var global = this;
     this.dojoConfig = {
-        baseUrl: "talEditor/lib/dojo/",//生产环境时，配置为从域名根路径开始“/”
+        isDebug: true,
+        baseUrl: "/talEditor/lib/dojo/",//生产环境时，配置为从域名根路径开始“/”
         locale: "zh",//设置默认语言环境
         modulePaths: {
-            "jquery":"../jquery.min",
+            "jquery": "../jquery.min",
             "ko": "../ko",
-            "doT":"../doT"
+            "doT": "../doT"
         },
         packages: [
             {

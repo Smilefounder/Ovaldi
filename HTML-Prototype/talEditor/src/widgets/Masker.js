@@ -9,11 +9,10 @@ define([
     "dojo/dom-geometry",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
-    "dojo/text!./templates/Masker.html",
-    "./ko"
-], function (declare, lang, aspect, domStyle, geom, _WidgetBase, _TemplatedMixin, template, ko) {
+    "dojo/text!./templates/Masker.html"
+], function (declare, lang, aspect, domStyle, geom, _WidgetBase, _TemplatedMixin, template) {
 
-    var Masker = declare([_WidgetBase, _TemplatedMixin], {
+    return declare([_WidgetBase, _TemplatedMixin], {
         baseClass: "kb-masker",
         templateString: template,
         el: null,
@@ -97,6 +96,4 @@ define([
             delete this.bottomRef;
         }
     });
-
-    return Masker;
 });

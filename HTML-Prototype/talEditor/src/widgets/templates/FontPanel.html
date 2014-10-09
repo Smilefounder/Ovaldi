@@ -1,0 +1,30 @@
+<div class="${baseClass} common-form">
+    <table>
+        <tr>
+            <th><label>${labelFontFamily}</label></th>
+            <td>
+                <select data-dojo-attach-point="familyNode">
+                    <option>Arial</option>
+                    <option>Others</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelFontSize}</label></th>
+            <td>
+                <input class="J_Spinner mini" type="text" data-dojo-attach-point="sizeNode"><span class="unit">px</span>
+            </td>
+        </tr>
+        <tr>
+            <th><label>Blur</label></th>
+            <td>
+                <input class="J_Spinner mini" type="text"><span class="unit">px</span>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelFontColor}</label></th>
+            <td><div data-dojo-type="dojox/widget/ColorPicker" data-dojo-attach-point="colorPickerRef"></div></td>
+
+        </tr>
+    </table>
+</div>

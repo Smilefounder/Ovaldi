@@ -1,0 +1,37 @@
+<div class="common-form">
+    <p class="field">
+        <input type="checkbox" id="ShadowEnable" checked="checked">
+        <label class="inline" for="ShadowEnable">${labelEnableShadow}</label>
+    </p>
+    <hr>
+    <table>
+        <tr>
+            <th><label>${labelDirection}</label></th>
+            <td>
+                <input class="J_Spinner mini" type="text"><span class="unit">°</span>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelDistance}</label></th>
+            <td>
+                <input class="J_Spinner mini" type="text"><span class="unit">px</span>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelBlur}</label></th>
+            <td>
+                <input class="J_Spinner mini" type="text"><span class="unit">px</span>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelColor}</label></th>
+            <td><div data-dojo-type="dojox/widget/ColorPicker" data-dojo-attach-point="colorPickerRef"></div></td>
+        </tr>
+        <tr>
+            <th><label>${labelOpacity}</label></th>
+            <td>
+                Slider
+            </td>
+        </tr>
+    </table>
+</div>

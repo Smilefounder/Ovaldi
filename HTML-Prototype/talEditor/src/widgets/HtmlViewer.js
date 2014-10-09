@@ -1,5 +1,4 @@
-define([
-    "ko",
+﻿define([
     "dojo/_base/declare",
     "dojo/_base/array",
     "dojo/_base/lang",
@@ -13,33 +12,32 @@ define([
     "dojo/dom-construct",
     "dojo/dom-geometry",
     "dijit/_WidgetBase",
-    "./_koTemplatedMixin",
+    "dijit/_TemplatedMixin",
     "dojo/text!./templates/HtmlViewer.html",
     "dojo/i18n!./nls/CodeViewer",
+    "underscore",
     "dojo/NodeList-traverse",
     "dojo/NodeList-manipulate"
-], function (ko, declare, array, lang, on, string, keys, query, domClass, domAttr, domStyle, domConst, geom, _WidgetBase, _koTemplatedMixin, template, res) {
+], function (declare, array, lang, on, string, keys, query, domClass, domAttr, domStyle, domConst, geom, _WidgetBase, _TemplatedMixin, template, res, _) {
     var ix = 1,
         whiteSpaceRegExp = /^\s*$/m,
         voidElementsRegExp = /^area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr$/i;
 
-    var CodeViewer = declare([_WidgetBase, _koTemplatedMixin], {
+    return declare([_WidgetBase, _TemplatedMixin], {
         baseClass: "kb-code-viewer",
         templateString: template,
         skips: ["script", "link"],//tagName or id
         insertAttrTitle: "Insert attribute",
         el: null,
         elemHash: null,
+        treeTmpl: null,
+        pathTmpl: null,
         treeNode: null,
-        inputNode: null,
-        tmplNode: null,
+        pathNode: null,
         uuidKey: "data-kooboo-uuid",
-        nodeKey: "data-kooboo-node",
         disabled: false,
         constructor: function () {
             dojo.safeMixin(this, arguments);
-            this.inherited(arguments);
-            this.paths = ko.observableArray([]);
             this._handlers = [];
         },
         postMixInProperties: function () {
@@ -64,14 +62,32 @@ define([
         isVoidElement: function (el) {
             return voidElementsRegExp.test(el.tagName);
         },
-        isEmpty:function(textNode){
+        isEmpty: function (textNode) {
             return textNode.nodeType == 3 && whiteSpaceRegExp.test(textNode.textContent);
-        },
-        isTextOnly: function (el) {
-            return el.nodeType == 3 || !el.firstElementChild;
         },
         postCreate: function () {
             this.inherited(arguments);
+            function edit(el) {
+                domAttr.set(el, "contenteditable", "true");
+                domStyle.set(el, {
+                    outline: "solid 1px black",
+                    padding: "1.5px"
+                });
+                el.focus();
+                //TODO:全选
+            }
+
+            function unedit(el) {
+                domAttr.remove(el, "contenteditable");
+                domStyle.set(el, "outline", "");
+                domStyle.set(el, "padding", "");
+            }
+
+            //带空格的attribute name在Chrome下会报错
+            function trimAll(str) {
+                return str.replace(/\s/g, '');
+            }
+
             //处理折叠事件
             this.own(on(this.treeNode, on.selector(".sprite", "click"), lang.hitch(this, function (e) {
                 console.log("collapse");
@@ -82,21 +98,19 @@ define([
                 this[collapsed ? "expand" : "collapse"](uuid);
             })));
             //处理attribute name事件
-            this.own(on(this.treeNode, on.selector("code.attr-name", "click"), lang.hitch(this, function (e) {
+            this.own(on(this.treeNode, on.selector("span.attr-name", "click"), lang.hitch(this, function (e) {
                 var el = e.target,
                     oldAttr = el.textContent,
                     attrEl = el.parentNode,
                     uuid = domAttr.get(el, this.uuidKey),
                     refEl = this.elemHash[uuid],
-                    value = refEl.getAttribute(oldAttr),
-                    newAttr;
+                    value = refEl.getAttribute(oldAttr);
 
-                this._renderInputNodeTo(el);
+                edit(el);
 
                 this._handlers = this._handlers.concat([
-                    on(this.inputNode, "blur", lang.hitch(this, function (e) {
-                        var newAttr = this.inputNode.value;
-                        el.textContent = newAttr;
+                    on(el, "blur", lang.hitch(this, function (e) {
+                        var newAttr = el.textContent = trimAll(el.textContent);
 
                         if (newAttr != oldAttr) {
                             refEl.removeAttribute(oldAttr);
@@ -106,22 +120,19 @@ define([
                         } else {
                             domConst.destroy(attrEl);
                         }
-
+                        unedit(el);
                         this._cleanupHandlers();
-                        this._clearupInputNode();
                     })),
-                    on(this.inputNode, "keypress", lang.hitch(this, function (e) {
-                            newAttr = this.inputNode.value;
-                            el.textContent = newAttr;
-                            this._resizeInputNodeTo(el);
+                    on(el, "keypress", lang.hitch(this, function (e) {
+                            var newAttr = el.textContent = trimAll(el.textContent);
 
                             if (e.keyCode == keys.ENTER || e.charCode == 61/*判断是否按下"="键*/) {
                                 e.preventDefault();
+                                unedit(el);
                                 this._cleanupHandlers();
-                                this._clearupInputNode();
 
-                                var codes = query("code,.add-attr", this.treeNode),
-                                    idx = codes.indexOf(el);
+                                var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode),
+                                    idx = spans.indexOf(el);
 
                                 if (newAttr != oldAttr) {
                                     refEl.removeAttribute(oldAttr);
@@ -132,96 +143,87 @@ define([
                                     domConst.destroy(attrEl);
                                 }
 
-                                for (var i = idx + 1, j = codes.length; i < j; i++) {
-                                    if (codes[i] && codes[i].parentNode) {
-                                        on.emit(codes[i], "click", e);
+                                for (var i = idx + 1, j = spans.length; i < j; i++) {
+                                    if (spans[i] && spans[i].parentNode) {
+                                        on.emit(spans[i], "click", e);
                                         break;
                                     }
                                 }
                             }
                         }
-                    )),
-                    on(this.inputNode, "keyup", lang.hitch(this, function (e) {
-                        el.textContent = this.inputNode.value;
-                        this._resizeInputNodeTo(el);
-                    }))
+                    ))
                 ])
                 ;
             })));
             //处理attribute value事件
-            this.own(on(this.treeNode, on.selector("code.attr-value", "click"), lang.hitch(this, function (e) {
+            this.own(on(this.treeNode, on.selector("span.attr-value", "click"), lang.hitch(this, function (e) {
                 var el = e.target,
                     uuid = domAttr.get(el, this.uuidKey),
-                    attrName = new query.NodeList(el).prev("code").text(),
+                    attrName = new query.NodeList(el).prev("span").text(),
                     refEl = this.elemHash[uuid];
 
-                this._renderInputNodeTo(el);
+                edit(el);
                 this._handlers = this._handlers.concat([
-                    on(this.inputNode, "blur", lang.hitch(this, function (e) {
-                        refEl.setAttribute(attrName, el.textContent = this.inputNode.value);
+                    on(el, "blur", lang.hitch(this, function (e) {
+                        refEl.setAttribute(attrName, el.textContent);
+                        unedit(el);
                         this._cleanupHandlers();
-                        this._clearupInputNode();
                     })),
-                    on(this.inputNode, "keypress", lang.hitch(this, function (e) {
-                        refEl.setAttribute(attrName, el.textContent = this.inputNode.value);
-                        this._resizeInputNodeTo(el);
+                    on(el, "keypress", lang.hitch(this, function (e) {
+                        refEl.setAttribute(attrName, el.textContent);
                         if (e.keyCode == keys.ENTER || e.charCode == 61/*判断是否按下"="键*/) {
                             e.preventDefault();
+                            unedit(el);
                             this._cleanupHandlers();
-                            this._clearupInputNode();
 
-                            var codes = query("code,.add-attr", this.treeNode),
-                                idx = codes.indexOf(el);
+                            var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode),
+                                idx = spans.indexOf(el);
 
-                            for (var i = idx + 1, j = codes.length; i < j; i++) {
-                                if (codes[i] && codes[i].parentNode) {
-                                    on.emit(codes[i], "click", {bubbles: true});
+                            for (var i = idx + 1, j = spans.length; i < j; i++) {
+                                if (spans[i] && spans[i].parentNode) {
+                                    on.emit(spans[i], "click", {bubbles: true});
                                     break;
                                 }
                             }
                         }
                     })),
-                    on(this.inputNode, "keyup", lang.hitch(this, function (e) {
-                        refEl.setAttribute(attrName, el.textContent = this.inputNode.value);
-                        this._resizeInputNodeTo(el);
+                    on(el, "keyup", lang.hitch(this, function (e) {
+                        refEl.setAttribute(attrName, el.textContent);
                     }))
                 ]);
             })));
             //处理TextNode事件
-            this.own(on(this.treeNode, on.selector("code.node-text", "click"), lang.hitch(this, function (e) {
+            this.own(on(this.treeNode, on.selector("span.node-text", "click"), lang.hitch(this, function (e) {
                 var el = e.target,
                     uuid = domAttr.get(el, this.uuidKey),
                     refEl = this.elemHash[uuid];
 
-                this._renderInputNodeTo(el);
+                edit(el);
                 this._handlers = this._handlers.concat([
-                    on(this.inputNode, "blur", lang.hitch(this, function (e) {
-                        refEl.textContent = el.textContent = this.inputNode.value;
+                    on(el, "blur", lang.hitch(this, function (e) {
+                        refEl.textContent = el.textContent;
+                        unedit(el);
                         this._cleanupHandlers();
-                        this._clearupInputNode();
                     })),
-                    on(this.inputNode, "keypress", lang.hitch(this, function (e) {
-                        refEl.textContent = el.textContent = this.inputNode.value;
-                        this._resizeInputNodeTo(el);
-
+                    on(el, "keypress", lang.hitch(this, function (e) {
+                        refEl.textContent = el.textContent;
                         if (e.keyCode == keys.ENTER || e.charCode == 61/*判断是否按下"="键*/) {
                             e.preventDefault();
+                            unedit(el);
                             this._cleanupHandlers();
-                            this._clearupInputNode();
 
-                            var codes = query("code,.add-attr", this.treeNode),
-                                idx = codes.indexOf(el);
-                            for (var i = idx + 1, j = codes.length; i < j; i++) {
-                                if (codes[i] && codes[i].parentNode) {
-                                    on.emit(codes[i], "click", {bubbles: true});
+                            var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode),
+                                idx = spans.indexOf(el);
+                            for (var i = idx + 1, j = spans.length; i < j; i++) {
+                                if (spans[i] && spans[i].parentNode) {
+                                    on.emit(spans[i], "click", {bubbles: true});
                                     break;
                                 }
                             }
                         }
                     })),
-                    on(this.inputNode, "keyup", lang.hitch(this, function (e) {
-                        refEl.textContent = el.textContent = this.inputNode.value;
-                        this._resizeInputNodeTo(el);
+                    on(el, "keyup", lang.hitch(this, function (e) {
+                        refEl.textContent = el.textContent;
                     }))
                 ]);
             })));
@@ -230,38 +232,33 @@ define([
                 var el = e.target,
                     uuid = domAttr.get(el, this.uuidKey),
                     refEl = this.elemHash[uuid],
-                    attrEl = domConst.toDom(string.substitute('<span><code class="attr-name" ${0}="${1}">&nbsp;</code>="<code class="attr-value" ${0}="${1}">&nbsp;</code>"</span>', [this.uuidKey, uuid])),
-                    attrNameEl = query("code", attrEl)[0],
-                    attr;
+                    attrEl = domConst.toDom(string.substitute('<span><span class="attr-name" ${0}="${1}">&nbsp;</span>="<span class="attr-value" ${0}="${1}">&nbsp;</span>"</span>', [this.uuidKey, uuid])),
+                    attrNameEl = query("span", attrEl)[0];
 
                 domConst.place(attrEl, el.parentNode, "before");
-                this._renderInputNodeTo(attrNameEl);
+                edit(attrNameEl);
 
                 this._handlers = this._handlers.concat([
-                    on(this.inputNode, "blur", lang.hitch(this, function (e) {
-                        attr = this.inputNode.value;
-                        attrNameEl.textContent = attr;
+                    on(attrNameEl, "blur", lang.hitch(this, function (e) {
+                        var attr = attrNameEl.textContent = trimAll(attrNameEl.textContent);
 
                         if (attr) {
                             refEl.setAttribute(attr, "");
                         } else {
                             domConst.destroy(attrEl);
                         }
+                        unedit(attrNameEl);
                         this._cleanupHandlers();
-                        this._clearupInputNode();
                     })),
-                    on(this.inputNode, "keypress", lang.hitch(this, function (e) {
-                        attr = this.inputNode.value;
-                        attrNameEl.textContent = attr;
-                        this._resizeInputNodeTo(el);
-
+                    on(attrNameEl, "keypress", lang.hitch(this, function (e) {
                         if (e.keyCode == keys.ENTER || e.charCode == 61/*判断是否按下"="键*/) {
                             e.preventDefault();
+                            unedit(attrNameEl);
                             this._cleanupHandlers();
-                            this._clearupInputNode();
 
-                            var codes = query("code", this.treeNode),
-                                idx = codes.indexOf(attrNameEl);
+                            var attr = attrNameEl.textContent = trimAll(attrNameEl.textContent),
+                                spans = query("span.attr-name,span.attr-value,span.node-text", this.treeNode),
+                                idx = spans.indexOf(attrNameEl);
 
                             if (attr) {
                                 refEl.setAttribute(attr, "");
@@ -269,17 +266,13 @@ define([
                                 domConst.destroy(attrEl);
                             }
 
-                            for (var i = idx + 1, j = codes.length; i < j; i++) {
-                                if (codes[i] && codes[i].parentNode) {
-                                    on.emit(codes[i], "click", {bubbles: true});
+                            for (var i = idx + 1, j = spans.length; i < j; i++) {
+                                if (spans[i] && spans[i].parentNode) {
+                                    on.emit(spans[i], "click", {bubbles: true});
                                     break;
                                 }
                             }
                         }
-                    })),
-                    on(this.inputNode, "keyup", lang.hitch(this, function (e) {
-                        attrNameEl.textContent = this.inputNode.value;
-                        this._resizeInputNodeTo(attrNameEl);
                     }))
                 ]);
             })));
@@ -293,11 +286,8 @@ define([
 
                 this.set("el", el);
                 this.set("skips", skips);
-                console.time("_initNode");
-                this._renderTree(this._initNode(this.el));
-                console.timeEnd("_initNode");
+                this._renderTree(this.el);
                 this._renderPath(this.getUuid(this.el));
-
                 this.emit("View", {}, [this.el]);
             }
         },
@@ -319,28 +309,7 @@ define([
             var li = query("li[" + this.uuidKey + "='" + uuid + "']", this.treeNode)[0];
             if (li) {
                 li.scrollIntoView();
-                this._renderPath(uuid);
             }
-        },
-        _renderInputNodeTo: function (el) {
-            this._resizeInputNodeTo(el);
-            this.inputNode.value = whiteSpaceRegExp.test(el.textContent) ? "" : el.textContent;
-            this.inputNode.focus();
-            this.inputNode.select();
-        },
-        _resizeInputNodeTo: function (el) {
-            var box = geom.getMarginBox(el),
-                maxWidth = this.treeNode.clientWidth;
-            domStyle.set(this.inputNode, {
-                left: box.l + "px",
-                top: box.t + "px",
-                width: Math.min(maxWidth - box.l, box.w + 12) + "px",//避免输入框溢出
-                display: "block"
-            });
-        },
-        _clearupInputNode: function () {
-            domStyle.set(this.inputNode, "display", "none");
-            this.inputNode.value = "";
         },
         _cleanupHandlers: function () {
             var h;
@@ -348,115 +317,111 @@ define([
                 h.remove();
             }
         },
-        _initNode: function (el) {
-            var self = this;
-
-            function skip(el) {
-                if (el.nodeType == 1) {
-                    return array.some(self.skips || [], function (it) {
-                        return it == ("#" + (domAttr.get(el, "id") || "")) || el.tagName.toLowerCase() == it;
-                    });
-                }
-                return false;
-            }
-
-            function loadNodes(elems, parentUuid) {
-                var nodes = [];
-                array.forEach(elems, function (it) {
-                    if (it.nodeType == 8) {//Comments
-                        return;
-                    }
-                    var node, uuid = it[self.uuidKey] || self.generateUuid(), children;
-                    if ((it.nodeType == 3) && !whiteSpaceRegExp.test(it.textContent)) {//TextNode
-                        node = {
-                            uuid: uuid,
-                            parentUuid: parentUuid,
-                            nodeType: it.nodeType,
-                            textContent: it.textContent,
-                            tagName: null,
-                            attributes: [],
-                            selfClosing: false,
-                            textOnly: false,
-                            children: []
-                        };
-                    } else if ((it.nodeType == 1) && !skip(it)) {//Element
-                        children = loadNodes(it.childNodes, uuid);
-                        node = {
-                            uuid: uuid,
-                            parentUuid: parentUuid,
-                            nodeType: it.nodeType,
-                            textContent: it.textContent,
-                            tagName: it.tagName.toLowerCase(),
-                            attributes: it.attributes,
-                            selfClosing: self.isVoidElement(it),
-                            textOnly: it.children.length == 0,
-                            children: children
-                        };
-                    }
-                    if (node) {
-                        nodes.push(node);
-                        self.elemHash[uuid] = it;
-                        it[self.uuidKey] = uuid;
-                        it[self.nodeKey] = node;
-                    }
-                });
-                return nodes;
-            }
-
-            return loadNodes([el])[0];
-        },
         _renderTree: function (node, replaceToUuid) {
-            var dom = domConst.toDom("<div>" + this.tmplNode.innerHTML + "</div>");
-            ko.applyBindings(node, dom);
-            if (replaceToUuid) {
-                query("[" + this.uuidKey + "='" + replaceToUuid + "']", this.treeNode).replaceWith(dom.innerHTML);
-            } else {
-                this.treeNode.innerHTML = dom.innerHTML;
+            console.time("HtmlViewer:_renderTree");
+            var self = this;
+            if (!this._treeTemplate) {
+                this._treeTemplate = _.template(this.treeTmpl.innerHTML);
             }
+            var utils = {
+                getUuid: function (node) {
+                    var uuid = node[self.uuidKey];
+                    if (!uuid) {
+                        uuid = node[self.uuidKey] = self.generateUuid();
+                        self.elemHash[uuid] = node;
+                    }
+                    return uuid;
+                },
+                render: function (node) {
+                    return self._treeTemplate({
+                        node: node,
+                        utils: utils
+                    });
+                },
+                isTextOnly: function (node) {
+                    return node.nodeType == 3 || !node.firstElementChild;
+                },
+                isEmpty:function(node){
+                    return whiteSpaceRegExp.test(node.textContent);
+                },
+                isVoidElement: function (node) {
+                    return voidElementsRegExp.test(node.tagName);
+                },
+                matchesSelector: function (el, selector) {
+                    var matchesSelector = el.matchesSelector || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+                    if (matchesSelector) {
+                        return matchesSelector.call(el, selector);
+                    }
+                    return false;
+                },
+                skip: function (el) {
+                    if (el.nodeType == 1) {
+                        var me = this;
+                        return array.some(self.skips || [], function (it) {
+                            return me.matchesSelector(el, it);
+                        });
+                    }
+                    return false;
+                }
+            };
+            var html = this._treeTemplate({
+                node: node,
+                utils: utils
+            });
+            if (replaceToUuid) {
+                query("[" + this.uuidKey + "='" + replaceToUuid + "']", this.treeNode).replaceWith(html);
+            } else {
+                this.treeNode.innerHTML = html;
+            }
+            console.timeEnd("HtmlViewer:_renderTree");
+        },
+        _renderPath: function (lastUuid) {
+            console.time("HtmlViewer:_renderPath");
+            var refEl = this.elemHash[lastUuid],
+                join = Array.prototype.join,
+                id, suffix;
+            this.path = [];
+            if (refEl.nodeType == 3) {
+                refEl = refEl.parentNode;
+            }
+            while (refEl && refEl.tagName && this.el.contains(refEl)) {
+                id = domAttr.get(refEl, "id");
+                if (id) {
+                    suffix = "#" + id;
+                } else if (refEl.classList.length) {
+                    suffix = "." + join.call(refEl.classList, ".");
+                }
+                this.path.unshift({
+                    uuid: this.getUuid(refEl),
+                    tagName: refEl.tagName.toLowerCase() + (suffix || "")
+                });
+                refEl = refEl.parentNode;
+            }
+            if (!this._pathTemplate) {
+                this._pathTemplate = _.template(this.pathTmpl.innerHTML);
+            }
+            this.pathNode.innerHTML = this._pathTemplate({path: this.path});
+            console.timeEnd("HtmlViewer:_renderPath");
         },
         refresh: function (uuid) {
             var refEl = this.elemHash[uuid];
             if (refEl) {
-                var node = this._initNode(refEl);
-                this._renderTree(node, uuid);
-                this._renderPath(node.uuid);
+                this._renderTree(refEl, uuid);
+                this._renderPath(uuid);
             }
         },
         release: function () {
+            //console.time("HtmlViewer:release");
             if (this.elemHash) {
                 var node;
                 for (var uuid in this.elemHash) {
                     node = this.elemHash[uuid];
                     if (node && this.el && !this.el.contains(node)) {
-                        console.log("delete", node);
                         delete this.elemHash[uuid];
                     }
                 }
             }
-        },
-        _renderPath: function (lastUuid) {
-            var refEl = this.elemHash[lastUuid],
-                paths = [],
-                node, id, classes, suffix;
-
-            if (refEl.nodeType == 3) {
-                refEl = refEl.parentNode;
-            }
-            while (refEl && refEl.tagName && this.el.contains(refEl)) {
-                id = domAttr.get(refEl, "id"), classes = domAttr.get(refEl, "class");
-                if (id) {
-                    suffix = "#" + id;
-                } else if (classes) {
-                    suffix = [""].concat(classes.split(" ")).join(".");
-                }
-                node = {
-                    uuid: this.getUuid(refEl),
-                    tagName: refEl.tagName.toLowerCase() + (suffix || "")
-                };
-                paths.unshift(node);
-                refEl = refEl.parentNode;
-            }
-            this.paths(paths);
+            //console.timeEnd("HtmlViewer:release");
         },
         hide: function () {
             domStyle.set(this.domNode, "display", "hide");
@@ -493,6 +458,7 @@ define([
             var uuid = domAttr.get(e.target, this.uuidKey);
             if (uuid) {
                 var refEl = this.elemHash[uuid];
+                this.select(uuid);
                 this.scrollTo(uuid);
                 this.emit("Click", e, [refEl]);
             }
@@ -503,16 +469,20 @@ define([
             var uuid = e.target ? domAttr.get(e.target, this.uuidKey) : null;
             if (uuid) {
                 var el = this.elemHash[uuid];
-                this.highlight(el);
-                this.emit("Mouseover", e, [el]);
+                if (el) {
+                    this.highlight(el);
+                    this.emit("Mouseover", e, [el]);
+                }
             }
         },
         _onMouseout: function (e) {
             var uuid = e.target ? domAttr.get(e.target, this.uuidKey) : null;
             if (uuid) {
                 var el = this.elemHash[uuid];
-                this.unhighlight(el);
-                this.emit("Mouseout", e, [el]);
+                if (el) {
+                    this.unhighlight(el);
+                    this.emit("Mouseout", e, [el]);
+                }
             }
         },
         onMouseover: function (refEl) {
@@ -520,17 +490,17 @@ define([
         onMouseout: function (refEl) {
         },
         destroy: function () {
-            this.inherited(arguments);
             this._cleanupHandlers();
             if (this._releaseLoop) {
                 clearTimeout(this._releaseLoop);
             }
+            this.inherited(arguments);
             delete this.el;
+            delete this.treeTmpl;
+            delete this.pathTmpl;
             delete this.treeNode;
-            delete this.inputNode;
+            delete this.pathNode;
             delete this.elemHash;
-            delete this.paths;
         }
     });
-    return CodeViewer;
 });

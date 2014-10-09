@@ -372,10 +372,12 @@
 /* @module: Splitter */
 .kb-split-container {
 	height: 500px;
+	overflow:hidden;
 	position: relative;
 
 	.kb-splitter-cover {
 		bottom: 0;
+		display:none;
 		left: 0;
 		position: absolute;
 		right: 0;
@@ -427,9 +429,7 @@
 		.kb-split-panel {
 			height: 100%;
 			top: 0;
-		}
-
-		.kb-splitter {
+		}		.kb-splitter {
 			cursor: ew-resize;
 			height: 100%;
 			top: 0;
