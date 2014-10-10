@@ -12,28 +12,25 @@ define([
         templateString: template,
         labelEnableShadow: "Enable shadow",
         labelDirection: "Direction",
-        labelDistance:"Distance",
+        labelDistance: "Distance",
         labelBlur: "Blur",
         labelColor: "Color",
         labelOpacity: "Opacity",
-        directionNode: null,
-        distanceNode: null,
-        blurNode: null,
+        directionSpinner: null,
+        distanceSpinner: null,
+        blurSpinner: null,
         colorBox: null,
-        setShadow: function (shadow) {
-
-            if (has("ie")) {//ie,ff,chrome
-
-            }
-        },
-        getShadow: function () {
+        opacitySlider: null,
+        css: function () {
 
         },
         destroy: function () {
             this.inherited(arguments);
-            delete this.directionNode;
-            delete this.distanceNode;
-            delete this.blurNode;
+            delete this.directionSpinner;
+            delete this.distanceSpinner;
+            delete this.blurSpinner;
+            delete this.colorBox;
+            delete this.opacitySlider;
         }
     });
 });

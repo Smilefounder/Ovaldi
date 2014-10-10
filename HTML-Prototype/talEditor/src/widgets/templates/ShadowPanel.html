@@ -8,29 +8,31 @@
         <tr>
             <th><label>${labelDirection}</label></th>
             <td>
-                <input class="J_Spinner mini" type="text"><span class="unit">°</span>
+                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="directionSpinner"></div>
             </td>
         </tr>
         <tr>
             <th><label>${labelDistance}</label></th>
             <td>
-                <input class="J_Spinner mini" type="text"><span class="unit">px</span>
+                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="distanceSpinner"></div>
             </td>
         </tr>
         <tr>
             <th><label>${labelBlur}</label></th>
             <td>
-                <input class="J_Spinner mini" type="text"><span class="unit">px</span>
+                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="blurSpinner"></div>
             </td>
         </tr>
         <tr>
             <th><label>${labelColor}</label></th>
-            <td><div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="colorBox"></div></td>
+            <td>
+                <div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="colorBox"></div>
+            </td>
         </tr>
         <tr>
             <th><label>${labelOpacity}</label></th>
             <td>
-                Slider
+                <div data-dojo-type="tal/widgets/Slider" data-dojo-attach-point="opacitySlider"></div>
             </td>
         </tr>
     </table>
