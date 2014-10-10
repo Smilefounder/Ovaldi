@@ -561,6 +561,70 @@
 		}
 	}
 
+	.panel-list {
+		li {
+			overflow: hidden;
+			padding: 5px 20px;
+
+			.action {
+				float: right;
+				margin-left: 5px;
+			}
+
+			span {
+				display: block;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			li {
+				background: url(images/line.png) no-repeat 6px -35px;
+				padding: 0 0 0 16px;
+
+				&:last-child {
+					background: url(images/line-end.png) no-repeat 6px -11px;
+				}
+
+				span {
+					background: #FFF;
+					padding-left: 4px;
+				}
+			}
+
+			&:hover {
+				background: #F5F5F5;
+
+				span {
+					background-color: #F5F5F5;
+				}
+			}
+		}
+
+		table {
+			width: 100%;
+
+			th,
+			td {
+				padding: 4px;
+
+				&:first-child {
+					padding-left: 20px;
+				}
+
+				&:last-child {
+					padding-right: 20px;
+				}
+			}
+
+			td {
+				&.action {
+					width: 16px;
+				}
+			}
+		}
+	}
+
 	&.vertical {
 		.visual-frame {
 			padding: 0;
@@ -571,13 +635,17 @@
 			overflow: hidden;
 			padding-top: 2px;
 
-			.tabs-small > .ui-tabs-panel {
+			.ui-tabs-panel {
 				bottom: 0;
 				left: 0;
 				overflow: auto;
 				position: absolute;
 				right: 0;
 				top: 32px;
+			}
+
+			.ui-tabs.tabs-style2 {
+				margin-top: -10px;
 			}
 
 			.kb-code-viewer {
@@ -601,25 +669,10 @@
 				}
 			}
 
-			.left-column,
-			.right-column {
-				bottom: 0;
-				overflow: auto;
-				position: absolute;
-				top: 0;
-				.box-sizing(border-box);
-			}
-
-			.left-column {
-				left: 0;
-				right: 505px;
-			}
-
 			.right-column {
 				background: #F9F9F9;
 				padding: 10px 0;
-				right: 0;
-				width: 500px;
+				.box-sizing(border-box);
 
 				.ui-tabs-panel {
 					top: 40px;

@@ -160,10 +160,27 @@
 	&.tabs-style2 {
 		.ui-tabs-nav {
 			border-bottom: 1px solid #CCC;
+			padding: 5px 10px;
+			.gradient(#FFF,#FFF,#EEE);
+		}
+
+		.ui-tabs-anchor {
+			border: 1px solid transparent;
+			line-height: 20px;
+			min-width: 0;
+			.rounded(3px);
+
+			&:hover {
+				background: #F5F5F5;
+				border: 1px solid #CCC;
+			}
 		}
 
 		.ui-tabs-active .ui-tabs-anchor {
 			border: 1px solid #CCC;
+			margin-bottom: 0;
+			padding-bottom: 0;
+			.box-shadow(0 0 5px rgba(0,0,0,.2) inset);
 		}
 	}
 }

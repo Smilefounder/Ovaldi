@@ -372,12 +372,12 @@
 /* @module: Splitter */
 .kb-split-container {
 	height: 500px;
-	overflow:hidden;
+	overflow: hidden;
 	position: relative;
 
 	.kb-splitter-cover {
 		bottom: 0;
-		display:none;
+		display: none;
 		left: 0;
 		position: absolute;
 		right: 0;
@@ -429,7 +429,9 @@
 		.kb-split-panel {
 			height: 100%;
 			top: 0;
-		}		.kb-splitter {
+		}
+
+		.kb-splitter {
 			cursor: ew-resize;
 			height: 100%;
 			top: 0;
@@ -642,11 +644,35 @@
 		margin-top: 2px;
 	}
 
-	.source-file {
-		max-width: 19%;
-		overflow: hidden;
+	.meta {
 		position: absolute;
 		right: 0;
+		text-align: right;
 		top: 0;
+
+		p {
+			border-top: 1px dashed #CCC;
+			margin-top: 3px;
+			padding-top: 3px;
+
+			&:first-child {
+				border: none;
+				margin-top: 0;
+				padding-top: 0;
+			}
+		}
+
+		.info {
+			float: right;
+			margin: 2px 0 0 3px;
+
+			.sprite {
+				.sprite(@info-gray);
+			}
+
+			&:hover .sprite {
+				.sprite(@info-blue);
+			}
+		}
 	}
 }
