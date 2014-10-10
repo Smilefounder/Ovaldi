@@ -1,32 +1,37 @@
 <div class="${baseClass} common-form">
     <table>
         <tr>
-            <th><label>$labelWidth}</label></th>
+            <th><label>${labelWidth}</label></th>
             <td>
-                <input class="J_Spinner mini" type="text" data-dojo-attach-point="widthNode"><span class="unit">px</span>
+                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-props="min:0"
+                     data-dojo-attach-point="widthSpinner"></div>
             </td>
         </tr>
         <tr>
             <th><label>${labelStyle}</label></th>
             <td>
                 <select data-dojo-attach-point="styleNode">
-                    <option>Dashed</option>
-                    <option>Dotted</option>
-                    <option>Double</option>
-                    <option>Grovve</option>
-                    <option>Ridge</option>
-                    <option>Solid</option>
+                    <option value="none">None</option>
+                    <option value="dashed">Dashed</option>
+                    <option value="dotted">Dotted</option>
+                    <option value="double">Double</option>
+                    <option value="grovve">Grovve</option>
+                    <option value="ridge">Ridge</option>
+                    <option value="solid">Solid</option>
                 </select>
             </td>
         </tr>
         <tr>
             <th><label>${labelColor}</label></th>
-            <td>Color picker</td>
+            <td>
+                <div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="colorBox"></div>
+            </td>
         </tr>
         <tr>
             <th><label>${labelOpacity}</label></th>
             <td>
-                Slider
+                <div data-dojo-type="tal/widgets/Slider" data-dojo-props="min:0,max:1,step:0.1,value:1"
+                     data-dojo-attach-point="opacitySlider"></div>
             </td>
         </tr>
     </table>

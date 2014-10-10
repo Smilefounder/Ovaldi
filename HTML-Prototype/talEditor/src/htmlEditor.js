@@ -13,8 +13,9 @@ require([
     "dijit/registry",
     "tal/widgets/ImageDialog",
     "tal/widgets/BackgroundImageDialog",
+    "tal/widgets/StyleAccordion",
     "dojo/domReady!"
-], function (parser, topic, on, domClass, domAttr, domStyle, domConst, domGeom, registry, ImageDialog, BackgroundImageDialog) {
+], function (parser, topic, on, domClass, domAttr, domStyle, domConst, domGeom, registry, ImageDialog, BackgroundImageDialog, StyleAccordion) {
     window.topic = topic;
     var body = document.body,
         kbEmbedFrame = dojo.byId("kbEmbedFrame"),
@@ -31,7 +32,7 @@ require([
         kbInlineMenu.addMenu({
             text: "Edit",
             visibility: function (menu) {
-                return el && !(/^img$/i).test(el.tagName);
+                return el && !/^img|button|input|br$/i.test(el.tagName);
             },
             callback: function (menu) {
                 topic.publish("inlinemenu/edit", {refEl: el});
@@ -93,34 +94,27 @@ require([
                     bgImgDialog = new BackgroundImageDialog();
                     bgImgDialog.placeAt(body);
                     bgImgDialog.startup();
-                    bgImgDialog.on("Open", function () {
+                    bgImgDialog.on("open", function () {
                         var cs = domStyle.getComputedStyle(el);
                         //TODO:处理属性默认值和百分比
-                        this.set("src", cs.getPropertyValue("background-image"));
-                        this.set("repeated", cs.getPropertyValue("background-repeated"));
-                        this.set("positionX", cs.getPropertyValue("background-position-x"));
-                        this.set("positionY", cs.getPropertyValue("background-position-y"));
+                        this.css({
+                            "background-image": cs.getPropertyValue("background-image"),
+                            "background-repeat": cs.getPropertyValue("background-repeat"),
+                            "background-position-x": cs.getPropertyValue("background-position-x"),
+                            "background-position-y": cs.getPropertyValue("background-position-y")
+                        });
                     });
-                    bgImgDialog.on("Close", function () {
-                        var src = this.get("src"),
-                            repeated = this.get("repeated"),
-                            positionX = this.get("positionX"),
-                            positionY = this.get("positionY");
-
-                        if (src) {
-                            domStyle.set(el, "background-image", src);
-                        }
-                        if (repeated) {
-                            domStyle.set(el, "background-repeated", repeated);
-                        }
-                        if (positionX) {
-                            domStyle.set(el, "background-position-x", positionX);
-                        }
-                        if (positionY) {
-                            domStyle.set(el, "background-position-y", positionY);
+                    bgImgDialog.on("beforeClose", function () {
+                        var css = this.css();
+                        console.log(css);
+                        for (var p in css) {
+                            domStyle.set(el, p, css[p]);
                         }
                     });
-                    bgImgDialog.on("Change", function () {
+                    bgImgDialog.on("close", function () {
+                        console.log("close");
+                    });
+                    bgImgDialog.on("change", function () {
                         debugger;
                         $.pop({
                             url: "http://192.168.1.231:9999/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
@@ -141,6 +135,44 @@ require([
                 this.hide();
             }
         });
+
+        var styleAccordion;
+        kbInlineMenu.addMenu({
+            text: "Edit style",
+            visibility: function (menu) {
+                return true;
+            },
+            callback: function (menu) {
+                if (!styleAccordion) {
+                    styleAccordion = new StyleAccordion();
+                    styleAccordion.placeAt(body);
+                    styleAccordion.startup();
+                }
+                styleAccordion.on("open",function(){
+
+                });
+                styleAccordion.on("close",function(){
+
+                });
+                styleAccordion.open();
+                this.hide();
+            }
+        });
+
+
+        kbInlineMenu.addMenu({
+            text: "Direct to this page",
+            visibility: function () {
+                //TODO:需要判断是否URL
+                return el && /^a$/i.test(el.tagName);
+            },
+            callback:function(){
+                if(el.href && window.confirm("Do you want to direct to this link?")){
+                    //TODO:通知iframe跳转
+                    alert("TODO:通知iframe跳转");
+                }
+            }
+        })
 
         kbHtmlViewer.on("Mouseover", function (refEl) {
             topic.publish("codeviewer/mouseover", {refEl: refEl});

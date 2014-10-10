@@ -3,42 +3,119 @@
  */
 define([
     "dojo/_base/declare",
+    "dojo/_base/lang",
+    "dojo/_base/array",
     "dojo/dom-style",
+    "dojo/dom-prop",
     "dijit/_WidgetBase",
-    "dijit/_TemplatedMixin"
-], function (declare, domStyle, _WidgetBase, _TemplatedMixin, template) {
-    return declare([_WidgetBase, _TemplatedMixin], {
+    "dijit/_TemplatedMixin",
+    "dijit/_WidgetsInTemplateMixin",
+    "dojo/text!./templates/CornerPanel.html"
+], function (declare, lang, array, domStyle, domProp, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
+    var styleMap = [
+        {css: "border-top-left-radius", to: "tlRef"},
+        {css: "border-top-right-radius", to: "trRef"},
+        {css: "border-bottom-left-radius", to: "blRef"},
+        {css: "border-bottom-right-radius", to: "brRef"}
+    ];
+    return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-corner-panel",
         templateString: template,
-        tlNode: null,
-        trNode: null,
-        blNode: null,
-        brNode: null,
-        //TODO:边角效果能否仅在一个DIV中实现
-        setCorner: function (corner) {
-            var node;
-            for (var p in corner) {
-                node = this[p + "Node"];
-                if (node) {
-                    node.value = corner[p];
-                    //TODO:实时效果，注意要加"px"后缀
+        effectNode: null,
+        lockNode: null,
+        together: true,
+        tlRef: null,
+        trRef: null,
+        blRef: null,
+        brRef: null,
+        startup: function () {
+            this.inherited(arguments);
+            var self = this, syncing = false;
+
+            function _sync(spinner) {
+                if (syncing || !self.together) {
+                    return;
                 }
+                syncing = true;
+                var value = spinner.get("value");
+                if (self.tlRef != spinner) {
+                    self.tlRef.set("value", value);
+                }
+                if (self.trRef != spinner) {
+                    self.trRef.set("value", value);
+                }
+                if (self.blRef != spinner) {
+                    self.blRef.set("value", value);
+                }
+                if (self.brRef != spinner) {
+                    self.brRef.set("value", value);
+                }
+                syncing = false;
+            }
+
+            this.own([
+                this.tlRef.on("change", function (value) {
+                    domStyle.set(self.effectNode, "border-top-left-radius", value);
+                    _sync(this);
+                }),
+                this.trRef.on("change", function (value) {
+                    domStyle.set(self.effectNode, "border-top-right-radius", value);
+                    _sync(this);
+                }),
+                this.blRef.on("change", function (value) {
+                    domStyle.set(self.effectNode, "border-bottom-left-radius", value);
+                    _sync(this);
+                }),
+                this.brRef.on("change", function (value) {
+                    domStyle.set(self.effectNode, "border-bottom-right-radius", value);
+                    _sync(this);
+                })
+            ]);
+        },
+        sync: function (value) {
+            this.tlRef.set("value", value);
+            this.trRef.set("value", value);
+            this.blRef.set("value", value);
+            this.brRef.set("value", value);
+        },
+        css: function (css) {
+            var self = this;
+            if (css) {
+                array.forEach(styleMap, function (item) {
+                    if (item.css in css) {
+                        self[item.to].set("value", css[item.css]);
+                        domStyle.set(self.effectNode, item.css, css[item.css]);
+                    }
+                });
+            } else {
+                var ret = {};
+                array.forEach(styleMap, function (item) {
+                    ret[item.css] = self[item.to].get("value");
+                });
+                return ret;
             }
         },
         getCorner: function () {
-            return {
-                tl: this.tlNode.value,
-                tr: this.trNode.value,
-                bl: this.blNode.value,
-                br: this.brNode.value
-            };
+            var self = this, ret = {};
+            array.forEach(styleMap, function (item) {
+                ret[item.css] = self[item.to].get("value");
+            });
+            return ret;
         },
-        destroy:function(){
+        _lockTogether: function () {
+            this.set("together", !this.together);
+        },
+        _setTogetherAttr: function (together) {
+            this._set("together", together);
+            domProp.set(this.lockNode, "checked", this.together);
+            if (this.together) {
+                var value = this.tlRef.get("value") || this.trRef.get("value") || this.blRef.get("value") || this.brRef.get("value");
+                this.sync(value);
+            }
+        },
+        destroy: function () {
             this.inherited(arguments);
-            delete this.tlNode;
-            delete this.trNode;
-            delete this.blNode;
-            delete this.brNode;
+            delete this.lockNode;
         }
     });
 });

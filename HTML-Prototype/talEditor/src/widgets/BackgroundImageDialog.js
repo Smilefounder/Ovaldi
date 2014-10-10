@@ -7,6 +7,9 @@ define([
     return declare([BackgroundImagePanel, _DialogMixin], {
         baseClass: "kb-background-image-dialog",
         labelDialogTitle: "Background Image",
-        width:400
+        width:400,
+        onClose:function(){
+            this.reset();
+        }
     });
 });

@@ -3,49 +3,63 @@
  */
 define([
     "dojo/_base/declare",
+    "dojo/_base/Color",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
+    "dijit/_WidgetsInTemplateMixin",
     "dojo/text!./templates/BorderPanel.html"
-], function (declare, _WidgetBase, _TemplatedMixin, template) {
-    return declare([_WidgetBase, _TemplatedMixin], {
+], function (declare, Color, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
+    return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-border-panel",
         templateString: template,
         labelWidth: "Width",
         labelStyle: "Style",
         labelColor: "Color",
         labelOpacity: "Opacity",
-        widthNode: null,
+        widthSpinner: null,
         styleNode: null,
-        colorNode: null,
-        opacityNode: null,
-        _initUI: function () {
-            $(".J_Spinner", this.domNode).spinner({
-                min: 0
-            });
+        colorBox: null,
+        opacitySlider: null,
+        css: function (css) {
+            if (css) {
+                if (css["border-width"]) {
+                    this.widthSpinner.set("value", css["border-width"]);
+                }
+                if (css["border-style"]) {
+                    this.styleNode.value = css["border-style"];
+                }
+                if (css["border-color"]) {
+                    var c = new Color(css["border-color"]);
+                    this.colorBox.set("value", c.toHex());
+                    this.opacitySlider.set("value", c.a);
+                }
+            } else {
+                var ret = {
+                    "border-width": this.widthSpinner.get("value"),
+                    "border-style": this.styleNode.value
+                };
+                var hex = this.colorBox.get("value"), rgba = "";
+                if (hex) {
+                    var c = new Color(hex);
+                    c.a = this.opacitySlider.get("value");
+                    rgba = c.toRgba();
+                }
+                ret["background-color"] = rgba;
+                return ret;
+            }
         },
-        _getWidthAttr: function () {
-            return this.widthNode.value;
+        reset: function () {
+            this.widthSpinner.set("value", "");
+            this.styleNode.value = "none";
+            this.colorBox.set("value", "");
+            this.opacitySlider.set("value", this.opacitySlider.max);
         },
-        _setWidthAttr: function (width) {
-            this.widthNode.value = width;
-        },
-        _getStyleAttr: function () {
-            return this.styleNode.value;
-        },
-        _setStyleAttr: function (style) {
-            this.styleNode.value = style;
-        },
-        _getColorAttr: function () {
-            return this.colorNode.value;
-        },
-        _setColorAttr: function (color) {
-
-        },
-        _getOpacity: function () {
-
-        },
-        _setOpacity: function (opacity) {
-
+        destroy: function () {
+            this.inherited(arguments);
+            delete this.widthSpinner;
+            delete this.colorBox;
+            delete this.opacitySlider;
+            delete this.styleNode;
         }
     });
 });

@@ -9,7 +9,7 @@
         isDebug: true,
         baseUrl: "talEditor/lib/dojo/",//生产环境时，配置为从域名根路径开始“/”
         locale: "zh",//设置默认语言环境
-        modulePaths: {
+        paths: {
             "jquery": "../jquery.min",
             "ko": "../ko",
             "doT": "../doT"

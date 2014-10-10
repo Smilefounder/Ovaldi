@@ -9,7 +9,7 @@
                     <a class="action" href="javascript:;" alt="${labelClearSrc}"
                        data-dojo-attach-event="click:_clearSrc">
                         <img src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wD/ACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
-                             class="icon minus-small">
+                             data-dojo-attach-event="click:_clearSrc" class="icon minus-small">
                     </a>
                 </div>
                 <p>
@@ -30,15 +30,13 @@
         <tr>
             <th><label>${labelPositionX}</label></th>
             <td>
-                <input class="J_Spinner mini" type="text" data-dojo-attach-point="positionXNode"><span
-                    class="unit">px</span>
+                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="positionXRef"></div>
             </td>
         </tr>
         <tr>
             <th><label>${labelPositionY}</label></th>
             <td>
-                <input class="J_Spinner mini" type="text" data-dojo-attach-point="positionYNode"><span
-                    class="unit">px</span>
+                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="positionYRef"></div>
             </td>
         </tr>
         </tbody>

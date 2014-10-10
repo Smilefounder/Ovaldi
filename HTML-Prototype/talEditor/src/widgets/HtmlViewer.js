@@ -36,8 +36,8 @@
         pathNode: null,
         uuidKey: "data-kooboo-uuid",
         disabled: false,
-        constructor: function () {
-            dojo.safeMixin(this, arguments);
+        constructor: function (params) {
+            declare.safeMixin(this, params);
             this._handlers = [];
         },
         postMixInProperties: function () {

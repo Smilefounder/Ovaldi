@@ -24,8 +24,8 @@ define([
         zIndex: 9999,
         menus: [],
         menusNode: null,
-        constructor: function () {
-            dojo.safeMixin(this, arguments);
+        constructor: function (params) {
+            declare.safeMixin(this, params);
         },
         postMixInProperties: function () {
             lang.mixin(this, res);

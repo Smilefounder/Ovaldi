@@ -28,8 +28,8 @@ define([
         dock: null,//"left","right","top","bottom"
         docked: false,
         _splitterRef: null,
-        constructor: function () {
-            dojo.safeMixin(this, arguments);
+        constructor: function (params) {
+            declare.safeMixin(this, params);
             this.inherited(arguments);
         },
         buildRendering: function () {
