@@ -23,6 +23,14 @@ define([
         },
         startup: function () {
             this.inherited(arguments);
+            var self = this;
+            function _onChange(){
+                self.onChange(self.css());
+            }
+            self.own([
+                this.colorBox.on("change",_onChange),
+                this.opacitySlider.on("change",_onChange)
+            ]);
         },
         css: function (css) {
             if (css) {
@@ -38,7 +46,7 @@ define([
                 if (hex) {
                     var c = Color.fromString(hex);
                     c.a = this.opacitySlider.get("value");
-                    rgba = c.toRgba();
+                    rgba = c.toString();
                 }
                 ret["background-color"] = rgba;
                 return ret;

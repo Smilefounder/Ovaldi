@@ -50,7 +50,7 @@ define([
                 if (hex) {
                     var c = new Color(hex);
                     c.a = this.opacitySlider.get("value");
-                    rgba = c.toRgba();
+                    rgba = c.toString();
                 }
                 ret["border-color"] = rgba;
                 return ret;

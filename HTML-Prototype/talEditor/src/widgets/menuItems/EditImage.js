@@ -26,19 +26,26 @@ define([
                 self.dialog.placeAt(self.menu.ownerDocument.body);
                 self.dialog.startup();
                 self.dialog.on("open", function () {
-                    this.src(self.el.src);
-                    this.alt(self.el.alt);
-                    this.title(self.el.title);
+                    this.set({
+                        src: self.el.src,
+                        alt: self.el.alt,
+                        title: self.el.title
+                    });
+                });
+                self.dialog.on("change",function(){
+                    self.el.src = this.get("src");
+                    self.el.alt = this.get("alt");
+                    self.el.title = this.get("title");
                 });
                 self.dialog.on("beforeClose", function () {
-                    self.el.src = this.src();
-                    self.el.alt = this.alt();
-                    self.el.title = this.title();
+                    self.el.src = this.get("src");
+                    self.el.alt = this.get("alt");
+                    self.el.title = this.get("title");
                 });
                 self.menu.watch("el", function () {
                     self.dialog.close();
                 });
-                this.dialog.on("change", function () {
+                this.dialog.callback = function () {
                     $.pop({
                         url: "http://192.168.1.231:9999/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
                         width: 900,
@@ -47,12 +54,12 @@ define([
                         frameHeight: '100%',
                         onload: function (handle, pop, config) {
                             window.onFileSelected = function (src, text) {
-                                self.dialog.src("src", src);
+                                self.dialog.set("src", src);
                                 self.el.src = src;
                             };
                         }
                     });
-                });
+                };
             }
             self.dialog.open();
         }
