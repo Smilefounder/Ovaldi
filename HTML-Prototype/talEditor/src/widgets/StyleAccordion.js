@@ -26,6 +26,19 @@ define([
                 heightStyle: 'content'
             })
         },
+        startup: function () {
+            this.inherited(arguments);
+            var self = this;
+            function _applyCss(css){console.log(css);
+                domStyle.set(self.el, css);
+            }
+            this.position.on("change", _applyCss);
+            this.background.on("change", _applyCss);
+            this.border.on("change", _applyCss);
+            this.corner.on("change", _applyCss);
+            this.shadow.on("change", _applyCss);
+            this.font.on("change", _applyCss);
+        },
         _setElAttr: function (el) {
             this._set("el", el);
             this._setPosition();
@@ -35,7 +48,7 @@ define([
             this._setShadow();
             this._setFont();
         },
-        _setPosition:function(){
+        _setPosition: function () {
             //TODO:position
         },
         _setBackground: function () {
@@ -73,7 +86,7 @@ define([
             this.font.css({
                 "font-family": cs["font-family"],
                 "font-size": cs["font-size"],
-                "font-color": cs["font-color"]
+                "color": cs["color"]
             });
         }
     });

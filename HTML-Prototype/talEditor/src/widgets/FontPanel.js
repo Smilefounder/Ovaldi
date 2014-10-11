@@ -33,18 +33,17 @@ define([
             if (css) {
                 this.familyNode.value = css["font-family"] || "";
                 this.sizeSpinner.set("value", css["font-size"] || "");
-                this.colorBox.set("value", css["font-color"] || "");
+                this.colorBox.set("value", css["color"] || "");
             }
             else {
                 return {
                     "font-family": this.familyNode.value,
                     "font-size": this.sizeSpinner.get("value"),
-                    "font-color": this.colorBox.get("value")
+                    "color": this.colorBox.get("value")
                 };
             }
         },
         onChange: function (css) {
-            console.log(css);
         },
         destroy: function () {
             this.inherited(arguments);

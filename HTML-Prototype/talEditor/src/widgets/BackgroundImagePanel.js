@@ -2,6 +2,7 @@
  * Created by Raoh on 2014/9/30.
  */
 define([
+    "dojo/on",
     "dojo/_base/declare",
     "dojo/_base/lang",
     "dojo/dom-attr",
@@ -10,7 +11,7 @@ define([
     "dijit/_WidgetsInTemplateMixin",
     "dojo/text!./templates/BackgroundImagePanel.html",
     "dojo/i18n!./nls/BackgroundImagePanel"
-], function (declare, lang, domAttr, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template, res) {
+], function (on, declare, lang, domAttr, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template, res) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-background-image-panel",
         templateString: template,
@@ -24,24 +25,31 @@ define([
         repeatedNode: null,
         positionXRef: null,
         positionYRef: null,
+        callback: null,
         postMixInProperties: function () {
             lang.mixin(this, res);
             this.inherited(arguments);
         },
+        startup: function () {
+            this.inherited(arguments);
+            var self = this;
+
+            function _onChange() {
+                self.onChange(self.css());
+            }
+
+            this.own([
+                on(this.repeatedNode, "change", _onChange),
+                on(this.positionXRef, "change", _onChange),
+                on(this.positionYRef, "change", _onChange)
+            ]);
+        },
         css: function (css) {
             if (css) {
-                if (css["background-image"]) {
-                    this.srcNode.src = css["background-image"].slice(4, -1);
-                }
-                if (css["background-repeat"]) {
-                    this.repeatedNode.value = css["background-repeat"];
-                }
-                if (css["background-position-x"]) {
-                    this.positionXRef.set("value", css["background-position-x"]);
-                }
-                if (css["background-position-y"]) {
-                    this.positionYRef.set("value", css["background-position-y"]);
-                }
+                this.srcNode.src = css["background-image"] == "none" ? "" : css["background-image"].slice(4, -1);
+                this.repeatedNode.value = css["background-repeat"] || "";
+                this.positionXRef.set("value", css["background-position-x"] || "");
+                this.positionYRef.set("value", css["background-position-y"] || "");
             } else {
                 return {
                     "background-image": this.srcNode.src ? 'url(' + this.srcNode.src + ')' : '',
@@ -51,10 +59,11 @@ define([
                 };
             }
         },
-        _onChange: function (e) {
-            this.emit("Change");
+        onChange: function (css) {
         },
-        onChange: function () {
+        _changeImage: function () {
+            this.callback && this.callback();
+            this.onChange(this.css());
         },
         _clearSrc: function () {
             this.srcNode.src = "";

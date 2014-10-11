@@ -5,23 +5,23 @@
             <th><label>${labelSrc}</label></th>
             <td>
                 <div class="file-thumbnail">
-                    <img data-bind="attr:{src:src}">
+                    <img data-dojo-attach-point="srcNode" src="">
                 </div>
                 <p>
-                    <a href="javascript:;" class="button" data-dojo-attach-event="click:_onChange">${buttonChange}</a>
+                    <a href="javascript:;" class="button" data-dojo-attach-event="click:_changeImage">${buttonChange}</a>
                 </p>
             </td>
         </tr>
         <tr>
             <th><label>${labelAlt}</label></th>
             <td>
-                <input type="text" data-bind="value:alt">
+                <input type="text" data-dojo-attach-point="altNode">
             </td>
         </tr>
         <tr>
             <th><label>${labelTitle}</label></th>
             <td>
-                <input type="text" data-bind="value:title">
+                <input type="text" data-dojo-attach-point="titleNode">
             </td>
         </tr>
         </tbody>
