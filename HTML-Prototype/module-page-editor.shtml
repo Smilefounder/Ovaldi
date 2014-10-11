@@ -602,8 +602,8 @@
 	})
 </script>
 
-<script src="talEditor/dojoConfig.js"></script>
-<script src="talEditor/lib/dojo/dojo.js"></script>
-<script src="talEditor/src/htmlEditor.js"></script>
+<script src="/talEditor/dojoConfig.js"></script>
+<script src="/talEditor/lib/dojo/dojo.js"></script>
+<script src="/talEditor/src/htmlEditor.js"></script>
 </body>
 </html>
