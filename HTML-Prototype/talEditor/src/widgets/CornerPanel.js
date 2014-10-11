@@ -57,18 +57,22 @@ define([
                 this.tlRef.on("change", function (value) {
                     domStyle.set(self.effectNode, "border-top-left-radius", value);
                     _sync(this);
+                    self._onChange();
                 }),
                 this.trRef.on("change", function (value) {
                     domStyle.set(self.effectNode, "border-top-right-radius", value);
                     _sync(this);
+                    self._onChange();
                 }),
                 this.blRef.on("change", function (value) {
                     domStyle.set(self.effectNode, "border-bottom-left-radius", value);
                     _sync(this);
+                    self._onChange();
                 }),
                 this.brRef.on("change", function (value) {
                     domStyle.set(self.effectNode, "border-bottom-right-radius", value);
                     _sync(this);
+                    self._onChange();
                 })
             ]);
         },
@@ -95,13 +99,6 @@ define([
                 return ret;
             }
         },
-        getCorner: function () {
-            var self = this, ret = {};
-            array.forEach(styleMap, function (item) {
-                ret[item.css] = self[item.to].get("value");
-            });
-            return ret;
-        },
         _lockTogether: function () {
             this.set("together", !this.together);
         },
@@ -112,6 +109,11 @@ define([
                 var value = this.tlRef.get("value") || this.trRef.get("value") || this.blRef.get("value") || this.brRef.get("value");
                 this.sync(value);
             }
+        },
+        _onChange:function(){
+            this.onChange(this.css());
+        },
+        onChange: function (css) {
         },
         destroy: function () {
             this.inherited(arguments);

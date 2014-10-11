@@ -36,7 +36,7 @@ define([
                 var ret = this.inherited(arguments);
                 var hex = this.colorBox.get("value"), rgba = "";
                 if (hex) {
-                    var c = new Color(hex);
+                    var c = Color.fromString(hex);
                     c.a = this.opacitySlider.get("value");
                     rgba = c.toRgba();
                 }

@@ -1,37 +1,56 @@
 define([
+    "dojo/on",
     "dojo/_base/declare",
     "dijit/_WidgetBase",
+    "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "dojo/text!./templates/FontPanel.html"
-], function (declare, _WidgetBase, _WidgetsInTemplateMixin, template) {
-    return declare([_WidgetBase, _WidgetsInTemplateMixin], {
+], function (on, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
+    return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-font-panel",
         templateString: template,
+        labelFontFamily: "Family",
+        labelFontSize: "Size",
+        labelFontColor: "Color",
         familyNode: null,
-        sizeNode: null,
-        colorPickerRef: null,
-        _getFamilyAttr:function(){
-            return this.familyNode.value;
+        sizeSpinner: null,
+        colorBox: null,
+        startup: function () {
+            this.inherited(arguments);
+            var self = this;
+
+            function _onChange() {
+                self.onChange(self.css());
+            }
+
+            this.own([
+                on(this.familyNode, "change", _onChange),
+                this.sizeSpinner.on("change", _onChange),
+                this.colorBox.on("change", _onChange)
+            ]);
         },
-        _setFamilyAttr: function (family) {
-            this.familyNode.value = family;
+        css: function (css) {
+            if (css) {
+                this.familyNode.value = css["font-family"] || "";
+                this.sizeSpinner.set("value", css["font-size"] || "");
+                this.colorBox.set("value", css["font-color"] || "");
+            }
+            else {
+                return {
+                    "font-family": this.familyNode.value,
+                    "font-size": this.sizeSpinner.get("value"),
+                    "font-color": this.colorBox.get("value")
+                };
+            }
         },
-        _getSizeAttr:function(){
-            return this.sizeNode.value;
+        onChange: function (css) {
+            console.log(css);
         },
-        _setSizeAttr:function(size){
-            return this.sizeNode.value=size;
-        },
-        _getColorAttr:function(){
-            return this.colorPickerRef.get("value");
-        },
-        _setColorAttr:function(color){
-            this.colorPickerRef.set("value",color);
-        },
-        destroy:function(){
+        destroy: function () {
             this.inherited(arguments);
             delete this.familyNode;
-            delete this.sizeNode;
+            delete this.sizeSpinner;
+            delete this.colorBox;
         }
     });
 });

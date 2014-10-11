@@ -14,8 +14,11 @@ require([
     "tal/widgets/ImageDialog",
     "tal/widgets/BackgroundImageDialog",
     "tal/widgets/StyleAccordion",
+    "tal/widgets/menuItems/EditText",
+    "tal/widgets/menuItems/EditImage",
+    "tal/widgets/menuItems/EditStyle",
     "dojo/domReady!"
-], function (parser, topic, on, domClass, domAttr, domStyle, domConst, domGeom, registry, ImageDialog, BackgroundImageDialog, StyleAccordion) {
+], function (parser, topic, on, domClass, domAttr, domStyle, domConst, domGeom, registry, ImageDialog, BackgroundImageDialog, StyleAccordion, EditText, EditImage,EditStyle) {
     window.topic = topic;
     var body = document.body,
         kbEmbedFrame = dojo.byId("kbEmbedFrame"),
@@ -29,60 +32,9 @@ require([
         kbHtmlViewer = registry.byId("kbHtmlViewer");
         kbInlineMenu.hide();
 
-        kbInlineMenu.addMenu({
-            text: "Edit",
-            visibility: function (menu) {
-                return el && !/^img|button|input|br$/i.test(el.tagName);
-            },
-            callback: function (menu) {
-                topic.publish("inlinemenu/edit", {refEl: el});
-                kbInlineMenu.hide();
-            }
-        });
+        kbInlineMenu.addMenu(new EditText(kbInlineMenu));
+        kbInlineMenu.addMenu(new EditImage(kbInlineMenu));
 
-
-        var imgDialog;
-        kbInlineMenu.addMenu({
-            text: "Edit image",
-            visibility: function (menu, dom) {
-                return el && (/^img$/i).test(el.tagName);
-            },
-            callback: function (menu) {
-                if (!imgDialog) {
-                    imgDialog = new ImageDialog();
-                    imgDialog.placeAt(body);
-                    imgDialog.startup();
-                    imgDialog.on("Open", function () {
-                        this.src(el.src);
-                        this.alt(el.alt);
-                        this.title(el.title);
-                    });
-                    imgDialog.on("Close", function () {
-                        el.src = this.src();
-                        el.alt = this.alt();
-                        el.title = this.title();
-                    });
-                    imgDialog.on("Change", function () {
-                        console.log("Change image");
-                        $.pop({
-                            url: "http://192.168.1.231:9999/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
-                            width: 900,
-                            height: 500,
-                            dialogClass: 'iframe-dialog',
-                            frameHeight: '100%',
-                            onload: function (handle, pop, config) {
-                                window.onFileSelected = function (src, text) {
-                                    imgDialog.src("src", src);
-                                    el.src = src;
-                                };
-                            }
-                        });
-                    });
-                }
-                imgDialog.open();
-                this.hide();
-            }
-        });
         var bgImgDialog;
         kbInlineMenu.addMenu({
             text: "Edit background image",
@@ -136,29 +88,7 @@ require([
             }
         });
 
-        var styleAccordion;
-        kbInlineMenu.addMenu({
-            text: "Edit style",
-            visibility: function (menu) {
-                return true;
-            },
-            callback: function (menu) {
-                if (!styleAccordion) {
-                    styleAccordion = new StyleAccordion();
-                    styleAccordion.placeAt(body);
-                    styleAccordion.startup();
-                }
-                styleAccordion.on("open",function(){
-
-                });
-                styleAccordion.on("close",function(){
-
-                });
-                styleAccordion.open();
-                this.hide();
-            }
-        });
-
+        kbInlineMenu.addMenu(new EditStyle(kbInlineMenu));
 
         kbInlineMenu.addMenu({
             text: "Direct to this page",
@@ -166,8 +96,8 @@ require([
                 //TODO:需要判断是否URL
                 return el && /^a$/i.test(el.tagName);
             },
-            callback:function(){
-                if(el.href && window.confirm("Do you want to direct to this link?")){
+            callback: function () {
+                if (el.href && window.confirm("Do you want to direct to this link?")) {
                     //TODO:通知iframe跳转
                     alert("TODO:通知iframe跳转");
                 }
@@ -192,18 +122,10 @@ require([
             kbHtmlViewer.view(e.target, e.skips);
         });
         topic.subscribe("dom/click", function (e) {
-            //TODO:关闭其它Dialog
-            if (el != e.target && imgDialog && imgDialog.isOpen()) {
-                imgDialog.close();
-            }
-
+            kbInlineMenu.set("el", e.target);
             el = e.target;
 
-            //刷新InlineMenu
-            kbInlineMenu.refresh();
-
             //TODO:处理显示边界逻辑
-
             kbInlineMenu.show(e.clientX, e.clientY);
 
             //处理自动隐藏逻辑
@@ -232,4 +154,4 @@ require([
 
         kbHtmlViewer.view(dojo.byId("header"));
     });
-})
+});

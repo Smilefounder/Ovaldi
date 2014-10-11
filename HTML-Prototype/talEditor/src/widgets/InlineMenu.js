@@ -24,6 +24,7 @@ define([
         zIndex: 9999,
         menus: [],
         menusNode: null,
+        el: null,
         constructor: function (params) {
             declare.safeMixin(this, params);
         },
@@ -46,23 +47,15 @@ define([
             var menus = this.menus, menu;
             for (var i = 0, j = menus.length; i < j; i++) {
                 menu = menus[i];
-                var visibility = menu.visibility;
-                if (lang.isFunction(menu.visibility)) {
-                    visibility = menu.visibility.apply(this, [menu]);
-                }
-                domStyle.set(menu.dom, "display", visibility ? "block" : "none");
+                domStyle.set(menu.dom, "display", menu.visibility() ? "block" : "none");
             }
         },
         _renderMenu: function (menu) {
             menu.dom = domConst.toDom(string.substitute('<li><a href="javascript:;">${0}</a></li>', [menu.text]));
-            this.own(on(menu.dom, "click", lang.hitch(this, function () {
-                menu.callback && menu.callback.apply(this, [menu]);
-            })));
-            var visibility = menu.visibility;
-            if (lang.isFunction(menu.visibility)) {
-                visibility = menu.visibility.apply(this, [menu]);
-            }
-            domStyle.set(menu.dom, "display", visibility ? "block" : "none");
+            this.own(on(menu.dom, "click", function () {
+                menu.callback && menu.callback();
+            }));
+            domStyle.set(menu.dom, "display", menu.visibility() ? "block" : "none");
             domConst.place(menu.dom, this.menusNode);
         },
         show: function (x, y) {
@@ -73,6 +66,10 @@ define([
         },
         hide: function () {
             domStyle.set(this.domNode, "left", "-1000px");
+        },
+        _setElAttr: function (el) {
+            this._set("el", el);
+            this.refresh();
         },
         destroy: function () {
             this.inherited(arguments);

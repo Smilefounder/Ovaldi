@@ -2,13 +2,15 @@
  * Created by Raoh on 2014/9/30.
  */
 define([
+    "dojo/on",
     "dojo/_base/declare",
+    "dojo/_base/lang",
     "dojo/_base/Color",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "dojo/text!./templates/BorderPanel.html"
-], function (declare, Color, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
+], function (on,declare, lang, Color, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-border-panel",
         templateString: template,
@@ -20,14 +22,20 @@ define([
         styleNode: null,
         colorBox: null,
         opacitySlider: null,
+        startup: function () {
+            this.inherited(arguments);
+            var handler = lang.hitch(this, "_onChange");
+            this.own([
+                this.widthSpinner.on("change", handler),
+                on(this.styleNode, "change",handler),
+                this.colorBox.on("change",handler),
+                this.opacitySlider.on("change",handler)
+            ]);
+        },
         css: function (css) {
             if (css) {
-                if (css["border-width"]) {
-                    this.widthSpinner.set("value", css["border-width"]);
-                }
-                if (css["border-style"]) {
-                    this.styleNode.value = css["border-style"];
-                }
+                this.widthSpinner.set("value", css["border-width"] || "");
+                this.styleNode.value = css["border-style" || "none"];
                 if (css["border-color"]) {
                     var c = new Color(css["border-color"]);
                     this.colorBox.set("value", c.toHex());
@@ -44,7 +52,7 @@ define([
                     c.a = this.opacitySlider.get("value");
                     rgba = c.toRgba();
                 }
-                ret["background-color"] = rgba;
+                ret["border-color"] = rgba;
                 return ret;
             }
         },
@@ -53,6 +61,11 @@ define([
             this.styleNode.value = "none";
             this.colorBox.set("value", "");
             this.opacitySlider.set("value", this.opacitySlider.max);
+        },
+        _onChange: function () {
+            this.onChange(this.css());
+        },
+        onChange: function (css) {console.log(css);
         },
         destroy: function () {
             this.inherited(arguments);
