@@ -226,6 +226,20 @@
 		margin-top: -10px;
 	}
 
+	.position {
+		> .label,
+		> input {
+			display: none;
+		}
+
+		&.active {
+			> .label,
+			> input {
+				display: block;
+			}
+		}
+	}
+
 	.margin {
 		background: #FFF;
 		border: 1px dashed #BBB;
@@ -367,6 +381,87 @@
 	.field {
 		margin-top: 10px;
 		.clearfix();
+	}
+}
+/* @module: Border editor */
+.kb-border-editor {
+	.kb-border-editor-wrap {
+		height: 80px;
+		position: relative;
+
+		span {
+			cursor: pointer;
+			position: absolute;
+			z-index: 2;
+		}
+	}
+
+	.box-model {
+		border: 6px solid #DDD;
+		height: 100%;
+		position: absolute;
+		width: 100%;
+		.box-sizing(border-box);
+	}
+
+	.border-top {
+		height: 6px;
+		left: 0;
+		right: 0;
+		top: 0;
+
+		&:hover ~ .box-model {
+			border-top-color: #AAA;
+		}
+
+		&.active ~ .box-model {
+			border-top-color: #009AD7;
+		}
+	}
+
+	.border-bottom {
+		bottom: 0;
+		height: 6px;
+		left: 0;
+		right: 0;
+
+		&:hover ~ .box-model {
+			border-bottom-color: #AAA;
+		}
+
+		&.active ~ .box-model {
+			border-bottom-color: #009AD7;
+		}
+	}
+
+	.border-left {
+		bottom: 0;
+		left: 0;
+		width: 6px;
+		top: 0;
+
+		&:hover ~ .box-model {
+			border-left-color: #AAA;
+		}
+
+		&.active ~ .box-model {
+			border-left-color: #009AD7;
+		}
+	}
+
+	.border-right {
+		bottom: 0;
+		width: 6px;
+		right: 0;
+		top: 0;
+
+		&:hover ~ .box-model {
+			border-right-color: #AAA;
+		}
+
+		&.active ~ .box-model {
+			border-right-color: #009AD7;
+		}
 	}
 }
 /* @module: Splitter */
@@ -688,7 +783,6 @@
 	.color {
 		cursor: pointer;
 		float: left;
-		margin-right: 3px;
 		.sprite(@colorbox);
 
 		span {
@@ -702,7 +796,7 @@
 
 	.color-value {
 		height: 20px;
-		margin: 0 !important;
+		margin: 0 0 0 3px !important;
 		padding: 2px 4px;
 		width: 66px;
 	}

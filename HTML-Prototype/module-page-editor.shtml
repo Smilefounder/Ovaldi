@@ -330,7 +330,7 @@
 				<div class="kb-layout-box">
 					<span class="label left">position: relative</span>
 					<span class="label right">z-index: auto</span>
-					<div class="position">
+					<div class="position active">
 						<span class="label">position</span>
 						<input type="text" class="input-top null" value="0">
 						<input type="text" class="input-right null" value="0">
@@ -421,37 +421,53 @@
 			<h3>Border</h3>
 			<div>
 				<div class="common-form">
-					<table>
-						<tr>
-							<th><label>Width</label></th>
-							<td>
-								<input class="J_Spinner mini" type="text"><span class="unit">px</span>
-							</td>
-						</tr>
-						<tr>
-							<th><label>Style</label></th>
-							<td>
-								<select>
-									<option>Dashed</option>
-									<option>Dotted</option>
-									<option>Double</option>
-									<option>Grovve</option>
-									<option>Ridge</option>
-									<option>Solid</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th><label>Color</label></th>
-							<td>Color picker</td>
-						</tr>
-						<tr>
-							<th><label>Opacity</label></th>
-							<td>
-								Slider
-							</td>
-						</tr>
-					</table>
+					<p class="field">
+						<input type="checkbox" id="BorderLocker" checked="checked">
+						<label class="inline" for="BorderLocker">Lock borders together</label>
+					</p>
+					<hr>
+					<div class="kb-border-editor">
+						<p class="note">Click each border to change styles:</p>
+						<div class="kb-border-editor-wrap">
+							<span class="border-top active"></span>
+							<span class="border-bottom"></span>
+							<span class="border-left"></span>
+							<span class="border-right"></span>
+							<div class="box-model"></div>
+						</div>
+						<div class="common-form">
+							<table>
+								<tr>
+									<th><label>Width</label></th>
+									<td>
+										<input class="J_Spinner mini" type="text"><span class="unit">px</span>
+									</td>
+								</tr>
+								<tr>
+									<th><label>Style</label></th>
+									<td>
+										<select>
+											<option>None</option>
+											<option>Solid</option>
+											<option>Dashed</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th><label>Color</label></th>
+									<td>
+										Color picker
+									</td>
+								</tr>
+								<tr>
+									<th><label>Opacity</label></th>
+									<td>
+										Slider
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 			<h3>Corner</h3>
