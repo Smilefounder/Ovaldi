@@ -8,8 +8,15 @@ define([
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "./_DialogMixin",
-    "dojo/text!./templates/StyleAccordion.html"
+    "dojo/text!./templates/StyleAccordion.html",
+    "tal/widgets/BoxPanel",
+    "tal/widgets/BackgroundPanel",
+    "tal/widgets/BorderPanel",
+    "tal/widgets/CornerPanel",
+    "tal/widgets/ShadowPanel",
+    "tal/widgets/FontPanel"
 ], function (declare, domStyle, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _DialogMixin, template) {
+
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _DialogMixin], {
         baseClass: "kb-style-accordion",
         templateString: template,
@@ -19,12 +26,17 @@ define([
         corner: null,
         shadow: null,
         font: null,
+        cs: null,
         buildRendering: function () {
             this.inherited(arguments);
+            var self = this;
             $(this.containerNode).accordion({
                 heightStyle: 'content',
                 collapsible: true,
-                active: 0
+                active: 0,
+                beforeActivate: function () {
+                    self.cs && self.css(self.cs);
+                }
             })
         },
         startup: function () {
@@ -44,6 +56,7 @@ define([
         },
         css: function (css) {
             if (css) {
+                this.cs = css;
                 this.box.css(css);
                 this.background.css(css);
                 this.border.css(css);

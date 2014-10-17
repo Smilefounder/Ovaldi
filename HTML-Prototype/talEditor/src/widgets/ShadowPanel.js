@@ -5,7 +5,9 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
-    "dojo/text!./templates/ShadowPanel.html"
+    "dojo/text!./templates/ShadowPanel.html",
+    "./UnitSpinner",
+    "./ColorBox"
 ], function (declare, has, sniff, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-shadow-panel",
@@ -19,8 +21,8 @@ define([
         directionSpinner: null,
         distanceSpinner: null,
         blurSpinner: null,
+        sizeSpinner:null,
         colorBox: null,
-        opacitySlider: null,
         css: function (css) {
 
         },
@@ -32,8 +34,8 @@ define([
             delete this.directionSpinner;
             delete this.distanceSpinner;
             delete this.blurSpinner;
+            delete this.sizeSpinner;
             delete this.colorBox;
-            delete this.opacitySlider;
         }
     });
 });

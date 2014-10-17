@@ -11,9 +11,7 @@ define([
     "dijit/_WidgetsInTemplateMixin",
     "dojo/text!./templates/BackgroundImagePanel.html",
     "dojo/i18n!./nls/BackgroundImagePanel",
-    "tal/widgets/UnitSpinner",
-    "tal/widgets/ColorBox",
-    "tal/widgets/Slider"
+    "./UnitSpinner"
 ], function (on, declare, lang, domAttr, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template, res) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-background-image-panel",
@@ -35,21 +33,22 @@ define([
         },
         startup: function () {
             this.inherited(arguments);
-            var self = this;
-
-            function _onChange() {
-                self.onChange(self.css());
-            }
-
             this.own([
-                on(this.repeatedNode, "change", _onChange),
-                on(this.positionXRef, "change", _onChange),
-                on(this.positionYRef, "change", _onChange)
+                on(this.repeatedNode, "change", lang.hitch(this, this._onChange)),
+                on(this.positionXRef, "change", lang.hitch(this, this._onChange)),
+                on(this.positionYRef, "change", lang.hitch(this, this._onChange))
             ]);
         },
         css: function (css) {
-            if (css) {
-                this.srcNode.src = css["backgroundImage"] == "none" ? "" : css["backgroundImage"].slice(4, -1);
+            if (css) {console.log(css["backgroundPosition"]);
+                if (css["backgroundImage"] == "none") {
+                    //img标签的src属性不能为空，否则将自动指向当前页面的URL,并导致发起重复请求
+                    this.srcNode.src = (new Date).getTime();
+                    this.__src = this.srcNode.src;
+                } else {
+                    this.srcNode.src = css["backgroundImage"].slice(4, -1);
+                }
+
                 this.repeatedNode.value = css["backgroundRepeat"] || "";
                 var xy = (css["backgroundPosition"] || "").split(' ');
                 this.positionXRef.set("value", xy[0] || "");
@@ -57,11 +56,14 @@ define([
 
             } else {
                 return {
-                    "backgroundImage": this.srcNode.src ? 'url(' + this.srcNode.src + ')' : '',
+                    "backgroundImage": this.srcNode.src == this.__src ? 'none' : 'url(' + this.srcNode.src + ')',
                     "backgroundRepeat": this.repeatedNode.value,
                     "backgroundPosition": this.positionXRef.get("value") + ' ' + this.positionYRef.get("value")
                 };
             }
+        },
+        _onChange: function () {
+            this.onChange(this.css());
         },
         onChange: function (css) {
         },

@@ -42,7 +42,7 @@
         waitSeconds: 3, //timeout seconds
         cacheBust: 1, //false:use cache
         parseOnLoad: 0,
-        //async:1,
+        async:1,
         deps: ["dojo/parser"],
         //关于deps中的模块加载完成之后执行
         callback: function (parse) {

@@ -10,7 +10,8 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
-    "dojo/text!./templates/CornerPanel.html"
+    "dojo/text!./templates/CornerPanel.html",
+    "./UnitSpinner"
 ], function (declare, lang, array, domStyle, domProp, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
     var styleMap = [
         {css: "borderTopLeftRadius", to: "tlRef"},

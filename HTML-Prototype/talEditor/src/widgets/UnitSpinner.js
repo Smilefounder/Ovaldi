@@ -27,7 +27,6 @@ define([
                 min: this.min,
                 stop: function () {
                     self.set("number", this.value);
-
                 },
                 change: function () {
                     self.set("number", this.value);

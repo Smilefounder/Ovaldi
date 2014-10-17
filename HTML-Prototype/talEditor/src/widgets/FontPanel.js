@@ -4,7 +4,9 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
-    "dojo/text!./templates/FontPanel.html"
+    "dojo/text!./templates/FontPanel.html",
+    "./UnitSpinner",
+    "./ColorBox"
 ], function (on, declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-font-panel",

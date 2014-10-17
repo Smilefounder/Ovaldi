@@ -8,7 +8,9 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
-    "dojo/text!./templates/ColorPicker.html"
+    "dojo/text!./templates/ColorPicker.html",
+    "dojox/widget/ColorPicker",
+    "./Slider"
 ], function (on, declare, Color, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-color-picker",
@@ -20,11 +22,7 @@ define([
         startup: function () {
             this.inherited(arguments);
             var self = this;
-            console.log(this.picker);
             this.own([
-                on(this.clearNode, "click", function () {
-                    self.slider.set("value", 0);
-                }),
                 this.picker.on("change", function (newValue) {
                     var col = Color.fromString(newValue);
                     self._updateSlider(col);
@@ -53,6 +51,9 @@ define([
         },
         clear: function () {
             this.slider.set("value", 0);
+        },
+        _onClear: function () {
+            this.clear();
         },
         onChange: function (newValue) {
         },

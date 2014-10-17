@@ -30,6 +30,12 @@ define([
                     handler = this.on("change", function (css) {
                         var ret = cssUtils.distinct(css, cs);
                         domStyle.set(self.el, ret);
+                        //假设 border-top-style:none;border-top-width:0px;
+                        //当用户border-top-style为非none值，这时border-top-width的宽度默认会是3px，
+                        //这时如果立即刷新面板会重置值，将导致用户的删除和修改出现焦点跳动，只能延迟刷新
+                        this.defer(function () {
+                            this.css(cs);
+                        }, 250);
                     });
                 });
                 this.menu.watch("el", function () {

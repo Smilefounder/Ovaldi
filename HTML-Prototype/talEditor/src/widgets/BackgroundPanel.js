@@ -4,54 +4,43 @@
 define([
     "dojo/_base/declare",
     "dojo/_base/lang",
-    "dojo/_base/Color",
     "./BackgroundImagePanel",
     "dojo/text!./templates/BackgroundPanel.html",
     "dojo/i18n!./nls/BackgroundPanel",
-    "ko"
-], function (declare, lang, Color, BackgroundImagePanel, template, res, ko) {
+    "./ColorBox"
+], function (declare, lang, BackgroundImagePanel, template, res) {
     return declare([BackgroundImagePanel], {
         baseClass: "kb-background-panel",
         templateString: template,
         labelColor: "Color",
-        labelOpacity: "Opacity",
         colorBox: null,
-        opacitySlider: null,
         postMixInProperties: function () {
             lang.mixin(this, res);
             this.inherited(arguments);
         },
         startup: function () {
             this.inherited(arguments);
-            var self = this;
-
-            function _onChange() {
-                self.onChange(self.css());
-            }
-
-            self.own([
-                this.colorBox.on("change", _onChange),
-                this.opacitySlider.on("change", _onChange)
-            ]);
+            this.own(this.colorBox.on("change", lang.hitch(this, this._onChange)));
         },
         css: function (css) {
             if (css) {
                 this.inherited(arguments);
                 if (css["backgroundColor"]) {
-                    var c = new Color(css["backgroundColor"]);
-                    this.colorBox.set("value", c.toString());
+                    this.colorBox.set("value", css["backgroundColor"]);
                 }
             } else {
                 var ret = this.inherited(arguments);
-                var rgba = this.colorBox.get("value");
-                ret["backgroundColor"] = rgba;
+                ret["backgroundColor"] = this.colorBox.get("value");
                 return ret;
             }
         },
         reset: function () {
             this.inherited(arguments);
             this.colorBox.set("value", "");
-            this.opacitySlider.set("value", this.opacitySlider.max);
+        },
+        destroy: function () {
+            this.inherited(arguments);
+            delete this.colorBox;
         }
     });
 });

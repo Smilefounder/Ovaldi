@@ -14,7 +14,9 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
-    "dojo/text!./templates/BorderPanel.html"
+    "dojo/text!./templates/BorderPanel.html",
+    "./UnitSpinner",
+    "./ColorBox"
 ], function (on, query, declare, domClass, domStyle, domAttr, domProp, lang, Color, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-border-panel",
@@ -113,10 +115,6 @@ define([
         },
         _onChange: function () {
             this.onChange(this.css());
-            //当用户只设置style时，border的宽度默认会是3px，这时立即刷新面板会重置值，将导致用户难以删除值和修改，只能延迟刷新
-            this.defer(function () {
-                this._edit();
-            }, 50);
         },
         onChange: function (css) {
         },

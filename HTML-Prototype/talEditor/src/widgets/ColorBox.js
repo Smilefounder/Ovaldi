@@ -5,7 +5,6 @@ define([
     "dojo/on",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
-    //"dojox/widget/ColorPicker",
     "./ColorPicker",
     "dojo/dom-construct",
     "dojo/dom-style",
@@ -28,6 +27,7 @@ define([
             this.inherited(arguments);
             this._initColorPicker();
             this._hideColorPicker();
+            this.set("value", this.value);
             this.set("showInput", this.showInput);
             this.own([
                 on(this.swatchNode, 'click', lang.hitch(this, function () {
