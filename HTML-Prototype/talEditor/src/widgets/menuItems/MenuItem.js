@@ -17,4 +17,4 @@ define([
             this.menu.hide();
         }
     })
-})
+});

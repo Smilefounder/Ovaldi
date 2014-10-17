@@ -17,11 +17,14 @@ require([
     "tal/widgets/menuItems/EditText",
     "tal/widgets/menuItems/EditImage",
     "tal/widgets/menuItems/EditStyle",
+    "tal/widgets/menuItems/EditBackgroundImage",
+    "tal/widgets/menuItems/GoToLink",
+    "tal/XPath",
+    "dojo/main",
     "dojo/domReady!"
-], function (parser, topic, on, domClass, domAttr, domStyle, domConst, domGeom, registry, ImageDialog, BackgroundImageDialog, StyleAccordion, EditText, EditImage,EditStyle) {
+], function (parser, topic, on, domClass, domAttr, domStyle, domConst, domGeom, registry, ImageDialog, BackgroundImageDialog, StyleAccordion, EditText, EditImage, EditStyle, EditBackgroundImage, GoToLink,XPath) {
     window.topic = topic;
-    var body = document.body,
-        kbEmbedFrame = dojo.byId("kbEmbedFrame"),
+    var kbEmbedFrame = dojo.byId("kbEmbedFrame"),
         kbDragPane = dojo.byId("kbDragPane"),
         kbSplitContainer, kbInlineMenu, kbHtmlViewer, el;
 
@@ -34,86 +37,20 @@ require([
 
         kbInlineMenu.addMenu(new EditText(kbInlineMenu));
         kbInlineMenu.addMenu(new EditImage(kbInlineMenu));
-
-        var bgImgDialog;
-        kbInlineMenu.addMenu({
-            text: "Edit background image",
-            visibility: function (menu) {
-                return true;//TODO:排除不可设置背景图片的tag
-            },
-            callback: function (menu) {
-                if (!bgImgDialog) {
-                    bgImgDialog = new BackgroundImageDialog();
-                    bgImgDialog.placeAt(body);
-                    bgImgDialog.startup();
-                    bgImgDialog.on("open", function () {
-                        var cs = domStyle.getComputedStyle(el);
-                        //TODO:处理属性默认值和百分比
-                        this.css({
-                            "background-image": cs.getPropertyValue("background-image"),
-                            "background-repeat": cs.getPropertyValue("background-repeat"),
-                            "background-position-x": cs.getPropertyValue("background-position-x"),
-                            "background-position-y": cs.getPropertyValue("background-position-y")
-                        });
-                    });
-                    bgImgDialog.on("beforeClose", function () {
-                        var css = this.css();
-                        console.log(css);
-                        for (var p in css) {
-                            domStyle.set(el, p, css[p]);
-                        }
-                    });
-                    bgImgDialog.on("close", function () {
-                        console.log("close");
-                    });
-                    bgImgDialog.on("change", function () {
-                        debugger;
-                        $.pop({
-                            url: "http://192.168.1.231:9999/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
-                            width: 900,
-                            height: 500,
-                            dialogClass: 'iframe-dialog',
-                            frameHeight: '100%',
-                            onload: function (handle, pop, config) {
-                                window.onFileSelected = function (src, text) {
-                                    imgDialog.src("src", src);
-                                    el.src = src;
-                                };
-                            }
-                        });
-                    });
-                }
-                bgImgDialog.open();
-                this.hide();
-            }
-        });
-
+        kbInlineMenu.addMenu(new EditBackgroundImage(kbInlineMenu));
         kbInlineMenu.addMenu(new EditStyle(kbInlineMenu));
+        kbInlineMenu.addMenu(new GoToLink(kbInlineMenu));
 
-        kbInlineMenu.addMenu({
-            text: "Direct to this page",
-            visibility: function () {
-                //TODO:需要判断是否URL
-                return el && /^a$/i.test(el.tagName);
-            },
-            callback: function () {
-                if (el.href && window.confirm("Do you want to direct to this link?")) {
-                    //TODO:通知iframe跳转
-                    alert("TODO:通知iframe跳转");
-                }
-            }
-        })
-
-        kbHtmlViewer.on("Mouseover", function (refEl) {
+        kbHtmlViewer.on("mouseover", function (refEl) {
             topic.publish("codeviewer/mouseover", {refEl: refEl});
         });
-        kbHtmlViewer.on("Mouseout", function (refEl) {
+        kbHtmlViewer.on("mouseout", function (refEl) {
             topic.publish("codeviewer/mouseout", {refEl: refEl});
         });
-        kbHtmlViewer.on("View", function (refEl) {
+        kbHtmlViewer.on("view", function (refEl) {
             topic.publish("codeviewer/view", {refEl: refEl});
         });
-        kbHtmlViewer.on("Click", function (refEl) {
+        kbHtmlViewer.on("click", function (refEl) {
             topic.publish("codeviewer/click", {refEl: refEl});
         });
 
@@ -151,7 +88,5 @@ require([
             var uuid = kbHtmlViewer.getUuid(e.target);
             kbHtmlViewer.refresh(uuid);
         });
-
-        kbHtmlViewer.view(dojo.byId("header"));
     });
 });

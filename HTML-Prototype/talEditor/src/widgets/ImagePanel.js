@@ -32,33 +32,42 @@ define([
         startup: function () {
             this.inherited(arguments);
             this.own([
-                on(this.altNode, "keyup,change", lang.hitch(this, function () {
-                    this._set("alt", this.altNode.value);
-                    this.onChange();
-                })),
-                on(this.titleNode, "keyup,change", lang.hitch(this, function () {
-                    this._set("title", this.titleNode.value);
-                    this.onChange();
-                }))
-            ])
+                on(this.altNode, "blur", lang.hitch(this, this._onChange)),
+                on(this.titleNode, "blur", lang.hitch(this, this._onChange))
+            ]);
         },
-        _setSrcAttr: function (src) {
-            this._set("src", src);
-            this.srcNode.src = src;
+        value: function (obj) {
+            if (obj) {
+                this.srcNode.src = obj["src"] || "";
+                this.altNode.value = obj["alt"] || "";
+                this.titleNode.value = obj["title"] || "";
+            } else {
+                return this._getValue();
+            }
         },
-        _setAltAttr: function (alt) {
-            this._set("alt", alt);
-            this.altNode.value = alt;
+        _getValue: function () {
+            return {
+                src: this.srcNode.src,
+                alt: this.altNode.value,
+                title: this.titleNode.value
+            }
         },
-        _setTitleAttr: function (title) {
-            this._set("title", title);
-            this.titleNode.value = title;
-        },
-        onChange: function () {
+        src: function (src) {
+            if (src) {
+                this.srcNode.src = src;
+                this._onChange();
+            } else {
+                return this.srcNode.src;
+            }
         },
         _changeImage: function () {
             this.callback && this.callback();
-            this.onChange();
+            this._onChange();
+        },
+        _onChange: function () {
+            this.onChange(this._getValue());
+        },
+        onChange: function () {
         },
         destroy: function () {
             this.inherited(arguments);

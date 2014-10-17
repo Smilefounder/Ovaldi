@@ -29,9 +29,19 @@
 					
 				
 				<div id="kbSplitContainer" data-dojo-type="tal/widgets/SplitContainer" data-dojo-props="horizontal:false,dock:'bottom'">
+					<script type="dojo/method" data-dojo-event="postCreate">
+						/**
+						  * Widget始化模板之后，会替换原始位置的DOM，这样会触发iframe重新请求，但是iframe的window作用域并没有重置
+						  * 这将导致像dojo/window这样的单实例对象的win.doc指向之前document对象
+						  * 所以等组件初始化成功之后再指定src
+						  */
+						this.inherited(arguments);
+						var iframe = document.getElementById("iframe");
+						iframe.src="SampleSite/test-index.html";
+					</script>
 					<div class="kb-split-panel" data-kooboo-region="panel1" style="height:70%">
 						<div id="kbEmbedFrame" class="editor">
-							<iframe class="visual-frame" src="SampleSite/test-index.html"></iframe>
+							<iframe id="iframe" class="visual-frame" src=""></iframe>
 							<div id="kb_inlinemenu" data-dojo-type="tal/widgets/InlineMenu" data-dojo-props="zIndex:9999"></div>
 						</div>
 					</div>

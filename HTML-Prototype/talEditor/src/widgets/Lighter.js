@@ -29,7 +29,6 @@ define([
         mask: function (el) {
             this.el = el;
             domStyle.set(this.domNode, "display", "none");
-
             var
                 elPos = geom.position(el, true), doc = el.ownerDocument,
                 winWidth = Math.max(doc.body.scrollWidth, doc.documentElement.scrollWidth),

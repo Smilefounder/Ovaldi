@@ -49,4 +49,4 @@ define([
             this.inherited(arguments);
         }
     })
-})
+});

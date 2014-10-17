@@ -27,15 +27,15 @@ define([
                 value: this.value,
                 orientation: this.orientation,
                 change: function (evt, ui) {
-                    self._set("value", ui.value);
-                    self.onChange(self.value);
+                    if (self.value != ui.value) {
+                        self._set("value", ui.value);
+                        self.onChange(self.value);
+                    }
                 }
             });
         },
         _setValueAttr: function (value) {
-            if (value) {
-                $(this.domNode).slider("value", value);
-            }
+            $(this.domNode).slider("value", value);
         },
         onChange: function (newValue) {
         },

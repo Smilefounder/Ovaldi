@@ -13,8 +13,7 @@ define([
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _DialogMixin], {
         baseClass: "kb-style-accordion",
         templateString: template,
-        el: null,
-        position: null,
+        box: null,
         background: null,
         border: null,
         corner: null,
@@ -23,71 +22,51 @@ define([
         buildRendering: function () {
             this.inherited(arguments);
             $(this.containerNode).accordion({
-                heightStyle: 'content'
+                heightStyle: 'content',
+                collapsible: true,
+                active: 0
             })
         },
         startup: function () {
             this.inherited(arguments);
             var self = this;
-            function _applyCss(css){console.log(css);
-                domStyle.set(self.el, css);
+
+            function _onChange(css) {
+                self.onChange(css);
             }
-            this.position.on("change", _applyCss);
-            this.background.on("change", _applyCss);
-            this.border.on("change", _applyCss);
-            this.corner.on("change", _applyCss);
-            this.shadow.on("change", _applyCss);
-            this.font.on("change", _applyCss);
+
+            this.box.on("change", _onChange);
+            this.background.on("change", _onChange);
+            this.border.on("change", _onChange);
+            this.corner.on("change", _onChange);
+            this.shadow.on("change", _onChange);
+            this.font.on("change", _onChange);
         },
-        _setElAttr: function (el) {
-            this._set("el", el);
-            this._setPosition();
-            this._setBackground();
-            this._setBorder();
-            this._setCorner();
-            this._setShadow();
-            this._setFont();
+        css: function (css) {
+            if (css) {
+                this.box.css(css);
+                this.background.css(css);
+                this.border.css(css);
+                this.corner.css(css);
+                this.shadow.css(css);
+                this.font.css(css);
+            }
         },
-        _setPosition: function () {
-            //TODO:position
+        reset: function () {
+            this.box.reset();
+            this.background.reset();
+            this.border.reset();
+            this.corner.reset();
+            this.shadow.reset();
+            this.font.reset();
         },
-        _setBackground: function () {
-            var cs = domStyle.getComputedStyle(this.el);
-            this.background.css({
-                "background-image": cs["background-image"],
-                "background-repeat": cs["background-repeat"],
-                "background-position-x": cs["background-position-x"],
-                "background-position-y": cs["background-position-y"],
-                "background-color": cs["background-color"]
-            });
+        onChange: function (css) {
         },
-        _setBorder: function () {
-            var cs = domStyle.getComputedStyle(this.el);
-            this.border.css({
-                "border-width": cs["border-width"],
-                "border-style": cs["border-style"],
-                "border-color": cs["border-color"]
-            });
+        onClose: function () {
+            this.reset();
         },
-        _setCorner: function () {
-            var cs = domStyle.getComputedStyle(this.el);
-            this.corner.css({
-                "border-top-left-radius": cs["border-top-left-radius"],
-                "border-top-right-radius": cs["border-top-right-radius"],
-                "border-bottom-left-radius": cs["border-bottom-left-radius"],
-                "border-bottom-right-radius": cs["border-bottom-right-radius"]
-            });
-        },
-        _setShadow: function () {
-            //TODO:shadow
-        },
-        _setFont: function () {
-            var cs = domStyle.getComputedStyle(this.el);
-            this.font.css({
-                "font-family": cs["font-family"],
-                "font-size": cs["font-size"],
-                "color": cs["color"]
-            });
+        destroy: function () {
+
         }
     });
 });

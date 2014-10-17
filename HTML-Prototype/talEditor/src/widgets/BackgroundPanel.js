@@ -24,31 +24,27 @@ define([
         startup: function () {
             this.inherited(arguments);
             var self = this;
-            function _onChange(){
+
+            function _onChange() {
                 self.onChange(self.css());
             }
+
             self.own([
-                this.colorBox.on("change",_onChange),
-                this.opacitySlider.on("change",_onChange)
+                this.colorBox.on("change", _onChange),
+                this.opacitySlider.on("change", _onChange)
             ]);
         },
         css: function (css) {
             if (css) {
                 this.inherited(arguments);
-                if (css["background-color"]) {
-                    var c = new Color(css["background-color"]);
-                    this.colorBox.set("value", c.toHex());
-                    this.opacitySlider.set("value", c.a);
+                if (css["backgroundColor"]) {
+                    var c = new Color(css["backgroundColor"]);
+                    this.colorBox.set("value", c.toString());
                 }
             } else {
                 var ret = this.inherited(arguments);
-                var hex = this.colorBox.get("value"), rgba = "";
-                if (hex) {
-                    var c = Color.fromString(hex);
-                    c.a = this.opacitySlider.get("value");
-                    rgba = c.toString();
-                }
-                ret["background-color"] = rgba;
+                var rgba = this.colorBox.get("value");
+                ret["backgroundColor"] = rgba;
                 return ret;
             }
         },

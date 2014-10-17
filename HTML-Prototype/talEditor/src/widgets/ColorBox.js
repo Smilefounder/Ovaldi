@@ -5,7 +5,8 @@ define([
     "dojo/on",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
-    "dojox/widget/ColorPicker",
+    //"dojox/widget/ColorPicker",
+    "./ColorPicker",
     "dojo/dom-construct",
     "dojo/dom-style",
     "dojo/dom-geometry",
@@ -15,9 +16,11 @@ define([
         baseClass: "kb-color-input",
         templateString: template,
         swatchNode: null,
-        colorPickerRef: null,
+        picker: null,
+        inputNode: null,
         value: "",
-        focusing: false,
+        showInput: false,
+        __focusing: false,
         constructor: function (params) {
             declare.safeMixin(this, params);
         },
@@ -25,59 +28,63 @@ define([
             this.inherited(arguments);
             this._initColorPicker();
             this._hideColorPicker();
-
+            this.set("showInput", this.showInput);
             this.own([
                 on(this.swatchNode, 'click', lang.hitch(this, function () {
                     this._showColorPicker();
                 })),
-                on(this.textbox, "blur", lang.hitch(this, function () {
-                    this.set("value", this.textbox.value);
+                on(this.inputNode, "blur", lang.hitch(this, function () {
+                    this._updateColor(this.inputNode.value, true);
                 })),
                 on(this.domNode, "mouseenter", lang.hitch(this, function (e) {
-                    this.focusing = true;
+                    this.__focusing = true;
                 })),
                 on(this.domNode, "mouseleave", lang.hitch(this, function (e) {
-                    this.focusing = false;
+                    this.__focusing = false;
                 })),
                 on(document, "click", lang.hitch(this, function (e) {
-                    !this.focusing && this._hideColorPicker();
+                    !this.__focusing && this._hideColorPicker();
                 }))
             ]);
         },
         _initColorPicker: function () {
-            this.colorPickerRef = new ColorPicker({
+            var picker = this.picker = new ColorPicker({
                 value: this.value || "#ffffff"
             });
-            this.colorPickerRef.placeAt(this.ownerDocument.body);
-            this.colorPickerRef.startup();
+            picker.placeAt(this.ownerDocument.body);
+            picker.startup();
 
             this.own([
-                this.colorPickerRef.on("change", lang.hitch(this, function (color) {
+                picker.on("change", lang.hitch(this, function (color) {
                     this._updateColor(color);
                 })),
-                on(this.colorPickerRef.domNode, "mouseenter", lang.hitch(this, function (e) {
-                    this.focusing = true;
+                on(picker.domNode, "mouseenter", lang.hitch(this, function (e) {
+                    this.__focusing = true;
                 })),
-                on(this.colorPickerRef.domNode, "mouseleave", lang.hitch(this, function (e) {
-                    this.focusing = false;
+                on(picker.domNode, "mouseleave", lang.hitch(this, function (e) {
+                    this.__focusing = false;
                 }))
             ]);
         },
         _updateColor: function (color, updatePicker) {
-            if (color) {
-                color = Color.fromString(color).toHex();
+            var col = Color.fromString(color || "#ffffff"),
+                hex = col.toHex(),
+                rgba = col.toString(),
+                fireChange = this.value != rgba;
+
+            this.inputNode.value = hex;
+            this._set("value", rgba);
+            domStyle.set(this.swatchNode, "backgroundColor", rgba);
+            if (updatePicker) {
+                this.picker.set("value", rgba);
             }
-            this._set("value", color);
-            this.textbox.value = color;
-            domStyle.set(this.swatchNode, "backgroundColor", color);
-            if (color && updatePicker) {
-                this.colorPickerRef.set("value", color);
+            if (fireChange) {
+                this.onChange(this.value);
             }
-            this.onChange(this.get("value"));
         },
         _showColorPicker: function () {
             var position = domGeometry.position(this.domNode, true);
-            domStyle.set(this.colorPickerRef.domNode, {
+            domStyle.set(this.picker.domNode, {
                 position: "absolute",
                 zIndex: 10000,
                 left: position.x + "px",
@@ -86,19 +93,22 @@ define([
             });
         },
         _hideColorPicker: function () {
-            domStyle.set(this.colorPickerRef.domNode, "display", "none");
+            domStyle.set(this.picker.domNode, "display", "none");
         },
         _setValueAttr: function (color) {
             this._updateColor(color, true);
+        },
+        _setShowInputAttr: function (showInput) {
+            this._set("showInput", showInput);
+            domStyle.set(this.inputNode, "display", this.showInput ? "display" : "none");
         },
         onChange: function (newValue) {
         },
         destroy: function () {
             this.inherited(arguments);
-            this.colorPickerRef && this.colorPickerRef.destroyRecursive();
-            delete this.colorPickerRef;
+            delete this.picker;
             delete this.swatchNode;
-            delete this.textbox;
+            delete this.inputNode;
         }
     });
 });

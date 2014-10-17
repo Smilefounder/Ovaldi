@@ -31,19 +31,24 @@ define([
         },
         css: function (css) {
             if (css) {
-                this.familyNode.value = css["font-family"] || "";
-                this.sizeSpinner.set("value", css["font-size"] || "");
+                this.familyNode.value = css["fontFamily"] || "";
+                this.sizeSpinner.set("value", css["fontSize"] || "");
                 this.colorBox.set("value", css["color"] || "");
             }
             else {
                 return {
-                    "font-family": this.familyNode.value,
-                    "font-size": this.sizeSpinner.get("value"),
+                    "fontFamily": this.familyNode.value,
+                    "fontSize": this.sizeSpinner.get("value"),
                     "color": this.colorBox.get("value")
                 };
             }
         },
         onChange: function (css) {
+        },
+        reset:function(){
+            this.familyNode.value="";
+            this.sizeSpinner.set("value","");
+            this.colorBox.set("value","");
         },
         destroy: function () {
             this.inherited(arguments);

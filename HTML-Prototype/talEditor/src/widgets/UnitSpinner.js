@@ -7,10 +7,12 @@ define([
     "dojo/on",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
-    "dojo/text!./templates/UnitSpinner.html"
-], function (declare, lang, on, _WidgetBase, _TemplatedMixin, template) {
-    var nonNumericRegExp = /^[^\d]*$/;
-    return declare([_WidgetBase, _TemplatedMixin], {
+    "dijit/_WidgetsInTemplateMixin",
+    "dojo/text!./templates/UnitSpinner.html",
+    "tal/string"
+], function (declare, lang, on, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template, string) {
+    var numberRegExp = /^\d/;
+    return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-unit-spinner",
         templateString: template,
         min: 0,
@@ -24,51 +26,54 @@ define([
             $(this.numberNode).spinner({
                 min: this.min,
                 stop: function () {
-                    self._set("number", this.value);
-                    self.onChange(self.get("value"));
+                    self.set("number", this.value);
+
                 },
                 change: function () {
-                    self._set("number", this.value);
-                    self.onChange(self.get("value"));
+                    self.set("number", this.value);
                 }
             });
+            this.own([
+                on(this.numberNode, "paste", lang.hitch(this, function (e) {
+                    var self = this;
+                    setTimeout(function () {
+                        self.set("number", parseFloat(self.numberNode.value) || 0);
+                    }, 0);
+                })),
+                on(this.numberNode, "blur", lang.hitch(this, function (e) {
+                    self.set("number", parseFloat(this.numberNode.value) || 0);
+                }))
+            ]);
         },
-        _parse: function (val) {
-            var number = parseFloat(val), unit;
-            if (!isNaN(number) && val.slice) {
-                var len = -3;//rem,em,px,pt...
+        _parse: function (value) {
+            var number = parseFloat(value) || 0, unit = "px";
+            if (value.slice) {
+                var len = -3, val;//rem,em,px,pt,%...
                 while (len < 0) {
-                    if (nonNumericRegExp.test(val.slice(len))) {
-                        unit = val.slice(len);
+                    if (!numberRegExp.test(val = value.slice(len))) {
+                        unit = val;
                         break;
                     }
                     len++;
                 }
             }
             this.set({
-                "number": isNaN(number) ? "" : number,
-                "unit": unit || "px"
+                "number": number,
+                "unit": unit
             });
-            this.onChange(this.get("value"));
         },
         _getValueAttr: function () {
-            function trimAll(str) {
-                return str.replace(/\s/g, '');
-            }
-
-            var number = trimAll(this.get("number")),
-                unit = this.get("unit");
-            return number.length ? (number + unit) : "";
+            return string.trimAll(this.get("number") + this.get("unit"));
         },
         _setValueAttr: function (value) {
             this._parse(value);
         },
-        _getNumberAttr: function () {
-            return this.numberNode.value;
-        },
         _setNumberAttr: function (number) {
-            this._set("number", number);
-            this.numberNode.value = number;
+            if (this.number != number) {
+                this._set("number", number);
+                this.numberNode.value = number;
+                this.onChange(this.get("value"));
+            }
         },
         _getUnitAttr: function () {
             return this.unit;

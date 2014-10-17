@@ -13,10 +13,10 @@ define([
     "dojo/text!./templates/CornerPanel.html"
 ], function (declare, lang, array, domStyle, domProp, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
     var styleMap = [
-        {css: "border-top-left-radius", to: "tlRef"},
-        {css: "border-top-right-radius", to: "trRef"},
-        {css: "border-bottom-left-radius", to: "blRef"},
-        {css: "border-bottom-right-radius", to: "brRef"}
+        {css: "borderTopLeftRadius", to: "tlRef"},
+        {css: "borderTopRightRadius", to: "trRef"},
+        {css: "borderBottomLeftRadius", to: "blRef"},
+        {css: "borderBottomRightRadius", to: "brRef"}
     ];
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-corner-panel",
@@ -33,54 +33,49 @@ define([
             var self = this, syncing = false;
 
             function _sync(spinner) {
-                if (syncing || !self.together) {
-                    return;
+                if (!syncing && self.together) {
+                    syncing = true;
+                    var value = spinner.get("value");
+                    if (self.tlRef != spinner) {
+                        self.tlRef.set("value", value);
+                    }
+                    if (self.trRef != spinner) {
+                        self.trRef.set("value", value);
+                    }
+                    if (self.blRef != spinner) {
+                        self.blRef.set("value", value);
+                    }
+                    if (self.brRef != spinner) {
+                        self.brRef.set("value", value);
+                    }
+                    syncing = false;
                 }
-                syncing = true;
-                var value = spinner.get("value");
-                if (self.tlRef != spinner) {
-                    self.tlRef.set("value", value);
-                }
-                if (self.trRef != spinner) {
-                    self.trRef.set("value", value);
-                }
-                if (self.blRef != spinner) {
-                    self.blRef.set("value", value);
-                }
-                if (self.brRef != spinner) {
-                    self.brRef.set("value", value);
-                }
-                syncing = false;
+                self._preview();
             }
 
             this.own([
                 this.tlRef.on("change", function (value) {
-                    domStyle.set(self.effectNode, "border-top-left-radius", value);
                     _sync(this);
                     self._onChange();
                 }),
                 this.trRef.on("change", function (value) {
-                    domStyle.set(self.effectNode, "border-top-right-radius", value);
                     _sync(this);
                     self._onChange();
                 }),
                 this.blRef.on("change", function (value) {
-                    domStyle.set(self.effectNode, "border-bottom-left-radius", value);
                     _sync(this);
                     self._onChange();
                 }),
                 this.brRef.on("change", function (value) {
-                    domStyle.set(self.effectNode, "border-bottom-right-radius", value);
                     _sync(this);
                     self._onChange();
                 })
             ]);
         },
-        sync: function (value) {
-            this.tlRef.set("value", value);
-            this.trRef.set("value", value);
-            this.blRef.set("value", value);
-            this.brRef.set("value", value);
+        _preview: function () {
+            array.forEach(styleMap, lang.hitch(this, function (item) {
+                domStyle.set(this.effectNode, item.css, this[item.to].get("value"));
+            }));
         },
         css: function (css) {
             var self = this;
@@ -107,13 +102,18 @@ define([
             domProp.set(this.lockNode, "checked", this.together);
             if (this.together) {
                 var value = this.tlRef.get("value") || this.trRef.get("value") || this.blRef.get("value") || this.brRef.get("value");
-                this.sync(value);
+                this._preview();
             }
         },
-        _onChange:function(){
+        _onChange: function () {
             this.onChange(this.css());
         },
         onChange: function (css) {
+        },
+        reset: function () {
+            array.forEach(styleMap, lang.hitch(this, function (item) {
+                this[item.to].set("value", "");
+            }));
         },
         destroy: function () {
             this.inherited(arguments);

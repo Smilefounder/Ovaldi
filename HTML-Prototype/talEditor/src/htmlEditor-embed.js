@@ -16,6 +16,7 @@ require([
     "tal/widgets/Masker",
     "dijit/registry",
     "dojox/uuid/generateTimeBasedUuid",
+    "dojo/main",
     "dojo/domReady!"
 ], function (config, lang, array, parser, on, keys, domClass, domAttr, domStyle, domConst, domGeom, Masker, registry) {
     var win = window,
@@ -94,7 +95,7 @@ require([
                 skips: ["#kbContainer"]
             });
             var skip = /^br$/i;
-            ptopic.subscribe("codeviewer/mouseover", function (e) {
+            ptopic.subscribe("codeviewer/mouseover", function (e) {console.log("mouseover",e.refEl);
                 if (e.refEl.nodeType == 1 && !skip.test(e.refEl.tagName)) {
                     kbHover.mask(e.refEl);
                 } else if (e.refEl.nodeType == 3) {

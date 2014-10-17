@@ -40,7 +40,7 @@
             "touch": 0
         },
         waitSeconds: 3, //timeout seconds
-        cacheBust: 0, //false:use cache
+        cacheBust: 1, //false:use cache
         parseOnLoad: 0,
         //async:1,
         deps: ["dojo/parser"],

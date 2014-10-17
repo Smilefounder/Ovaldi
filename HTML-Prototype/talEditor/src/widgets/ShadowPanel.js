@@ -21,7 +21,10 @@ define([
         blurSpinner: null,
         colorBox: null,
         opacitySlider: null,
-        css: function () {
+        css: function (css) {
+
+        },
+        reset:function(){
 
         },
         destroy: function () {

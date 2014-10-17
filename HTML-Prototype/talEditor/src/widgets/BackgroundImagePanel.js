@@ -10,7 +10,10 @@ define([
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "dojo/text!./templates/BackgroundImagePanel.html",
-    "dojo/i18n!./nls/BackgroundImagePanel"
+    "dojo/i18n!./nls/BackgroundImagePanel",
+    "tal/widgets/UnitSpinner",
+    "tal/widgets/ColorBox",
+    "tal/widgets/Slider"
 ], function (on, declare, lang, domAttr, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template, res) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-background-image-panel",
@@ -46,16 +49,17 @@ define([
         },
         css: function (css) {
             if (css) {
-                this.srcNode.src = css["background-image"] == "none" ? "" : css["background-image"].slice(4, -1);
-                this.repeatedNode.value = css["background-repeat"] || "";
-                this.positionXRef.set("value", css["background-position-x"] || "");
-                this.positionYRef.set("value", css["background-position-y"] || "");
+                this.srcNode.src = css["backgroundImage"] == "none" ? "" : css["backgroundImage"].slice(4, -1);
+                this.repeatedNode.value = css["backgroundRepeat"] || "";
+                var xy = (css["backgroundPosition"] || "").split(' ');
+                this.positionXRef.set("value", xy[0] || "");
+                this.positionYRef.set("value", xy[1] || "");
+
             } else {
                 return {
-                    "background-image": this.srcNode.src ? 'url(' + this.srcNode.src + ')' : '',
-                    "background-repeat": this.repeatedNode.value,
-                    "background-position-x": this.positionXRef.get("value"),
-                    "background-position-y": this.positionYRef.get("value")
+                    "backgroundImage": this.srcNode.src ? 'url(' + this.srcNode.src + ')' : '',
+                    "backgroundRepeat": this.repeatedNode.value,
+                    "backgroundPosition": this.positionXRef.get("value") + ' ' + this.positionYRef.get("value")
                 };
             }
         },

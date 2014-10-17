@@ -1,38 +1,48 @@
 <div class="${baseClass} common-form">
-    <table>
-        <tr>
-            <th><label>${labelWidth}</label></th>
-            <td>
-                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-props="min:0"
-                     data-dojo-attach-point="widthSpinner"></div>
-            </td>
-        </tr>
-        <tr>
-            <th><label>${labelStyle}</label></th>
-            <td>
-                <select data-dojo-attach-point="styleNode">
-                    <option value="none">None</option>
-                    <option value="dashed">Dashed</option>
-                    <option value="dotted">Dotted</option>
-                    <option value="double">Double</option>
-                    <option value="grovve">Grovve</option>
-                    <option value="ridge">Ridge</option>
-                    <option value="solid">Solid</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th><label>${labelColor}</label></th>
-            <td>
-                <div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="colorBox"></div>
-            </td>
-        </tr>
-        <tr>
-            <th><label>${labelOpacity}</label></th>
-            <td>
-                <div data-dojo-type="tal/widgets/Slider" data-dojo-props="min:0,max:1,step:0.1,value:1"
-                     data-dojo-attach-point="opacitySlider"></div>
-            </td>
-        </tr>
-    </table>
+    <p class="field">
+        <input type="checkbox" id="${id}_BorderLocker" data-dojo-attach-point="lockNode" data-dojo-attach-event="click:_lock">
+        <label class="inline" for="${id}_BorderLocker">Lock borders together</label>
+    </p>
+    <hr>
+    <div class="kb-border-editor">
+        <p class="note" style="display: none" data-dojo-attach-point="noteNode">Click each border to change styles:</p>
+        <div class="kb-border-editor-wrap">
+            <span class="border-top" data-edge="Top"></span>
+            <span class="border-right" data-edge="Right"></span>
+            <span class="border-bottom" data-edge="Bottom"></span>
+            <span class="border-left" data-edge="Left"></span>
+            <div class="box-model"></div>
+        </div>
+        <div class="common-form">
+            <table>
+                <tr>
+                    <th><label>${labelWidth}</label></th>
+                    <td>
+                        <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-props="min:0"
+                             data-dojo-attach-point="widthSpinner"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>${labelStyle}</label></th>
+                    <td>
+                        <select data-dojo-attach-point="styleNode">
+                            <option value="none">None</option>
+                            <option value="dashed">Dashed</option>
+                            <option value="dotted">Dotted</option>
+                            <option value="double">Double</option>
+                            <option value="groove">Groove</option>
+                            <option value="ridge">Ridge</option>
+                            <option value="solid">Solid</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>${labelColor}</label></th>
+                    <td>
+                        <div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="colorBox"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
