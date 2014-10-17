@@ -464,6 +464,126 @@
 		}
 	}
 }
+
+.kb-border-editor-v2 {
+	.kb-border-editor-wrap {
+		height: 170px;
+		position: relative;
+
+		.top,
+		.bottom,
+		.left,
+		.right {
+			position: absolute;
+			text-align: center;
+		}
+
+		.top,
+		.bottom {
+			height: 28px;
+			left: 0;
+			right: 0;
+		}
+
+		.top {
+			top: 0;
+		}
+
+		.bottom {
+			bottom: 0;
+		}
+
+		.left,
+		.right {
+			height: 80px;
+			margin-top: -40px;
+			top: 50%;
+			width: 68px;
+		}
+
+		.left {
+			left: 0;
+		}
+
+		.right {
+			right: 0;
+		}
+	}
+
+	.border-input {
+		background: #F5F5F5;
+		border: 1px solid #CCC;
+		display: inline-block;
+		height: 22px;
+		padding: 2px;
+
+		.ui-spinner {
+			float: left;
+			margin-right: 4px !important;
+
+			input {
+				height: 20px;
+				padding: 3px;
+				text-align: center;
+				width: 26px !important;
+			}
+		}
+
+		select {
+			height: 22px;
+			line-height: 1;
+			margin: 0 4px 0 0 !important;
+			padding: 0;
+			width: 65px;
+		}
+
+		.kb-color-input {
+			border: none;
+			padding: 0;
+
+			.color {
+				height: 22px;
+				width: 22px;
+			}
+		}
+
+		&.vertical {
+			height: 80px;
+			width: 100%;
+			.box-sizing(border-box);
+
+			.ui-spinner {
+				margin: 0 0 4px !important;
+				width: 100%;
+				.box-sizing(border-box);
+			}
+
+			select {
+				margin: 0 0 4px !important;
+				width: 100%;
+			}
+
+			.kb-color-input {
+				width: 100%;
+
+				.color {
+					width: 100%;
+					.box-sizing(border-box);
+				}
+			}
+		}
+	}
+
+	.box-model {
+		border: 3px solid #CCC;
+		bottom: 30px;
+		left: 70px;
+		margin: 0 auto;
+		position: absolute;
+		right: 70px;
+		top: 30px;
+	}
+}
 /* @module: Splitter */
 .kb-split-container {
 	height: 500px;
@@ -914,4 +1034,27 @@
 
 .dojoxColorPickerHex input {
 	width: 55px;
+}
+
+/* Kooboo Color Picker
+----------------------------------------------------------*/
+.kb-color-picker {
+	background: #F5F5F5;
+	border: 1px solid #CCC;
+	padding: 8px;
+
+	.dojoxColorPicker {
+		border: none;
+	}
+
+	.opacity {
+		border-bottom: 1px solid #DDD;
+		margin: 15px 0;
+		padding-bottom: 5px;
+
+		.title {
+			font-size: 12px;
+			font-weight: 400;
+		}
+	}
 }

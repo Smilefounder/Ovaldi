@@ -493,3 +493,29 @@ span.jquery-ui-spinner-rewrite .ui-spinner-down {
 		padding: 10px 5px;
 	}
 }
+
+/* Slider
+----------------------------------------------------------*/
+.ui-slider {
+	background: #D7D7D7;
+	border: 1px solid #BABABA;
+	clear: both;
+	height: 4px;
+	margin: 8px 0;
+	.rounded(2px);
+	.box-shadow("0 1px 0 #FFF, 0 1px 0 #CFCFCF inset");
+	.box-sizing(border-box);
+
+	.ui-slider-range {
+		background: #009AD7;
+		height: 100%;
+		top: -1px;
+	}
+
+	.ui-slider-handle {
+		border: none;
+		cursor: pointer;
+		top: -6px;
+		.sprite(@slider-button);
+	}
+}

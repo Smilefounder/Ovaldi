@@ -156,26 +156,28 @@
 													</div>
 												</div>
 												<div id="J_Tab2_3">
-													<div class="item convert">
-														<p>Convert this element into:</p>
-														<ul class="form-list vertical">
-															<li>
-																<input type="radio" value="label" id="TypeLabel" name="ConvertedType">
-																<label for="TypeLabel" class="inline">Label</label>
-															</li>
-															<li>
-																<input type="radio" value="data" id="TypeData" name="ConvertedType">
-																<label for="TypeData" class="inline">Data</label>
-															</li>
-															<li>
-																<input type="radio" value="repeatedItem" id="TypeRepeatedItem" name="ConvertedType">
-																<label for="TypeRepeatedItem" class="inline">Repeated item</label>
-															</li>
-															<li>
-																<input type="radio" value="form" id="TypeForm" name="ConvertedType">
-																<label for="TypeForm" class="inline">Submission form</label>
-															</li>
-														</ul>
+													<div class="panel-block">
+														<div class="box bg-light-gray">
+															<p>Convert this element into:</p>
+															<ul class="form-list vertical">
+																<li>
+																	<input type="radio" value="label" id="TypeLabel" name="ConvertedType">
+																	<label for="TypeLabel" class="inline">Label</label>
+																</li>
+																<li>
+																	<input type="radio" value="data" id="TypeData" name="ConvertedType">
+																	<label for="TypeData" class="inline">Data</label>
+																</li>
+																<li>
+																	<input type="radio" value="repeatedItem" id="TypeRepeatedItem" name="ConvertedType">
+																	<label for="TypeRepeatedItem" class="inline">Repeated item</label>
+																</li>
+																<li>
+																	<input type="radio" value="form" id="TypeForm" name="ConvertedType">
+																	<label for="TypeForm" class="inline">Submission form</label>
+																</li>
+															</ul>
+														</div>
 													</div>
 													<div class="panel-block">
 														<h6 class="title"><img alt="Toggle" class="sprite" src="images/invis.gif">Label</h6>
@@ -466,6 +468,56 @@
 									</td>
 								</tr>
 							</table>
+						</div>
+					</div>
+					<hr>
+					<div class="kb-border-editor-v2">
+						<div class="kb-border-editor-wrap">
+							<div class="top">
+								<div class="border-input">
+									<input class="J_Spinner" type="text" min="0" value="0">
+									<select>
+										<option>Solid</option>
+									</select>
+									<div class="kb-color-input">
+										<div class="color"><span style="background-color: #000;"></span></div>
+									</div>
+								</div>
+							</div>
+							<div class="bottom">
+								<div class="border-input">
+									<input class="J_Spinner" type="text" min="0" value="0">
+									<select>
+										<option>Solid</option>
+									</select>
+									<div class="kb-color-input">
+										<div class="color"><span style="background-color: #000;"></span></div>
+									</div>
+								</div>
+							</div>
+							<div class="left">
+								<div class="border-input vertical">
+									<input class="J_Spinner" type="text" min="0" value="0">
+									<select>
+										<option>Solid</option>
+									</select>
+									<div class="kb-color-input">
+										<div class="color"><span style="background-color: #000;"></span></div>
+									</div>
+								</div>
+							</div>
+							<div class="right">
+								<div class="border-input vertical">
+									<input class="J_Spinner" type="text" min="0" value="0">
+									<select>
+										<option>Solid</option>
+									</select>
+									<div class="kb-color-input">
+										<div class="color"><span style="background-color: #000;"></span></div>
+									</div>
+								</div>
+							</div>
+							<div class="box-model"></div>
 						</div>
 					</div>
 				</div>

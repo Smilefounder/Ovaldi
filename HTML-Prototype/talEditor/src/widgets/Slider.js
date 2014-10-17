@@ -14,6 +14,7 @@ define([
         step: 1,
         value: 0,
         orientation: "horizontal",//"horizontal" or "vertical"
+		range: "min",
         constructor: function (params) {
             declare.safeMixin(this, params);
         },
@@ -26,6 +27,7 @@ define([
                 step: this.step,
                 value: this.value,
                 orientation: this.orientation,
+				range: this.range,
                 change: function (evt, ui) {
                     if (self.value != ui.value) {
                         self._set("value", ui.value);

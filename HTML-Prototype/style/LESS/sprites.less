@@ -111,28 +111,29 @@
 @setting-small: "0 -1682px 12px 12px";
 @setting: "0 -1694px 26px 26px";
 @signout: "0 -1720px 12px 12px";
-@sort-asc: "0 -1732px 8px 11px";
-@sort-desc: "0 -1743px 8px 11px";
-@status-error: "0 -1754px 9px 9px";
-@status-normal: "0 -1763px 19px 19px";
-@status-off: "0 -1782px 9px 9px";
-@status-on: "0 -1791px 9px 9px";
-@status-warning: "0 -1800px 9px 9px";
-@switch: "0 -1809px 28px 28px";
-@tick: "0 -1837px 14px 12px";
-@trash-blue: "0 -1849px 16px 16px";
-@trash: "0 -1865px 26px 26px";
-@triangle-down-black: "0 -1891px 11px 12px";
-@triangle-right-black: "0 -1903px 12px 11px";
-@undo-blue: "0 -1914px 15px 13px";
-@undo-gray: "0 -1927px 15px 13px";
-@upload: "0 -1940px 26px 26px";
-@uploads: "0 -1966px 26px 26px";
-@users: "0 -1992px 16px 12px";
-@warning-small: "0 -2004px 12px 12px";
-@warning: "0 -2016px 28px 24px";
-@zoom-in: "0 -2040px 16px 16px";
-@zoom-out: "0 -2056px 16px 16px";
+@slider-button: "0 -1732px 16px 16px";
+@sort-asc: "0 -1748px 8px 11px";
+@sort-desc: "0 -1759px 8px 11px";
+@status-error: "0 -1770px 9px 9px";
+@status-normal: "0 -1779px 19px 19px";
+@status-off: "0 -1798px 9px 9px";
+@status-on: "0 -1807px 9px 9px";
+@status-warning: "0 -1816px 9px 9px";
+@switch: "0 -1825px 28px 28px";
+@tick: "0 -1853px 14px 12px";
+@trash-blue: "0 -1865px 16px 16px";
+@trash: "0 -1881px 26px 26px";
+@triangle-down-black: "0 -1907px 11px 12px";
+@triangle-right-black: "0 -1919px 12px 11px";
+@undo-blue: "0 -1930px 15px 13px";
+@undo-gray: "0 -1943px 15px 13px";
+@upload: "0 -1956px 26px 26px";
+@uploads: "0 -1982px 26px 26px";
+@users: "0 -2008px 16px 12px";
+@warning-small: "0 -2020px 12px 12px";
+@warning: "0 -2032px 28px 24px";
+@zoom-in: "0 -2056px 16px 16px";
+@zoom-out: "0 -2072px 16px 16px";
 
 .sprite (@sprite) {
 	background: url(./images/sprites.png) no-repeat e( `@{sprite}.split(' ')[0]` ) e( `@{sprite}.split(' ')[1]` );
@@ -822,134 +823,140 @@
 		width: 12px;
 	}
 
-	&.sort-asc {
+	&.slider-button {
 		background-position: 0 -1732px;
+		height: 16px;
+		width: 16px;
+	}
+
+	&.sort-asc {
+		background-position: 0 -1748px;
 		height: 11px;
 		width: 8px;
 	}
 
 	&.sort-desc {
-		background-position: 0 -1743px;
+		background-position: 0 -1759px;
 		height: 11px;
 		width: 8px;
 	}
 
 	&.status-error {
-		background-position: 0 -1754px;
+		background-position: 0 -1770px;
 		height: 9px;
 		width: 9px;
 	}
 
 	&.status-normal {
-		background-position: 0 -1763px;
+		background-position: 0 -1779px;
 		height: 19px;
 		width: 19px;
 	}
 
 	&.status-off {
-		background-position: 0 -1782px;
+		background-position: 0 -1798px;
 		height: 9px;
 		width: 9px;
 	}
 
 	&.status-on {
-		background-position: 0 -1791px;
+		background-position: 0 -1807px;
 		height: 9px;
 		width: 9px;
 	}
 
 	&.status-warning {
-		background-position: 0 -1800px;
+		background-position: 0 -1816px;
 		height: 9px;
 		width: 9px;
 	}
 
 	&.switch {
-		background-position: 0 -1809px;
+		background-position: 0 -1825px;
 		height: 28px;
 		width: 28px;
 	}
 
 	&.tick {
-		background-position: 0 -1837px;
+		background-position: 0 -1853px;
 		height: 12px;
 		width: 14px;
 	}
 
 	&.trash-blue {
-		background-position: 0 -1849px;
+		background-position: 0 -1865px;
 		height: 16px;
 		width: 16px;
 	}
 
 	&.trash {
-		background-position: 0 -1865px;
+		background-position: 0 -1881px;
 		height: 26px;
 		width: 26px;
 	}
 
 	&.triangle-down-black {
-		background-position: 0 -1891px;
+		background-position: 0 -1907px;
 		height: 12px;
 		width: 11px;
 	}
 
 	&.triangle-right-black {
-		background-position: 0 -1903px;
+		background-position: 0 -1919px;
 		height: 11px;
 		width: 12px;
 	}
 
 	&.undo-blue {
-		background-position: 0 -1914px;
+		background-position: 0 -1930px;
 		height: 13px;
 		width: 15px;
 	}
 
 	&.undo-gray {
-		background-position: 0 -1927px;
+		background-position: 0 -1943px;
 		height: 13px;
 		width: 15px;
 	}
 
 	&.upload {
-		background-position: 0 -1940px;
+		background-position: 0 -1956px;
 		height: 26px;
 		width: 26px;
 	}
 
 	&.uploads {
-		background-position: 0 -1966px;
+		background-position: 0 -1982px;
 		height: 26px;
 		width: 26px;
 	}
 
 	&.users {
-		background-position: 0 -1992px;
+		background-position: 0 -2008px;
 		height: 12px;
 		width: 16px;
 	}
 
 	&.warning-small {
-		background-position: 0 -2004px;
+		background-position: 0 -2020px;
 		height: 12px;
 		width: 12px;
 	}
 
 	&.warning {
-		background-position: 0 -2016px;
+		background-position: 0 -2032px;
 		height: 24px;
 		width: 28px;
 	}
 
 	&.zoom-in {
-		background-position: 0 -2040px;
+		background-position: 0 -2056px;
 		height: 16px;
 		width: 16px;
 	}
 
 	&.zoom-out {
-		background-position: 0 -2056px;
+		background-position: 0 -2072px;
 		height: 16px;
 		width: 16px;
 	}
