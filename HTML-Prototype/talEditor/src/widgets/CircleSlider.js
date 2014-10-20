@@ -12,7 +12,19 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/text!./templates/CircleSlider.html"
 ], function (on, touch, declare, lang, domStyle, geom, _WidgetBase, _TemplatedMixin, template) {
-    
+    /*
+     //example
+     var r = 180;
+     var b = document.getElementById("earth");
+     var a = 0;
+     var xy = {top: 0, left: 0};
+     setInterval(function(){
+     xy.top = 300 - Math.sin(a)* r;
+     xy.left = 400 - Math.cos(a)* r;
+     b.setAttribute("style", 'top: ' + xy.top + 'px; left: ' + xy.left + 'px');
+     a += 0.01;
+     },10);
+     */
     return declare([_WidgetBase, _TemplatedMixin], {
         baseClass: "kb-circle-slider",
         templateString: template,
@@ -57,9 +69,9 @@ define([
             }
         },
         setKnob: function (angle) {
-            var rad = this.radian(angle);
-            var left = 50 + Math.sin(rad) * this.radius;
-            var top = 50 - Math.cos(rad) * this.radius;
+            var rad = this.radian(angle),
+                left = 50 + Math.sin(rad) * this.radius,
+                top = 50 - Math.cos(rad) * this.radius;
             domStyle.set(this.knobNode, {
                 position: "relative",
                 top: top + "px",
@@ -86,12 +98,21 @@ define([
             }
 
             angle = angle > 359 ? 0 : Math.round(angle);
+            this.set("angle", angle);
+        },
+        _setAngleAttr: function (angle) {
+            if (this.angle != angle) {
+                this._set("angle", angle);
+                this.setKnob(angle);
+                this.onChange(angle);
+            }
+        },
+        onChange: function (angle) {
             console.log(angle);
-            this.setKnob(angle);
         },
         _onClick: function (e) {
             var pos = geom.position(this.domNode, true);
-            var l = e.offsetX || e.pageX - pos.x, t = e.offsetY || e.pageY - pos.y;
+            var l = e.pageX - pos.x, t = e.pageY - pos.y;
             this._compute(l, t);
         },
         //弧度数
