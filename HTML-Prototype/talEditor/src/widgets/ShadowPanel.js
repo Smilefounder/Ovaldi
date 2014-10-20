@@ -35,10 +35,13 @@ define([
         postCreate: function () {
             this.inherited(arguments);
             this.set("enable", this.enable);
-            var self=this;
+            var self = this;
             this.own([
-                this.circleSlider.on("change",function(newValue){
-                    self.directionSpinner.set("value",newValue);
+                this.circleSlider.on("change", function (newValue) {
+                    self.directionSpinner.set("value", newValue);
+                }),
+                this.directionSpinner.on("change", function (newValue) {
+                    self.circleSlider.set("value", newValue);
                 })
             ]);
         },
