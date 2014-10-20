@@ -13,112 +13,119 @@ define([
     "dojo/text!./templates/CornerPanel.html",
     "./UnitSpinner"
 ], function (declare, lang, array, domStyle, domProp, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
-    var styleMap = [
-        {css: "borderTopLeftRadius", to: "tlRef"},
-        {css: "borderTopRightRadius", to: "trRef"},
-        {css: "borderBottomLeftRadius", to: "blRef"},
-        {css: "borderBottomRightRadius", to: "brRef"}
-    ];
+
+    var arr = ["topLeftRadius", "topRightRadius", "bottomLeftRadius", "bottomRightRadius"];
+    var pascalAlpha = /^([a-z])/i;
+
+    function fpamelCase(all, letter) {
+        return (letter + "").toUpperCase();
+    }
+
+    function pascalCase(str) {
+        return str.replace(pascalAlpha, fpamelCase);
+    }
+
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-corner-panel",
         templateString: template,
         effectNode: null,
         lockNode: null,
-        together: true,
-        tlRef: null,
-        trRef: null,
-        blRef: null,
-        brRef: null,
+
+        lock: false,
+        topLeftRadius: null,
+        topRightRadius: null,
+        bottomLeftRadius: null,
+        bottomRightRadius: null,
+        _onChangeActive: false,
+        create: function () {
+            this.inherited(arguments);
+            this._onChangeActive = true;
+        },
         startup: function () {
             this.inherited(arguments);
-            var self = this, syncing = false;
+            this._preview();
+            var self = this;
 
-            function _sync(spinner) {
-                if (!syncing && self.together) {
-                    syncing = true;
-                    var value = spinner.get("value");
-                    if (self.tlRef != spinner) {
-                        self.tlRef.set("value", value);
+            this._syncing = false;
+            array.forEach(arr, function (it) {
+                self.own(self[it].on("change", function (newValue) {
+                    if (self.lock && !self._syncing) {
+                        self._syncing = true;
+                        array.forEach(arr, function (ot) {
+                            if (ot != it) {
+                                self[ot].set("value", newValue);
+                            }
+                        });
+                        self._syncing = false;
                     }
-                    if (self.trRef != spinner) {
-                        self.trRef.set("value", value);
+                    if (!self._syncing && self._onChangeActive) {
+                        self.onChange(self.css());
+                        self._preview();
                     }
-                    if (self.blRef != spinner) {
-                        self.blRef.set("value", value);
-                    }
-                    if (self.brRef != spinner) {
-                        self.brRef.set("value", value);
-                    }
-                    syncing = false;
-                }
-                self._preview();
-            }
-
-            this.own([
-                this.tlRef.on("change", function (value) {
-                    _sync(this);
-                    self._onChange();
-                }),
-                this.trRef.on("change", function (value) {
-                    _sync(this);
-                    self._onChange();
-                }),
-                this.blRef.on("change", function (value) {
-                    _sync(this);
-                    self._onChange();
-                }),
-                this.brRef.on("change", function (value) {
-                    _sync(this);
-                    self._onChange();
-                })
-            ]);
+                }));
+            });
         },
         _preview: function () {
-            array.forEach(styleMap, lang.hitch(this, function (item) {
-                domStyle.set(this.effectNode, item.css, this[item.to].get("value"));
+            array.forEach(arr, lang.hitch(this, function (it) {
+                domStyle.set(this.effectNode, it.css, this[it].get("value"));
             }));
         },
         css: function (css) {
             var self = this;
             if (css) {
-                array.forEach(styleMap, function (item) {
-                    if (item.css in css) {
-                        self[item.to].set("value", css[item.css]);
-                        domStyle.set(self.effectNode, item.css, css[item.css]);
-                    }
+                this.set("lock", this.isIdentical(css));
+                array.forEach(arr, function (it) {
+                    self[it].set("value", css["border" + pascalCase(it)]);
                 });
             } else {
                 var ret = {};
-                array.forEach(styleMap, function (item) {
-                    ret[item.css] = self[item.to].get("value");
+                array.forEach(arr, function (it) {
+                    ret["border" + pascalCase(it)] = self[it].get("value");
                 });
                 return ret;
             }
         },
-        _lockTogether: function () {
-            this.set("together", !this.together);
+        _lock: function () {
+            this.set("lock", this.lockNode.checked);
         },
-        _setTogetherAttr: function (together) {
-            this._set("together", together);
-            domProp.set(this.lockNode, "checked", this.together);
-            if (this.together) {
-                var value = this.tlRef.get("value") || this.trRef.get("value") || this.blRef.get("value") || this.brRef.get("value");
+        _setLockAttr: function (lock) {
+            this._set("lock", lock);
+            lock && this.sync();
+            domProp.set(this.lockNode, "checked", lock);
+        },
+        sync: function () {
+            var self = this, val = this.topLeftRadius.get("value");
+            this._syncing = true;
+            array.forEach(arr, function (it) {
+                self[it].set("value", val);
+            });
+            this._syncing = false;
+            if (this._onChangeActive) {
+                this.onChange(this.css());
                 this._preview();
             }
         },
-        _onChange: function () {
-            this.onChange(this.css());
+        isIdentical: function (cs) {
+            var tl = cs["borderTopLeftRadius"];
+            return array.every(arr, function (it) {
+                return tl == cs["border" + pascalCase(it)];
+            });
         },
         onChange: function (css) {
         },
         reset: function () {
-            array.forEach(styleMap, lang.hitch(this, function (item) {
-                this[item.to].set("value", "");
+            this.set("lock", false);
+            array.forEach(arr, lang.hitch(this, function (it) {
+                this[it].set("value", "0px");
             }));
         },
         destroy: function () {
             this.inherited(arguments);
             delete this.lockNode;
+            delete this.topLeftRadius;
+            delete this.topRightRadius;
+            delete this.bottomLeftRadius;
+            delete this.bottomRightRadius;
         }
     });
 });

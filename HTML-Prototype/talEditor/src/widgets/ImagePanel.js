@@ -32,8 +32,8 @@ define([
         startup: function () {
             this.inherited(arguments);
             this.own([
-                on(this.altNode, "blur", lang.hitch(this, this._onChange)),
-                on(this.titleNode, "blur", lang.hitch(this, this._onChange))
+                on(this.altNode, "change", lang.hitch(this, this._onChange)),
+                on(this.titleNode, "change", lang.hitch(this, this._onChange))
             ]);
         },
         value: function (obj) {

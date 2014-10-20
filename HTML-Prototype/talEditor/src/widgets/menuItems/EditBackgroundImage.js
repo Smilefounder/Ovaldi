@@ -2,11 +2,12 @@
  * Created by Raoh on 2014/10/11.
  */
 define([
+    "dojo/topic",
     "dojo/_base/declare",
     "dojo/dom-style",
     "tal/widgets/BackgroundImageDialog",
     "./MenuItem"
-], function (declare, domStyle, BackgroundImageDialog, MenuItem) {
+], function (topic, declare, domStyle, BackgroundImageDialog, MenuItem) {
     return declare([MenuItem], {
         text: "Edit background image",
         dialog: null,
@@ -29,6 +30,7 @@ define([
                     this.css(cs);
                     handler = this.on("change", function (css) {
                         domStyle.set(self.el, css);
+                        topic.publish("dom/modified", {target: self.el});
                     });
                 });
                 self.dialog.on("beforeClose", function () {
@@ -40,7 +42,7 @@ define([
                 });
                 self.dialog.callback = function () {
                     $.pop({
-                        url: "http://192.168.1.231:9999/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
+                        url: "http://192.168.1.231:9998/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
                         width: 900,
                         height: 500,
                         dialogClass: 'iframe-dialog',

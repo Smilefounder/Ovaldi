@@ -25,7 +25,6 @@ define([
         dock: null,//vertical:"top"/"bottom",horizontal:"left"/"right"
         lastPoint: null,
         constructor: function () {
-            this.inherited(arguments);
             this._handlers = [];
         },
         startup: function () {
@@ -118,11 +117,9 @@ define([
             e.stopPropagation();
             e.preventDefault();
         },
-        _stopDrag: function (e) {
+        _stopDrag: function () {
             this._cleanupHandlers();
-            this.emit("StopDrag", e, []);
-            e.stopPropagation();
-            e.preventDefault();
+            this.emit("StopDrag");
         },
         _cleanupHandlers: function () {
             var h;

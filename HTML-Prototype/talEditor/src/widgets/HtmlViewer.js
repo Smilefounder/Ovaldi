@@ -90,7 +90,6 @@
 
             //处理折叠事件
             this.own(on(this.treeNode, on.selector(".sprite", "click"), lang.hitch(this, function (e) {
-                console.log("collapse");
                 var uuid = domAttr.get(e.target, this.uuidKey),
                     collapseHandler = query("li[" + this.uuidKey + "='" + uuid + "']", this.treeNode)[0],
                     collapsed = domClass.contains(collapseHandler, "collapsed");
@@ -131,7 +130,9 @@
                                 unedit(el);
                                 this._cleanupHandlers();
 
-                                var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode),
+                                var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode).filter(function (it) {
+                                        return !domClass.contains(it, "node-empty");
+                                    }),
                                     idx = spans.indexOf(el);
 
                                 if (newAttr != oldAttr) {
@@ -176,7 +177,9 @@
                             unedit(el);
                             this._cleanupHandlers();
 
-                            var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode),
+                            var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode).filter(function(it){
+                                    return !domClass.contains(it, "node-empty");
+                                }),
                                 idx = spans.indexOf(el);
 
                             for (var i = idx + 1, j = spans.length; i < j; i++) {
@@ -212,7 +215,9 @@
                             unedit(el);
                             this._cleanupHandlers();
 
-                            var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode),
+                            var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode).filter(function(it){
+                                    return !domClass.contains(it, "node-empty");
+                                }),
                                 idx = spans.indexOf(el);
                             for (var i = idx + 1, j = spans.length; i < j; i++) {
                                 if (spans[i] && spans[i].parentNode) {
@@ -257,7 +262,9 @@
                             this._cleanupHandlers();
 
                             var attr = attrNameEl.textContent = trimAll(attrNameEl.textContent),
-                                spans = query("span.attr-name,span.attr-value,span.node-text", this.treeNode),
+                                spans = query("span.attr-name,span.attr-value,span.node-text", this.treeNode).filter(function(it){
+                                    return !domClass.contains(it, "node-empty");
+                                }),
                                 idx = spans.indexOf(attrNameEl);
 
                             if (attr) {
@@ -323,6 +330,7 @@
             if (!this._treeTemplate) {
                 this._treeTemplate = _.template(this.treeTmpl.innerHTML);
             }
+
             var utils = {
                 getUuid: function (node) {
                     var uuid = node[self.uuidKey];
@@ -341,8 +349,8 @@
                 isTextOnly: function (node) {
                     return node.nodeType == 3 || !node.firstElementChild;
                 },
-                isEmpty:function(node){
-                    return whiteSpaceRegExp.test(node.textContent);
+                isEmpty: function (node) {
+                    return node.textContent.trim().length == 0;
                 },
                 isVoidElement: function (node) {
                     return voidElementsRegExp.test(node.tagName);

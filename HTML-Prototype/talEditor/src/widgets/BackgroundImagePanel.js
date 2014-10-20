@@ -62,6 +62,14 @@ define([
                 };
             }
         },
+        src: function (src) {
+            if (src) {
+                this.srcNode.src = src;
+                this._onChange();
+            } else {
+                return this.srcNode.src;
+            }
+        },
         _onChange: function () {
             this.onChange(this.css());
         },

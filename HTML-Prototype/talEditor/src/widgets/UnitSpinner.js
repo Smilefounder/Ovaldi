@@ -7,17 +7,17 @@ define([
     "dojo/on",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
-    "dijit/_WidgetsInTemplateMixin",
     "dojo/text!./templates/UnitSpinner.html",
     "tal/string"
-], function (declare, lang, on, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template, string) {
+], function (declare, lang, on, _WidgetBase, _TemplatedMixin, template, string) {
     var numberRegExp = /^\d/;
-    return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+    return declare([_WidgetBase, _TemplatedMixin], {
         baseClass: "kb-unit-spinner",
         templateString: template,
         min: 0,
-        number: null,
-        unit: "px",//default is "px"
+        number: 0,
+        unit: "px",
+        value: "0px",
         numberNode: null,
         unitNode: null,
         buildRendering: function () {
@@ -25,6 +25,9 @@ define([
             var self = this;
             $(this.numberNode).spinner({
                 min: this.min,
+                create: function () {
+                    this.value = self.number;
+                },
                 stop: function () {
                     self.set("number", this.value);
                 },
@@ -36,16 +39,16 @@ define([
                 on(this.numberNode, "paste", lang.hitch(this, function (e) {
                     var self = this;
                     setTimeout(function () {
-                        self.set("number", parseFloat(self.numberNode.value) || 0);
+                        self.set("number", self.numberNode.value);
                     }, 0);
                 })),
                 on(this.numberNode, "blur", lang.hitch(this, function (e) {
-                    self.set("number", parseFloat(this.numberNode.value) || 0);
+                    this.set("number", this.numberNode.value);
                 }))
             ]);
         },
-        _parse: function (value) {
-            var number = parseFloat(value) || 0, unit = "px";
+        _setValueAttr: function (value) {
+            var oldValue = this.value, number = parseFloat(value) || 0, unit = "px";
             if (value.slice) {
                 var len = -3, val;//rem,em,px,pt,%...
                 while (len < 0) {
@@ -56,29 +59,21 @@ define([
                     len++;
                 }
             }
-            this.set({
-                "number": number,
-                "unit": unit
-            });
-        },
-        _getValueAttr: function () {
-            return string.trimAll(this.get("number") + this.get("unit"));
-        },
-        _setValueAttr: function (value) {
-            this._parse(value);
+            this.set("unit", unit);//先赋值Unit，否则赋值number时触发onChange事件，取不到unit值
+            this.set("number", number);
         },
         _setNumberAttr: function (number) {
             if (this.number != number) {
-                this._set("number", number);
-                this.numberNode.value = number;
-                this.onChange(this.get("value"));
+                var n = parseFloat(number) || 0;
+                this._set("number", n);
+                this.numberNode.value = this.number;
+                this.value = this.number + this.unit;
+                this.onChange(this.value);
             }
-        },
-        _getUnitAttr: function () {
-            return this.unit;
         },
         _setUnitAttr: function (unit) {
             this._set("unit", unit);
+            this.value = this.number + this.unit;
             this.unitNode.textContent = unit;
         },
         onChange: function (newValue) {

@@ -67,7 +67,7 @@ define([
             ]);
         },
         _updateColor: function (color, updatePicker) {
-            var col = Color.fromString(color || "#ffffff"),
+            var col = Color.fromString(color) || Color.fromString("#ffffff"),
                 hex = col.toHex(),
                 rgba = col.toString(),
                 fireChange = this.value != rgba;
@@ -100,7 +100,7 @@ define([
         },
         _setShowInputAttr: function (showInput) {
             this._set("showInput", showInput);
-            domStyle.set(this.inputNode, "display", this.showInput ? "display" : "none");
+            domStyle.set(this.inputNode, "display", this.showInput ? "block" : "none");
         },
         onChange: function (newValue) {
         },

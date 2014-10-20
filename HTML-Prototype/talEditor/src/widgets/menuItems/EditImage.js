@@ -37,6 +37,7 @@ define([
                         self.el.src = value["src"];
                         self.el.alt = value["alt"];
                         self.el.title = value["title"];
+                        topic.publish("dom/modified", {target: self.el});
                     });
                 });
                 self.dialog.on("beforeClose", function () {
@@ -48,7 +49,7 @@ define([
                 });
                 this.dialog.callback = function () {
                     $.pop({
-                        url: "http://192.168.1.231:9999/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
+                        url: "http://192.168.1.231:9998/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
                         width: 900,
                         height: 500,
                         dialogClass: 'iframe-dialog',

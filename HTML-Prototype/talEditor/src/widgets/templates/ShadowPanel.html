@@ -1,26 +1,36 @@
 <div class="common-form">
     <p class="field">
-        <input type="checkbox" id="ShadowEnable" checked="checked">
-        <label class="inline" for="ShadowEnable">${labelEnableShadow}</label>
+        <input type="checkbox" id="${id}_ShadowEnable" checked="checked" data-dojo-attach-point="enableNode"
+                data-dojo-attach-event="click:_enable">
+        <label class="inline" for="${id}_ShadowEnable">${labelEnableShadow}</label>
     </p>
+    <div style="position:relative;height:100px;">
+        <div data-dojo-type="tal/widgets/CircleSlider"></div>
+    </div>
     <hr>
     <table>
         <tr>
             <th><label>${labelDirection}</label></th>
             <td>
-                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="directionSpinner"></div>
+                <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="directionSpinner"></div>°
             </td>
         </tr>
         <tr>
             <th><label>${labelDistance}</label></th>
             <td>
-                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="distanceSpinner"></div>
+                <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="distanceSpinner"></div>px
             </td>
         </tr>
         <tr>
             <th><label>${labelBlur}</label></th>
             <td>
-                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="blurSpinner"></div>
+                <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="blurSpinner"></div>px
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelSize}</label></th>
+            <td>
+                <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="sizeSpinner"></div>px
             </td>
         </tr>
         <tr>

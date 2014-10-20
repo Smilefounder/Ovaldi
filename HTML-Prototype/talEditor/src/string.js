@@ -9,6 +9,7 @@ define([
     function fcamelCase(all, letter) {
         return (letter + "").toUpperCase();
     }
+
     return{
         trimAll: function (str) {
             return (str || '').replace(/\s/g, '');

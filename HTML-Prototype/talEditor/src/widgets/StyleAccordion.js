@@ -53,6 +53,20 @@ define([
             this.corner.on("change", _onChange);
             this.shadow.on("change", _onChange);
             this.font.on("change", _onChange);
+            this.background.callback = function () {
+                $.pop({
+                    url: "http://192.168.1.231:9998/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
+                    width: 900,
+                    height: 500,
+                    dialogClass: 'iframe-dialog',
+                    frameHeight: '100%',
+                    onload: function (handle, pop, config) {
+                        window.onFileSelected = function (src, text) {
+                            self.background.src(src);
+                        };
+                    }
+                });
+            }
         },
         css: function (css) {
             if (css) {

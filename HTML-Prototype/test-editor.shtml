@@ -1,5 +1,6 @@
 <!--#include file="includes/head.shtml" -->
 <body>
+<div id="circle" data-dojo-type="tal/widgets/CircleSlider"></div>
 <div id="body-container" class="no-sidebar">
 	<header id="header">
 		<!--#include file="includes/header/logo.shtml" -->
