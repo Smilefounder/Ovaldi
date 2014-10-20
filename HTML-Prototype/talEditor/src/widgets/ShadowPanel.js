@@ -7,6 +7,7 @@ define([
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "dojo/text!./templates/ShadowPanel.html",
+    "./CircleSlider",
     "./UnitSpinner",
     "./ColorBox"
 ], function (declare, has, sniff, domProp, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
@@ -23,7 +24,7 @@ define([
         labelBlur: "Blur",
         labelSize: "Size",
         labelColor: "Color",
-        labelOpacity: "Opacity",
+        circleSlider: null,
         directionSpinner: null,
         distanceSpinner: null,
         blurSpinner: null,
@@ -34,6 +35,12 @@ define([
         postCreate: function () {
             this.inherited(arguments);
             this.set("enable", this.enable);
+            var self=this;
+            this.own([
+                this.circleSlider.on("change",function(newValue){
+                    self.directionSpinner.set("value",newValue);
+                })
+            ]);
         },
         css: function (css) {
             if (css) {
@@ -43,11 +50,6 @@ define([
                     var arr = shadow.match(/\d+px/ig);
                     var c = shadow.match(/rgb\(.*\)/ig)[0], h = toFloat(arr[0]), v = toFloat(arr[1]), b = toFloat(arr[2]), s = toFloat(arr[3]);
 
-                    var angle = (h == 0 || v == 0) ? 0 : Math.atan(v / h) * 180 / Math.PI;
-                    var edge = Math.round(Math.sqrt(Math.pow(h, 2) + Math.pow(v, 2)));
-                    console.log("angle", angle, "edge", edge, "h", h, "v", v);
-                    this.directionSpinner.set("value", Math.round(angle));
-                    this.distanceSpinner.set("value", edge);
                     this.blurSpinner.set("value", toFloat(b));
                     this.sizeSpinner.set("value", toFloat(s));
                     this.colorBox.set("value", c);
@@ -57,6 +59,7 @@ define([
             }
         },
         reset: function () {
+            this.circleSlider.set("value", 0);
             this.directionSpinner.set("value", 0);
             this.distanceSpinner.set("value", 0);
             this.blurSpinner.set("value", 0);

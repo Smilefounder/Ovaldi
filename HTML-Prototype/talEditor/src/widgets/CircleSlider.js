@@ -30,7 +30,7 @@ define([
         templateString: template,
         radius: 50,
         knobNode: null,
-        angle: 0,
+        value: 0,
         constructor: function () {
             this._handlers = [];
         },
@@ -97,12 +97,13 @@ define([
                 angle = 360 - angle;
             }
 
-            angle = angle > 359 ? 0 : Math.round(angle);
-            this.set("angle", angle);
+            angle = Math.round(angle) % 360;
+            this.set("value", angle);
         },
-        _setAngleAttr: function (angle) {
+        _setValueAttr: function (angle) {
+            angle = angle % 360;
             if (this.angle != angle) {
-                this._set("angle", angle);
+                this._set("value", angle);
                 this.setKnob(angle);
                 this.onChange(angle);
             }
