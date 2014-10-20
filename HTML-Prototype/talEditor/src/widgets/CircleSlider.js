@@ -36,7 +36,7 @@ define([
         },
         postCreate: function () {
             this.inherited(arguments);
-            this.setKnob(0);
+            this.set("value", 0);
         },
         _startDrag: function (e) {
             var de = this.ownerDocument;
@@ -46,27 +46,10 @@ define([
                     var l = e.pageX - pos.x, t = e.pageY - pos.y;
                     this._compute(l, t);
                 })),
-                on(this.domNode, "dragstart", function (e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                }),
-                on(this.domNode, "selectstart", function (e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                }),
                 on(de, touch.release, lang.hitch(this, "_stopDrag"))
             ]);
             e.stopPropagation();
             e.preventDefault();
-        },
-        _stopDrag: function () {
-            this._cleanupHandlers();
-        },
-        _cleanupHandlers: function () {
-            var h;
-            while (h = this._handlers.pop()) {
-                h.remove();
-            }
         },
         setKnob: function (angle) {
             var rad = this.radian(angle),
@@ -109,12 +92,20 @@ define([
             }
         },
         onChange: function (angle) {
-            console.log(angle);
         },
         _onClick: function (e) {
             var pos = geom.position(this.domNode, true);
             var l = e.pageX - pos.x, t = e.pageY - pos.y;
             this._compute(l, t);
+        },
+        _stopDrag: function () {
+            this._cleanupHandlers();
+        },
+        _cleanupHandlers: function () {
+            var h;
+            while (h = this._handlers.pop()) {
+                h.remove();
+            }
         },
         //弧度数
         radian: function (n) {

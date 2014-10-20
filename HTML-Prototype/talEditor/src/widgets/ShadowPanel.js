@@ -79,6 +79,7 @@ define([
                 this.reset();
             }
         },
+        onChange:function(){},
         destroy: function () {
             this.inherited(arguments);
             delete this.directionSpinner;
