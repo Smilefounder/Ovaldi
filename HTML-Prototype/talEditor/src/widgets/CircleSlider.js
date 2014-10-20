@@ -12,19 +12,7 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/text!./templates/CircleSlider.html"
 ], function (on, touch, declare, lang, domStyle, geom, _WidgetBase, _TemplatedMixin, template) {
-    /*
-     //example
-     var r = 180;
-     var b = document.getElementById("earth");
-     var a = 0;
-     var xy = {top: 0, left: 0};
-     setInterval(function(){
-     xy.top = 300 - Math.sin(a)* r;
-     xy.left = 400 - Math.cos(a)* r;
-     b.setAttribute("style", 'top: ' + xy.top + 'px; left: ' + xy.left + 'px');
-     a += 0.01;
-     },10);
-     */
+    
     return declare([_WidgetBase, _TemplatedMixin], {
         baseClass: "kb-circle-slider",
         templateString: template,
