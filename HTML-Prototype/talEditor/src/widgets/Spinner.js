@@ -13,6 +13,8 @@ define([
         baseClass: "kb-spinner",
         templateString: template,
         min: 0,
+        max: 1000,
+        step: 1,
         value: 0,
         textbox: null,
         buildRendering: function () {
@@ -20,6 +22,8 @@ define([
             var self = this;
             $(this.textbox).spinner({
                 min: this.min,
+                max: this.max,
+                step: this.step,
                 create: function () {
                     this.value = self.value;
                 },
@@ -45,7 +49,7 @@ define([
                 }))
             ]);
         },
-        _setValueAttr: function (newValue) {
+        _setValueAttr: function (newValue) {console.log(newValue);
             if (this.value != newValue) {
                 var n = parseFloat(newValue) || 0;
                 this._set("value", n);

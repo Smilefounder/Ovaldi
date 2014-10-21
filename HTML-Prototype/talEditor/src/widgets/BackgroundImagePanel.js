@@ -40,7 +40,7 @@ define([
             ]);
         },
         css: function (css) {
-            if (css) {console.log(css["backgroundPosition"]);
+            if (css) {
                 if (css["backgroundImage"] == "none") {
                     //img标签的src属性不能为空，否则将自动指向当前页面的URL,并导致发起重复请求
                     this.srcNode.src = (new Date).getTime();

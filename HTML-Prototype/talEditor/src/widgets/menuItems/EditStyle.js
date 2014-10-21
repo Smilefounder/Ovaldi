@@ -7,8 +7,9 @@ define([
     "dojo/dom-style",
     "./MenuItem",
     "tal/widgets/StyleAccordion",
-    "tal/cssUtils"
-], function (topic, declare, domStyle, MenuItem, StyleAccordion, cssUtils) {
+    "tal/cssUtils",
+    "underscore"
+], function (topic, declare, domStyle, MenuItem, StyleAccordion, cssUtils,_) {
     return declare([MenuItem], {
         text: "Edit style",
         dialog: null,
@@ -38,9 +39,11 @@ define([
                         /*this.defer(function () {
                          this.css(cs);
                          }, 250);*/
-                        this.defer(function () {
-                            topic.publish("dom/modified", {target: self.el});
-                        }, 50);
+                        if(!_.isEmpty(ret)) {
+                            this.defer(function () {
+                                topic.publish("dom/modified", {target: self.el});
+                            }, 50);
+                        }
                     });
                 });
                 this.menu.watch("el", function () {
