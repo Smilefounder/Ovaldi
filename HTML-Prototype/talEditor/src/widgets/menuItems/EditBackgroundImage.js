@@ -13,7 +13,7 @@ define([
         dialog: null,
         el: null,
         visibility: function () {
-            //TODO:排除不能设置背景图片的元素
+            //TODO:有背景图片才显示
             return true;
         },
         callback: function () {

@@ -43,9 +43,6 @@ define([
                     setTimeout(function () {
                         self.set("value", parseFloat(self.textbox.value) || 0);
                     }, 0);
-                })),
-                on(this.textbox, "blur", lang.hitch(this, function (e) {
-                    this.set("value", parseFloat(this.textbox.value) || 0);
                 }))
             ]);
         },

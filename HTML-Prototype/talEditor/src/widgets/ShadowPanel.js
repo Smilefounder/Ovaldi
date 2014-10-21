@@ -36,29 +36,62 @@ define([
             this.inherited(arguments);
             this.set("enable", this.enable);
             var self = this;
+
+            function _onChange() {
+                self.onChange(self.css());
+            }
+
             this.own([
                 this.circleSlider.on("change", function (newValue) {
                     self.directionSpinner.set("value", newValue);
                 }),
                 this.directionSpinner.on("change", function (newValue) {
                     self.circleSlider.set("value", newValue);
-                })
+                    _onChange();
+                }),
+                this.distanceSpinner.on("change", _onChange),
+                this.blurSpinner.on("change", _onChange),
+                this.sizeSpinner.on("change", _onChange),
+                this.colorBox.on("change", _onChange)
             ]);
         },
         css: function (css) {
             if (css) {
-                var shadow = css["box-shadow"], enable = shadow != "none";
+                var shadow = css["boxShadow"], enable = shadow != "none";
                 this.set("enable", enable);
                 if (enable) {
+                    debugger;
                     var arr = shadow.match(/\d+px/ig);
-                    var c = shadow.match(/rgb\(.*\)/ig)[0], h = toFloat(arr[0]), v = toFloat(arr[1]), b = toFloat(arr[2]), s = toFloat(arr[3]);
+                    var c = shadow.match(/rgb\(.*\)/ig)[0],
+                        h = toFloat(arr[0]), v = toFloat(arr[1]),
+                        b = toFloat(arr[2]), s = toFloat(arr[3]),
+                        z = Math.sqrt(Math.pow(h, 2) + Math.pow(v, 2)),
+                        distance = Math.round(z),
+                        angle = Math.round(Math.asin(v / z) * 180 / Math.PI);
 
+                    this.circleSlider.set("value", angle);
+                    this.distanceSpinner.set("value", distance);
                     this.blurSpinner.set("value", toFloat(b));
                     this.sizeSpinner.set("value", toFloat(s));
                     this.colorBox.set("value", c);
                 }
             } else {
-
+                if (this.enable) {
+                    var direction = this.directionSpinner.get("value"),
+                        distance = this.distanceSpinner.get("value"),
+                        blur = this.blurSpinner.get("value"),
+                        size = this.sizeSpinner.get("value"),
+                        color = this.colorBox.get("value"),
+                        h, v;
+                    h = Math.round(Math.sin(direction * Math.PI / 180) * distance);
+                    v = Math.round(Math.cos(direction * Math.PI / 180) * distance);
+                    return {
+                        boxShadow: [color, h + 'px', v + 'px', blur + 'px', size + 'px'].join(' ')
+                    };
+                }
+                return{
+                    boxShadow: "none"
+                };
             }
         },
         reset: function () {
@@ -79,7 +112,9 @@ define([
                 this.reset();
             }
         },
-        onChange:function(){},
+        onChange: function (css) {
+            console.log(css);
+        },
         destroy: function () {
             this.inherited(arguments);
             delete this.directionSpinner;

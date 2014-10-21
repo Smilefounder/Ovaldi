@@ -28,7 +28,7 @@ define([
     return declare([_WidgetBase, _TemplatedMixin], {
         baseClass: "kb-circle-slider",
         templateString: template,
-        radius: 50,
+        radius: 24,
         knobNode: null,
         value: 0,
         constructor: function () {
@@ -41,7 +41,7 @@ define([
         _startDrag: function (e) {
             var de = this.ownerDocument;
             this._handlers = this._handlers.concat([
-                on(this.domNode, touch.move, lang.hitch(this, function (e) {
+                on(de, touch.move, lang.hitch(this, function (e) {
                     var pos = geom.position(this.domNode, true);
                     var l = e.pageX - pos.x, t = e.pageY - pos.y;
                     this._compute(l, t);
@@ -53,30 +53,30 @@ define([
         },
         setKnob: function (angle) {
             var rad = this.radian(angle),
-                left = 50 + Math.sin(rad) * this.radius,
-                top = 50 - Math.cos(rad) * this.radius;
+                left = this.radius + Math.sin(rad) * this.radius,
+                top = this.radius - Math.cos(rad) * this.radius;
             domStyle.set(this.knobNode, {
-                position: "relative",
                 top: top + "px",
                 left: left + "px"
             });
         },
         _compute: function (l, t) {
-            var x = Math.abs(l - this.radius);
-            var y = Math.abs(t - this.radius);
-            var z = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-            var sin = x / z;
-            var angle = Math.asin(sin) * 180 / Math.PI;
+            var x = Math.abs(l - this.radius),
+                y = Math.abs(t - this.radius),
+                z = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)),
+                sin = x / z,
+                angle = Math.asin(sin) * 180 / Math.PI;
+
             //四象
-            if (l > 50 && t >= 50) {
+            if (l >= this.radius && t >= this.radius) {
                 angle = 180 - angle;
             }
             //三象
-            else if (l < 50 && t >= 50) {
+            else if (l < this.radius && t >= this.radius) {
                 angle += 180;
             }
             //二象
-            else if (l <= 50 && t < 50) {
+            else if (l < this.radius && t < this.radius) {
                 angle = 360 - angle;
             }
 
