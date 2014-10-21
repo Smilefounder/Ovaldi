@@ -1,4 +1,6 @@
-<div class="${baseClass}" data-dojo-attach-event="click:_onClick,press:_startDrag">
+<div class="${baseClass}" >
 	<span class="dot"></span>
-    <div class="slider-handler" data-dojo-attach-point="knobNode"><span class="dot"></span></div>
+    <div class="circle" data-dojo-attach-point="circleNode" data-dojo-attach-event="click:_onClick,press:_startDrag">
+        <div class="slider-handler" data-dojo-attach-point="knobNode"><span class="dot"></span></div>
+    </div>
 </div>
