@@ -12,30 +12,22 @@ define([
     "dijit/_TemplatedMixin",
     "dojo/text!./templates/CircleSlider.html"
 ], function (on, touch, declare, lang, domStyle, geom, _WidgetBase, _TemplatedMixin, template) {
-    /*
-     //example
-     var r = 180;
-     var b = document.getElementById("earth");
-     var a = 0;
-     var xy = {top: 0, left: 0};
-     setInterval(function(){
-     xy.top = 300 - Math.sin(a)* r;
-     xy.left = 400 - Math.cos(a)* r;
-     b.setAttribute("style", 'top: ' + xy.top + 'px; left: ' + xy.left + 'px');
-     a += 0.01;
-     },10);
-     */
     return declare([_WidgetBase, _TemplatedMixin], {
         baseClass: "kb-circle-slider",
         templateString: template,
-        radius: 24,
         knobNode: null,
+        circleNode: null,
+        radius: 24,
         value: 0,
         constructor: function () {
             this._handlers = [];
         },
-        postCreate: function () {
+        startup: function () {
             this.inherited(arguments);
+            //不能直接通过geom.getContentBox获取宽高，因为某些情况下，dom处于不可视状态
+            var cs = domStyle.getComputedStyle(this.circleNode);
+            var h = parseFloat(cs["height"]) / 2, w = parseFloat(cs["width"]) / 2;
+            this.set("radius", Math.min(h, w));
             this.set("value", 0);
         },
         _startDrag: function (e) {
@@ -110,6 +102,10 @@ define([
         //弧度数
         radian: function (n) {
             return n * Math.PI / 180
+        },
+        destroy: function () {
+            this.inherited(arguments);
+            delete this.knobNode;
         }
     });
 });
