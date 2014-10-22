@@ -8,7 +8,7 @@ define([
 ], function (declare, _WidgetBase, _TemplatedMixin) {
     return declare([_WidgetBase, _TemplatedMixin], {
         baseClass: "kb-slider",
-        templateString: '<div class="${baseClass}"></div>',
+        templateString: '<div class="${baseClass}"><a class="ui-slider-handle"><span class="value"></span><span class="dot"></span></a></div>',
         min: 0,
         max: 10,
         step: 1,
@@ -29,11 +29,15 @@ define([
                 orientation: this.orientation,
 				range: this.range,
                 change: function (evt, ui) {
+			        $(this).find('.value').text(ui.value );
                     if (self.value != ui.value) {
                         self._set("value", ui.value);
                         self.onChange(self.value);
                     }
-                }
+                },
+				slide: function( evt, ui ) {
+			        $(this).find('.value').text(ui.value );
+      			}
             });
         },
         _setValueAttr: function (value) {

@@ -21,7 +21,7 @@ define([
         zIndex: 9999,
         borderStyle: "solid",
         borderColor: "rgba(255,0,0,1)",
-        borderWidth: 2,
+        borderWidth: 1,
         constructor: function (params) {
             this.inherited(arguments);
             declare.safeMixin(this, params);
