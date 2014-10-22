@@ -14,26 +14,18 @@ require([
     "dojo/dom-style",
     "dojo/dom-construct",
     "dojo/dom-geometry",
-    "tal/widgets/Overlay",
     "tal/widgets/Masker",
     "tal/widgets/Lighter",
     "dijit/registry",
     "dojox/uuid/generateTimeBasedUuid",
     "dojo/main",
     "dojo/domReady!"
-], function (config, win, lang, array, parser, on, keys, domClass, domAttr, domStyle, domConst, domGeom, Overlay, Masker, Lighter, registry) {
+], function (config, win, lang, array, parser, on, keys, domClass, domAttr, domStyle, domConst, domGeom, Masker, Lighter, registry) {
     var body = win.body(),
         isEditing = false,
         kbContainer = dojo.byId("kbContainer"),
         handlers = [],
         kbHover, kbHolder, kbMasker, ptopic;
-
-    var overlay = new Overlay();
-    overlay.placeAt(kbContainer);
-    overlay.startup();
-    handlers.push(on(overlay.domNode, "click", function () {
-        ptopic && ptopic.publish("overlay/click");
-    }));
 
     parser.parse(kbContainer).then(function () {
         kbHover = registry.byId("kbHover");
@@ -47,7 +39,6 @@ require([
             on(body, "mouseover", function (e) {
                 if (body == e.target ||
                     isEditing ||
-                    overlay.domNode.contains(e.target) ||
                     kbHover.domNode.contains(e.target) ||
                     kbHolder.domNode.contains(e.target) ||
                     kbMasker.domNode.contains(e.target)) {
@@ -60,7 +51,6 @@ require([
             on(body, "mouseout", function (e) {
                 if (body == e.target ||
                     isEditing ||
-                    overlay.domNode.contains(e.target) ||
                     kbHover.domNode.contains(e.target) ||
                     kbHolder.domNode.contains(e.target) ||
                     kbMasker.domNode.contains(e.target)) {
@@ -74,7 +64,6 @@ require([
                 e.stopPropagation();
                 if (body == e.target ||
                     isEditing ||
-                    overlay.domNode.contains(e.target) ||
                     kbHover.domNode.contains(e.target) ||
                     kbHolder.domNode.contains(e.target) ||
                     kbMasker.domNode.contains(e.target)) {
@@ -114,12 +103,6 @@ require([
                     } else if (e.refEl.nodeType == 3) {
                         kbHover.mask(e.refEl.parentNode);
                     }
-                }),
-                ptopic.subscribe("overlay/show", function () {
-                    overlay.show();
-                }),
-                ptopic.subscribe("overlay/hide", function () {
-                    overlay.hide();
                 }),
                 ptopic.subscribe("codeviewer/mouseout", function (e) {
                     if (e.refEl.nodeType == 1) {

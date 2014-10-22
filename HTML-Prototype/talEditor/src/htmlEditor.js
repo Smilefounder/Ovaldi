@@ -5,6 +5,7 @@ require([
     "dojo/parser",
     "dojo/topic",
     "dojo/on",
+    "dojo/_base/window",
     "dojo/dom-class",
     "dojo/dom-attr",
     "dojo/dom-style",
@@ -19,14 +20,32 @@ require([
     "tal/widgets/menuItems/EditStyle",
     "tal/widgets/menuItems/EditBackgroundImage",
     "tal/widgets/menuItems/GoToLink",
+    "tal/widgets/Overlay",
     "tal/XPath",
     "dojo/main",
     "dojo/domReady!"
-], function (parser, topic, on, domClass, domAttr, domStyle, domConst, domGeom, registry, ImageDialog, BackgroundImageDialog, StyleAccordion, EditText, EditImage, EditStyle, EditBackgroundImage, GoToLink,XPath) {
+], function (parser, topic, on, win, domClass, domAttr, domStyle, domConst, domGeom, registry, ImageDialog, BackgroundImageDialog, StyleAccordion, EditText, EditImage, EditStyle, EditBackgroundImage, GoToLink, Overlay, XPath) {
     window.topic = topic;
-    var kbEmbedFrame = dojo.byId("kbEmbedFrame"),
+    var body = win.body(),
+        handlers = [],
+        kbEmbedFrame = dojo.byId("kbEmbedFrame"),
         kbDragPane = dojo.byId("kbDragPane"),
         kbSplitContainer, kbInlineMenu, kbHtmlViewer, el;
+
+    var overlay = new Overlay();
+    overlay.placeAt(body);
+    overlay.startup();
+    handlers = handlers.concat([
+        on(overlay.domNode, "click", function () {
+            topic.publish("overlay/click");
+        }),
+        topic.subscribe("overlay/show", function () {
+            overlay.show();
+        }),
+        topic.subscribe("overlay/hide", function () {
+            overlay.hide();
+        })
+    ]);
 
     parser.parse().then(function () {
         kbInlineMenu = registry.byId("kb_inlinemenu");
@@ -89,4 +108,11 @@ require([
             kbHtmlViewer.refresh(uuid);
         });
     });
+
+    handlers.push(on(win.global, "unload", function () {
+        var h;
+        while (h = handlers.pop()) {
+            h.remove();
+        }
+    }));
 });
