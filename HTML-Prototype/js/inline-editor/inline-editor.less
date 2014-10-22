@@ -180,12 +180,27 @@
 -----------------------------------------------------------*/
 #kbHolder {
 	div {
+		-webkit-animation: twinkling 2s ease-in-out infinite;
 		animation: twinkling 2s ease-in-out infinite;
 	}
 }
 
 
 @keyframes twinkling {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes twinkling {
 	0% {
 		opacity: 1;
 	}
