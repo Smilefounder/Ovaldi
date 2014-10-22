@@ -46,7 +46,7 @@ define([
                 }))
             ]);
         },
-        _setValueAttr: function (newValue) {console.log(newValue);
+        _setValueAttr: function (newValue) {
             if (this.value != newValue) {
                 var n = parseFloat(newValue) || 0;
                 this._set("value", n);

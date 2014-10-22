@@ -61,7 +61,7 @@ define([
                     var arr = shadow.match(/-?\d+px/ig),
                         c = shadow.match(/(rgb|rgba)\(.*\)/ig)[0],
                         h = toFloat(arr[0]), v = toFloat(arr[1]),
-                        z = Math.sqrt(Math.pow(h, 2) + Math.pow(v, 2)),
+                        z = Math.sqrt(Math.pow(h, 2) + Math.pow(v, 2)),//Math.pow(Math.pow(h,2)+Math.pow(v,2),0.5)
                         b = toFloat(arr[2]), s = toFloat(arr[3]),
                         distance = Math.round(z),
                         tan = Math.abs(h / v),
@@ -79,6 +79,7 @@ define([
                     else if (h > 0 && v < 0) {
                         angle = 180 - angle;
                     }
+
                     angle = Math.round(angle);
                     this.circleSlider.set("value", angle);
                     this.distanceSpinner.set("value", distance);

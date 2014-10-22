@@ -192,7 +192,7 @@ define([
                 self[it].set("value", "");
             });
         },
-        onChange: function (css) {
+        onChange: function (css) {console.log("border",css);
             this.defer(function(){
                 this._edit();
             },50);

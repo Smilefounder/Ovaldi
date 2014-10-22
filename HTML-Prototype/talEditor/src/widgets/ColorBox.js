@@ -67,7 +67,7 @@ define([
             ]);
         },
         _updateColor: function (color, updatePicker) {
-            var col = Color.fromString(color) || Color.fromString("rgba(0,0,0,0)"),
+            var col = Color.fromString(color) || Color.fromString("#ffffff"),
                 hex = col.toHex(),
                 rgba = col.toString(),
                 fireChange = this.value != rgba;

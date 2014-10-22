@@ -72,6 +72,10 @@ define([
             this.refresh();
         },
         destroy: function () {
+            var menus = this.menus || [];
+            for (var i = 0, j = menus.length; i < j; i++) {
+                menus[i].destroy();
+            }
             this.inherited(arguments);
             delete this.menusNode;
         }

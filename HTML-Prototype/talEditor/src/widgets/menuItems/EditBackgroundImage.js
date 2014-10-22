@@ -12,6 +12,9 @@ define([
         text: "Edit background image",
         dialog: null,
         el: null,
+        constructor: function () {
+            this._handlers = [];
+        },
         visibility: function () {
             var cs = this.menu.el ? domStyle.getComputedStyle(this.menu.el) : null;
             return cs && cs["backgroundImage"] != 'none';
@@ -26,6 +29,7 @@ define([
                 self.dialog.startup();
                 var handler;
                 self.dialog.on("open", function () {
+                    topic.publish("overlay/show");
                     var cs = domStyle.getComputedStyle(self.el);
                     this.css(cs);
                     handler = this.on("change", function (css) {
@@ -36,6 +40,9 @@ define([
                 self.dialog.on("beforeClose", function () {
                     handler && handler.remove();
                     self.el = null;
+                });
+                self.dialog.on("close", function () {
+                    topic.publish("overlay/hide");
                 });
                 self.menu.watch("el", function () {
                     self.dialog.close();
@@ -54,8 +61,18 @@ define([
                         }
                     });
                 };
+                topic.subscribe("overlay/click", function () {
+                    self.dialog.isOpen() && self.dialog.close();
+                });
             }
             self.dialog.open();
+        },
+        destroy:function(){
+            var h;
+            while (h = this._handlers.pop()) {
+                h.remove();
+            }
+            this.inherited(arguments);
         }
     });
 });

@@ -18,15 +18,17 @@ define([
         picker: null,
         slider: null,
         clearNode: null,
-        value: "rgba(0,0,0,0)",
+        value: "#ffffff",
         startup: function () {
             this.inherited(arguments);
             var self = this;
             this.own([
                 this.picker.on("change", function (newValue) {
-                    var col = Color.fromString(newValue);
-                    self._updateSlider(col);
-                    self._updateValue(col);
+                    var col = Color.fromString(self.value),
+                        ncol = Color.fromString(newValue);
+                    ncol.a = col.a;
+                    self._updateSlider(ncol);
+                    self._updateValue(ncol);
                     self.onChange(self.value);
                 }),
                 this.slider.on("change", function (newValue) {

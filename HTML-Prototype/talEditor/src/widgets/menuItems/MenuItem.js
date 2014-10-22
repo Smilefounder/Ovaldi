@@ -10,11 +10,13 @@ define([
         constructor: function (menu) {
             this.menu = menu;
         },
-        visibility:function(){
+        visibility: function () {
             return true;
         },
-        callback:function(){
+        callback: function () {
             this.menu.hide();
+        },
+        destroy: function () {
         }
     })
 });

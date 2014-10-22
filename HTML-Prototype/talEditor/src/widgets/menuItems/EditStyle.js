@@ -9,11 +9,14 @@ define([
     "tal/widgets/StyleAccordion",
     "tal/cssUtils",
     "underscore"
-], function (topic, declare, domStyle, MenuItem, StyleAccordion, cssUtils,_) {
+], function (topic, declare, domStyle, MenuItem, StyleAccordion, cssUtils, _) {
     return declare([MenuItem], {
         text: "Edit CSS",
         dialog: null,
         el: null,
+        constructor: function () {
+            this._handlers = [];
+        },
         visibility: function () {
             return true;
         },
@@ -27,9 +30,11 @@ define([
                 this.dialog.startup();
                 var handler;
                 this.dialog.on("open", function () {
+                    topic.publish("overlay/show");
                     var cs = domStyle.getComputedStyle(self.el);
                     this.css(cs);
                     handler = this.on("change", function (css) {
+                        console.log("style",css);
                         var ret = cssUtils.distinct(css, cs);
                         domStyle.set(self.el, ret);
                         //TODO
@@ -39,13 +44,19 @@ define([
                         /*this.defer(function () {
                          this.css(cs);
                          }, 250);*/
-                        if(!_.isEmpty(ret)) {
+                        if (!_.isEmpty(ret)) {
                             this.defer(function () {
+                                //更新CodeViewer
                                 topic.publish("dom/modified", {target: self.el});
                             }, 50);
                         }
                     });
                 });
+                this._handlers.push(topic.subscribe("overlay/click", function () {
+                    if (self.dialog.isOpen()) {
+                        self.dialog.close();
+                    }
+                }));
                 this.menu.watch("el", function () {
                     self.dialog.close();
                 });
@@ -53,9 +64,18 @@ define([
                     handler && handler.remove();
                     self.el = null;
                 });
-                //TODO:更新CodeViewer
+                this.dialog.on("close", function () {
+                    topic.publish("overlay/hide");
+                })
             }
             this.dialog.open();
+        },
+        destroy: function () {
+            var h;
+            while (h = this._handlers.pop()) {
+                h.remove();
+            }
+            this.inherited(arguments);
         }
     });
 });
