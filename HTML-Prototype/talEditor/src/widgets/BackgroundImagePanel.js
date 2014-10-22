@@ -27,6 +27,9 @@ define([
         positionXRef: null,
         positionYRef: null,
         callback: null,
+        constructor: function () {
+            this.__src = (new Date).getTime();
+        },
         postMixInProperties: function () {
             lang.mixin(this, res);
             this.inherited(arguments);
@@ -43,8 +46,7 @@ define([
             if (css) {
                 if (css["backgroundImage"] == "none") {
                     //img标签的src属性不能为空，否则将自动指向当前页面的URL,并导致发起重复请求
-                    this.srcNode.src = (new Date).getTime();
-                    this.__src = this.srcNode.src;
+                    this._clearSrc();
                 } else {
                     this.srcNode.src = css["backgroundImage"].slice(4, -1);
                 }
@@ -56,7 +58,7 @@ define([
 
             } else {
                 return {
-                    "backgroundImage": this.srcNode.src == this.__src ? 'none' : 'url(' + this.srcNode.src + ')',
+                    "backgroundImage": domAttr.get(this.srcNode, "src") == this.__src ? 'none' : 'url(' + this.srcNode.src + ')',
                     "backgroundRepeat": this.repeatedNode.value,
                     "backgroundPosition": this.positionXRef.get("value") + ' ' + this.positionYRef.get("value")
                 };
@@ -80,7 +82,8 @@ define([
             this.onChange(this.css());
         },
         _clearSrc: function () {
-            this.srcNode.src = "";
+            this.srcNode.src = this.__src;
+            this.onChange(this.css());
         },
         reset: function () {
             this.srcNode.src = "";

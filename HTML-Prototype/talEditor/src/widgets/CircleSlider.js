@@ -28,7 +28,7 @@ define([
             var cs = domStyle.getComputedStyle(this.circleNode);
             var h = parseFloat(cs["height"]) / 2, w = parseFloat(cs["width"]) / 2;
             this.set("radius", Math.min(h, w));
-            this.set("value", 0);
+            this.setKnob(this.value);
         },
         _startDrag: function (e) {
             var de = this.ownerDocument;
@@ -55,9 +55,7 @@ define([
         _compute: function (l, t) {
             var x = Math.abs(l - this.radius),
                 y = Math.abs(t - this.radius),
-                z = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)),
-                sin = x / z,
-                angle = Math.asin(sin) * 180 / Math.PI;
+                angle = Math.atan(x / y) * 180 / Math.PI;
 
             //四象
             if (l >= this.radius && t >= this.radius) {
@@ -77,7 +75,7 @@ define([
         },
         _setValueAttr: function (angle) {
             angle = angle % 360;
-            if (this.angle != angle) {
+            if (this.value != angle) {
                 this._set("value", angle);
                 this.setKnob(angle);
                 this.onChange(angle);

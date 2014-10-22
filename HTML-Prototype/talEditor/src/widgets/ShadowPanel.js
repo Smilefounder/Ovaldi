@@ -31,10 +31,8 @@ define([
         sizeSpinner: null,
         colorBox: null,
         enableNode: null,
-        enable: false,
         postCreate: function () {
             this.inherited(arguments);
-            this.set("enable", this.enable);
             var self = this;
 
             function _onChange() {
@@ -57,18 +55,31 @@ define([
         },
         css: function (css) {
             if (css) {
-                var shadow = css["boxShadow"], enable = shadow != "none";
-                this.set("enable", enable);
-                if (enable) {
-                    debugger;
-                    var arr = shadow.match(/\d+px/ig);
-                    var c = shadow.match(/rgb\(.*\)/ig)[0],
+                this.reset();
+                var shadow = css["boxShadow"];
+                if (shadow != 'none') {
+                    var arr = shadow.match(/-?\d+px/ig),
+                        c = shadow.match(/(rgb|rgba)\(.*\)/ig)[0],
                         h = toFloat(arr[0]), v = toFloat(arr[1]),
-                        b = toFloat(arr[2]), s = toFloat(arr[3]),
                         z = Math.sqrt(Math.pow(h, 2) + Math.pow(v, 2)),
+                        b = toFloat(arr[2]), s = toFloat(arr[3]),
                         distance = Math.round(z),
-                        angle = Math.round(Math.asin(v / z) * 180 / Math.PI);
+                        tan = Math.abs(h / v),
+                        angle = Math.atan(tan) * 180 / Math.PI;
 
+                    //二象
+                    if (h < 0 && v >= 0) {
+                        angle = 360 - angle;
+                    }
+                    //三象
+                    else if (h <= 0 && v < 0) {
+                        angle += 180;
+                    }
+                    //四象
+                    else if (h > 0 && v < 0) {
+                        angle = 180 - angle;
+                    }
+                    angle = Math.round(angle);
                     this.circleSlider.set("value", angle);
                     this.distanceSpinner.set("value", distance);
                     this.blurSpinner.set("value", toFloat(b));
@@ -76,21 +87,16 @@ define([
                     this.colorBox.set("value", c);
                 }
             } else {
-                if (this.enable) {
-                    var direction = this.directionSpinner.get("value"),
-                        distance = this.distanceSpinner.get("value"),
-                        blur = this.blurSpinner.get("value"),
-                        size = this.sizeSpinner.get("value"),
-                        color = this.colorBox.get("value"),
-                        h, v;
-                    h = Math.round(Math.sin(direction * Math.PI / 180) * distance);
-                    v = Math.round(Math.cos(direction * Math.PI / 180) * distance);
-                    return {
-                        boxShadow: [color, h + 'px', v + 'px', blur + 'px', size + 'px'].join(' ')
-                    };
-                }
-                return{
-                    boxShadow: "none"
+                var direction = this.directionSpinner.get("value"),
+                    distance = this.distanceSpinner.get("value"),
+                    blur = this.blurSpinner.get("value"),
+                    size = this.sizeSpinner.get("value"),
+                    color = this.colorBox.get("value"),
+                    h, v;
+                h = Math.round(Math.sin(direction * Math.PI / 180) * distance);
+                v = Math.round(Math.cos(direction * Math.PI / 180) * distance);
+                return {
+                    boxShadow: ((h | v | blur | size) == 0) ? "none" : [color, h + 'px', v + 'px', blur + 'px', size + 'px'].join(' ')
                 };
             }
         },
@@ -101,16 +107,6 @@ define([
             this.blurSpinner.set("value", 0);
             this.sizeSpinner.set("value", 0);
             this.colorBox.set("value", "");
-        },
-        _enable: function () {
-            this.set("enable", this.enableNode.checked);
-        },
-        _setEnableAttr: function (enable) {
-            this._set("enable", enable);
-            domProp.set(this.enableNode, "checked", enable);
-            if (!enable) {
-                this.reset();
-            }
         },
         onChange: function (css) {
             console.log(css);
@@ -124,4 +120,5 @@ define([
             delete this.colorBox;
         }
     });
-});
+})
+;

@@ -11,7 +11,7 @@ define([
     "underscore"
 ], function (topic, declare, domStyle, MenuItem, StyleAccordion, cssUtils,_) {
     return declare([MenuItem], {
-        text: "Edit style",
+        text: "Edit CSS",
         dialog: null,
         el: null,
         visibility: function () {

@@ -13,8 +13,8 @@ define([
         dialog: null,
         el: null,
         visibility: function () {
-            //TODO:有背景图片才显示
-            return true;
+            var cs = this.menu.el ? domStyle.getComputedStyle(this.menu.el) : null;
+            return cs && cs["backgroundImage"] != 'none';
         },
         callback: function () {
             this.inherited(arguments);
@@ -45,7 +45,7 @@ define([
                         url: "http://192.168.1.231:9998/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
                         width: 900,
                         height: 500,
-                        dialogClass: 'iframe-dialog',
+                        dialogClass: 'kb-dialog kb-iframe-dialog',
                         frameHeight: '100%',
                         onload: function (handle, pop, config) {
                             window.onFileSelected = function (src, text) {
