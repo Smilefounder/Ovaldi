@@ -29,39 +29,33 @@ define([
         mask: function (el) {
             this.el = el;
             domStyle.set(this.domNode, "display", "none");
-            //var elPos = geom.getMarginBox(el);//geom.position(el, true);
-
-            var node = el,
-                cs = domStyle.getComputedStyle(node),
-                mb = geom.getMarginBox(node, cs),
-                me = geom.getMarginExtents(node, cs),
-                be = geom.getBorderExtents(node, cs),
-                elPos = (this._borderBox = {
-                    x: mb.l, //- be.w,
-                    y: mb.t, //- be.h,
-                    w: mb.w,
-                    h: mb.h
-                });
-            debugger;
+            var pos = geom.position(el,true),
+                me = geom.getMarginExtents(el),
+                mb = {
+                    x: pos.x - me.l,
+                    y: pos.y - me.t,
+                    w: pos.w + me.w,
+                    h: pos.h + me.h
+                };
             domStyle.set(this.leftRef, {
-                left: (elPos.x - this.borderWidth) + "px",
-                top: elPos.y + "px",
-                height: (elPos.h + this.borderWidth) + "px"
+                left: (mb.x - this.borderWidth) + "px",
+                top: mb.y + "px",
+                height: (mb.h + this.borderWidth) + "px"
             });
             domStyle.set(this.rightRef, {
-                left: (elPos.w + elPos.x ) + "px",
-                top: (elPos.y - this.borderWidth) + "px",
-                height: (elPos.h + this.borderWidth) + "px"
+                left: (mb.w + mb.x ) + "px",
+                top: (mb.y - this.borderWidth) + "px",
+                height: (mb.h + this.borderWidth) + "px"
             });
             domStyle.set(this.topRef, {
-                left: (elPos.x - this.borderWidth) + "px",
-                top: (elPos.y - this.borderWidth) + "px",
-                width: (elPos.w + this.borderWidth ) + "px"
+                left: (mb.x - this.borderWidth) + "px",
+                top: (mb.y - this.borderWidth) + "px",
+                width: (mb.w + this.borderWidth ) + "px"
             });
             domStyle.set(this.bottomRef, {
-                left: elPos.x + "px",
-                top: (elPos.y + elPos.h ) + "px",
-                width: (elPos.w + this.borderWidth ) + "px"
+                left: mb.x + "px",
+                top: (mb.y + mb.h ) + "px",
+                width: (mb.w + this.borderWidth ) + "px"
             });
 
             domStyle.set(this.domNode, "display", "block");

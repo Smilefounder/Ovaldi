@@ -27,11 +27,12 @@ require([
         handlers = [],
         kbHover, kbHolder, kbMasker, ptopic;
 
-    function remask(){
+    function remask() {
         kbMasker.el && kbMasker.mask(kbMasker.el);
         kbHover.el && kbHover.mask(kbHover.el);
         kbHolder.el && kbHolder.mask(kbHolder.el);
     }
+
     parser.parse(kbContainer).then(function () {
         kbHover = registry.byId("kbHover");
         kbHolder = registry.byId("kbHolder");
@@ -50,7 +51,7 @@ require([
                     return;
                 }
                 ptopic && ptopic.publish("dom/mouseover", e);
-                kbHover.mask(e.target);
+                kbHolder.el != e.target && kbHover.mask(e.target);
 
             }),
             on(body, "mouseout", function (e) {
@@ -76,6 +77,7 @@ require([
                 }
                 ptopic && ptopic.publish("dom/click", e);
                 kbHolder.mask(e.target);
+                e.target == kbHover.el && kbHover.unmask();
             }),
             on(win.global, "resize,scroll", function (e) {
                 remask();
@@ -120,7 +122,7 @@ require([
                         kbHolder.mask(e.refEl.parentNode);
                     }
                 }),
-                ptopic.subscribe("dom/remask",function(){
+                ptopic.subscribe("dom/remask", function () {
                     remask();
                 }),
                 ptopic.subscribe("inlinemenu/edit", function (e) {
