@@ -29,30 +29,39 @@ define([
         mask: function (el) {
             this.el = el;
             domStyle.set(this.domNode, "display", "none");
-            var
-                elPos = geom.position(el, true), doc = el.ownerDocument,
-                winWidth = Math.max(doc.body.scrollWidth, doc.documentElement.scrollWidth),
-                winHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
+            //var elPos = geom.getMarginBox(el);//geom.position(el, true);
 
+            var node = el,
+                cs = domStyle.getComputedStyle(node),
+                mb = geom.getMarginBox(node, cs),
+                me = geom.getMarginExtents(node, cs),
+                be = geom.getBorderExtents(node, cs),
+                elPos = (this._borderBox = {
+                    x: mb.l, //- be.w,
+                    y: mb.t, //- be.h,
+                    w: mb.w,
+                    h: mb.h
+                });
+            debugger;
             domStyle.set(this.leftRef, {
-                left: elPos.x + "px",
+                left: (elPos.x - this.borderWidth) + "px",
                 top: elPos.y + "px",
-                height: elPos.h + "px"
+                height: (elPos.h + this.borderWidth) + "px"
             });
             domStyle.set(this.rightRef, {
-                left: (elPos.w + elPos.x - this.borderWidth) + "px",//必须减去div的宽度，防止出现X轴滚动条
-                top: elPos.y + "px",
-                height: elPos.h + "px"
+                left: (elPos.w + elPos.x ) + "px",
+                top: (elPos.y - this.borderWidth) + "px",
+                height: (elPos.h + this.borderWidth) + "px"
             });
             domStyle.set(this.topRef, {
-                left: (elPos.x + this.borderWidth)  + "px",
-                top: elPos.y + "px",
-                width: (elPos.w - this.borderWidth) + "px"
+                left: (elPos.x - this.borderWidth) + "px",
+                top: (elPos.y - this.borderWidth) + "px",
+                width: (elPos.w + this.borderWidth ) + "px"
             });
             domStyle.set(this.bottomRef, {
-                left: (elPos.x + this.borderWidth) + "px",
-                top: (elPos.y + elPos.h - this.borderWidth) + "px",//必须减去div的宽度，防止出现Y轴滚动条
-                width: (elPos.w - this.borderWidth) + "px"
+                left: elPos.x + "px",
+                top: (elPos.y + elPos.h ) + "px",
+                width: (elPos.w + this.borderWidth ) + "px"
             });
 
             domStyle.set(this.domNode, "display", "block");

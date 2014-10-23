@@ -40,6 +40,7 @@ define([
     };
     Overlay.hide = function () {
         Overlay._instance && Overlay._instance.destroy();
+        Overlay._instance = null;
     };
     return Overlay;
 });

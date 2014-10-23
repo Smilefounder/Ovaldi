@@ -104,6 +104,7 @@ require([
             kbHtmlViewer.unhighlight(e.target);
         });
         topic.subscribe("dom/modified", function (e) {
+            topic.publish("dom/remask");
             var uuid = kbHtmlViewer.getUuid(e.target);
             kbHtmlViewer.refresh(uuid);
         });

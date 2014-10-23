@@ -2,9 +2,10 @@
  * Created by Raoh on 2014/10/11.
  */
 define([
-    "dojo/_base/declare"
-], function (declare) {
-    return declare([], {
+    "dojo/_base/declare",
+    "dijit/Destroyable"
+], function (declare,Destroyable) {
+    return declare([Destroyable], {
         menu: null,
         text: null,
         constructor: function (menu) {

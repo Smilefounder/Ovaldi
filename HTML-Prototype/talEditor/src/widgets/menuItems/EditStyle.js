@@ -3,17 +3,21 @@
  */
 define([
     "dojo/topic",
+    "dojo/on",
+    "dojo/_base/window",
     "dojo/_base/declare",
     "dojo/dom-style",
     "./MenuItem",
     "tal/widgets/StyleAccordion",
+    "tal/widgets/Overlay",
     "tal/cssUtils",
     "underscore"
-], function (topic, declare, domStyle, MenuItem, StyleAccordion, cssUtils, _) {
+], function (topic, on, win, declare, domStyle, MenuItem, StyleAccordion, Overlay, cssUtils, _) {
     return declare([MenuItem], {
         text: "Edit CSS",
         dialog: null,
         el: null,
+        overlay: null,
         constructor: function () {
             this._handlers = [];
         },
@@ -24,17 +28,25 @@ define([
             this.inherited(arguments);
             var self = this;
             self.el = self.menu.el;
+            if (!this.overlay) {
+                var ol = this.overlay = new Overlay();
+                ol.placeAt(win.body());
+                ol.startup();
+                this.own(on(ol.domNode, "click", function () {
+                    var d = self.dialog;
+                    d && d.isOpen() && d.close();
+                }));
+            }
             if (!this.dialog) {
-                this.dialog = new StyleAccordion();
-                this.dialog.placeAt(this.menu.ownerDocument.body);
-                this.dialog.startup();
-                var handler;
-                this.dialog.on("open", function () {
-                    topic.publish("overlay/show");
+                var d = this.dialog = new StyleAccordion();
+                d.placeAt(this.menu.ownerDocument.body);
+                d.startup();
+                d.on("open", function () {
+                    self.overlay.show();
                     var cs = domStyle.getComputedStyle(self.el);
                     this.css(cs);
-                    handler = this.on("change", function (css) {
-                        console.log("style",css);
+                    self._handlers.push(this.on("change", function (css) {
+                        console.log("style", css);
                         var ret = cssUtils.distinct(css, cs);
                         domStyle.set(self.el, ret);
                         //TODO
@@ -50,32 +62,32 @@ define([
                                 topic.publish("dom/modified", {target: self.el});
                             }, 50);
                         }
-                    });
+                    }));
                 });
-                this._handlers.push(topic.subscribe("overlay/click", function () {
-                    if (self.dialog.isOpen()) {
-                        self.dialog.close();
-                    }
-                }));
                 this.menu.watch("el", function () {
-                    self.dialog.close();
+                    d.close();
                 });
-                this.dialog.on("beforeClose", function () {
-                    handler && handler.remove();
+                d.on("beforeClose", function () {
+                    self.clearHandlers();
                     self.el = null;
                 });
-                this.dialog.on("close", function () {
-                    topic.publish("overlay/hide");
-                })
+                d.on("close", function () {
+                    self.overlay.hide();
+                });
             }
             this.dialog.open();
         },
-        destroy: function () {
+        clearHandlers: function () {
             var h;
             while (h = this._handlers.pop()) {
                 h.remove();
             }
+        },
+        destroy: function () {
+            this.clearHandlers();
+            this.overlay && this.overlay.destroy();
             this.inherited(arguments);
+            delete this.overlay;
         }
     });
 });

@@ -27,6 +27,11 @@ require([
         handlers = [],
         kbHover, kbHolder, kbMasker, ptopic;
 
+    function remask(){
+        kbMasker.el && kbMasker.mask(kbMasker.el);
+        kbHover.el && kbHover.mask(kbHover.el);
+        kbHolder.el && kbHolder.mask(kbHolder.el);
+    }
     parser.parse(kbContainer).then(function () {
         kbHover = registry.byId("kbHover");
         kbHolder = registry.byId("kbHolder");
@@ -73,17 +78,7 @@ require([
                 kbHolder.mask(e.target);
             }),
             on(win.global, "resize,scroll", function (e) {
-                var hoveEl = kbHover.el, holdEl = kbHolder.el;
-                kbHover.unmask();
-                kbHolder.unmask();
-
-                hoveEl && kbHover.mask(hoveEl);
-                holdEl && kbHolder.mask(holdEl);
-            }),
-            on(win.global, "resize,scroll", function (e) {
-                kbMasker.el && kbMasker.mask(kbMasker.el);
-                kbHover.el && kbHover.mask(kbHover.el);
-                kbHolder.el && kbHolder.mask(kbHolder.el);
+                remask();
             })
         ]);
     });
@@ -124,6 +119,9 @@ require([
                     } else if (e.refEl.nodeType == 3) {
                         kbHolder.mask(e.refEl.parentNode);
                     }
+                }),
+                ptopic.subscribe("dom/remask",function(){
+                    remask();
                 }),
                 ptopic.subscribe("inlinemenu/edit", function (e) {
                     var el = e.refEl;

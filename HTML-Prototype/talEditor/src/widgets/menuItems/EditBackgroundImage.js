@@ -3,15 +3,19 @@
  */
 define([
     "dojo/topic",
+    "dojo/on",
+    "dojo/_base/window",
     "dojo/_base/declare",
     "dojo/dom-style",
     "tal/widgets/BackgroundImageDialog",
+    "tal/widgets/Overlay",
     "./MenuItem"
-], function (topic, declare, domStyle, BackgroundImageDialog, MenuItem) {
+], function (topic, on, win, declare, domStyle, BackgroundImageDialog, Overlay, MenuItem) {
     return declare([MenuItem], {
         text: "Edit background image",
         dialog: null,
         el: null,
+        overlay: null,
         constructor: function () {
             this._handlers = [];
         },
@@ -23,31 +27,39 @@ define([
             this.inherited(arguments);
             var self = this;
             self.el = self.menu.el;
-            if (!self.dialog) {
-                self.dialog = new BackgroundImageDialog();
-                self.dialog.placeAt(self.menu.ownerDocument.body);
-                self.dialog.startup();
-                var handler;
-                self.dialog.on("open", function () {
-                    topic.publish("overlay/show");
+            if (!this.overlay) {
+                var ol = this.overlay = new Overlay();
+                ol.placeAt(win.body());
+                ol.startup();
+                this.own(on(ol.domNode, "click", function () {
+                    var d = self.dialog;
+                    d && d.isOpen() && d.close();
+                }));
+            }
+            if (!this.dialog) {
+                var d = this.dialog = new BackgroundImageDialog();
+                d.placeAt(self.menu.ownerDocument.body);
+                d.startup();
+                d.on("open", function () {
+                    self.overlay.show();
                     var cs = domStyle.getComputedStyle(self.el);
                     this.css(cs);
-                    handler = this.on("change", function (css) {
+                    self._handlers.push(this.on("change", function (css) {
                         domStyle.set(self.el, css);
                         topic.publish("dom/modified", {target: self.el});
-                    });
+                    }));
                 });
-                self.dialog.on("beforeClose", function () {
-                    handler && handler.remove();
+                d.on("beforeClose", function () {
+                    self.clearHandlers();
                     self.el = null;
                 });
-                self.dialog.on("close", function () {
-                    topic.publish("overlay/hide");
+                d.on("close", function () {
+                    self.overlay.hide();
                 });
                 self.menu.watch("el", function () {
-                    self.dialog.close();
+                    d.isOpen() && d.close();
                 });
-                self.dialog.callback = function () {
+                d.callback = function () {
                     $.pop({
                         url: "http://192.168.1.231:9998/Contents/MediaContent/Selection?siteName=Test&UUID=Test&return=%2FSites%2FView%3FsiteName%3DTest&listType=grid&SingleChoice=true",
                         width: 900,
@@ -56,23 +68,25 @@ define([
                         frameHeight: '100%',
                         onload: function (handle, pop, config) {
                             window.onFileSelected = function (src, text) {
-                                self.dialog.src(src);
+                                d.src(src);
                             };
                         }
                     });
                 };
-                topic.subscribe("overlay/click", function () {
-                    self.dialog.isOpen() && self.dialog.close();
-                });
             }
             self.dialog.open();
         },
-        destroy:function(){
+        clearHandlers: function () {
             var h;
             while (h = this._handlers.pop()) {
                 h.remove();
             }
+        },
+        destroy: function () {
+            this.clearHandlers();
+            this.overlay&&this.overlay.destroy();
             this.inherited(arguments);
+            delete this.overlay;
         }
     });
 });
