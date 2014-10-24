@@ -290,11 +290,10 @@ require([
     }, 10);
 
     handlers.push(on(win.global, "unload", function () {
-        console.log("unload", handlers.length);
+        console.log("iframe unload", handlers.length);
         var h;
         while (h = handlers.pop()) {
             h.remove();
         }
-        console.log("unload", handlers.length);
     }));
 });

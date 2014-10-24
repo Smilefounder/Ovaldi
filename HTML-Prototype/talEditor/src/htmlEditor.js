@@ -30,7 +30,7 @@ require([
         handlers = [],
         kbEmbedFrame = dojo.byId("kbEmbedFrame"),
         kbDragPane = dojo.byId("kbDragPane"),
-        kbSplitContainer, kbInlineMenu, kbHtmlViewer, el;
+        kbSplitContainer, kbInlineMenu, kbHtmlViewer;
 
     var overlay = new Overlay();
     overlay.placeAt(body);
@@ -74,43 +74,62 @@ require([
         });
 
         /*init iframe topic*/
-        topic.subscribe("dom/view", function (e) {
-            kbHtmlViewer.view(e.target, e.skips);
-        });
-        topic.subscribe("dom/click", function (e) {
-            kbInlineMenu.set("el", e.target);
-            el = e.target;
+        handlers = handlers.concat([
+            topic.subscribe("dom/view", function (e) {
+                kbHtmlViewer.view(e.target, e.skips);
+            }),
+            topic.subscribe("dom/click", function (e) {
+                var el = e.target;
+                kbInlineMenu.set("el", el);
+                var box = domGeom.getMarginSize(kbInlineMenu.domNode),
+                    doc = el.ownerDocument,
+                    bodyWidth = doc.documentElement.clientWidth,
+                    bodyHeight = doc.documentElement.clientHeight,
+                    range = 30,
+                    x = e.clientX + range,
+                    y = e.clientY > range ? e.clientY - range : 1,
+                    moveRange = 50,
+                    minX, maxX, minY, maxY;
 
-            //TODO:处理显示边界逻辑
-            kbInlineMenu.show(e.clientX, e.clientY);
-
-            //处理自动隐藏逻辑
-            var box = domGeom.getMarginBox(kbInlineMenu.domNode);
-            var _handler = topic.subscribe("dom/mousemove", function (e) {
-                if (e.clientX < box.l - 50 || e.clientX > box.l + box.w + 50 || e.clientY < box.t - 50 || e.clientY > box.t + box.h + 50) {
-                    kbInlineMenu.hide();
-                    _handler.remove();
+                if ((box.w + x) > bodyWidth) {
+                    x = e.clientX - box.w - 20;
                 }
-            });
+                if ((box.h + y) > bodyHeight) {
+                    y = e.clientY - box.h;
+                }
+                minX = x - moveRange, maxX = x + box.w + moveRange, minY = y - moveRange, maxY = y + box.h + moveRange;
+                //kbInlineMenu和iframe刚好相对于同一个DIV容器来定位
+                kbInlineMenu.show(x, y);
+                var _handler = topic.subscribe("dom/mousemove", function (e) {
+                    if (e.clientX < minX ||
+                        e.clientX > maxX ||
+                        e.clientY < minY ||
+                        e.clientY > maxY) {
+                        kbInlineMenu.hide();
+                        _handler.remove();
+                    }
+                });
 
-            var uuid = kbHtmlViewer.getUuid(el);
-            kbHtmlViewer.select(uuid);
-            kbHtmlViewer.scrollTo(uuid);
-        });
-        topic.subscribe("dom/mouseover", function (e) {
-            kbHtmlViewer.highlight(e.target);
-        });
-        topic.subscribe("dom/mouseout", function (e) {
-            kbHtmlViewer.unhighlight(e.target);
-        });
-        topic.subscribe("dom/modified", function (e) {
-            topic.publish("dom/remask");
-            var uuid = kbHtmlViewer.getUuid(e.target);
-            kbHtmlViewer.refresh(uuid);
-        });
+                var uuid = kbHtmlViewer.getUuid(el);
+                kbHtmlViewer.select(uuid);
+                kbHtmlViewer.scrollTo(uuid);
+            }),
+            topic.subscribe("dom/mouseover", function (e) {
+                kbHtmlViewer.highlight(e.target);
+            }),
+            topic.subscribe("dom/mouseout", function (e) {
+                kbHtmlViewer.unhighlight(e.target);
+            }),
+            topic.subscribe("dom/modified", function (e) {
+                topic.publish("dom/remask");
+                var uuid = kbHtmlViewer.getUuid(e.target);
+                kbHtmlViewer.refresh(uuid);
+            })
+        ]);
     });
 
     handlers.push(on(win.global, "unload", function () {
+        console.log("unload", handlers.length);
         var h;
         while (h = handlers.pop()) {
             h.remove();

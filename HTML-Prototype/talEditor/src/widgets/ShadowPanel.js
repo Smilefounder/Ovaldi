@@ -1,6 +1,6 @@
 define([
     "dojo/_base/declare",
-    "dojo/has",
+    "dojo/on",
     "dojo/sniff",
     "dojo/dom-prop",
     "dijit/_WidgetBase",
@@ -10,7 +10,7 @@ define([
     "./CircleSlider",
     "./UnitSpinner",
     "./ColorBox"
-], function (declare, has, sniff, domProp, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
+], function (declare, on, sniff, domProp, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template) {
     function toFloat(str) {
         return parseFloat(str) || 0;
     }
@@ -18,7 +18,6 @@ define([
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         baseClass: "kb-shadow-panel",
         templateString: template,
-        labelEnableShadow: "Enable shadow",
         labelDirection: "Direction",
         labelDistance: "Distance",
         labelBlur: "Blur",
@@ -30,7 +29,7 @@ define([
         blurSpinner: null,
         sizeSpinner: null,
         colorBox: null,
-        enableNode: null,
+        insetNode: null,
         postCreate: function () {
             this.inherited(arguments);
             var self = this;
@@ -50,18 +49,19 @@ define([
                 this.distanceSpinner.on("change", _onChange),
                 this.blurSpinner.on("change", _onChange),
                 this.sizeSpinner.on("change", _onChange),
-                this.colorBox.on("change", _onChange)
+                this.colorBox.on("change", _onChange),
+                on(this.insetNode, "change", _onChange)
             ]);
         },
         css: function (css) {
             if (css) {
-                this.reset();
                 var shadow = css["boxShadow"];
                 if (shadow != 'none') {
                     var arr = shadow.match(/-?\d+px/ig),
                         c = shadow.match(/(rgb|rgba)\(.*\)/ig)[0],
+                        inset = /inset$/.test(shadow),
                         h = toFloat(arr[0]), v = toFloat(arr[1]),
-                        z = Math.sqrt(Math.pow(h, 2) + Math.pow(v, 2)),//Math.pow(Math.pow(h,2)+Math.pow(v,2),0.5)
+                        z = Math.pow(Math.pow(h, 2) + Math.pow(v, 2), 0.5),//Math.sqrt(Math.pow(h, 2) + Math.pow(v, 2))
                         b = toFloat(arr[2]), s = toFloat(arr[3]),
                         distance = Math.round(z),
                         tan = Math.abs(h / v),
@@ -86,6 +86,7 @@ define([
                     this.blurSpinner.set("value", toFloat(b));
                     this.sizeSpinner.set("value", toFloat(s));
                     this.colorBox.set("value", c);
+                    domProp.set(this.insetNode, "checked", inset);
                 }
             } else {
                 var direction = this.directionSpinner.get("value"),
@@ -93,11 +94,12 @@ define([
                     blur = this.blurSpinner.get("value"),
                     size = this.sizeSpinner.get("value"),
                     color = this.colorBox.get("value"),
+                    inset = this.insetNode.checked,
                     h, v;
                 h = Math.round(Math.sin(direction * Math.PI / 180) * distance);
                 v = Math.round(Math.cos(direction * Math.PI / 180) * distance);
                 return {
-                    boxShadow: ((h | v | blur | size) == 0) ? "none" : [color, h + 'px', v + 'px', blur + 'px', size + 'px'].join(' ')
+                    boxShadow: ((h | v | blur | size) == 0) ? "none" : [color, h + 'px', v + 'px', blur + 'px', size + 'px', inset ? 'inset' : ''].join(' ')
                 };
             }
         },
@@ -108,6 +110,7 @@ define([
             this.blurSpinner.set("value", 0);
             this.sizeSpinner.set("value", 0);
             this.colorBox.set("value", "");
+            domProp.set(this.insetNode, "checked", false);
         },
         onChange: function (css) {
             console.log(css);
