@@ -67,6 +67,10 @@
         },
         postCreate: function () {
             this.inherited(arguments);
+            if (!this._treeTemplate) {
+                this._treeTemplate = _.template(this.treeTmpl.innerHTML);
+            }
+
             function edit(el) {
                 domAttr.set(el, "contenteditable", "true");
                 domStyle.set(el, {
@@ -327,10 +331,6 @@
         _renderTree: function (node, replaceToUuid) {
             console.time("HtmlViewer:_renderTree");
             var self = this;
-            if (!this._treeTemplate) {
-                this._treeTemplate = _.template(this.treeTmpl.innerHTML);
-            }
-
             var utils = {
                 getUuid: function (node) {
                     var uuid = node[self.uuidKey];

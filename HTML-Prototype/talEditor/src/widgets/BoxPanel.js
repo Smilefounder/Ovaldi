@@ -56,7 +56,13 @@ define([
                     var el = e.target;
                     el.value = toFloat(el.value);
                     this._onChange();
-                }))
+                })),
+                on(this.domNode,on.selector("div.margin,div.border,div.padding,div.content","mouseover"),function(){
+                    domClass.add(this,"hover");
+                }),
+                on(this.domNode,on.selector("div.margin,div.border,div.padding,div.content","mouseout"),function(){
+                    domClass.remove(this,"hover");
+                })
             ]);
         },
         css: function (css) {
