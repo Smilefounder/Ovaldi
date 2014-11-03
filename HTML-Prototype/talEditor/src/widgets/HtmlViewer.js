@@ -73,18 +73,14 @@
 
             function edit(el) {
                 domAttr.set(el, "contenteditable", "true");
-                domStyle.set(el, {
-                    outline: "solid 1px black",
-                    padding: "1.5px"
-                });
+                domClass.add(el, "editing");
                 el.focus();
                 //TODO:全选
             }
 
             function unedit(el) {
                 domAttr.remove(el, "contenteditable");
-                domStyle.set(el, "outline", "");
-                domStyle.set(el, "padding", "");
+                domClass.remove(el, "editing");
             }
 
             //带空格的attribute name在Chrome下会报错
