@@ -58,7 +58,40 @@
 										<div id="kbHtmlViewer" data-dojo-type="tal/widgets/HtmlViewer"></div>
 									</div>
 									<div class="kb-split-panel right-column" data-kooboo-region="panel2" style="width:30%">
-									<div data-dojo-type="tal/widgets/CssEditor"></div>
+									<div class="J_Tabs tabs-small">
+												<ul>
+													<li><a href="#J_Tab2_1">Style</a></li>
+													<li><a href="#J_Tab2_2">Data source</a></li>
+													<li><a href="#J_Tab2_3">Data binding</a></li>
+												</ul>
+												<div id="J_Tab2_1">
+													<div id="kbCssPanel" data-dojo-type="tal/css/CssPanel"></div>
+												</div>
+												<div id="J_Tab2_2">
+													<div class="simple-table">
+														<table>
+															<tbody>
+																<tr>
+																	<td>Articles</td>
+																	<td class="action"><a class="action" href="#"><img class="icon edit-small" src="images/invis.gif"></a></td>
+																	<td class="action"><a class="action" href="#"><img class="icon minus-small" src="images/invis.gif"></a></td>
+																</tr>
+																<tr>
+																	<td>Products</td>
+																	<td class="action"><a class="action" href="#"><img class="icon edit-small" src="images/invis.gif"></a></td>
+																	<td class="action"><a class="action" href="#"><img class="icon minus-small" src="images/invis.gif"></a></td>
+																</tr>
+															</tbody>
+															<tfoot>
+																<tr>
+																	<td colspan="3"><a class="action" href="#"><img class="icon plus-small" src="images/invis.gif"></a></td>
+																</tr>
+															</tfoot>
+														</table>
+													</div>
+												</div>
+												<div id="J_Tab2_3">
+									</div>
 									<script>
 										jQuery.fn.selectText = function(){
 											var doc = document;
@@ -99,9 +132,8 @@
 			</div>
 		</div>
 	</div>
-	<!--#include file="includes/footer.shtml" -->
 </div>
-	
+	<!--#include file="includes/footer.shtml" -->
 <script>
 	$(function(){
 		//jQuery Tab

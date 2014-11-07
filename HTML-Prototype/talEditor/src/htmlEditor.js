@@ -2,9 +2,12 @@
  * Created by Raoh on 2014/9/17.
  */
 require([
+    "tal/css/CSSStyleSheet",
     "dojo/parser",
     "dojo/topic",
     "dojo/on",
+    "dojo/query",
+    "dojo/_base/array",
     "dojo/_base/window",
     "dojo/dom-class",
     "dojo/dom-attr",
@@ -24,13 +27,15 @@ require([
     "tal/XPath",
     "dojo/main",
     "dojo/domReady!"
-], function (parser, topic, on, win, domClass, domAttr, domStyle, domConst, domGeom, registry, ImageDialog, BackgroundImageDialog, StyleAccordion, EditText, EditImage, EditStyle, EditBackgroundImage, GoToLink, Overlay, XPath) {
-    window.topic = topic;
-    var body = win.body(),
+], function (CSSStyleSheet, parser, topic, on, query, array, win, domClass, domAttr, domStyle, domConst, domGeom, registry, ImageDialog, BackgroundImageDialog, StyleAccordion, EditText, EditImage, EditStyle, EditBackgroundImage, GoToLink, Overlay, XPath) {
+    var wind = win.global,
+        body = win.body(),
         handlers = [],
         kbEmbedFrame = dojo.byId("kbEmbedFrame"),
         kbDragPane = dojo.byId("kbDragPane"),
-        kbSplitContainer, kbInlineMenu, kbHtmlViewer;
+        kbSplitContainer, kbInlineMenu, kbHtmlViewer, kbCssPanel;
+    //暴露topic给iframe访问
+    wind.topic = topic;
 
     var overlay = new Overlay();
     overlay.placeAt(body);
@@ -50,9 +55,9 @@ require([
     parser.parse().then(function () {
         kbInlineMenu = registry.byId("kb_inlinemenu");
         kbSplitContainer = registry.byId("kbSplitContainer");
-        kbSplitContainer.toggle();
         kbHtmlViewer = registry.byId("kbHtmlViewer");
         kbInlineMenu.hide();
+        kbCssPanel = registry.byId("kbCssPanel");
 
         kbInlineMenu.addMenu(new EditText(kbInlineMenu));
         kbInlineMenu.addMenu(new EditImage(kbInlineMenu));
@@ -69,12 +74,17 @@ require([
         kbHtmlViewer.on("view", function (refEl) {
             topic.publish("codeviewer/view", {refEl: refEl});
         });
-        kbHtmlViewer.on("click", function (refEl) {
-            topic.publish("codeviewer/click", {refEl: refEl});
+        kbHtmlViewer.on("select", function (uuid, refEl) {
+            kbCssPanel.view(refEl.nodeType == 1 ? refEl : refEl.parentNode);
+            topic.publish("codeviewer/select", {refEl: refEl});
         });
 
         /*init iframe topic*/
+        var _hideInlineMenuHandler;
         handlers = handlers.concat([
+            topic.subscribe("sandbox/styleSheetsLoad", function (e) {
+                kbCssPanel && kbCssPanel.setStyleSheets(e.styleSheets);
+            }),
             topic.subscribe("dom/view", function (e) {
                 kbHtmlViewer.view(e.target, e.skips);
             }),
@@ -100,13 +110,14 @@ require([
                 minX = x - moveRange, maxX = x + box.w + moveRange, minY = y - moveRange, maxY = y + box.h + moveRange;
                 //kbInlineMenu和iframe刚好相对于同一个DIV容器来定位
                 kbInlineMenu.show(x, y);
-                var _handler = topic.subscribe("dom/mousemove", function (e) {
+                _hideInlineMenuHandler && _hideInlineMenuHandler.remove();
+                _hideInlineMenuHandler = topic.subscribe("dom/mousemove", function (e) {
                     if (e.clientX < minX ||
                         e.clientX > maxX ||
                         e.clientY < minY ||
                         e.clientY > maxY) {
+                        _hideInlineMenuHandler.remove();
                         kbInlineMenu.hide();
-                        _handler.remove();
                     }
                 });
 
@@ -121,7 +132,7 @@ require([
                 kbHtmlViewer.unhighlight(e.target);
             }),
             topic.subscribe("dom/modified", function (e) {
-                topic.publish("dom/remask");
+                topic.publish("sandbox/remask");
                 var uuid = kbHtmlViewer.getUuid(e.target);
                 kbHtmlViewer.refresh(uuid);
             })

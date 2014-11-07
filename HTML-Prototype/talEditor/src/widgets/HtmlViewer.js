@@ -130,10 +130,9 @@
                                 unedit(el);
                                 this._cleanupHandlers();
 
-                                var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode).filter(function (it) {
-                                        return !domClass.contains(it, "node-empty");
-                                    }),
-                                    idx = spans.indexOf(el);
+                                var editables = query(".editable,.add-attr", this.treeNode).filter(function (it) {
+                                    return !domClass.contains(it, "node-empty");
+                                });
 
                                 if (newAttr != oldAttr) {
                                     refEl.removeAttribute(oldAttr);
@@ -143,13 +142,7 @@
                                 } else {
                                     domConst.destroy(attrEl);
                                 }
-
-                                for (var i = idx + 1, j = spans.length; i < j; i++) {
-                                    if (spans[i] && spans[i].parentNode) {
-                                        on.emit(spans[i], "click", e);
-                                        break;
-                                    }
-                                }
+                                this._editNext(editables, el);
                             }
                         }
                     ))
@@ -177,17 +170,10 @@
                             unedit(el);
                             this._cleanupHandlers();
 
-                            var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode).filter(function(it){
-                                    return !domClass.contains(it, "node-empty");
-                                }),
-                                idx = spans.indexOf(el);
-
-                            for (var i = idx + 1, j = spans.length; i < j; i++) {
-                                if (spans[i] && spans[i].parentNode) {
-                                    on.emit(spans[i], "click", {bubbles: true});
-                                    break;
-                                }
-                            }
+                            var editables = query(".editable,.add-attr", this.treeNode).filter(function (it) {
+                                return !domClass.contains(it, "node-empty");
+                            });
+                            this._editNext(editables, el);
                         }
                     })),
                     on(el, "keyup", lang.hitch(this, function (e) {
@@ -215,16 +201,10 @@
                             unedit(el);
                             this._cleanupHandlers();
 
-                            var spans = query("span.attr-name,span.attr-value,.add-attr,span.node-text", this.treeNode).filter(function(it){
-                                    return !domClass.contains(it, "node-empty");
-                                }),
-                                idx = spans.indexOf(el);
-                            for (var i = idx + 1, j = spans.length; i < j; i++) {
-                                if (spans[i] && spans[i].parentNode) {
-                                    on.emit(spans[i], "click", {bubbles: true});
-                                    break;
-                                }
-                            }
+                            var editables = query(".editable,.add-attr", this.treeNode).filter(function (it) {
+                                return !domClass.contains(it, "node-empty");
+                            });
+                            this._editNext(editables, el);
                         }
                     })),
                     on(el, "keyup", lang.hitch(this, function (e) {
@@ -237,7 +217,7 @@
                 var el = e.target,
                     uuid = domAttr.get(el, this.uuidKey),
                     refEl = this.elemHash[uuid],
-                    attrEl = domConst.toDom(string.substitute('<span><span class="attr-name" ${0}="${1}">&nbsp;</span>="<span class="attr-value" ${0}="${1}">&nbsp;</span>"</span>', [this.uuidKey, uuid])),
+                    attrEl = domConst.toDom(string.substitute('<span><span class="attr-name editable" ${0}="${1}">&nbsp;</span>="<span class="attr-value editable" ${0}="${1}">&nbsp;</span>"</span>', [this.uuidKey, uuid])),
                     attrNameEl = query("span", attrEl)[0];
 
                 domConst.place(attrEl, el.parentNode, "before");
@@ -261,11 +241,10 @@
                             unedit(attrNameEl);
                             this._cleanupHandlers();
 
-                            var attr = attrNameEl.textContent = trimAll(attrNameEl.textContent),
-                                spans = query("span.attr-name,span.attr-value,span.node-text", this.treeNode).filter(function(it){
-                                    return !domClass.contains(it, "node-empty");
-                                }),
-                                idx = spans.indexOf(attrNameEl);
+                            var attr = attrNameEl.textContent = trimAll(attrNameEl.textContent);
+                            var editables = query(".editable", this.treeNode).filter(function (it) {
+                                return !domClass.contains(it, "node-empty");
+                            });
 
                             if (attr) {
                                 refEl.setAttribute(attr, "");
@@ -273,16 +252,20 @@
                                 domConst.destroy(attrEl);
                             }
 
-                            for (var i = idx + 1, j = spans.length; i < j; i++) {
-                                if (spans[i] && spans[i].parentNode) {
-                                    on.emit(spans[i], "click", {bubbles: true});
-                                    break;
-                                }
-                            }
+                            this._editNext(editables, attrNameEl);
                         }
                     }))
                 ]);
             })));
+        },
+        _editNext: function (arr, el) {
+            var idx = arr.indexOf(el) || 0;
+            for (var i = idx + 1, j = arr.length; i < j; i++) {
+                if (this.domNode.contains(arr[i])) {
+                    on.emit(arr[i], "click", {bubbles: true});
+                    break;
+                }
+            }
         },
         _setElAttr: function (el) {
             this._set("el", el);
@@ -294,7 +277,8 @@
                 this.set("el", el);
                 this.set("skips", skips);
                 this._renderTree(this.el);
-                this._renderPath(this.getUuid(this.el));
+                var uuid = this.getUuid(this.el);
+                this.select(uuid);
                 this.emit("View", {}, [this.el]);
             }
         },
@@ -449,22 +433,20 @@
             query('.wrapper', this.treeNode).removeClass("active");
             query('.wrapper[' + this.uuidKey + '="' + uuid + '"]', this.treeNode).addClass("active");
             this._renderPath(uuid);
+            //this.emit("Select", {}, [uuid, this.elemHash[uuid]]);
+            this.onSelect(uuid,this.elemHash[uuid]);
+        },
+        onSelect: function (uuid, refEl) {
         },
         _onTreeClick: function (e) {
             var uuid = domAttr.get(e.target, this.uuidKey);
-            if (uuid) {
-                var refEl = this.elemHash[uuid];
-                this.select(uuid);
-                this.emit("Click", e, [refEl]);
-            }
+            uuid && this.select(uuid);
         },
         _onPathClick: function (e) {
             var uuid = domAttr.get(e.target, this.uuidKey);
             if (uuid) {
-                var refEl = this.elemHash[uuid];
                 this.select(uuid);
                 this.scrollTo(uuid);
-                this.emit("Click", e, [refEl]);
             }
         },
         onClick: function (refEl) {

@@ -2,6 +2,7 @@
  * Created by Raoh on 2014/9/17.
  */
 require([
+    "tal/utils",
     "dojo/_base/config",
     "dojo/_base/window",
     "dojo/_base/lang",
@@ -9,18 +10,25 @@ require([
     "dojo/parser",
     "dojo/on",
     "dojo/keys",
+    "dojo/query",
     "dojo/dom-class",
     "dojo/dom-attr",
     "dojo/dom-style",
     "dojo/dom-construct",
     "dojo/dom-geometry",
+    "dojo/Deferred",
+    "dojo/when",
+    "dojo/request/xhr",
     "tal/widgets/Masker",
     "tal/widgets/Lighter",
+    "tal/css/CSSParser",
+    "tal/css/CSSStyleSheet",
+    "tal/cssUtils",
     "dijit/registry",
     "dojox/uuid/generateTimeBasedUuid",
     "dojo/main",
     "dojo/domReady!"
-], function (config, win, lang, array, parser, on, keys, domClass, domAttr, domStyle, domConst, domGeom, Masker, Lighter, registry) {
+], function (utils, config, win, lang, array, parser, on, keys, query, domClass, domAttr, domStyle, domConst, domGeom, Deferred, when, xhr, Masker, Lighter, CSSParser, CSSStyleSheet, cssUtils, registry) {
     var body = win.body(),
         isEditing = false,
         kbContainer = dojo.byId("kbContainer"),
@@ -33,61 +41,46 @@ require([
         kbHolder.el && kbHolder.mask(kbHolder.el);
     }
 
-    parser.parse(kbContainer).then(function () {
-        kbHover = registry.byId("kbHover");
-        kbHolder = registry.byId("kbHolder");
-        kbMasker = registry.byId("kbMasker");
+    function loadStyleSheet() {
+        var deferred = new Deferred(),
+            elems = [query("link[rel='stylesheet'],style[type='text/css']")[0]], len = elems.length, count = len,
+            styleSheets = new Array(len), tagName;
 
-        handlers = handlers.concat([
-            on(body, "mousemove", function (e) {
-                ptopic && ptopic.publish("dom/mousemove", e);
-            }),
-            on(body, "mouseover", function (e) {
-                if (body == e.target ||
-                    isEditing ||
-                    kbHover.domNode.contains(e.target) ||
-                    kbHolder.domNode.contains(e.target) ||
-                    kbMasker.domNode.contains(e.target)) {
-                    return;
-                }
-                ptopic && ptopic.publish("dom/mouseover", e);
-                kbHolder.el != e.target && kbHover.mask(e.target);
+        function resolveFunc() {
+            if (!(--count)) {
+                deferred.resolve(styleSheets);
+            }
+        }
 
-            }),
-            on(body, "mouseout", function (e) {
-                if (body == e.target ||
-                    isEditing ||
-                    kbHover.domNode.contains(e.target) ||
-                    kbHolder.domNode.contains(e.target) ||
-                    kbMasker.domNode.contains(e.target)) {
-                    return;
-                }
-                kbHover.unmask(e.target);
-                ptopic && ptopic.publish("dom/mouseout", e);
-            }),
-            on(body, "click", function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (body == e.target ||
-                    isEditing ||
-                    kbHover.domNode.contains(e.target) ||
-                    kbHolder.domNode.contains(e.target) ||
-                    kbMasker.domNode.contains(e.target)) {
-                    return;
-                }
-                ptopic && ptopic.publish("dom/click", e);
-                kbHolder.mask(e.target);
-                e.target == kbHover.el && kbHover.unmask();
-            }),
-            on(win.global, "resize,scroll", function (e) {
-                remask();
-            })
-        ]);
-    });
+        array.forEach(elems, function (it, idx) {
+            var nativeSheet = it.sheet;
+            tagName = it.tagName.toLowerCase();
+            if (tagName == "link") {
+                xhr.get(it.href).then(function (data) {//done
+                    var sheet = CSSParser.parse(data);
+                    sheet.href = it.href;
+                    sheet.nativeSheet = nativeSheet;
+                    styleSheets[idx] = sheet;
+                    resolveFunc();
+                });
+            }
+            else if (tagName == "style") {
+                var sheet = CSSParser.parse(it.textContent);
+                sheet.href = it.baseURI;
+                sheet.nativeSheet = nativeSheet;
+                styleSheets[idx] = sheet;
+                resolveFunc();
+            }
+        });
+        return deferred.promise;
+    }
 
     setTimeout(function loop() {
         if (parent.topic) {
             ptopic = parent.topic;
+            when(loadStyleSheet()).then(function (styleSheets) {
+                ptopic && ptopic.publish("sandbox/styleSheetsLoad", {styleSheets: styleSheets});
+            });
             ptopic.publish("dom/view", {
                 target: body,
                 skips: ["#kbContainer"]
@@ -109,21 +102,19 @@ require([
                     }
                 }),
                 ptopic.subscribe("codeviewer/view", function (e) {
-                    if (e.refEl.nodeType == 1 && !skip.test(e.refEl.tagName)) {
-                        kbHolder.mask(e.refEl);
-                    } else if (e.refEl.nodeType == 3) {
-                        kbHolder.mask(e.refEl.parentNode);
+                    kbHolder.mask(e.refEl);
+                }),
+                ptopic.subscribe("codeviewer/select", function (e) {
+                    var el = e.refEl.nodeType == 1 ? e.refEl : e.refEl.parentNode;
+                    if (!skip.test(e.refEl.tagName)) {
+                        kbHolder.mask(el);
                     }
                 }),
-                ptopic.subscribe("codeviewer/click", function (e) {
-                    if (e.refEl.nodeType == 1 && !skip.test(e.refEl.tagName)) {
-                        kbHolder.mask(e.refEl);
-                    } else if (e.refEl.nodeType == 3) {
-                        kbHolder.mask(e.refEl.parentNode);
-                    }
-                }),
-                ptopic.subscribe("dom/remask", function () {
+                ptopic.subscribe("sandbox/remask", function () {
                     remask();
+                }),
+                ptopic.subscribe("sandbox/redirect", function (e) {
+                    window.location.href = e.href;
                 }),
                 ptopic.subscribe("inlinemenu/edit", function (e) {
                     var el = e.refEl;
@@ -288,6 +279,57 @@ require([
             setTimeout(loop, 10);
         }
     }, 10);
+
+    parser.parse(kbContainer).then(function () {
+        kbHover = registry.byId("kbHover");
+        kbHolder = registry.byId("kbHolder");
+        kbMasker = registry.byId("kbMasker");
+
+        handlers = handlers.concat([
+            on(body, "mousemove", function (e) {
+                ptopic && ptopic.publish("dom/mousemove", e);
+            }),
+            on(body, "mouseover", function (e) {
+                if (body == e.target ||
+                    isEditing ||
+                    kbHover.domNode.contains(e.target) ||
+                    kbHolder.domNode.contains(e.target) ||
+                    kbMasker.domNode.contains(e.target)) {
+                    return;
+                }
+                ptopic && ptopic.publish("dom/mouseover", e);
+                kbHolder.el != e.target && kbHover.mask(e.target);
+
+            }),
+            on(body, "mouseout", function (e) {
+                if (body == e.target ||
+                    isEditing ||
+                    kbHover.domNode.contains(e.target) ||
+                    kbHolder.domNode.contains(e.target) ||
+                    kbMasker.domNode.contains(e.target)) {
+                    return;
+                }
+                kbHover.unmask(e.target);
+                ptopic && ptopic.publish("dom/mouseout", e);
+            }),
+            on(body, "click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (body == e.target ||
+                    isEditing ||
+                    kbHover.domNode.contains(e.target) ||
+                    kbHolder.domNode.contains(e.target) ||
+                    kbMasker.domNode.contains(e.target)) {
+                    return;
+                }
+                ptopic && ptopic.publish("dom/click", e);
+                e.target == kbHover.el && kbHover.unmask();
+            }),
+            on(win.global, "resize,scroll", function (e) {
+                utils.throttle(remask, 50);
+            })
+        ]);
+    });
 
     handlers.push(on(win.global, "unload", function () {
         console.log("iframe unload", handlers.length);

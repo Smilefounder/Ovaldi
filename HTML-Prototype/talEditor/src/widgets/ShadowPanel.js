@@ -61,7 +61,7 @@ define([
                         c = shadow.match(/(rgb|rgba)\(.*\)/ig)[0],
                         inset = /inset$/.test(shadow),
                         h = toFloat(arr[0]), v = toFloat(arr[1]),
-                        z = Math.pow(Math.pow(h, 2) + Math.pow(v, 2), 0.5),//Math.sqrt(Math.pow(h, 2) + Math.pow(v, 2))
+                        z = Math.sqrt(Math.pow(h, 2) + Math.pow(v, 2))
                         b = toFloat(arr[2]), s = toFloat(arr[3]),
                         distance = Math.round(z),
                         tan = Math.abs(h / v),
