@@ -35,11 +35,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Kooboo.Common">
-      <HintPath>..\packages\Kooboo.Common.5.0.5343.26015\lib\net45\Kooboo.Common.dll</HintPath>
+    <Reference Include="Kooboo.Common, Version=5.0.5343.26015, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Kooboo.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Kooboo.Common.Data">
-      <HintPath>..\packages\Kooboo.Common.Data.5.0.5352.18190\lib\net45\Kooboo.Common.Data.dll</HintPath>
+    <Reference Include="Kooboo.Common.Data, Version=5.0.5352.18190, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Kooboo.Common.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>

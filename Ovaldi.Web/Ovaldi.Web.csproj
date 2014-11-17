@@ -38,17 +38,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Kooboo.Common, Version=5.0.5347.20385, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kooboo.CMS.Common.Runtime.Dependency.Ninject, Version=4.4.0.425, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kooboo.Common.5.0.5347.20385\lib\net45\Kooboo.Common.dll</HintPath>
+      <HintPath>..\lib\Kooboo.CMS.Common.Runtime.Dependency.Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Kooboo.Common.Data, Version=5.0.5347.20385, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kooboo.Common, Version=5.0.5352.18190, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kooboo.Common.Data.5.0.5347.20385\lib\net45\Kooboo.Common.Data.dll</HintPath>
+      <HintPath>..\lib\Kooboo.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Kooboo.Common.Data, Version=5.0.5352.18190, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Kooboo.Common.Data.dll</HintPath>
     </Reference>
     <Reference Include="Kooboo.Common.Web, Version=5.0.5352.18190, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kooboo.Common.Web.5.0.5352.18190\lib\net45\Kooboo.Common.Web.dll</HintPath>
+      <HintPath>..\lib\Kooboo.Common.Web.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
