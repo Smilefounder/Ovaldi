@@ -1,0 +1,51 @@
+<div class="${baseClass} common-form">
+    <table>
+        <tbody>
+        <tr>
+            <th><label>${labelSrc}</label></th>
+            <td>
+                <div class="file-thumbnail">
+                    <img data-dojo-attach-point="srcNode">
+                    <a class="action" href="javascript:;" alt="${labelClearSrc}"
+                       data-dojo-attach-event="click:_clearSrc">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wD/ACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                             data-dojo-attach-event="click:_clearSrc" class="icon minus-small">
+                    </a>
+                </div>
+                <p>
+                    <a href="javascript:;" class="button" data-dojo-attach-event="click:_changeImage">${buttonChange}</a>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelRepeated}</label></th>
+            <td>
+                <select data-dojo-attach-point="repeatedNode">
+                    <option value="no-repeat">No repeat</option>
+                    <option value="repeat">Repeat</option>
+                    <option value="repeat-x">Repeat X</option>
+                    <option value="repeat-y">Repeat Y</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelPositionX}</label></th>
+            <td>
+                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="positionXRef"></div>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelPositionY}</label></th>
+            <td>
+                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="positionYRef"></div>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelColor}</label></th>
+            <td>
+                <div data-dojo-attach-point="colorBox" data-dojo-type="tal/widgets/ColorBox"></div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

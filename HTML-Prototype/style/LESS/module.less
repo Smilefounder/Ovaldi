@@ -1,5 +1,7 @@
 /* @module: Code viewer */
 .kb-code-viewer {
+	color: #881280;
+
 	.title {
 		font-size: 12px;
 		font-weight: 600;
@@ -18,46 +20,19 @@
 		margin-left: 30px;
 	}
 
-	.code {
-		cursor: pointer;
-
-		&.active,
-		&.hover {
-			background: #39F;
-			color: #FFF;
-			.rounded(3px);
-		}
-		
-		.new-attribute{
-			display: inline-block;
-			height: 100%;
-			position: relative;
-			width: 0;
-			.insert-text {
-				display: none;
-				position: absolute;
-				right: -5px;
-				top: -20px;
-			}
-		}
-
-		&:hover .insert-text {
-			display: block;
-		}
-	}
-
 	code {
 		cursor: text;
 	}
 
 	.code-field {
-		border: 2px solid orange;
+		border: 1px solid #A0A0A0;
 		display: none;
 		font-size: 11px;
 		height: 22px;
 		margin: -4px 0 0 -4px;
 		padding: 2px;
 		position: absolute;
+		.box-shadow(0 0 5px rgba(0,0,0,.3));
 	}
 
 	.bottom {
@@ -106,6 +81,74 @@
 			.collapsible {
 				display: none;
 			}
+		}
+	}
+	/* Syntax highlight
+	--------------------------------------------------------*/
+	.attr-name {
+		color: #994500;
+	}
+
+	.attr-value {
+		color: #1A1AA6;
+	}
+
+	.node-text {
+		color: #666;
+	}
+
+	.editing {
+		background: #FFF;
+		border: 1px solid #A0A0A0;
+		color: #222 !important;
+		margin: -3px -5px;
+		padding: 2px 4px;
+		.box-shadow(0 0 5px rgba(0,0,0,.3));
+	}
+
+	.code {
+		cursor: pointer;
+
+		&.hover {
+			background: #5BD0FF;
+			color: #FFF;
+			.rounded(3px);
+
+			.attr-name,
+			.attr-value,
+			.node-text {
+				color: #FFF;
+			}
+		}
+
+		&.active {
+			background: #39F;
+			color: #FFF !important;
+			.rounded(3px);
+
+			.attr-name,
+			.attr-value,
+			.node-text {
+				color: #FFF;
+			}
+		}
+
+		.new-attribute {
+			display: inline-block;
+			height: 100%;
+			position: relative;
+			width: 0;
+
+			.insert-text {
+				display: none;
+				position: absolute;
+				right: -5px;
+				top: -20px;
+			}
+		}
+
+		&:hover .insert-text {
+			display: block;
 		}
 	}
 }
@@ -219,6 +262,20 @@
 		margin-top: -10px;
 	}
 
+	.position {
+		> .label,
+		> input {
+			display: none;
+		}
+
+		&.active {
+			> .label,
+			> input {
+				display: block;
+			}
+		}
+	}
+
 	.margin {
 		background: #FFF;
 		border: 1px dashed #BBB;
@@ -307,7 +364,7 @@
 			height: 20px;
 			padding: 3px;
 			text-align: center;
-			width: 26px;
+			width: 26px !important;
 		}
 	}
 
@@ -362,86 +419,737 @@
 		.clearfix();
 	}
 }
-/* @module: Splitter */
-.kb-splitter {
-	background: #CCC;
-	bottom: 400px;
-	cursor: ns-resize;
-	height: 5px;
-	left: 0;
-	position: absolute;
-	right: 0;
-	z-index: 999;
+/* @module: Border editor */
+.kb-border-editor {
+	.kb-border-editor-wrap {
+		height: 80px;
+		position: relative;
 
-	.toggle-button {
-		background: #CCC;
-		cursor: pointer;
-		height: 16px;
-		line-height: 16px;
-		left: 50%;
-		margin-left: -20px;
+		span {
+			cursor: pointer;
+			position: absolute;
+			z-index: 2;
+		}
+	}
+
+	.box-model {
+		border: 6px solid #DDD;
+		height: 100%;
 		position: absolute;
-		text-align: center;
-		top: -16px;
-		width: 40px;
-		.rounded(3px 3px 0 0);
-		.opacity(60);
+		width: 100%;
+		.box-sizing(border-box);
+	}
 
-		.sprite {
-			.sprite(@chevron-up-gray);
+	.border-top {
+		height: 6px;
+		left: 0;
+		right: 0;
+		top: 0;
+
+		&:hover ~ .box-model {
+			border-top-color: #AAA;
 		}
 
-		&:hover {
-			.opacity(100);
+		&.active ~ .box-model {
+			border-top-color: #009AD7;
+		}
+	}
+
+	.border-bottom {
+		bottom: 0;
+		height: 6px;
+		left: 0;
+		right: 0;
+
+		&:hover ~ .box-model {
+			border-bottom-color: #AAA;
 		}
 
-		&.active .sprite {
-			.sprite(@chevron-down-gray);
+		&.active ~ .box-model {
+			border-bottom-color: #009AD7;
+		}
+	}
+
+	.border-left {
+		bottom: 0;
+		left: 0;
+		width: 6px;
+		top: 0;
+
+		&:hover ~ .box-model {
+			border-left-color: #AAA;
+		}
+
+		&.active ~ .box-model {
+			border-left-color: #009AD7;
+		}
+	}
+
+	.border-right {
+		bottom: 0;
+		width: 6px;
+		right: 0;
+		top: 0;
+
+		&:hover ~ .box-model {
+			border-right-color: #AAA;
+		}
+
+		&.active ~ .box-model {
+			border-right-color: #009AD7;
+		}
+	}
+}
+
+.kb-border-editor-v2 {
+	.kb-border-editor-wrap {
+		height: 170px;
+		position: relative;
+
+		.top,
+		.bottom,
+		.left,
+		.right {
+			position: absolute;
+			text-align: center;
+		}
+
+		.top,
+		.bottom {
+			height: 28px;
+			left: 0;
+			right: 0;
+		}
+
+		.top {
+			top: 0;
+		}
+
+		.bottom {
+			bottom: 0;
+		}
+
+		.left,
+		.right {
+			height: 80px;
+			margin-top: -40px;
+			top: 50%;
+			width: 68px;
+		}
+
+		.left {
+			left: 0;
+		}
+
+		.right {
+			right: 0;
+		}
+	}
+
+	.border-input {
+		background: #F5F5F5;
+		border: 1px solid #CCC;
+		display: inline-block;
+		height: 22px;
+		padding: 2px;
+
+		.ui-spinner {
+			float: left;
+			margin-right: 4px !important;
+
+			input {
+				height: 20px;
+				padding: 3px;
+				text-align: center;
+				width: 26px !important;
+				line-height: 14px;
+			}
+		}
+
+		select {
+			height: 22px;
+			line-height: 1;
+			margin: 0 4px 0 0 !important;
+			padding: 0;
+			width: 65px;
+		}
+
+		.kb-color-input {
+			border: none;
+			padding: 0;
+
+			.color {
+				height: 22px;
+				width: 22px;
+			}
+		}
+
+		&.vertical {
+			height: 80px;
+			width: 100%;
+			.box-sizing(border-box);
+
+			.ui-spinner {
+				margin: 0 0 4px !important;
+				width: 100%;
+				.box-sizing(border-box);
+			}
+
+			select {
+				margin: 0 0 4px !important;
+				width: 100%;
+			}
+
+			.kb-color-input {
+				width: 100%;
+
+				.color {
+					width: 100%;
+					.box-sizing(border-box);
+				}
+			}
+		}
+	}
+
+	.box-model {
+		border: 3px solid #CCC;
+		bottom: 30px;
+		left: 70px;
+		margin: 0 auto;
+		position: absolute;
+		right: 70px;
+		top: 30px;
+	}
+}
+/* @module: Splitter */
+.kb-split-container {
+	height: 500px;
+	overflow: hidden;
+	position: relative;
+
+	.kb-splitter-cover {
+		bottom: 0;
+		display: none;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 5;
+	}
+
+	.kb-split-panel {
+		left: 0;
+		position: absolute;
+		width: 100%;
+		z-index: 4;
+	}
+
+	.kb-splitter {
+		background: #CCC;
+		cursor: ns-resize;
+		height: 5px;
+		left: 0;
+		position: absolute;
+		width: 100%;
+		z-index: 6;
+
+		.toggle-button {
+			background: #CCC;
+			cursor: pointer;
+			height: 25px;
+			line-height: 25px;
+			left: 50%;
+			margin-left: -30px;
+			position: absolute;
+			text-align: center;
+			top: -25px;
+			width: 60px;
+			.rounded(3px 3px 0 0);
+
+			.sprite {
+				.sprite(@chevron-up-gray);
+			}
+
+			&.active .sprite {
+				.sprite(@chevron-down-gray);
+			}
 		}
 	}
 
 	&.horizontal {
-		bottom: 0;
-		cursor: ew-resize;
-		height: auto;
-		left: auto;
-		right: 500px;
-		top: 0;
-		width: 5px;
 
-		.toggle-button {
-			height: 40px;
-			line-height: 40px;
-			margin: -20px 0 0 0;
-			top: 50%;
-			width: 16px;
+		.kb-split-panel {
+			height: 100%;
+			top: 0;
+		}
 
-			&.toggle-to-left {
-				left: auto;
-				right: -16px;
-				.rounded(0 3px 3px 0);
+		.kb-splitter {
+			cursor: ew-resize;
+			height: 100%;
+			top: 0;
+			width: 5px;
 
-				.sprite {
-					.sprite(@chevron-right-gray);
+			.toggle-button {
+				height: 40px;
+				line-height: 40px;
+				margin: -20px 0 0 0;
+				top: 50%;
+				width: 16px;
+
+				&.toggle-to-left {
+					left: auto;
+					right: -16px;
+					.rounded(0 3px 3px 0);
+
+					.sprite {
+						.sprite(@chevron-right-gray);
+					}
+
+					&.active .sprite {
+						.sprite(@chevron-left-gray);
+					}
 				}
 
-				&.active .sprite {
-					.sprite(@chevron-left-gray);
-				}
-			}
+				&.toggle-to-right {
+					left: -16px;
+					.rounded(3px 0 0 3px);
 
-			&.toggle-to-right {
-				left: -16px;
-				.rounded(3px 0 0 3px);
+					.sprite {
+						.sprite(@chevron-left-gray);
+					}
 
-				.sprite {
-					.sprite(@chevron-left-gray);
-				}
-
-				&.active .sprite {
-					.sprite(@chevron-right-gray);
+					&.active .sprite {
+						.sprite(@chevron-right-gray);
+					}
 				}
 			}
 		}
 	}
+}
+/* @module: Inline menu */
+.kb-inline-menu {
+	background: #FFF;
+	left: 50%;
+	min-width: 180px;
+	position: absolute;
+	top: 50%;
+	.box-shadow(0 0 6px rgba(0,0,0,.4));
+	.rounded(3px);
+
+	.title {
+		background: #0078B1;
+		color: #FFF;
+		font-size: 12px;
+		font-weight: 400;
+		padding: 5px 10px;
+		.rounded(3px 3px 0 0);
+	}
+
+	.wrap {
+		li {
+			border-bottom: 1px solid #EEE;
+
+			&:last-child {
+				border: none;
+			}
+		}
+
+		a {
+			color: #009AD7;
+			display: block;
+			line-height: 2;
+			padding: 0 10px;
+			text-decoration: none;
+
+			&:hover {
+				background: #EEE;
+			}
+		}
+	}
+
+	.actions {
+		background: #F5F5F5;
+		border-top: 1px solid #CCC;
+		overflow: hidden;
+		padding: 3px;
+		.rounded(0 0 3px 3px);
+	}
+
+	.action {
+		background: #FFF;
+		border: 1px solid #DDD;
+		float: left;
+		height: 24px;
+		margin-right: 3px;
+		padding: 3px;
+		text-align: center;
+		width: 24px;
+		.rounded(3px);
+		.box-sizing(border-box);
+
+		&:hover {
+			border-color: #AAA;
+		}
+	}
+}
+/* Style editor
+----------------------------------------------------------*/
+.kb-style-editor {
+	.clearfix();
+
+	li {
+		clear: both;
+		float: left;
+		width: 100%;
+		.box-sizing(border-box);
+	}
+
+	ol > li {
+		color: #999;
+		line-height: 22px;
+		padding-left: 1em;
+		position: relative;
+
+		ul, ol {
+			margin-left: 2em;
+		}
+
+		.label {
+			display: none;
+			float: left;
+			line-height: 15px;
+			margin: 2px 0 0 4px;
+		}
+
+		&:hover .label {
+			display: inline;
+		}
+
+		.action {
+			float: left;
+			margin-left: 2em;
+		}
+	}
+
+	.arrow {
+		cursor: pointer;
+		left: 0;
+		position: absolute;
+
+		.sprite {
+			.sprite(@caret-hollow-right-gray);
+		}
+
+		&.active {
+			line-height: 18px;
+
+			.sprite {
+				.sprite(@caret-rightbottom-gray);
+			}
+		}
+	}
+
+	.bracket {
+		color: #666;
+		height: 22px;
+		line-height: 20px;
+		margin: 0 2px;
+	}
+
+	.symbol {
+		color: #666;
+	}
+
+	.text {
+		abc:cd;
+		border-radius:0px;
+		line-height: 20px;
+		min-height: 20px;
+		min-width: 20px;
+		padding: 0 1px;
+
+		&.selector {
+			color: #444;
+		}
+
+		&.attribute {
+			color: #006400;
+		}
+
+		&.value {
+			color: #00008B;
+		}
+
+		&.highlight {
+			outline: 1px solid #999;
+			.box-shadow(0 0 5px 1px rgba(0,0,0,.5));
+		}
+	}
+
+	.start-tag {
+		display: inline-block;
+		max-width: 70%;
+	}
+
+	.end-tag {
+		clear: left;
+		display: block;
+		float: left;
+		margin-top: 2px;
+	}
+
+	.meta {
+		position: absolute;
+		right: 0;
+		text-align: right;
+		top: 0;
+
+		p {
+			border-top: 1px dashed #CCC;
+			margin-top: 3px;
+			padding-top: 3px;
+
+			&:first-child {
+				border: none;
+				margin-top: 0;
+				padding-top: 0;
+			}
+		}
+
+		.info {
+			float: right;
+			margin: 2px 0 0 3px;
+
+			.sprite {
+				.sprite(@info-gray);
+			}
+
+			&:hover .sprite {
+				.sprite(@info-blue);
+			}
+		}
+	}
+}
+
+/* Color input
+----------------------------------------------------------*/
+.kb-color-input {
+	background: #F5F5F5;
+	border: 1px solid #CCC;
+	display: inline-block;
+	padding: 2px;
+
+	.color {
+		background: url(images/transparent.png) repeat;
+		cursor: pointer;
+		float: left;
+		height: 20px;
+		width: 20px;
+
+		span {
+			border: 1px solid #CCC;
+			display: block;
+			height: 100%;
+			width: 100%;
+			.box-sizing(border-box);
+		}
+	}
+
+	.color-value {
+		height: 20px;
+		line-height: 1;
+		margin: 0 0 0 3px !important;
+		padding: 2px 4px;
+		width: 66px;
+	}
+}
+
+/* dojo Color Picker
+----------------------------------------------------------*/
+.dojoxColorPicker {
+	background: #F5F5F5;
+	border: 1px solid #CCC;
+	padding: 8px;
+}
+
+.dojoxColorPickerRightPad {
+	padding-right: 8px;
+}
+
+.dojoxColorPickerBox {
+	position: relative;
+	width: 150px;
+	height: 150px;
+	margin: 0;
+	padding: 0;
+}
+
+.dojoxColorPickerUnderlay {
+	border: 1px solid #CCC;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 150px;
+	height: 150px;
+	z-index: 1;
+}
+
+.dojoxHuePickerUnderlay {
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 150px;
+	width: 20px;
+	z-index: 1;
+	text-align: center;
+}
+
+.dojoxHuePicker {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	padding: 0px;
+}
+
+.dojoxHuePickerPoint {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20px;
+	height: 8px;
+	z-index: 3;
+	cursor: move;
+}
+
+.dojoxColorPickerPoint {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border: 0;
+	z-index: 3;
+	cursor: move;
+}
+
+.dojoxColorPickerPreview {
+	display: block;
+	width: 45px;
+	height: 45px;
+	border: 1px solid #333;
+	background-color: #fff;
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+.dojoxColorPickerWebSafePreview {
+	display: block;
+	width: 25px;
+	height: 25px;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	border: 1px solid #333;
+}
+
+.dojoxColorPickerOptional {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+
+	td {
+		padding: 0 3px 4px 0;
+	}
+}
+
+.dojoxColorPickerPreviewContainer {
+	padding-bottom: 6px;
+}
+
+.dojoxColorPickerOptional input {
+	border: 1px solid #a7a7a7;
+	width: 25px;
+	padding: 1px 3px 1px 3px;
+	line-height: 1.1em;
+}
+
+.dojoxColorPickerHex input {
+	width: 55px;
+}
+
+/* Kooboo Color Picker
+----------------------------------------------------------*/
+.kb-color-picker {
+	background: #F5F5F5;
+	border: 1px solid #CCC;
+	padding: 8px;
+
+	.dojoxColorPicker {
+		border: none;
+	}
+
+	.opacity {
+		border-bottom: 1px solid #DDD;
+		margin: 15px 0;
+		padding-bottom: 5px;
+
+		.title {
+			font-size: 12px;
+			font-weight: 400;
+		}
+	}
+}
+
+/* Color slider
+----------------------------------------------------------*/
+.kb-circle-slider {
+	height: 56px;
+	padding: 2px;
+	position: relative;
+	width: 56px;
+	.box-sizing(border-box);
+	.box-shadow(0 0 0 4px #999 inset);
+	.rounded(28px);
+
+	.dot {
+		background: #999;
+		height: 6px;
+		left: 50%;
+		margin: -3px 0 0 -3px;
+		position: absolute;
+		top: 50%;
+		width: 6px;
+		.rounded(3px);
+		.box-shadow(0 0 3px rgba(0,0,0,.5) inset);
+	}
+
+	.circle {
+		height: 52px;
+		position: relative;
+		width: 52px;
+	}
+
+	.slider-handler {
+		background: #FFF;
+		border: 1px solid #999;
+		cursor: pointer;
+		height: 14px;
+		margin: -7px 0 0 -7px;
+		position: absolute;
+		width: 14px;
+		.box-sizing(border-box);
+		.rounded(7px);
+	}
+}
+
+/* Overlay
+----------------------------------------------------------*/
+.kb-overlay {
+	bottom: 0;
+	display: none;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 999;
 }

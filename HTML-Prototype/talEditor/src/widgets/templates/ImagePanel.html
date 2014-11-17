@@ -1,0 +1,29 @@
+<div class="${baseClass} common-form">
+    <table>
+        <tbody>
+        <tr>
+            <th><label>${labelSrc}</label></th>
+            <td>
+                <div class="file-thumbnail">
+                    <img data-dojo-attach-point="srcNode" src="">
+                </div>
+                <p>
+                    <a href="javascript:;" class="button" data-dojo-attach-event="click:_changeImage">${buttonChange}</a>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelAlt}</label></th>
+            <td>
+                <input type="text" data-dojo-attach-point="altNode">
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelTitle}</label></th>
+            <td>
+                <input type="text" data-dojo-attach-point="titleNode">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

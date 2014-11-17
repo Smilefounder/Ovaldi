@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Hello Dojo!</title>
+    <link rel="Stylesheet" href="../src/widgets/css/reset.css" type="text/css"/>
+</head>
+<body class="tundra">
+<div id="mk" style="width:600px;height:300px;margin-left:20px;margin-top:20px">
+    <div>abcdefg
+        <div>abcdefg
+            <div>abcdefg
+                <div>abcdefg</div>
+            </div>
+        </div>
+    </div>
+    <div>abcdefg</div>
+    <div>
+        <img src="http://www.kooboo.com/Cms_Data/Sites/Kooboo_COM_V4/Files/image/logo.png"/>dd
+    </div>
+</div>
+<div id="kb_container">
+    <script type="text/javascript" src="../dojoConfig.js"></script>
+    <script type="text/javascript" src="../lib/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        var parent = window.parent, ptopic = parent.topic ,global = this;
+        require([
+            "dojo/_base/config",
+            "dojo/on",
+            "dojo/parser",
+            "dojo/topic",
+            "tal/widgets/Masker",
+            "tal/widgets/Lighter",
+            "tal/widgets/CodeViewer",
+            "dojo/domReady!"
+        ], function (config, on, parser, topic, Masker, Lighter, CodeViewer) {
+            parser.parse();
+
+            var mk = document.getElementById("mk"),
+                    container = document.getElementById("kb_container"),subHandler;
+
+            var masker = new Masker({
+                zIndex: 5555,
+                el: mk
+            }).placeAt(container);
+            masker.startup();
+
+            var hover = new Lighter({
+                borderColor: "blue",
+                zIndex: 6666
+            }).placeAt(container);
+            hover.startup();
+
+            on(mk, "mouseover", function (e) {
+                if (mk != e.target) {
+                    hover.mask(e.target);
+                }
+            });
+            on(mk, "mouseout", function (e) {
+                if (mk != e.target) {
+                    hover.unmask();
+                }
+            });
+
+            var holder = new Lighter({
+                zIndex: 9999
+            }).placeAt(container);
+            holder.startup();
+            on(mk, "click", function (e) {
+                if (mk != e.target) {
+                    //阻止事件冒泡,可能需要考虑更多其它事件
+                    e.preventDefault();
+                    e.stopPropagation();
+                    holder.mask(e.target);
+
+                    ptopic && ptopic.publish("ce",{
+                        event:"view:click",
+                        refEl: e.target,
+                        rootEl:mk
+                    });
+                }
+            });
+
+            on(window, "resize,scroll", function (e) {
+                var maskEl = masker.el, hoveEl = hover.el, holdEl = holder.el;
+                masker.unmask();
+                hover.unmask();
+                holder.unmask();
+
+                maskEl && masker.mask(maskEl);
+                hoveEl && hover.mask(hoveEl);
+                holdEl && holder.mask(holdEl);
+            });
+
+            setTimeout(function () {
+                if (parent.topic) {
+                    ptopic = parent.topic;
+                    subHandler = ptopic.subscribe("ce", function (e) {
+                        switch (e.event) {
+                            case "viewer:mouseovercode":
+                                hover.mask(e.refEl);
+                                break;
+                            case "viewer:mouseoverpath":
+                                hover.mask(e.refEl);
+                                break;
+                            case "viewer:mouseoutcode":
+                                hover.unmask();
+                                break;
+                            case "viewer:mouseoutpath":
+                                hover.unmask();
+                                break;
+                            case "viewer:view":
+                                holder.mask(e.refEl);
+                                break;
+                            case "editor:change":
+                                e.refEl.innerHTML = e.html;
+                                break;
+                        }
+                    });
+                    global.onunload = function(){
+                        console.log("remove",this);
+                        subHandler.remove();
+                    };
+                } else {
+                    setTimeout(arguments.callee, 10);
+                }
+            }, 10);
+
+        });
+    </script>
+</div>
+</body>
+</html>

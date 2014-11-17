@@ -1,0 +1,47 @@
+<div class="common-form">
+    <table>
+        <tr>
+            <th><label>${labelDirection}</label></th>
+            <td>
+				<div class="angle-input">
+	                <div data-dojo-type="tal/widgets/CircleSlider" data-dojo-attach-point="circleSlider"></div>
+    	            <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="directionSpinner" data-dojo-props="min:0,max:359,step:1,value:0"></div>
+					°
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelDistance}</label></th>
+            <td>
+                <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="distanceSpinner"></div>
+                px
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelBlur}</label></th>
+            <td>
+                <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="blurSpinner"></div>
+                px
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelSize}</label></th>
+            <td>
+                <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="sizeSpinner"></div>
+                px
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelColor}</label></th>
+            <td>
+                <div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="colorBox"></div>
+            </td>
+        </tr>
+        <tr>
+            <th><label>inset</label></th>
+            <td>
+                <input type="checkbox" data-dojo-attach-point="insetNode">
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sample site</title>
+<link href="style/reset.css" rel="stylesheet">
+<link href="style/base.css" rel="stylesheet">
+<link href="style/common.css" rel="stylesheet">
+<script src="js/jquery-1.11.0.min.js"></script>
+<!--[if lte IE 7]><link href="style/ie.css" rel="stylesheet"><![endif]-->
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<!-- Source from kooboo cms -->
+<link rel="stylesheet" href="../style/jquery-ui/jquery-ui.min.css">
+<link rel="stylesheet/less" href="../js/inline-editor/kooboo-editor.less">
+<link rel="stylesheet/less" href="../js/inline-editor/inline-editor.less">
+<script src="../js/inline-editor/less-1.7.0.min.js"></script>
+<script src="../js/jquery-ui.min.js"></script>
+<script src="../js/inline-editor/kooboo-editor.js"></script>
+</head>
+
+<body>
+<div id="body-container">
+	<header id="header" class="clearfix">
+		<h1 class="logo"><a href="index.html">Sample site</a></h1>
+		<nav class="nav">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Article</a></li>
+				<li><a href="#">About</a></li>
+			</ul>
+		</nav>
+		<ul class="quicklinks">
+			<li><strong>[Admin]</strong></li>
+			<li><a href="#">Sign out</a></li>
+		</ul>
+	</header>
+	<div id="main-container" class="clearfix">
+		<div class="topbar">
+			<h1 class="title">Home</h1>
+			<div class="searchbox">
+				<input type="search">
+				<button type="submit">Search</button>
+			</div>
+		</div>
+		<div id="main" data-position="main">
+			<div class="block list" data-view="article-list">
+				<div class="item kooboo-repeated">
+					<a class="thumbnail" href="#"><img src="images/thumbnail.png" alt="Thumbnail"></a>
+					<div class="text">
+						<h6 class="title"><a href="article.html">Lorem ipsum dolor sit amet</a></h6>
+						<span class="date">2011-01-20</span>
+						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+						<a class="comment" href="#">2 Comments</a>
+					</div>
+				</div>
+				<div class="item">
+					<a class="thumbnail" href="#"><img src="images/thumbnail.png" alt="Thumbnail"></a>
+					<div class="text">
+						<h6 class="title"><a href="article.html">Lorem ipsum dolor sit amet</a></h6>
+						<span class="date">2011-01-20</span>
+						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+						<a class="comment" href="#">2 Comments</a>
+					</div>
+				</div>
+				<div class="item">
+					<a class="thumbnail" href="#"><img src="images/thumbnail.png" alt="Thumbnail"></a>
+					<div class="text">
+						<h6 class="title"><a href="article.html">Lorem ipsum dolor sit amet</a></h6>
+						<span class="date">2011-01-20</span>
+						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+						<a class="comment" href="#">2 Comments</a>
+					</div>
+				</div>
+				<div class="item">
+					<a class="thumbnail" href="#"><img src="images/thumbnail.png" alt="Thumbnail"></a>
+					<div class="text">
+						<h6 class="title"><a href="article.html">Lorem ipsum dolor sit amet</a></h6>
+						<span class="date">2011-01-20</span>
+						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+						<a class="comment" href="#">2 Comments</a>
+					</div>
+				</div>
+			</div>
+			<!--<div class="block common-form" data-view="article-form">
+				<form>
+					<p class="field">
+						<label for="title">Title</label>
+						<input type="text" id="title" name="title">
+					</p>
+					<p class="field">
+						<label for="date">Date</label>
+						<input type="text" id="date" name="date">
+					</p>
+					<p class="field">
+						<label for="content">Content</label>
+						<input type="text" id="content" name="content">
+					</p>
+					<p class="buttons">
+						<button type="submit">Submit</button>
+					</p>
+				</form>
+			</div>-->
+		</div>
+		<aside id="sidebar">
+			<div class="block menu">
+				<ul>
+					<li><a class="active" href="#">Home</a></li>
+					<li>
+						<a href="#">Menu 2</a>
+						<ul>
+							<li><a href="#">Menu 2.1</a></li>
+							<li><a href="#">Menu 2.2</a></li>
+							<li><a href="#">Menu 2.3</a></li>
+							<li><a href="#">Menu 2.4</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Menu 3</a></li>
+					<li><a href="#">Menu 4</a></li>
+				</ul>
+			</div>
+		</aside>
+	</div>
+	<footer id="footer">
+		<p>Copyright &copy; 2009 - 2013 <a href="#">Kooboo team</a></p>
+	</footer>
+</div>
+<div id="kbContainer" style="width:1px;height:1px;border:none;">
+<div id="kbHover" data-dojo-type="tal/widgets/Lighter" data-dojo-props="borderColor:'#51a8ff',zIndex:6666"></div>
+<div id="kbHolder" data-dojo-type="tal/widgets/Lighter" data-dojo-props="borderColor:'red',zIndex:9999"></div>
+<div id="kbMasker" data-dojo-type="tal/widgets/Masker" data-dojo-props="zIndex:9999"></div>
+<script type="text/javascript">
+	window.dojo = null;
+</script>
+<script type="text/javascript" src="/talEditor/lib/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="/talEditor/dojoConfig.js"></script>
+<script type="text/javascript" src="/talEditor/lib/dojo/dojo.js"></script>
+<script type="text/javascript" src="/talEditor/src/htmlEditor-embed.js"></script>
+</div>
+</body>
+</html>

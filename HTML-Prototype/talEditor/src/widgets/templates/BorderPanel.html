@@ -1,0 +1,73 @@
+<div class="${baseClass} common-form">
+    <p class="field">
+        <input type="checkbox" id="${id}_BorderLocker" data-dojo-attach-point="lockNode"
+               data-dojo-attach-event="click:_lock">
+        <label class="inline" for="${id}_BorderLocker">Lock borders together</label>
+    </p>
+    <hr>
+    <div class="kb-border-editor-v2">
+        <div class="kb-border-editor-wrap">
+            <div class="top">
+                <div class="border-input">
+                    <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="topWidth"></div>
+                    <select data-dojo-attach-point="topStyle">
+                        <option value="none">None</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="double">Double</option>
+                        <option value="groove">Groove</option>
+                        <option value="ridge">Ridge</option>
+                        <option value="solid">Solid</option>
+                    </select>
+                    <div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="topColor"></div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="border-input vertical">
+                    <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="rightWidth"></div>
+                    <select data-dojo-attach-point="rightStyle">
+                        <option value="none">None</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="double">Double</option>
+                        <option value="groove">Groove</option>
+                        <option value="ridge">Ridge</option>
+                        <option value="solid">Solid</option>
+                    </select>
+                    <div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="rightColor"></div>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="border-input">
+                    <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="bottomWidth"></div>
+                    <select data-dojo-attach-point="bottomStyle">
+                        <option value="none">None</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="double">Double</option>
+                        <option value="groove">Groove</option>
+                        <option value="ridge">Ridge</option>
+                        <option value="solid">Solid</option>
+                    </select>
+                    <div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="bottomColor"></div>
+                </div>
+            </div>
+            <div class="left">
+                <div class="border-input vertical">
+                    <div data-dojo-type="tal/widgets/Spinner" data-dojo-attach-point="leftWidth"></div>
+                    <select data-dojo-attach-point="leftStyle">
+                        <option value="none">None</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="double">Double</option>
+                        <option value="groove">Groove</option>
+                        <option value="ridge">Ridge</option>
+                        <option value="solid">Solid</option>
+                    </select>
+                    <div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="leftColor"></div>
+                </div>
+            </div>
+            <div class="box-model"></div>
+        </div>
+    </div>
+</div>

@@ -11,9 +11,11 @@
 <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
 <!-- Source from kooboo cms -->
+<link rel="stylesheet" href="../style/jquery-ui/jquery-ui.min.css">
 <link rel="stylesheet/less" href="../js/inline-editor/kooboo-editor.less">
-<link rel="stylesheet/less" href="../js/inline-editor/kb-inline-menu.less">
+<link rel="stylesheet/less" href="../js/inline-editor/inline-editor.less">
 <script src="../js/inline-editor/less-1.7.0.min.js"></script>
+<script src="../js/jquery-ui.min.js"></script>
 <script src="../js/inline-editor/kooboo-editor.js"></script>
 </head>
 
@@ -80,7 +82,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="block common-form" data-view="article-form">
+			<!--<div class="block common-form" data-view="article-form">
 				<form>
 					<p class="field">
 						<label for="title">Title</label>
@@ -98,7 +100,7 @@
 						<button type="submit">Submit</button>
 					</p>
 				</form>
-			</div>
+			</div>-->
 		</div>
 		<aside id="sidebar">
 			<div class="block menu">
@@ -122,22 +124,6 @@
 	<footer id="footer">
 		<p>Copyright &copy; 2009 - 2013 <a href="#">Kooboo team</a></p>
 	</footer>
-</div>
-<script>
-$(function(){
-	//$('[data-view]').KoobooMask();
-	//$('[data-view]').KoobooHighlight();
-	//$('[data-view]').KoobooCopyMask();
-})
-</script>
-<div class="kb-inline-menu">
-	<h6 class="title">Block</h6>
-	<div class="wrap">
-		<ul>
-			<li><a href="#">Edit text</a></li>
-			<li><a href="#">Edit html</a></li>
-		</ul>
-	</div>
 </div>
 </body>
 </html>

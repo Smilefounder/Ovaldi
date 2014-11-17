@@ -1,0 +1,228 @@
+@import "less-element.less";
+/* @module: Inline menu
+-----------------------------------------------------------*/
+.kb-inline-menu {
+	background: #FFF;
+	left: 50%;
+	min-width: 180px;
+	position: absolute;
+	top: 50%;
+	.box-shadow(0 0 6px rgba(0,0,0,.4));
+	.rounded(3px);
+
+	.title {
+		background: #0078B1;
+		color: #FFF;
+		font-size: 12px;
+		font-weight: 400;
+		padding: 5px 10px;
+		.rounded(3px 3px 0 0);
+	}
+
+	.wrap {
+		li {
+			border-bottom: 1px solid #EEE;
+
+			&:last-child {
+				border: none;
+			}
+		}
+
+		a {
+			color: #009AD7;
+			display: block;
+			line-height: 2;
+			padding: 0 10px;
+			text-decoration: none;
+
+			&:hover {
+				background: #EEE;
+			}
+		}
+	}
+}
+/* @module: Inline dialog
+-----------------------------------------------------------*/
+.ui-dialog.kb-inline-dialog {
+	border: none;
+	padding: 0;
+	.box-shadow(0 0 15px rgba(0,0,0,.5));
+
+	.ui-dialog-titlebar {
+		background: none;
+		border: none;
+		border-bottom: 1px solid #CCC;
+		padding: 0 10px;
+		line-height: 30px;
+		.rounded(0);
+	}
+
+	.ui-dialog-title {
+		margin: 0;
+	}
+
+	.ui-dialog-titlebar-close {
+		background: none;
+		border: none;
+		border-left: 1px solid #CCC;
+		height: 30px;
+		margin: 0;
+		padding: 0;
+		right: 0;
+		top: 0;
+		width: 30px;
+		.rounded(0);
+	}
+
+	.ui-dialog-content {
+		padding: 10px;
+	}
+}
+/* @module: Inline editor field
+-----------------------------------------------------------*/
+.kb-inline-editor-field {
+	background: #FFFFD3;
+	border: 1px solid #E9E9AE;
+	color: #000 !important;
+	overflow: hidden;
+}
+
+/* @module: Inline form
+-----------------------------------------------------------*/
+.kb-inline-form {
+	width: 280px;
+
+	table {
+		width: 100%;
+	}
+
+	th {
+		font-weight: 400;
+		padding: 5px 10px 5px 0;
+		text-align: left;
+		vertical-align: text-top;
+		white-space: nowrap;
+	}
+
+	td {
+		padding: 5px 0;
+	}
+
+	.buttons {
+		border-top: 1px solid #CCC;
+		margin-top: 10px;
+		overflow: hidden;
+		padding-top: 10px;
+
+		.kb-inline-button {
+			float: left;
+			margin-right: 10px;
+		}
+	}
+}
+
+/* @module: Inline file thumbnail
+-----------------------------------------------------------*/
+.kb-file-thumbnail {
+	display: inline-block;
+	max-width: 100%;
+	position: relative;
+
+	img {
+		display: block;
+		max-width: 100%;
+	}
+
+	.action {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+
+/* @module: Inline button
+-----------------------------------------------------------*/
+.kb-inline-button {
+	background: #0078B1;
+	color: #FFF;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 14px;
+	height: 28px;
+	line-height: 28px;
+	min-width: 100px;
+	padding: 0 10px;
+	text-align: center;
+	.box-sizing(border-box);
+	.transition(0.2s);
+
+	&:hover {
+		background: darken(#0078B1, 5%);
+		text-decoration: none;
+	}
+
+	&.gray {
+		background: #CCC;
+		color: #000;
+
+		&:hover {
+			background: darken(#CCC, 5%);
+		}
+
+		&.disabled {
+			background: lighten(#CCC, 5%);
+			color: #666;
+		}
+	}
+}
+
+/* @module: Holder
+-----------------------------------------------------------*/
+#kbHolder {
+	div {
+		-webkit-animation: twinkling 2s ease-in-out infinite;
+		animation: twinkling 2s ease-in-out infinite;
+	}
+}
+
+
+@keyframes twinkling {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@xxx{
+  
+}
+
+@-webkit-keyframes twinkling {    28  26
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes twinkling {  
+	100% {
+		opacity: 1;
+	}
+}
+
+.test{
+   border :solid 1px red;
+}

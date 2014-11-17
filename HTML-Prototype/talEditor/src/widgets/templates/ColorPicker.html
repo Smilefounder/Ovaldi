@@ -1,0 +1,8 @@
+<div class="${baseClass}">
+    <div data-dojo-type="dojox/widget/ColorPicker" data-dojo-attach-point="picker"></div>
+    <div class="opacity">
+        <h6 class="title">Opacity:</h6>
+        <div data-dojo-type="tal/widgets/Slider" data-dojo-props="min:0,max:1,step:0.1,value:1" data-dojo-attach-point="slider"></div>
+    </div>
+    <a class="button" href="javascript:;" data-dojo-attach-point="clearNode" data-dojo-attach-event="click:_onClear">Clear</a>
+</div>

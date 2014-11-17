@@ -1,0 +1,25 @@
+<div class="${baseClass} common-form">
+    <table>
+        <tr>
+            <th><label>${labelFontFamily}</label></th>
+            <td>
+                <select data-dojo-attach-point="familyNode">
+                    <option value="Arial">Arial</option>
+                    <option value="">Others</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelFontSize}</label></th>
+            <td>
+                <div data-dojo-type="tal/widgets/UnitSpinner" data-dojo-attach-point="sizeSpinner"></div>
+            </td>
+        </tr>
+        <tr>
+            <th><label>${labelFontColor}</label></th>
+            <td>
+                <div data-dojo-type="tal/widgets/ColorBox" data-dojo-attach-point="colorBox"></div>
+            </td>
+        </tr>
+    </table>
+</div>

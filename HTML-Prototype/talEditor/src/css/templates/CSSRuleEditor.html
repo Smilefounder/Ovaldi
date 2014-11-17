@@ -1,0 +1,29 @@
+<li class="${baseClass}">
+    <span class="arrow active">
+        <img src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wD/ACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+             class="sprite">
+    </span>
+    <span class="start-tag">
+        <span class="text selector css-selector editable" data-dojo-attach-point="selectorNode"><%=selector%></span>
+        <span class="bracket">{</span>
+    </span>
+    <ul class="css-property-list" data-dojo-attach-point="propListNode">
+    </ul>
+    <a title="Add Property" href="javascript:;" data-dojo-attach-event="click:_onAddProp" class="action add-css-property editable">
+        <img src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wD/ACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+             class="icon plus-small">
+    </a>
+    <span class="bracket end-tag">}</span>
+    <div class="meta">
+        <p data-dojo-attach-point="sourceNode"><%=source%></p>
+        <p>3 pages affected:<a class="info J_Tooltip" title="Affected pages: page1.html, page2.html, page3.html" href="javascript:;"><img class="sprite" src="images/invis.gif"></a></p>
+    </div>
+    <script type="text/template" data-dojo-attach-point="propTmplNode">
+        <li class="css-property-group">
+            <span class="text attribute css-property-name editable"><%=name%></span>
+            <span class="symbol">:</span>
+            <span class="text value css-property-value editable"><%=value%><%=important%></span>
+            <span class="symbol">;</span>
+        </li>
+    </script>
+</li>

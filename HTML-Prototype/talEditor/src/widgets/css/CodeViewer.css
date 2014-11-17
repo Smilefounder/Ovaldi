@@ -1,0 +1,56 @@
+.kb-code-viewer {
+
+}
+
+.kb-code-viewer .title {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom:20px;
+}
+
+.kb-code-viewer .container {
+    background: #FFF;
+    border: 1px solid #CCC;
+    border-bottom: none;
+    line-height: 1.3;
+    padding: 10px;
+    height:200px;
+    overflow: auto;
+}
+
+.kb-code-viewer li ul {
+    margin-left: 30px;
+}
+
+.kb-code-viewer .code {
+    cursor: pointer;
+}
+
+.kb-code-viewer .code.active,
+.kb-code-viewer .code.hover {
+    background: #39F;
+    color: #FFF;
+}
+
+.kb-code-viewer .bottom {
+    background: #F5F5F5;
+    border: 1px solid #CCC;
+    line-height: 20px;
+    min-height: 20px;
+}
+
+.kb-code-viewer .bottom a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 0 5px;
+}
+
+.kb-code-viewer .bottom a:hover {
+    background: #DDD;
+}
+
+.kb-code-viewer .bottom a.active,
+.kb-code-viewer .bottom a.hover {
+    background: #39F;
+    color: #FFF;
+}

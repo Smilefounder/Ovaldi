@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Hello Dojo!</title>
+    <link rel="Stylesheet" href="../src/widgets/css/reset.css" type="text/css"/>
+</head>
+<body class="tundra">
+<div id="mk" style="width:600px;height:300px;margin-left:20px;margin-top:20px">
+    <div>
+        <span>abcdefg</span>
+        <span>abcdefg</span>
+        <span>abcdefg</span>
+        <span>abcdefg</span>
+    </div>
+    <div>abcdefg</div>
+    <input type="text">
+
+    <div class="abcdefg">
+        <img src="http://www.kooboo.com/Cms_Data/Sites/Kooboo_COM_V4/Files/image/logo.png"/>dd
+    </div>
+    <a href="http://www.baidu.com/">Baidu</a>
+</div>
+<div id="kb_container">
+<div id="toolbar" style="position:absolute;top:-100px;left:-100px;width:30px;height:20px;">
+    <button id="btnEdit" style="border: 1px solid #CCC;padding: 2px 4px;border-radius: 3px;"><img src="images/edit.png">
+    </button>
+</div>
+<script type="text/javascript" src="../lib/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="../dojoConfig.js"></script>
+<script type="text/javascript" src="../lib/dojo/dojo.js"></script>
+<script type="text/javascript">
+var parent = window.parent, ptopic;
+require([
+    "dojo/_base/config",
+    "dojo/_base/lang",
+    "dojo/on",
+    "dojo/dom-class",
+    "dojo/dom-attr",
+    "dojo/dom-style",
+    "dojo/dom-geometry",
+    "tal/widgets/Lighter",
+    "dojox/uuid/generateTimeBasedUuid",
+    "dojo/domReady!"
+], function (config, lang, on, domClass, domAttr, domStyle, domGeo, Lighter) {
+    var body = document.body, kbContainer = dojo.byId("kb_container"), skip = false,
+            mceEditor, selectEl, orgEl, editEl,
+            toolbar = dojo.byId("toolbar"), btnEdit = dojo.byId("btnEdit");
+
+    var hover = new Lighter({
+        borderColor: "#51a8ff",
+        zIndex: 6666
+    }).placeAt(kbContainer);
+    hover.startup();
+
+    var holder = new Lighter({
+        zIndex: 9999
+    }).placeAt(kbContainer);
+    holder.startup();
+
+    on(body, "mouseover", function (e) {
+        if (body != e.target && !toolbar.contains(e.target) && (!editEl || !editEl.contains(e.target))) {
+            hover.mask(e.target);
+            ptopic && ptopic.publish("dom/mouseover", {refEl: e.target});
+        }
+    });
+    on(body, "mouseout", function (e) {
+        if (body != e.target && !toolbar.contains(e.target) && (!editEl || !editEl.contains(e.target))) {
+            hover.unmask();
+            ptopic && ptopic.publish("dom/mouseout", {refEl: e.target});
+        }
+    });
+
+    on(btnEdit, "click", function () {
+        var tool = "save exit | undo redo";
+        if (selectEl && !mceEditor) {
+            domStyle.set(toolbar, {
+                left: "-100px",
+                top: "-100px"
+            });
+            orgEl = selectEl;
+            editEl = lang.clone(orgEl);
+            orgEl.parentNode.replaceChild(editEl, orgEl);
+
+            domClass.add(editEl, "kb-editor-on");
+            if (editEl.children.length > 0) {
+                tool = "save exit | undo redo | bold italic forecolor formatselect | indent outdent | alignleft aligncenter alignright alignjustify | bullist numlist | image link unlink | rawcode";
+            }
+            tinymce.init({
+                selector: ".kb-editor-on",
+                inline: true,
+                cleanup: true,
+                plugins: [
+                    ["exit advlist autolink link image lists charmap hr anchor pagebreak spellchecker"],
+                    ["searchreplace wordcount visualblocks visualchars media nonbreaking"],
+                    ["table contextmenu directionality emoticons template paste"]
+                ],
+                schema: "html5",
+                menubar: false,
+                force_p_newlines: false,
+                forced_root_block: "",
+                height: "200px",
+                toolbar_items_size: 'small',
+                toolbar: tool,
+                verify_html: false,
+                init_instance_callback: function (ed) {
+                    setTimeout(function () {
+                        ed.focus();
+                        ed.off('blur');
+                    }, 200);
+
+                    //重新传值给右边工具栏
+                    ptopic && ptopic.publish("dom/click", {
+                        refEl: editEl,
+                        rootEl: body
+                    });
+
+                    mceEditor = ed;
+                },
+                exit_onsavecallback: function (ed) {
+                    orgEl.innerHTML = ed.getContent();
+                    //将editEl的值赋回原值，防止触发修改提示
+                    //一定要在getContent之后，否则getContent将返回原始内容
+                    editEl.innerHTML = ed.startContent;
+                    //要在替换节点之前销毁tinymce，否则tinymce会出错
+                    mceEditor.remove();
+                    mceEditor = null;
+
+                    editEl.parentNode.replaceChild(orgEl, editEl);
+                    editEl = null;
+                    skip = true;
+                    //重新传值给右边工具栏
+                    ptopic && ptopic.publish("dom/click", {
+                        refEl: orgEl,
+                        rootEl: body
+                    });
+                },
+                exit_onexitcallback: function (ed) {
+                    //将editEl的值赋回原值，防止触发修改提示
+                    editEl.innerHTML = ed.startContent;
+                    //要在替换节点之前销毁tinymce，否则tinymce会出错
+                    mceEditor.remove();
+                    mceEditor = null;
+                    editEl.parentNode.replaceChild(orgEl, editEl);
+                    editEl = null;
+                    skip = true;
+                    //重新传值给右边工具栏
+                    ptopic && ptopic.publish("dom/click", {
+                        refEl: orgEl,
+                        rootEl: body
+                    });
+                },
+                setup: function (ed) {
+                    ed.on('BeforeSetContent', function (e) {
+                        e.format = 'raw';
+                    });
+                }
+            });
+            domClass.remove(editEl, "kb-editor-on");
+        }
+    });
+
+    on(body, "click", function (e) {
+        if (skip) {
+            skip = false;
+            return;
+        }
+        if (editEl && editEl.contains(e.target)) {
+            return;
+        }
+        if (hover.domNode.contains(e.target) || holder.domNode.contains(e.target)) {
+            return;
+        }
+        if (mceEditor && mceEditor.theme.panel && mceEditor.theme.panel.getEl().contains(e.target)) {
+            return;
+        }
+        if (body != e.target && !toolbar.contains(e.target)) {
+
+            //阻止事件冒泡,可能需要考虑更多其它事件
+            e.preventDefault();
+            e.stopPropagation();
+
+            ptopic && ptopic.publish("dom/click", {
+                refEl: e.target,
+                rootEl: body
+            });
+        }
+    });
+
+    on(window, "resize,scroll", function (e) {
+        var hoveEl = hover.el, holdEl = holder.el;
+        hover.unmask();
+        holder.unmask();
+
+        hoveEl && hover.mask(hoveEl);
+        holdEl && holder.mask(holdEl);
+    });
+
+    setTimeout(function () {
+        if (parent.topic) {
+            ptopic = parent.topic;
+            ptopic.subscribe("codeviewer/mouseover", function (e) {
+                hover.mask(e.refEl);
+            });
+            ptopic.subscribe("codeviewer/mouseout", function (e) {
+                hover.unmask(e.refEl);
+            });
+            ptopic.subscribe("codeviewer/view", function (e) {
+                holder.mask(e.refEl);
+                if (mceEditor) {
+                    orgEl.innerHTML = mceEditor.getContent();
+                    mceEditor.remove();
+                    mceEditor = null;
+                    editEl.parentNode.replaceChild(orgEl, editEl);
+                    editEl = null;
+                }
+                if ((/^img|hr|br|input$/i).test(e.refEl.tagName)) {
+                    domStyle.set(toolbar, {
+                        left: "-100px",
+                        top: "-100px"
+                    });
+                } else {
+                    var pos = domGeo.position(e.refEl, true);
+                    domStyle.set(toolbar, {
+                        left: (pos.x + pos.w - 30) + "px",
+                        top: (pos.y - 25) + "px"
+                    });
+                }
+                selectEl = e.refEl;
+            });
+        } else {
+            setTimeout(arguments.callee, 10);
+        }
+    }, 10);
+});
+</script>
+</div>
+</body>
+</html>
