@@ -1,0 +1,38 @@
+﻿#MySignature {
+border: solid 1px #E5E5E5;
+padding: 10px;
+background: #FFFEFE url(images/o_info.png) no-repeat scroll 1% 50%;
+padding-left: 75px;
+height:100px;
+}
+
+#MySignature a:link, #MySignature a:visited, #MySignature a:active {
+color: #F60;
+}
+
+div#about_body img#itnm{
+float: left;
+margin-right: 10px;
+margin-top: 2px;
+}
+
+div#sidebar div#about p {
+line-height: 20px;
+}
+
+div#about_body p {
+margin: 0 auto 6px auto;
+}
+
+#profile_block {
+display:none;
+}
+
+#MySignature a:link, #MySignature a:visited, #MySignature a:active
+{
+color:green;
+}
+
+#logoFoot{
+display:none;
+}

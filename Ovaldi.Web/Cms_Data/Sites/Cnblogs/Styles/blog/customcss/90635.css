@@ -1,0 +1,15 @@
+﻿#div_digg {
+width: 160px;
+position: fixed;
+right: 0px;
+bottom: 0px;
+z-index: 10;
+background-color:Gray;
+margin: 10px;
+padding: 10px;
+border: 1px solid #CCC;
+float: right;
+font-size: 12px;
+text-align: center;
+background: url("images/o_blackcat.gif") repeat-x scroll 1% 50% #5F5A4B;
+}

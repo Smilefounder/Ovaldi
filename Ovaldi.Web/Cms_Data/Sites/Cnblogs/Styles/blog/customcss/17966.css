@@ -1,0 +1,105 @@
+﻿div.post div.entry p{
+    margin:2px auto;
+}
+div.post div.entry h1{
+    background-color: #4BACC6;
+    color:white;
+    padding: 5px;
+    font-weight:bold;
+    border-radius: 4px 4px 4px 4px;
+    height:38px;
+    line-height:38px;
+}
+div.post div.entry h2{
+    background: none repeat scroll 0 0 #55895B;
+    border-radius: 4px 4px 4px 4px;
+    clear: both;
+    color: #FFFFFF;
+    font-size: 20px;
+    margin: 10px 0;
+    padding: 6px 20px;
+    text-align: left;
+}
+div#license_information {
+    background-color: #F8F8EE;
+    border: 1px solid #E8E7D0;
+    color: #666666;
+    margin-bottom: 10px;
+    margin-top: -15px;
+    min-height: 10px;
+    padding: 5px 10px 0;
+}
+.cnblogs_code {
+    background-color: #F7F7FF;
+    border-color: #F0F0FF #F0F0FF #F0F0FF #B0D8FF;
+    border-style: solid;
+    border-width: 2px 2px 2px 5px;
+    font-family: "Courier New",微软雅黑,Consolas,Arial,宋体;
+    padding: 8px;
+}
+.cnblogs_code pre {
+    max-width:850px;
+}
+.img-txt:before,
+    .img-txt:after {
+      content: ".";
+      display: block;
+      height: 0;
+      visibility: hidden;
+    }
+    .img-txt:after {clear: both;}
+    .img-txt {zoom: 1;}
+    .img-txt .img {float:left;margin-right:10px;_margin-right:7px;}
+    .img-txt .txt {
+        display:table-cell;
+        #zoom:1;
+    }
+    .img-txt .txt:after {
+        clear: both;
+        display: block;
+        visibility: visible;
+        overflow: hidden;
+        height: 0 !important;
+        line-height: 0;
+        font-size: xx-large;
+        content: " x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";
+    }
+ .img-txt p{margin:0 auto;}
+#div_digg {
+    background-color: white;
+    border: 1px solid #CCCCCC;
+    bottom: 0;
+    float: right;
+    font-size: 12px;
+    margin: 10px;
+    padding: 10px;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    width: 120px;
+    z-index: 10;
+    margin-right:32%;
+}
+
+#MySignature .articleFooter {
+    background-color: #FFF7DC;
+    border: 2px solid #FFBFBF;
+    padding: 15px;
+}
+div.articleFooter {
+    font-family: "Courier New",微软雅黑,Consolas,Arial,宋体;
+}
+#cnblogs_post_body p {
+    line-height: 180%;
+    padding: 0;
+    color:#333333;
+}
+#cnblogs_post_body, #navCategory {
+    color: #000000;
+    font: 16px/1.5em "微软雅黑","PTSans","Arial",sans-serif,宋体;
+
+}
+.icon_smile {
+    background: url("images/iRQEMcOmh4qgDQKBAA7") no-repeat scroll 0 0 transparent;
+    padding-left: 16px;
+}

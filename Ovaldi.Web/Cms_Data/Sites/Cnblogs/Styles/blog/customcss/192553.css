@@ -1,0 +1,12 @@
+﻿#btmDiv
+{
+position: fixed;
+right:0px;
+text-align:right;
+bottom:0px;
+_bottom:auto;/* for IE6 */
+float:right;
+z-index:9999;
+_position:absolute; /* for IE6 */
+_top: expression(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight); /* for IE6 */
+}

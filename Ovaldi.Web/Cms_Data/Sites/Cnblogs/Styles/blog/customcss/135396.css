@@ -1,0 +1,22 @@
+﻿.headerText
+{
+position:fixed;
+  font-size:19px;
+  color:White;
+  font-family:Tahoma,Microsoft YaHei;
+ background-color:DarkRed;
+border-radius:5px;
+border:2px solid black;
+padding:10px;
+left:30px;
+bottom:10px;
+width:520px;
+z-index:10001;
+filter:alpha(opacity=50);
+-moz-opacity:0.5;
+opacity:0.5;
+}
+.headerText a,.headerText br
+{
+ display:none;
+}

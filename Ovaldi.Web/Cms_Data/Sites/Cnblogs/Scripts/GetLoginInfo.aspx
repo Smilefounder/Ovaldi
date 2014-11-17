@@ -1,0 +1,1 @@
+﻿document.write("[ <a href='http://passport.cnblogs.com/login.aspx'>登录</a> · <a href='http://passport.cnblogs.com/register.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fGetLoginInfo.aspx'>注册</a> ]");
