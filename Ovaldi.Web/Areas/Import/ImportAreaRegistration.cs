@@ -21,7 +21,7 @@ namespace Ovaldi.Web.Areas.Import
             context.MapRoute(
                 "Import_default",
                 "Import/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new {controller="home", action = "Index", id = UrlParameter.Optional }
             );
 
             Kooboo.Common.Web.WebResourceLoader.ConfigurationManager.RegisterSection(AreaName, Path.Combine(Settings.BaseDirectory, "Areas", AreaName, "WebResources.config"));
